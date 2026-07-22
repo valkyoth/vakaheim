@@ -142,8 +142,9 @@ cannot meet the zero-third-party security gate blocks its consumers.
 Static control schemas and signed dissemination may precede consensus, but
 distributed activation may not. `v0.465.1` activates the distributed control
 plane only after the formal model and consensus implementation pass. Likewise,
-`DurableQuorum` remains an unadvertised capability until active WAL/hot-batch
-replication at `v0.471.0` proves quorum acknowledgement recovery.
+`DurableQuorum` remains an unadvertised capability until the cluster extension
+of the canonical acknowledgement envelope passes at `v0.470.1` and active
+WAL/hot-batch replication at `v0.471.0` proves quorum acknowledgement recovery.
 
 Live forensic acquisition begins only after human authentication,
 authorization/elevation, and independent audit exist. Earlier forensic work is
@@ -193,10 +194,31 @@ Acknowledgement evidence distinguishes fact, raw-capsule, mapping/provenance,
 index and detection progress. `DurableQuorum` never implies raw reconstruction
 unless referenced chunks and manifests meet the same quorum failure claim.
 Cluster publication preserves the local atomic fact/reference/object invariant.
-Each ingestion acknowledgement has a canonical request/payload digest,
-durability vector/class, placement/quorum epoch, signer/key epoch and node-
-assurance evidence digest; authentication binds the claim but does not make a
+`v0.31.1` defines the portable canonical envelope before `v0.34.0` implements
+local durability variants. Each ingestion acknowledgement has a canonical
+request/payload digest, source/session/sequence and receipt identity, durability
+vector/class, commit position and signer/key epoch. `v0.470.1` adds placement/
+quorum epoch, commit index and node-assurance evidence before `v0.471.0` may
+advertise `DurableQuorum`; authentication binds the claim but does not make a
 compromised backend truthful.
+
+Transport replay acceptance and evidentiary validity are separate lifecycles.
+`v0.31.2` binds the replay deadline, manifest retention, signed time and
+`TimeTrust` uncertainty, signer/key epoch, historical certificate/trust evidence
+and revocation-at-signing status. Network expiry does not erase a retained
+manifest's historical verifiability; later compromise is represented explicitly
+rather than silently rewriting the claim.
+
+### Coverage claims follow a canonical model
+
+`v0.80.1` defines local query result and coverage states before joins, set
+operators and cold tiers consume them. `v0.80.2` defines versioned expected-set
+commitments with canonical ordering, duplicate rejection, element count,
+catalog generation/root, snapshot, retention and cold-catalog watermarks, plus
+membership/opening verification or a narrowly named trusted expander. Catalog
+movement during execution cannot silently change the committed expected set.
+`v0.475.1` extends that proven model to distributed fragments before `v0.476.0`
+executes them; `v0.476.1` alone may derive `Complete` after reconciliation.
 
 ### Durable work has one scheduler contract
 
@@ -217,9 +239,13 @@ idempotency, recovery and uncertain-time behavior. Effectful work leaves the
 generic scheduler through a durable outbox/UnknownOutcome protocol; blind retry
 of external effects is forbidden. Handoff is logically atomic: the job cannot be
 `HandedOff` before a durable receipt validates its unique outbox/effect record.
-The mechanism is a durable `HandoffIntent` with job/effect IDs, canonical request
-digest and schema version; linearizable outbox `put_if_absent`; and a record/
-digest/commit-epoch receipt. A conflicting digest is an integrity incident.
+The mechanism is a durable `HandoffIntent` with a canonical `HandoffKey`
+containing tenant ID, consumer namespace, job ID, effect ordinal and destination
+ledger ID, plus canonical request digest and schema version. The complete key is
+issued by the admitted scheduler/consumer contract rather than accepted as an
+unscoped caller-selected ID. Linearizable outbox `put_if_absent` and the record/
+digest/commit-epoch receipt bind that key. A matching key with a conflicting
+digest is an integrity incident.
 Cancellation wins before intent, becomes a request after intent, and cannot erase
 uncertainty after outbox commit. Local and HA paths use intent/receipt recovery
 across separate stores, not an assumed shared transaction. Mixed-version
@@ -435,15 +461,21 @@ recovery.
 Operational-state HA is implemented by state class, and the distributed
 scale/failover campaign occurs only after replication, evacuation, tenancy,
 federation, SRE, and disaster mechanisms exist.
-Active-write replication owns practical quorum acknowledgements. Distributed
+The canonical local acknowledgement envelope and historical verification
+lifecycle precede batching; its cluster extension precedes active-write
+replication and owns practical quorum acknowledgements. The local query coverage
+model and authoritative expected-set commitment precede joins, set operations
+and cold queries. Distributed coverage extends that model before distributed
 physical query execution owns authenticated fragments, exchanges, shuffle,
 partial aggregation, distributed joins/graphs, snapshot coordination,
 backpressure, retry, stragglers, worker loss and coordinator/tenant bounds.
 Canonical result/coverage manifests bind query/plan, tenant/auth/policy/snapshot,
 expected shard/partition/segment commitments, every fragment terminal status,
 result/aggregate/checkpoint digests, signer/key and node-assurance evidence.
-`Complete` requires reconciliation of every expected element; other outcomes are
-explicitly `Partial`, `Unavailable`, `Truncated` or `PolicyLimited`.
+`Complete` requires post-execution reconciliation of every expected element;
+physical execution emits only pending or explicit non-complete states until that
+gate passes. Other outcomes are explicitly `Partial`, `Unavailable`, `Truncated`
+or `PolicyLimited`.
 Raw chunks/manifests participate in quorum durability and atomic publication.
 Independent audit HA uses a separately deployed administrative/storage/scheduler
 failure domain, not only different keys in the operational cluster.

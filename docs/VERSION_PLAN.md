@@ -22,15 +22,15 @@ The sequence remains:
 | Range | Context |
 | --- | --- |
 | `v0.1.0`–`v0.20.9` | early fixture governance, portable/host crypto, split time, text/certificate codecs, operator authority, local tenant lifecycle/control, runtime/TLS, device keys/PKI, encrypted raw persistence, and objectives |
-| `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/gRPC, OTLP/OCSF, authenticated time refinement, secure transport, backfill/reprocessing, and hardening |
+| `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/gRPC, OTLP/OCSF, authenticated time refinement, secure transport, canonical local acknowledgement and historical evidence lifecycles, backfill/reprocessing, and hardening |
 | `v0.41.0`–`v0.60.0` | storage, isolated scheduler core/store/worker, atomic effect handoff and mixed-version consumer integration, raw evidence, integrity/keys, backup/restore, migration/reindex, and local multi-terabyte proof |
-| `v0.65.0`–`v0.100.1` | VQL authority/planning/operators/cold queries, hardening, and binding admission decisions for optional 1.0 evidence/ingestion capabilities |
+| `v0.65.0`–`v0.100.1` | VQL authority/planning, canonical local coverage and authoritative expected-set commitments, operators/cold queries, hardening, and binding admission decisions for optional 1.0 evidence/ingestion capabilities |
 | `v0.110.0`–`v0.200.0` | deterministic detection/state, behavior/risk/intelligence, conditional artifact-matching implementation/integration, ATT&CK, interoperability, and rollout |
 | `v0.205.0`–`v0.268.0` | agent integrity, native platforms, conditional WEF and per-format executable implementation/integration, Kubernetes, and future Aesynx portability |
 | `v0.270.0`–`v0.342.0` | API, compartmented platform vault, isolated connector host, provider contracts, conditional cloud archive/stream and PCAP implementation series, integrity content, and notification substrate |
 | `v0.345.0`–`v0.405.0` | transactional alert notifications, analyst workflow, identity/auth, live forensics, dashboards/scheduled reports, authorization/audit, and local UIs |
 | `v0.407.0`–`v0.458.0` | Wasm/response, action recovery, node measurement/attestation decisions, server integrity, tenant audit/identifier/pseudonym policy, and all-plane single-node tenant lifecycle conformance |
-| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, scheduler/state HA, canonical quorum acknowledgements, tenant/audit propagation, distributed query coverage/routing/proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
+| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, scheduler/state HA, cluster acknowledgement extension before quorum activation, tenant/audit propagation, distributed coverage extension/reconciliation, routing/proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
 | `v0.485.0`–`v0.520.0` | optional proposal-only AI plus separate privacy-policy, field/purpose, residency, retention/deletion, and compliance-workflow stops |
 | `v0.530.0` | approved-cryptographic-mode admission or explicit rejection |
 | `v0.540.0`–`v0.570.0` | separate endpoint, ingest/storage, query/detection/analyst, and cluster/recovery performance campaigns |
@@ -67,8 +67,9 @@ architecture:
 - portable scheduler state, journal persistence, hosted dispatch, effect handoff,
   consumer admission and storage CPU/IO scheduling are separate layers; storage
   durability never depends on ordinary scheduler availability, and atomic
-  scheduler/outbox handoff uses durable intent, canonical digest, linearizable
-  put-if-absent and validated receipt across recovery and mixed versions;
+  scheduler/outbox handoff uses durable intent, a canonical tenant/consumer/job/
+  ordinal/destination-ledger key, canonical digest, linearizable put-if-absent
+  and validated receipt across recovery and mixed versions;
 - storage and query admission are designed for worst-case work and multi-tenant
   isolation before large-scale deployment;
 - early storage scale claims are local; cluster node, quorum, evacuation and
@@ -90,11 +91,14 @@ architecture:
   consensus;
 - operational state formally reuses authenticated CFT in separate sharded groups
   before its engine and state-specific HA are implemented;
-- static control dissemination precedes consensus, but distributed activation
-  and `DurableQuorum` claims wait for consensus and active-write replication;
-- quorum acknowledgement carries separate fact, raw, provenance, index and
-  detection progress claims plus request digest and placement/quorum epoch,
-  preserving atomic fact/raw publication;
+- static control dissemination precedes consensus, while the canonical local
+  acknowledgement envelope and evidence lifecycle precede batching; distributed
+  activation and `DurableQuorum` claims wait for consensus, the cluster envelope
+  extension and active-write replication;
+- acknowledgement evidence carries separate fact, raw, provenance, index and
+  detection progress claims plus request digest; its cluster extension binds
+  placement/quorum epoch, and transport replay expiry remains distinct from
+  historical signature/trust verification;
 - family connector milestones do not claim vendors; each named provider needs
   its own patch/intermediate interoperability release;
 - tenant lifecycle and suspension/destruction propagate across every local and
@@ -110,8 +114,11 @@ architecture:
   cannot become remote attestation;
 - epoch-bound cluster admission, anti-rollback and runtime drain/quarantine
   extend software integrity beyond endpoint agents;
-- canonical query coverage manifests reconcile expected shards/partitions/
-  segments and fragments before `Complete` is emitted;
+- canonical local query coverage precedes joins, sets and cold tiers; versioned
+  committed sets bind ordering/count, catalog generation/root, snapshot,
+  retention/cold watermarks and verifiable membership or a named trusted
+  expander; the distributed extension precedes fragment execution and
+  reconciliation before `Complete` is emitted;
 - native routing binds acknowledgement/coverage manifests end to end, while
   terminating standard-protocol proxies are explicit narrowly scoped TCB;
 - cluster safety is authenticated crash-fault tolerance. A compromised voting

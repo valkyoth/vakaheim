@@ -70,11 +70,11 @@ replace or renumber it.
 | Fact conflicts, schema ownership, extension governance, and mapping loss | `v0.11.0`, `v0.15.0`, `v0.16.0`, `v0.20.1` |
 | Deterministic identity resolution, asset inventory, ownership, exposure, and retirement | `v0.13.0`, `v0.298.0` |
 | Local identities/control/authorization plus complete tenant lifecycle before consumers | `v0.17.0`, `v0.17.1`, `v0.19.0`; audit/remnant/identifier policy at `v0.457.1`–`v0.457.5`; all-plane single-node gate at `v0.458.0`; independent audit at `v0.467.3`; distributed closure at `v0.474.1` |
-| Conservation, acknowledgement truth/manifests, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`, `v0.39.0`, `v0.40.0`, `v0.471.1` |
+| Conservation, acknowledgement truth/manifests, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`–`v0.31.2`, `v0.39.0`, `v0.40.0`, `v0.470.1`, `v0.471.0` |
 | Exact external protocol and identity-codec profiles | `v0.20.1`, `v0.26.0`–`v0.30.2`, `v0.306.0`, `v0.392.0`–`v0.395.0`, `v0.407.0`–`v0.410.0` |
 | Database capacity, raw evidence, integrity/encryption/keys, local backup/restore, migration, and scoped early scale | `v0.41.0` through `v0.60.0`, especially `v0.53.0`–`v0.58.0` |
 | Layered durable local and HA jobs/timers with atomic effect handoff, upgrade compatibility, consumer admission, declared time, retry, fencing and idempotency | `v0.44.1`–`v0.44.7`, consumer matrix, `v0.459.0`, `v0.467.4` |
-| Query authority/planning/operators, cold rehydration, side channels, federation, distributed execution and coverage reconciliation | `v0.72.0`–`v0.100.0`, `v0.475.0`–`v0.476.2` |
+| Query authority/planning/operators, local coverage/committed sets, cold rehydration, side channels, federation, distributed execution and coverage reconciliation | `v0.72.0`–`v0.100.0`, especially `v0.80.1`–`v0.80.2`; distributed extension at `v0.475.1`–`v0.476.1` |
 | Detection identity/state/placement, split behavior families, entity risk, intelligence lifecycle/matching, ATT&CK | `v0.115.0`–`v0.200.0`, especially `v0.170.0`–`v0.179.0` |
 | Common agent/helper boundary, signed software integrity/self-protection and platform continuity | `v0.205.0` through `v0.267.5`, especially `v0.206.0` |
 | Base API before client, later case/response extensions, credential vault, connector isolation and split provider profiles | `v0.270.0`–`v0.342.0`, `v0.376.0`, `v0.450.1` |
@@ -1457,8 +1457,9 @@ protocol semantics.
 Deliverables:
 
 - versioned native framing, capabilities, source/session/sequence and batch IDs;
-- authenticated acknowledgement levels, idempotency, resume and explicit
-  terminal rejection/quarantine outcomes;
+- authenticated acknowledgement negotiation, idempotency, resume and explicit
+  terminal rejection/quarantine outcomes; authoritative durability responses
+  remain disabled until the canonical envelope passes at `v0.31.1`;
 - bounded compression negotiation, cancellation, deadlines and unknown fields.
 
 Verification:
@@ -1469,8 +1470,71 @@ Verification:
 - old/new interoperability and exact on-wire fixture corpus.
 
 Exit criteria: Vakaheim durability claims exist only on its native negotiated
-protocol. `v0.31.0 implementation stop reached. Run pentest for this exact
-commit.`
+protocol, and no pre-envelope response can be mistaken for durable evidence.
+`v0.31.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.31.1 — Canonical Local Ingestion Acknowledgement Envelope
+
+Status: planned
+
+Goal: bind every local acknowledgement to the exact accepted input and bounded
+durability claim before batching or storage variants consume it.
+
+Deliverables:
+
+- dependency-free canonical schema and bounded signed encoding for protocol/
+  envelope version, payload and request digests, source/session/sequence, batch
+  and receipt IDs;
+- durability class/vector for fact, raw-capsule or intentional raw
+  unavailability, mapping/provenance, index and detection state;
+- local storage generation/commit position, signer/key epoch, explicit
+  unsupported-field handling and domain-separated signature context;
+- capability negotiation that rejects unsupported classes and keeps
+  `DurableQuorum` unavailable pending `v0.470.1` and `v0.471.0`.
+
+Verification:
+
+- canonical round-trip/golden vectors, malformed/bounds/fuzz and mixed-version;
+- payload/request/source/session/sequence/receipt substitution and digest conflict;
+- crash before/after durable commit and envelope emission, duplicate/replay and
+  unsupported-class downgrade tests;
+- claim audit proving a signature authenticates the claimant but cannot prove a
+  compromised storage backend truthful.
+
+Exit criteria: every enabled local durability acknowledgement is one canonical,
+request-bound claim with no stronger implied durability. `v0.31.1 implementation
+stop reached. Run pentest for this exact commit.`
+
+### v0.31.2 — Acknowledgement Evidence And Historical Verification
+
+Status: planned
+
+Goal: separate live transport replay controls from long-lived chain-of-custody
+verification of acknowledgement evidence.
+
+Deliverables:
+
+- separate transport replay-acceptance deadline, manifest retention period and
+  historical verification policy fields;
+- signed event time with `TimeTrust` source/epoch/uncertainty, signer/key epoch
+  and retained certificate/trust-path or equivalent historical trust evidence;
+- explicit revocation-at-signing, later revocation and later-compromise states,
+  including policy for indeterminate historical status;
+- archival verification interface that does not authorize replay or new writes
+  and preserves a retained expired manifest as evidence when policy requires it.
+
+Verification:
+
+- expired transport window with valid retained evidence and forbidden replay;
+- signer rotation, certificate expiry, revocation before/after signing, later key
+  compromise, uncertain time and unavailable revocation history;
+- retention expiry, legal hold, trust-root rotation and offline verification;
+- canonical fixtures prove archival interpretation cannot mutate the original
+  signed acknowledgement.
+
+Exit criteria: network expiry cannot silently destroy or overstate historical
+evidentiary validity, and historical verification grants no live authority.
+`v0.31.2 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.32.0 — Agent Spool
 
@@ -1502,12 +1566,14 @@ Goal: make delivery progress and durability explicit.
 Deliverables:
 
 - batch IDs, source sequences, resumable transfer and persistent checkpoints;
-- idempotent writes, deduplication windows and acknowledgement levels;
+- idempotent writes, deduplication windows and acknowledgement levels carried
+  only in the `v0.31.1` envelope under the `v0.31.2` evidence lifecycle;
 - Received/Validated/DurableLocal/DurableQuorum/Indexed/DetectionProcessed.
 - acknowledgement carries a durability vector for fact, raw-capsule or
   intentional raw unavailability, mapping/provenance, index and detection state;
-- capability negotiation keeps `DurableQuorum` unavailable until `v0.471.0`;
-  unsupported levels are rejected rather than approximated by local durability.
+- capability negotiation keeps `DurableQuorum` unavailable until its `v0.470.1`
+  cluster envelope extension and `v0.471.0` active replication pass; unsupported
+  levels are rejected rather than approximated by local durability.
 
 Verification:
 
@@ -1792,17 +1858,21 @@ transaction domains without duplicating externally visible effects.
 
 Deliverables:
 
-- durable `HandoffIntent` containing job ID, effect ID, canonical request digest
-  and schema version in the scheduler journal;
-- outbox `put_if_absent(effect_id, request_digest)` with linearizable uniqueness;
-  the same effect ID plus another digest emits an integrity incident and stops;
-- durable outbox receipt containing record ID, request digest and commit epoch;
+- canonical `HandoffKey` containing tenant ID, consumer namespace, job ID,
+  effect ordinal and destination ledger ID; the admitted scheduler/consumer
+  contract issues its scoped components and rejects arbitrary unscoped caller IDs;
+- durable `HandoffIntent` binding the complete handoff key, canonical request
+  digest and schema version in the scheduler journal;
+- outbox `put_if_absent(handoff_key, request_digest)` with linearizable uniqueness;
+  the same complete key plus another digest emits an integrity incident and stops;
+- durable outbox receipt binding the complete handoff key, record ID, request
+  digest, destination-ledger generation and commit epoch;
 - job remains `HandoffPending` until that receipt is read back and validated;
   only then may it become `HandedOff`;
 - prepared/dispatched/unknown-outcome/reconciled/terminal protocol compatible
   with later SOAR effect semantics;
 - recovery idempotently completes one handoff and cannot create two outbox
-  records for one effect identity;
+  records for one canonical handoff key;
 - cancellation wins only before `HandoffIntent` commitment; after intent it is a
   cancellation request, and after outbox commit it cannot delete, suppress,
   reinterpret or hide an uncertain effect;
@@ -1816,15 +1886,21 @@ Verification:
 - crash before/after handoff/send/ack, timeout, duplicate and ambiguous response;
 - crash at every scheduler-intent/outbox-durable/HandedOff boundary and concurrent
   cancellation/recovery;
-- same effect/different digest, forged/stale/mismatched receipt and commit epoch;
+- same handoff key/different digest, forged/stale/mismatched receipt and commit
+  epoch;
+- cross-tenant collision, same apparent ID in notification/action ledgers,
+  malicious caller-selected IDs and effect-ordinal reuse;
+- tenant destruction/external-ID reassignment, permanent internal-ID tombstone,
+  destination-ledger migration/split and old ledger-generation replay;
 - non-idempotent destination and unavailable reconciler scenarios;
-- uniqueness/property proof for one durable outbox record per effect identity;
+- uniqueness/property proof for one durable outbox record per complete handoff
+  key without collisions across tenant, consumer or destination ledger;
 - prove generic scheduler retry cannot directly repeat an external side effect.
 
 Exit criteria: effectful work leaves through a concrete intent/put-if-absent/
-receipt protocol with canonical identity and explicit unknown outcomes. `v0.44.4
-implementation stop reached. Run
-pentest for this exact commit.`
+receipt protocol whose canonical identity is tenant-, consumer- and ledger-
+scoped, with explicit unknown outcomes. `v0.44.4 implementation stop reached.
+Run pentest for this exact commit.`
 
 ### v0.44.5 — Scheduler Consumer Admission Contract
 
@@ -1883,7 +1959,8 @@ Deliverables:
 - current/previous scheduler-journal, handoff-intent, outbox record and receipt
   schema matrix;
 - upgrade/migration order, dual-read/write limits and irreversible boundaries;
-- old/new worker fencing and stable job/effect identity across schema changes.
+- old/new worker fencing and stable canonical `HandoffKey` identity across schema
+  changes, including destination-ledger generation migration.
 
 Verification:
 
@@ -2418,6 +2495,70 @@ Verification:
 Exit criteria: queries cannot exceed policy or resource budgets silently.
 `v0.80.0 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.80.1 — Canonical Local Query Result And Coverage Model
+
+Status: planned
+
+Goal: replace bare completeness booleans with a portable result/coverage model
+before joins, set operations and cold queries propagate coverage.
+
+Deliverables:
+
+- canonical query/plan, tenant, authorization, policy and snapshot identities;
+- expected local partition/segment identities and one terminal observed status
+  per expected element, with result/aggregate/checkpoint digests;
+- explicit `Pending`, `Complete`, `Partial`, `Unavailable`, `Truncated` and
+  `PolicyLimited` states with a deterministic precedence table;
+- `Complete` derivation only after all expected local elements reconcile to one
+  compatible terminal success; absence, denial, truncation and faults remain
+  explicit non-complete outcomes;
+- dependency-free bounded encoding shared by local operators, cold tiers and the
+  later distributed extension.
+
+Verification:
+
+- missing, duplicate, replayed and conflicting element/status/digest cases;
+- policy/snapshot/catalog change, cancellation, result truncation and disk fault;
+- operator composition properties prove joins, aggregates and sets cannot turn a
+  non-complete input into `Complete`;
+- canonical round-trip/golden, malformed/bounds/fuzz and mixed-version tests.
+
+Exit criteria: every local query result carries deterministic coverage evidence,
+and no later operator can infer completeness from successful transport alone.
+`v0.80.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.80.2 — Authoritative Expected-Set Commitments
+
+Status: planned
+
+Goal: make a compact expected-set commitment verifiably represent the exact
+authoritative catalog set rather than merely authenticate an opaque value.
+
+Deliverables:
+
+- versioned commitment algorithm/domain and canonical element encoding/order,
+  with duplicate rejection and committed element count;
+- catalog generation/root, query snapshot, retention watermark and cold-catalog
+  watermark bound into the commitment context;
+- bounded membership/opening proofs, or a narrowly named trusted catalog
+  expander whose authenticated input/output and audit contract are equivalent;
+- catalog pinning rules: execution uses the committed generation, while later
+  catalog movement yields retry/stale/unavailable rather than changing the set;
+- explicit list/commitment equivalence and migration policy for algorithm or
+  catalog-format version changes.
+
+Verification:
+
+- reordered, duplicated, omitted, inserted and count-substituted elements;
+- wrong catalog root/generation, snapshot, retention or cold watermark;
+- forged/missing opening, compromised/unavailable expander and size/work limits;
+- catalog change during execution, retention race, cold-tier movement,
+  algorithm-version downgrade and list/commitment equivalence properties.
+
+Exit criteria: a verifier can establish what authoritative expected set was
+committed and detect any context or membership substitution. `v0.80.2
+implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.82.0 — Bounded Join Engine
 
 Status: planned
@@ -2428,7 +2569,9 @@ Deliverables:
 
 - required bounded event time range unless privileged offline mode is explicit;
 - equality/partition key or an explicit nested-loop work budget;
-- build-side row/byte, output-cardinality, spill and replan/abort limits.
+- build-side row/byte, output-cardinality, spill and replan/abort limits;
+- `v0.80.1` coverage-state composition and `v0.80.2` expected-set context are
+  preserved independently for both inputs and the output.
 
 Verification:
 
@@ -2450,7 +2593,8 @@ Deliverables:
 - sort/top-k with total tie-breaking order and bounded memory/spill;
 - opaque snapshot-bound pagination/resume tokens and duplicate/omission rules;
 - union/intersection/difference semantics with policy and completeness
-  propagation.
+  propagation through the canonical `v0.80.1` model without promoting a
+  non-complete input.
 
 Verification:
 
@@ -2477,7 +2621,9 @@ Deliverables:
 - bounded glob and regex profile, or an explicit release-blocking decision that
   regex remains unsupported;
 - case-folding, collation, tokenization and text-index equivalence tied to the
-  pinned `v0.4.2` profile.
+  pinned `v0.4.2` profile;
+- aggregate/result digests and uncertainty preserve `v0.80.1` coverage-state
+  precedence without promoting incomplete inputs.
 
 Verification:
 
@@ -2502,7 +2648,7 @@ Deliverables:
 - ordered/partially ordered sequences, negative conditions and timeouts;
 - bitemporal `as_of` perspective and clock uncertainty propagation.
 - negative conditions finalize only after watermark and required-telemetry
-  completeness gates pass.
+  completeness gates pass through the `v0.80.1` coverage model.
 
 Verification:
 
@@ -2527,7 +2673,9 @@ Deliverables:
 - physical-plan retrieval/rehydration, cache lifetime, cost/admission,
   cancellation and cleanup;
 - missing/revoked key, unavailable object, partial snapshot and completeness
-  semantics.
+  semantics through `v0.80.1`;
+- catalog generations/roots, retention and cold watermarks participate in the
+  authoritative `v0.80.2` expected-set commitment rather than an ambient lookup.
 - `v0.44.5` rehydration profile with stable request identity, checkpoint,
   cancellation, duplicate-fetch idempotency, misfire and uncertain-time behavior.
 
@@ -6328,11 +6476,12 @@ Deliverables:
   dispatch;
 - preservation of monotonic-versus-wall schedule, misfire/catch-up/skip,
   cancellation, dependency and idempotency semantics;
-- HA `HandoffPending`/outbox durability protocol with stable effect identity and
-  linearizable `put_if_absent`, validated commit-epoch receipt and one `v0.467.2`
-  outbox record across owner/leader failover;
-- same effect/different digest integrity incident and the `v0.44.4` cancellation
-  precedence preserved across separate replicated state groups;
+- HA `HandoffPending`/outbox durability protocol preserving the complete
+  `v0.44.4` tenant/consumer/job/ordinal/destination-ledger `HandoffKey`, with
+  linearizable `put_if_absent`, validated ledger-generation/commit-epoch receipt
+  and one `v0.467.2` outbox record across owner/leader failover;
+- same handoff key/different digest integrity incident and the `v0.44.4`
+  cancellation precedence preserved across separate replicated state groups;
 - per-job-class RPO/RTO and rebuild-from-immutable-evidence option where declared.
 
 Verification:
@@ -6342,6 +6491,8 @@ Verification:
   cancellation after handoff;
 - leader change between put-if-absent and receipt validation, receipt replay and
   conflicting digest;
+- cross-tenant/consumer/ledger collision, tenant destruction/ID reassignment and
+  destination-ledger migration/split during owner or leader failover;
 - stale worker, duplicate dispatch, lease expiry, dependency storm, restore and
   tenant/noisy-neighbor failures;
 - local/HA scheduler state-machine equivalence and canonical idempotent outcomes.
@@ -6423,6 +6574,39 @@ Verification:
 Exit criteria: committed durability claims match the exact failure model.
 `v0.470.0 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.470.1 — Cluster Ingestion Acknowledgement Extension
+
+Status: planned
+
+Goal: extend the canonical local acknowledgement envelope with the exact
+cluster context required for a future quorum-durability claim.
+
+Deliverables:
+
+- versioned extension of `v0.31.1`, retaining its payload/request,
+  source/session/sequence, receipt and durability-vector bindings;
+- write-shard, placement and quorum epochs, commit-index field, participating
+  durability components and the claimed failure envelope;
+- backend signer/key epoch and `v0.456.1` node-assurance evidence digest, under
+  the `v0.31.2` replay/retention/historical-verification lifecycle;
+- capability/state rule that the extension is parseable and testable here but
+  cannot emit `DurableQuorum` until `v0.471.0` active replication proves it.
+
+Verification:
+
+- payload/request substitution, acknowledgement replay, source/session swap and
+  digest conflict inherited from the local envelope suite;
+- stale/wrong shard, placement/quorum epoch, commit index, signer rotation and
+  assurance downgrade;
+- crash before/after commit/manifest emission and proxy-forwarding conformance;
+- mixed local/cluster envelope and unsupported-extension downgrade tests;
+- claim audit: authentication does not prove a compromised backend truthful.
+
+Exit criteria: the canonical acknowledgement format can identify exactly what
+would be quorum committed, in which cluster state and by whom, but cannot claim
+that state before replication proves it. `v0.470.1 implementation stop reached.
+Run pentest for this exact commit.`
+
 ### v0.471.0 — Active-Write Replication And Quorum Acknowledgement
 
 Status: planned
@@ -6436,7 +6620,7 @@ Deliverables:
 - raw-object chunks/manifests and mapping/provenance records required by each hot
   batch, preserving atomic fact/reference/object publication;
 - source/session/sequence deduplication, quorum commit index and stable-media
-  acknowledgement mapping;
+  acknowledgement mapping into the `v0.470.1` cluster envelope;
 - crash/re-election recovery, divergent-tail truncation and handoff to immutable
   segment replication.
 
@@ -6455,31 +6639,6 @@ Exit criteria: `DurableQuorum` is advertised only when active-write replication
 and recovery prove every promised durability-vector component; raw
 reconstructability is never implied without quorum-durable chunks/manifests.
 `v0.471.0 implementation stop reached. Run pentest for this exact commit.`
-
-### v0.471.1 — Canonical Ingestion Acknowledgement Manifest
-
-Status: planned
-
-Goal: bind each acknowledgement to the exact accepted request and durability claim.
-
-Deliverables:
-
-- canonical payload/request digest, source/session/sequence identity and receipt ID;
-- durability class/vector, write-shard/placement/quorum epoch and commit index;
-- fact/raw/provenance component status plus backend signer/key epoch and
-  `v0.456.1` node-assurance evidence digest;
-- bounded signed encoding with replay, expiry and unsupported-field semantics.
-
-Verification:
-
-- payload/request substitution, ack replay, source/session swap and digest conflict;
-- stale/wrong placement/quorum epoch, signer rotation and assurance downgrade;
-- crash before/after commit/manifest emission and proxy-forwarding conformance;
-- claim audit: authentication does not prove a compromised backend truthful.
-
-Exit criteria: every durability acknowledgement identifies exactly what was
-accepted, under which placement/quorum state, and who made the bounded claim.
-`v0.471.1 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.472.0 — Placement, Repair, Rebalancing And Disk Evacuation
 
@@ -6584,6 +6743,43 @@ Verification:
 Exit criteria: policy-limited results can never appear globally complete.
 `v0.475.0 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.475.1 — Distributed Query Result And Coverage Extension
+
+Status: planned
+
+Goal: extend the canonical local coverage model to authenticated distributed
+fragments before distributed physical execution can emit results.
+
+Deliverables:
+
+- versioned extension of `v0.80.1` retaining query/plan, tenant,
+  authorization, policy and snapshot epochs;
+- expected shard/partition/segment set as a bounded canonical list or a
+  `v0.80.2` commitment with algorithm/version, canonical ordering, duplicate
+  rejection, element count, catalog generation/root, snapshot, retention and
+  cold-catalog watermarks;
+- membership/opening verification or the explicitly trusted catalog expander,
+  with catalog generation pinned throughout execution;
+- every fragment identity, assigned backend and terminal status;
+- result digest plus aggregate/checkpoint digests and explicit `Pending`,
+  `Complete`, `Partial`, `Unavailable`, `Truncated` and `PolicyLimited` states;
+- backend/coordinator signer and key epochs plus `v0.456.1` assurance evidence
+  digests, all in a bounded signed encoding.
+
+Verification:
+
+- canonicalization, omission, insertion, duplicate fragment, count and
+  set-commitment/opening attacks;
+- stale catalog/root/generation, retention/cold watermark, tenant/policy/
+  snapshot/plan/signer/assurance epochs and catalog movement during execution;
+- trusted-expander compromise/outage and list/commitment equivalence;
+- round-trip, malformed, fuzz, scale and mixed-version manifest tests.
+
+Exit criteria: each distributed result package can state exact authoritative
+expected coverage and claimant identities before any execution layer may call it
+complete. `v0.475.1 implementation stop reached. Run pentest for this exact
+commit.`
+
 ### v0.476.0 — Distributed Physical Query Execution
 
 Status: planned
@@ -6597,7 +6793,10 @@ Deliverables:
 - repartition/shuffle, partial aggregation, distributed joins and bounded graph
   traversal;
 - coordinator/worker memory limits, backpressure, cancellation, retry,
-  duplicate-fragment identity, straggler and worker-loss handling.
+  duplicate-fragment identity, straggler and worker-loss handling;
+- every fragment/result uses the `v0.475.1` extension, but execution emits only
+  `Pending` or an explicit non-complete terminal state until `v0.476.1`
+  reconciliation succeeds.
 
 Verification:
 
@@ -6607,38 +6806,10 @@ Verification:
 - noisy-tenant fairness, cancellation propagation and cross-worker leakage.
 
 Exit criteria: distributed execution cannot exceed coordinator/tenant authority
-or present partial worker results as complete. `v0.476.0 implementation stop
-reached. Run pentest for this exact commit.`
+or present partial worker results as complete; this stop cannot emit `Complete`.
+`v0.476.0 implementation stop reached. Run pentest for this exact commit.`
 
-### v0.476.1 — Canonical Query Result And Coverage Manifest
-
-Status: planned
-
-Goal: define an authenticated coverage statement rather than a bare completeness
-boolean.
-
-Deliverables:
-
-- query digest, physical-plan digest, tenant, authorization, policy and snapshot
-  epochs;
-- expected shard/partition/segment set as a bounded canonical list or commitment;
-- every fragment identity, assigned backend and terminal status;
-- result digest plus aggregate/checkpoint digests and explicit `Complete`,
-  `Partial`, `Unavailable`, `Truncated` and `PolicyLimited` states;
-- backend/coordinator signer and key epochs plus `v0.456.1` assurance evidence
-  digests, all in a versioned signed encoding.
-
-Verification:
-
-- canonicalization, omission, duplicate fragment, set-commitment and digest attacks;
-- stale tenant/policy/snapshot/plan/signer/assurance epochs;
-- round-trip, malformed, fuzz, scale and mixed-version manifest tests.
-
-Exit criteria: each result package states exact expected/observed coverage and
-the identities making that statement. `v0.476.1 implementation stop reached.
-Run pentest for this exact commit.`
-
-### v0.476.2 — Distributed Coverage Reconciliation
+### v0.476.1 — Distributed Coverage Reconciliation
 
 Status: planned
 
@@ -6647,7 +6818,7 @@ Goal: derive terminal query state by reconciling the expected coverage manifest.
 Deliverables:
 
 - coordinator derivation of expected coverage from authorized plan, snapshot,
-  placement and cold-catalog epochs;
+  placement and the pinned `v0.475.1` catalog/commitment context;
 - terminal fragment ledger and digest/aggregate/checkpoint reconciliation;
 - `Complete` only after every expected element has one compatible terminal
   success; all absence, denial, truncation or unavailability selects its explicit
@@ -6658,12 +6829,14 @@ Deliverables:
 Verification:
 
 - missing/duplicate/replayed fragment, worker loss, retry and topology change;
+- commitment opening/element count/catalog generation mismatch and catalog
+  movement during execution;
 - false-success worker, conflicting digest, stale snapshot/policy and truncated
   stream/aggregate;
 - local/distributed result-state equivalence and adversarial coordinator pentest.
 
 Exit criteria: no coordinator or proxy can label unreconciled expected coverage
-`Complete`; the remaining compromised-backend limit is explicit. `v0.476.2
+`Complete`; the remaining compromised-backend limit is explicit. `v0.476.1
 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.478.0 — SRE Operations And Supportability
@@ -6732,8 +6905,8 @@ Goal: define exactly what routing proxies can attest, terminate and forward.
 Deliverables:
 
 - per-protocol trust profile for native ingest, OTLP, API/query, browser and relay;
-- native end-to-end binding of `v0.471.1` acknowledgement manifests and
-  `v0.476.1`/`v0.476.2` query result/coverage manifests, including source/session/
+- native end-to-end binding of `v0.31.1`/`v0.470.1` acknowledgement envelopes and
+  `v0.475.1`/`v0.476.1` query result/coverage manifests, including source/session/
   sequence, snapshot/policy, backend service/build and assurance identity;
 - proxy capabilities that cannot forge `DurableQuorum`, widen authority,
   substitute tenant/source, or convert backend failure/partial results to success;
@@ -7700,17 +7873,20 @@ explicit maintainer authorization and never publishes internal crates.
 - Durable local and HA jobs/timers prove declared time bases, misfire policy,
   fencing, idempotency, cancellation, dependency and checkpoint semantics;
   storage durability/recovery remains available without scheduler workers/state,
-  and mixed-version effect handoff uses a durable intent, canonical digest,
+  and mixed-version effect handoff uses a durable intent, canonical tenant/
+  consumer/job/ordinal/destination-ledger key and canonical digest,
   linearizable put-if-absent and validated receipt to create one outbox record
-  per effect identity with explicit cancellation precedence.
+  per handoff key with explicit cancellation precedence.
 - Storage survives crash, corruption, node/rack/region loss and rolling upgrade.
 - Historical hot/cold, live, temporal, graph, federated and distributed-physical
-  VQL queries work safely with canonical coverage manifests and honest
-  complete/partial/unavailable/truncated/policy-limited behavior.
+  VQL queries work safely with canonical coverage manifests, verifiable
+  authoritative expected-set commitments and honest complete/partial/
+  unavailable/truncated/policy-limited behavior.
 - `DurableQuorum` evidence proves fact, raw-capsule and mapping/provenance
   durability independently; its acknowledgement manifest binds request digest,
-  durability class and placement/quorum epoch, and raw reconstruction is never
-  implied without quorum-durable chunks/manifests.
+  durability class and placement/quorum epoch; transport replay expiry is
+  separate from retained historical signature/trust verification, and raw
+  reconstruction is never implied without quorum-durable chunks/manifests.
 - Predicate, temporal, stateful, graph, behavioral and integrity detection work.
 - Threat-intelligence live/retro matching and entity-risk threshold findings
   are deterministic, evidence-backed and poisoning-resistant.

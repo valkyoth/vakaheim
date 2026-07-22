@@ -30,7 +30,7 @@ The sequence remains:
 | `v0.270.0`–`v0.342.0` | API, compartmented platform vault, isolated connector host, provider contracts, conditional cloud archive/stream and PCAP implementation series, integrity content, and notification substrate |
 | `v0.345.0`–`v0.405.0` | transactional alert notifications, analyst workflow, identity/auth, live forensics, dashboards/scheduled reports, authorization/audit, and local UIs |
 | `v0.407.0`–`v0.458.0` | Wasm/response, action recovery, node measurement/attestation and optional hardware-monotonic-anchor decisions, server integrity, tenant audit/identifier/pseudonym policy, and all-plane single-node tenant lifecycle conformance |
-| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, independently witnessed scheduler fence/state HA, cluster acknowledgement extension before quorum activation, tenant/audit propagation, distributed coverage extension/reconciliation, routing/proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
+| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, five-domain-independent and freshness-bounded scheduler witnessing/state HA, cluster acknowledgement extension before quorum activation, tenant/audit propagation, distributed coverage extension/reconciliation, routing/proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
 | `v0.485.0`–`v0.520.0` | optional proposal-only AI plus separate privacy-policy, field/purpose, residency, retention/deletion, and compliance-workflow stops |
 | `v0.530.0` | approved-cryptographic-mode admission or explicit rejection |
 | `v0.540.0`–`v0.570.0` | separate endpoint, ingest/storage, query/detection/analyst, and cluster/recovery performance campaigns |
@@ -73,7 +73,11 @@ architecture:
   mixed versions; a separately fenced routing epoch preserves uniqueness across
   ledger migration, while spent-key commitments plus a hardware/external/
   unverifiable anchor state preserve it after ordinary record retention and old-
-  snapshot restore; unverifiable state disables effects, and the epoch cannot
+  snapshot restore; an external witness shares none of the workload's snapshot/
+  restore, storage-failure, administrative, signing-key or consensus/recovery
+  domains, and cluster-local consensus never qualifies alone; dispatch binds the
+  exact witness digest/epoch/authority and freshness lease within an effect-class
+  stale limit, otherwise unverifiable state disables effects; the epoch cannot
   advance past any older live effect state;
 - storage and query admission are designed for worst-case work and multi-tenant
   isolation before large-scale deployment;
@@ -164,9 +168,11 @@ The `v0.31.3`–`v0.31.4` claim registry/runtime permits, `v0.48.1` and
 `v0.140.1`–`v0.140.2` asynchronous coverage contracts, `v0.79.1`–`v0.79.2`
 pre-execution coverage, and `v0.44.8`–`v0.44.10` migration/post-retention/
 external-witnessed uniqueness are mandatory correctness prerequisites. They are
-not option rows and cannot become tested non-goals before 1.0. Only per-platform
-`HardwareMonotonic` support is optional; `v0.456.0` decides it and `v0.456.5`
-closes it without weakening `ExternalWitnessed`/`Unverifiable` behavior.
+not option rows and cannot become tested non-goals before 1.0. Five-domain witness
+independence, exact-record authorization and freshness/effect-class stale limits
+are part of that mandatory baseline. Only per-platform `HardwareMonotonic`
+support is optional; `v0.456.0` decides it and `v0.456.5` closes it without
+weakening `ExternalWitnessed`/`Unverifiable` behavior.
 
 ## Non-Negotiable Boundaries
 

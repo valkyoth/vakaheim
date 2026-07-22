@@ -173,7 +173,11 @@ ledger-migration uniqueness, post-retention handoff replay fencing and the
 `ExternalWitnessed`/`Unverifiable` fail-closed anchor model are mandatory
 correctness prerequisites, not optional capabilities. Only platform-specific
 `HardwareMonotonic` support is optional; the mandatory baseline cannot be
-disabled or converted into a 1.0 non-goal through this register.
+disabled or converted into a 1.0 non-goal through this register. A witness is
+external only when at least one current authority is outside the protected
+workload's snapshot/restore authority, storage failure domain, administrative
+authority, signing-key domain and consensus/recovery domain; an operational
+consensus group alone never qualifies.
 
 | Option | Binding decision/closure |
 | --- | --- |
@@ -2055,11 +2059,15 @@ Deliverables:
 - mandatory consumer profile: job identity/version, checkpoint, cancellation,
   misfire/catch-up/skip, idempotency, recovery and uncertain-time behavior;
 - classification of internal/idempotent versus externally effectful work;
+- every externally effectful class declares its maximum witness-offline/stale
+  interval and deterministic `Unverifiable` behavior for later `v0.44.10`
+  dispatch admission; no consumer may inherit an unbounded/global default;
 - conformance harness and registry for every admitted job type.
 
 Verification:
 
-- reject incomplete profiles, ambient wall-clock use and unbounded retry;
+- reject incomplete profiles, ambient wall-clock use, unbounded retry and missing/
+  unbounded effect-class witness-staleness policy;
 - duplicate/misfire/cancel/restart/uncertain-time tests generated from profiles;
 - architecture scan for private persistent timer/job loops.
 
@@ -2216,15 +2224,26 @@ Deliverables:
 - `HardwareMonotonic` only for an admitted hardware/OS counter profile that proves
   non-rollback semantics and reset/reprovision handling; ordinary files,
   encrypted-file fallbacks and generic keystores cannot claim it;
-- mandatory `ExternalWitnessed` baseline using an independent audit domain,
-  cluster consensus witness or `v0.10.3` operator-quorum-signed chained record,
-  bound to authority domain, logical ledger/consumer, minimum epoch, prior record
-  digest, witness identity, signed `TimeTrust` and activation generation;
+- mandatory `ExternalWitnessed` baseline requiring at least one current witness
+  outside the protected workload's snapshot/restore authority, storage failure
+  domain, administrative authority, signing-key domain and consensus/recovery
+  domain; admitted profiles are an independent audit domain or an externally
+  retained `v0.10.3` operator-quorum-signed chained record;
+- an operational/cluster consensus group may replicate the logical anchor and
+  expose checkpoints, but cannot alone yield `ExternalWitnessed`; it must be
+  checked against the external record above, or dispatch must separately qualify
+  through `HardwareMonotonic`;
+- canonical signed `WitnessDispatchPermit` binding authority domain, logical
+  ledger/consumer, exact witness-record digest and minimum epoch, prior record
+  digest, witness identity and authority class, signed `TimeTrust` validity/
+  lease interval, activation generation, effect-class maximum offline/stale
+  interval and the policy digest that selected that interval;
 - deterministic comparison/merge/conflict rules for multiple witnesses and
   restore/import; a backup witness is evidence to compare, never authority to
   lower the active fence;
-- `Unverifiable` on absent/corrupt/conflicting/stale/reset evidence: historical
-  data may mount read-only, but scheduler/outbox/action/notification dispatch and
+- `Unverifiable` on absent/corrupt/conflicting/reset evidence, witness disagreement,
+  expired lease or exceeded effect-class offline/stale interval: historical data
+  may mount read-only, but scheduler/outbox/action/notification dispatch and
   compensation remain disabled; no automatic fresh-epoch initialization;
 - epoch-advance barrier proving no older `HandoffPending`, `UnknownOutcome`,
   compensation, reconciliation, delayed-delivery or registered effect state can
@@ -2237,8 +2256,15 @@ Verification:
 
 - full-host/disk-image rollback and clone of an old backup onto a replacement
   machine;
+- simultaneous rollback of every operational consensus member and workload
+  snapshot while the independent witness remains ahead; the restored deployment
+  stays read-only;
 - missing/corrupt/conflicting witnesses, witness rollback and attempted fresh
   initialization;
+- witness-record digest/epoch/identity/authority-class substitution, signed-lease
+  expiry, disagreement and per-effect-class offline/stale boundary cases;
+- falsely shared snapshot, storage, administrator, signing-key or consensus/
+  recovery authority cannot be classified as external;
 - hardware counter reset/reprovision, clone, unsupported provider and downgrade
   to a local file/keystore;
 - candidate epoch advance with every older pending/unknown/compensation/
@@ -2249,7 +2275,8 @@ Verification:
   anchor and cannot advance beyond the proven live-state barrier.
 
 Exit criteria: fence assurance states exactly what prevents or detects rollback;
-missing proof is `Unverifiable` and fail-closed for every external effect.
+operational consensus alone never claims externality, and missing, expired or
+disagreeing proof is `Unverifiable` and fail-closed for every external effect.
 `v0.44.10 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.45.0 — Storage Workload Scheduler
@@ -2574,7 +2601,8 @@ Deliverables:
   adapter;
 - clean-directory restore, dependency ordering, reindex and post-restore proof;
 - export the current signed `v0.44.10` fence witness/assurance record beside the
-  backup without treating that copy as authority to lower an active fence;
+  backup, including its exact permit digest/epoch/authority class and validity
+  interval, without treating that copy as authority to lower an active fence;
 - `v0.44.5` backup profile; restore/recovery remains explicit operator work and
   never depends on scheduler availability.
 
@@ -2586,6 +2614,8 @@ Verification:
 - restore/clone behind the active external/hardware witness, missing/conflicting
   witness and full-host image rollback: mount read-only as `Unverifiable`, never
   initialize a fresh epoch or dispatch effects;
+- a co-restored witness/permit sharing the backup's authority or failure domains
+  cannot qualify as external, even if its digest matches the restored anchor;
 - authorized witness reconciliation can re-enable effects only after the active
   fence and all older live-state barriers prove current;
 - independent reconstruction and source/reference integrity comparison.
@@ -6774,7 +6804,8 @@ Deliverables:
   migration, RPO/RTO and impairment interfaces;
 - monotonic cluster anti-replay fence register in a dedicated control/anchor
   group, excluded from ordinary workload snapshots and exposing signed witness
-  checkpoints for independent audit/operator comparison.
+  checkpoints for independent audit/operator comparison; this group is
+  replicated operational state and cannot itself claim `ExternalWitnessed`.
 
 Verification:
 
@@ -6783,6 +6814,8 @@ Verification:
   snapshot/compaction race, watch gap, restore and tenant isolation;
 - workload-snapshot restore cannot lower the anchor-group fence; whole-cluster
   restore behind an external witness becomes `Unverifiable` rather than current;
+- rollback every anchor-group member, snapshot and recovery credential together
+  while an independent witness remains ahead; the group cannot authorize effects;
 - sustained fault/load campaign and operational-state pentest.
 
 Exit criteria: the engine conforms to `v0.465.2`; later HA milestones add only
@@ -6906,7 +6939,14 @@ Deliverables:
 - independently signed witness chain for `v0.44.10` anti-replay fence epochs,
   retained outside operational-state/workload snapshot and restore authority;
 - independently deployed audit consensus groups with separate administrative,
-  scheduler, storage and failure domains from operational state;
+  scheduler, storage and failure domains from operational state, plus separate
+  signing keys and consensus/recovery credentials;
+- witness authority-class inventory proving the audit witness shares none of the
+  protected workload's snapshot/restore, storage-failure, administrative,
+  signing-key or consensus/recovery domains;
+- current signed `WitnessDispatchPermit` service binding exact witness record
+  digest/epoch/identity/authority class and `TimeTrust` lease interval without
+  joining the operational effect authority;
 - append sequencing, remote placement, acknowledgement, gap and retention RPO/
   RTO while preserving independent writer/reader roles;
 - `v0.457.5` retained/pseudonymized tenant identity, separate audit key domains,
@@ -6922,15 +6962,21 @@ Verification:
 - compromised operational authority cannot alter replicated audit history;
 - missing/conflicting fence checkpoint, operational rollback and attempted audit-
   witness rollback/fork;
+- common-mode attempt to roll back every operational consensus member, workload
+  snapshot, administrator and recovery credential while the audit witness stays
+  ahead; restored operations remain read-only;
+- expired permit, stale/offline interval, authority-class confusion and shared-
+  domain misclassification;
 - loss/compromise of the operational-state cluster does not remove the audit
   replica set or its recovery authority;
 - tenant destruction cannot erase required retained audit, reactivate authority
   through it or leave an undeclared independently replicated copy;
 - offline sequence/signature comparison after failover.
 
-Exit criteria: audit HA increases availability without merging audit and
-operational authority or failure domains. `v0.467.3 implementation stop reached.
-Run pentest for this exact commit.`
+Exit criteria: audit HA increases availability while remaining outside all five
+required authority/failure domains and never merging audit with operational
+effect authority. `v0.467.3 implementation stop reached. Run pentest for this
+exact commit.`
 
 ### v0.467.4 — Durable Scheduler HA Adapter
 
@@ -6958,6 +7004,10 @@ Deliverables:
 - `v0.44.10` assurance gate: current `ExternalWitnessed` (or later admitted
   `HardwareMonotonic`) permits dispatch; missing/conflicting/behind evidence is
   `Unverifiable` and permits read-only recovery/reconciliation only;
+- dispatch authorization consumes a `v0.44.10` permit for the exact witness
+  digest/epoch/identity/authority class and requires both its signed `TimeTrust`
+  lease and the consumer effect class's maximum offline/stale interval to hold;
+  expiry or witness disagreement deterministically becomes `Unverifiable`;
 - same handoff key/different digest integrity incident and the `v0.44.4`
   cancellation precedence preserved across separate replicated state groups;
 - per-job-class RPO/RTO and rebuild-from-immutable-evidence option where declared.
@@ -6976,6 +7026,9 @@ Verification:
   and prove the replicated replay fence still rejects its intents;
 - whole-cluster restore behind the independent witness, missing/conflicting
   witness, anchor-group rollback and attempted fresh epoch initialization;
+- co-rollback every operational member and snapshot while `v0.467.3` remains
+  ahead, plus exact-permit substitution, lease expiry and different effect-class
+  offline/stale limits;
 - epoch advance is rejected while any node/partition/backup can retain older
   pending/unknown/reconciliation/compensation/delayed effect state;
 - stale worker, duplicate dispatch, lease expiry, dependency storm, restore and
@@ -7467,7 +7520,9 @@ Deliverables:
 - export signed hardware/external fence evidence and compare restore state with
   the current independent `v0.44.10` witness; backup contents cannot lower it;
 - `Unverifiable` read-only recovery plus operator-quorum reconciliation when no
-  current non-rollback anchor can be established.
+  current non-rollback anchor can be established;
+- restored effect dispatch requires a current exact witness permit and applicable
+  effect-class stale window, never merely a matching cluster-local checkpoint.
 
 Verification:
 
@@ -7498,8 +7553,12 @@ Deliverables:
 - operator-quorum-signed chained anti-replay fence bundle carrying authority/
   consumer epochs and prior digest; import rejects older/forked bundles and can
   never lower a locally current hardware/external witness;
+- externally retained quorum record and permit carry witness identity/authority
+  class, exact record digest/epoch and signed `TimeTrust` lease; every effect class
+  declares its maximum disconnected/stale interval;
 - missing current fence bundle yields `Unverifiable` read-only operation with
-  effect dispatch disabled until authorized reconciliation.
+  effect dispatch disabled until authorized reconciliation; lease expiry or the
+  class-specific offline limit is never extended from a local clock/assertion.
 
 Verification:
 
@@ -7507,6 +7566,8 @@ Verification:
   transfer;
 - old air-gap fence bundle replay, forked quorum records, removable-media rollback
   and reconciliation after prolonged disconnection;
+- permit expiry immediately before/after each effect-class offline limit and
+  disagreement between removable-media, local and externally retained records;
 - cross-domain policy/redaction/custody and removable-media attacks;
 - prolonged disconnected operation and reconnection rehearsal.
 
@@ -7941,6 +8002,9 @@ Verification:
 - stale/partial restore, corrupt backup, uncertain clock and operator error;
 - replacement-machine clone, old air-gap bundle, missing/conflicting witness,
   counter reset and read-only recovery/reconciliation under effect-disable gates;
+- simultaneous rollback of all operational consensus/recovery state while the
+  five-domain-independent witness stays ahead, plus lease expiry and effect-class
+  maximum-staleness boundary campaigns;
 - independent chaos schedule reproduction and invariant review.
 
 Exit criteria: every promised recovery path survives its declared fault model or
@@ -8225,7 +8289,9 @@ Deliverables:
 - rejection/disable evidence for every non-goal and implementation evidence for
   every admitted option;
 - conditional-series ledger proving every admitted intermediate passed and every
-  skipped intermediate belongs only to an explicitly rejected capability.
+  skipped intermediate belongs only to an explicitly rejected capability;
+- mandatory-prerequisite audit proving five-domain-independent external witness
+  profiles and fail-closed lease/staleness handling were not made optional.
 
 Verification:
 
@@ -8233,6 +8299,8 @@ Verification:
   decision or undocumented non-goal;
 - reject an admitted option with a skipped required series stop or a rejected
   option whose implementation surface remains reachable;
+- reject any plan that treats cluster-local consensus as external witnessing or
+  defers external-witness authority/freshness policy as a post-1.0 option;
 - scan APIs/configuration/UI/docs for implied or orphaned support claims;
 - independent scope-closure and product-claim pentest.
 
@@ -8404,9 +8472,12 @@ explicit maintainer authorization and never publishes internal crates.
   deduplication index without placing the routing epoch in that key, while
   non-identifying spent-key commitments and a current `HardwareMonotonic` or
   `ExternalWitnessed` fence reject old journals/messages/restores after ordinary
-  record retention. `Unverifiable` recovery is read-only for effects, never
-  initializes a fresh epoch, and fence advancement proves no older pending/
-  unknown/reconciliation/compensation/delayed state remains.
+  record retention. `ExternalWitnessed` requires a current exact-record permit
+  from an authority outside all five workload rollback domains; cluster-local
+  consensus alone is insufficient. Expired/disagreeing permits or exceeded
+  effect-class stale windows become `Unverifiable`: recovery is read-only for
+  effects, never initializes a fresh epoch, and fence advancement proves no older
+  pending/unknown/reconciliation/compensation/delayed state remains.
 - Storage survives crash, corruption, node/rack/region loss and rolling upgrade.
 - Historical hot/cold, live, temporal, graph, federated and distributed-physical
   VQL queries work safely with canonical coverage manifests, verifiable

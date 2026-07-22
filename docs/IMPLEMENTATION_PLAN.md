@@ -279,12 +279,17 @@ maximum journal/backup/restore/delayed-delivery horizon, coordinates GC across
 all copies, and maintains a minimum accepted anti-replay epoch after tombstone
 expiry. `v0.44.10` labels its rollback assurance as `HardwareMonotonic`,
 `ExternalWitnessed` or `Unverifiable`; ordinary files/keystores cannot claim
-hardware resistance. Missing/conflicting/rolled-back evidence mounts historical
-data read-only and disables every effect until authorized reconciliation. The
-epoch advances only after every registered pending, unknown, compensation,
-reconciliation and delayed state below it is terminal/spent; otherwise
-tombstones remain. Tenant crypto-shred removes identifying/payload keys without
-erasing the minimal replay fence.
+hardware resistance. `ExternalWitnessed` requires a current authority outside
+the workload's snapshot/restore, storage-failure, administrative, signing-key and
+consensus/recovery domains; cluster-local consensus alone is only a replicated
+anchor. Dispatch binds the exact witness record/epoch/identity/authority class
+and signed `TimeTrust` lease, bounded again by each `v0.44.5` effect class's
+declared maximum stale/offline interval. Missing/conflicting/rolled-back/expired
+evidence mounts historical data read-only and disables every effect until
+authorized reconciliation. The epoch advances only after every registered
+pending, unknown, compensation, reconciliation and delayed state below it is
+terminal/spent; otherwise tombstones remain. Tenant crypto-shred removes
+identifying/payload keys without erasing the minimal replay fence.
 Cancellation wins before intent, becomes a request after intent, and cannot erase
 uncertainty after outbox commit. Local and HA paths use intent/receipt recovery
 across separate stores, not an assumed shared transaction. Mixed-version
@@ -314,7 +319,8 @@ Runtime claim permits, exact asynchronous and pre-execution coverage/expected-
 set contracts, ledger-migration uniqueness, post-retention handoff replay
 fencing, external witnessing and unverifiable fail-closed dispatch are mandatory
 correctness work, not optional scope. Only `HardwareMonotonic` support is
-conditional; the baseline cannot be rejected, disabled or deferred.
+conditional; the five-domain-independent witness and freshness baseline cannot
+be rejected, disabled or deferred.
 
 ## 3. Engineering Sequence
 
@@ -509,9 +515,14 @@ Operational-state HA is implemented by state class, and the distributed
 scale/failover campaign occurs only after replication, evacuation, tenancy,
 federation, SRE, and disaster mechanisms exist.
 The replicated scheduler fence lives outside workload snapshots and is witnessed
-by the independent audit/operator domain. Backup, whole-cluster restore and
-air-gap bundles can never lower it; stale/missing/conflicting evidence yields
-read-only `Unverifiable` recovery until an authorized reconciliation ceremony.
+by an audit/operator authority outside the workload's snapshot/restore, storage,
+administration, signing-key and consensus/recovery domains. The operational
+anchor group never qualifies as external merely because it uses consensus.
+Exact-record witness permits carry signed `TimeTrust` leases and effect-class
+offline/stale limits declared at `v0.44.5`. Backup, whole-cluster restore and
+air-gap bundles can never lower the fence; expired/stale/missing/conflicting
+evidence yields read-only `Unverifiable` recovery until an authorized
+reconciliation ceremony.
 The canonical local acknowledgement envelope and historical verification
 lifecycle precede batching; its cluster extension precedes active-write
 replication and owns practical quorum acknowledgements. The local query coverage

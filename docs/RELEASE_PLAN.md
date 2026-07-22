@@ -178,6 +178,8 @@ external only when at least one current authority is outside the protected
 workload's snapshot/restore authority, storage failure domain, administrative
 authority, signing-key domain and consensus/recovery domain; an operational
 consensus group alone never qualifies.
+Conservative `v0.4.4` lease evaluation and `v0.10.3`-authorized witness-signer
+replacement are also mandatory parts of that baseline, not later options.
 
 | Option | Binding decision/closure |
 | --- | --- |
@@ -425,12 +427,20 @@ Deliverables:
 - `TimeTrust` states, uncertainty bounds, source identity and mapping epochs;
 - signed-time-token format/verifier using the mandatory crypto provider;
 - certificate/token/lease/retention behavior for trusted, bounded-uncertain,
-  rollback-suspected and unavailable time.
+  rollback-suspected and unavailable time;
+- conservative security-lease rule: the complete current uncertainty interval
+  must fit inside the signed validity interval; local time evidence may shorten
+  validity but can never extend the signed lease;
+- clock rollback, reboot without proven monotonic continuity, source loss or
+  excessive uncertainty produces rollback-suspected/unavailable time and a
+  fail-closed lease result.
 
 Verification:
 
 - canonical token, signature, replay, rollback, expiry and source-conflict tests;
 - uncertainty-bound arithmetic and deterministic state transitions;
+- exact lease boundaries under forward/backward jumps, reboot with/without
+  monotonic continuity and unavailable time sources;
 - certificate, capability, retention and ordering consumers fail safely at each
   trust state.
 
@@ -2238,13 +2248,28 @@ Deliverables:
   digest, witness identity and authority class, signed `TimeTrust` validity/
   lease interval, activation generation, effect-class maximum offline/stale
   interval and the policy digest that selected that interval;
+- inherit `v0.4.4`: dispatch is valid only when the complete conservative current
+  uncertainty interval proves the permit is inside its signed lease and the
+  effect-class stale limit; local clocks can shorten validity but never extend it,
+  while rollback, reboot without monotonic continuity, unavailable sources or
+  excessive uncertainty become `Unverifiable`;
+- chained `WitnessSignerSuccessor` record binding old/new signer identities,
+  current minimum epoch, prior witness digest and activation generation, with
+  replacement authorized by a `v0.10.3` operator quorum; rotation cannot fork
+  the chain or lower the fence;
+- signer-status history preserves verification of old records with explicit
+  valid-at-signing/revoked/compromised state, while any permit from a signer now
+  revoked/compromised cannot authorize new dispatch and that signer cannot issue
+  a unilateral successor;
 - deterministic comparison/merge/conflict rules for multiple witnesses and
   restore/import; a backup witness is evidence to compare, never authority to
   lower the active fence;
 - `Unverifiable` on absent/corrupt/conflicting/reset evidence, witness disagreement,
-  expired lease or exceeded effect-class offline/stale interval: historical data
-  may mount read-only, but scheduler/outbox/action/notification dispatch and
-  compensation remain disabled; no automatic fresh-epoch initialization;
+  expired lease, time discontinuity/excess uncertainty, a permit whose signer is
+  revoked/compromised, successor conflict or exceeded effect-class offline/
+  stale interval: historical data may mount read-only, but scheduler/outbox/
+  action/notification dispatch and compensation remain disabled; no automatic
+  fresh-epoch initialization;
 - epoch-advance barrier proving no older `HandoffPending`, `UnknownOutcome`,
   compensation, reconciliation, delayed-delivery or registered effect state can
   remain live in journals, replicas, backups or DR copies; unknown/unproven
@@ -2263,6 +2288,11 @@ Verification:
   initialization;
 - witness-record digest/epoch/identity/authority-class substitution, signed-lease
   expiry, disagreement and per-effect-class offline/stale boundary cases;
+- forward/backward clock jumps, reboot with/without monotonic continuity,
+  unavailable sources and uncertainty intervals touching/crossing lease bounds;
+- normal/emergency signer rotation, lost/revoked/compromised old/new signer,
+  unauthorized replacement, lowered-epoch successor, chain fork and conflicting
+  old/new permits;
 - falsely shared snapshot, storage, administrator, signing-key or consensus/
   recovery authority cannot be classified as external;
 - hardware counter reset/reprovision, clone, unsupported provider and downgrade
@@ -2275,8 +2305,9 @@ Verification:
   anchor and cannot advance beyond the proven live-state barrier.
 
 Exit criteria: fence assurance states exactly what prevents or detects rollback;
-operational consensus alone never claims externality, and missing, expired or
-disagreeing proof is `Unverifiable` and fail-closed for every external effect.
+operational consensus alone never claims externality; any missing, expired or
+disagreeing proof, uncertain lease time or signer-chain conflict yields
+`Unverifiable` and fails closed for every external effect.
 `v0.44.10 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.45.0 — Storage Workload Scheduler
@@ -2603,6 +2634,8 @@ Deliverables:
 - export the current signed `v0.44.10` fence witness/assurance record beside the
   backup, including its exact permit digest/epoch/authority class and validity
   interval, without treating that copy as authority to lower an active fence;
+- restore validates the current signer-successor/status chain independently; a
+  backup cannot resurrect a permit from a later revoked/compromised signer;
 - `v0.44.5` backup profile; restore/recovery remains explicit operator work and
   never depends on scheduler availability.
 
@@ -2616,6 +2649,8 @@ Verification:
   initialize a fresh epoch or dispatch effects;
 - a co-restored witness/permit sharing the backup's authority or failure domains
   cannot qualify as external, even if its digest matches the restored anchor;
+- backup before signer rotation/compromise discovery cannot restore the old key's
+  dispatch authority or fork/lower the successor witness chain;
 - authorized witness reconciliation can re-enable effects only after the active
   fence and all older live-state barriers prove current;
 - independent reconstruction and source/reference integrity comparison.
@@ -6947,6 +6982,9 @@ Deliverables:
 - current signed `WitnessDispatchPermit` service binding exact witness record
   digest/epoch/identity/authority class and `TimeTrust` lease interval without
   joining the operational effect authority;
+- witness-signer successor chain and status history implementing the `v0.44.10`
+  old/new identity, minimum-epoch, quorum-authorization, compromise/revocation
+  and historical-verification contract;
 - append sequencing, remote placement, acknowledgement, gap and retention RPO/
   RTO while preserving independent writer/reader roles;
 - `v0.457.5` retained/pseudonymized tenant identity, separate audit key domains,
@@ -6967,6 +7005,10 @@ Verification:
   ahead; restored operations remain read-only;
 - expired permit, stale/offline interval, authority-class confusion and shared-
   domain misclassification;
+- signer rotation during audit failover, revoked/compromised signer attempting a
+  new permit or reuse of an existing permit after status change, conflicting old/
+  new successors, fork/lower-epoch replacement and historical verification
+  before/after compromise discovery;
 - loss/compromise of the operational-state cluster does not remove the audit
   replica set or its recovery authority;
 - tenant destruction cannot erase required retained audit, reactivate authority
@@ -7008,6 +7050,9 @@ Deliverables:
   digest/epoch/identity/authority class and requires both its signed `TimeTrust`
   lease and the consumer effect class's maximum offline/stale interval to hold;
   expiry or witness disagreement deterministically becomes `Unverifiable`;
+- lease admission uses the full `v0.4.4` uncertainty interval and current
+  `v0.467.3` signer-successor/status chain; clock discontinuity or any unresolved
+  old/new signer conflict disables dispatch rather than choosing a local winner;
 - same handoff key/different digest integrity incident and the `v0.44.4`
   cancellation precedence preserved across separate replicated state groups;
 - per-job-class RPO/RTO and rebuild-from-immutable-evidence option where declared.
@@ -7029,6 +7074,8 @@ Verification:
 - co-rollback every operational member and snapshot while `v0.467.3` remains
   ahead, plus exact-permit substitution, lease expiry and different effect-class
   offline/stale limits;
+- forward/backward time jumps, reboot without monotonic continuity, source loss,
+  excessive uncertainty and signer rotation/compromise at every dispatch edge;
 - epoch advance is rejected while any node/partition/backup can retain older
   pending/unknown/reconciliation/compensation/delayed effect state;
 - stale worker, duplicate dispatch, lease expiry, dependency storm, restore and
@@ -7522,7 +7569,8 @@ Deliverables:
 - `Unverifiable` read-only recovery plus operator-quorum reconciliation when no
   current non-rollback anchor can be established;
 - restored effect dispatch requires a current exact witness permit and applicable
-  effect-class stale window, never merely a matching cluster-local checkpoint.
+  effect-class stale window plus current signer-successor/status chain, never
+  merely a matching cluster-local checkpoint.
 
 Verification:
 
@@ -7530,6 +7578,8 @@ Verification:
   restore;
 - entire cluster/host restored behind the witnessed epoch, replacement-machine
   clone, missing/conflicting witness and attempted fresh epoch initialization;
+- restore across signer rotation/compromise discovery cannot revive an old
+  permit, choose a conflicting successor or lower the current minimum epoch;
 - point-in-time/state-class RPO checks and post-restore authorization/audit;
 - independent clean-environment disaster exercise.
 
@@ -7556,6 +7606,10 @@ Deliverables:
 - externally retained quorum record and permit carry witness identity/authority
   class, exact record digest/epoch and signed `TimeTrust` lease; every effect class
   declares its maximum disconnected/stale interval;
+- offline signer-successor bundles bind old/new identities and current minimum
+  epoch under operator quorum; revoked/compromised keys cannot issue new permits
+  or let existing permits authorize new dispatch, and conflicting rotations
+  import as `Unverifiable` rather than selecting one;
 - missing current fence bundle yields `Unverifiable` read-only operation with
   effect dispatch disabled until authorized reconciliation; lease expiry or the
   class-specific offline limit is never extended from a local clock/assertion.
@@ -7568,6 +7622,8 @@ Verification:
   and reconciliation after prolonged disconnection;
 - permit expiry immediately before/after each effect-class offline limit and
   disagreement between removable-media, local and externally retained records;
+- forward/backward local-clock movement, reboot without monotonic continuity,
+  signer compromise learned offline and conflicting successor-bundle replay;
 - cross-domain policy/redaction/custody and removable-media attacks;
 - prolonged disconnected operation and reconnection rehearsal.
 
@@ -8005,6 +8061,8 @@ Verification:
 - simultaneous rollback of all operational consensus/recovery state while the
   five-domain-independent witness stays ahead, plus lease expiry and effect-class
   maximum-staleness boundary campaigns;
+- forward/backward clock jumps, reboot/time-source loss/excess uncertainty and
+  witness-signer rotation, revocation, compromise, fork and recovery campaigns;
 - independent chaos schedule reproduction and invariant review.
 
 Exit criteria: every promised recovery path survives its declared fault model or
@@ -8291,7 +8349,8 @@ Deliverables:
 - conditional-series ledger proving every admitted intermediate passed and every
   skipped intermediate belongs only to an explicitly rejected capability;
 - mandatory-prerequisite audit proving five-domain-independent external witness
-  profiles and fail-closed lease/staleness handling were not made optional.
+  profiles, conservative time-uncertainty lease evaluation, signer lifecycle and
+  fail-closed lease/staleness handling were not made optional.
 
 Verification:
 
@@ -8300,7 +8359,8 @@ Verification:
 - reject an admitted option with a skipped required series stop or a rejected
   option whose implementation surface remains reachable;
 - reject any plan that treats cluster-local consensus as external witnessing or
-  defers external-witness authority/freshness policy as a post-1.0 option;
+  defers external-witness authority/freshness/signer-lifecycle policy as a
+  post-1.0 option;
 - scan APIs/configuration/UI/docs for implied or orphaned support claims;
 - independent scope-closure and product-claim pentest.
 
@@ -8474,10 +8534,13 @@ explicit maintainer authorization and never publishes internal crates.
   `ExternalWitnessed` fence reject old journals/messages/restores after ordinary
   record retention. `ExternalWitnessed` requires a current exact-record permit
   from an authority outside all five workload rollback domains; cluster-local
-  consensus alone is insufficient. Expired/disagreeing permits or exceeded
-  effect-class stale windows become `Unverifiable`: recovery is read-only for
-  effects, never initializes a fresh epoch, and fence advancement proves no older
-  pending/unknown/reconciliation/compensation/delayed state remains.
+  consensus alone is insufficient. The full conservative `TimeTrust` interval
+  must fit the signed lease, and quorum-authorized signer successors preserve the
+  epoch across rotation/compromise. Expired/disagreeing permits, uncertain time,
+  a revoked/compromised permit signer, signer-chain conflict or exceeded effect-
+  class stale windows become `Unverifiable`: recovery is read-only for effects,
+  never initializes a fresh epoch, and fence advancement proves no older pending/
+  unknown/reconciliation/compensation/delayed state remains.
 - Storage survives crash, corruption, node/rack/region loss and rolling upgrade.
 - Historical hot/cold, live, temporal, graph, federated and distributed-physical
   VQL queries work safely with canonical coverage manifests, verifiable

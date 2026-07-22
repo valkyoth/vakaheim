@@ -77,8 +77,11 @@ architecture:
   restore, storage-failure, administrative, signing-key or consensus/recovery
   domains, and cluster-local consensus never qualifies alone; dispatch binds the
   exact witness digest/epoch/authority and freshness lease within an effect-class
-  stale limit, otherwise unverifiable state disables effects; the epoch cannot
-  advance past any older live effect state;
+  stale limit; the complete conservative `TimeTrust` interval must fit the lease,
+  while quorum-authorized successor records preserve the minimum epoch across
+  signer rotation/revocation/compromise; time discontinuity, a revoked/
+  compromised permit signer, signer conflict or other unverifiable state disables
+  effects, and the epoch cannot advance past any older live effect state;
 - storage and query admission are designed for worst-case work and multi-tenant
   isolation before large-scale deployment;
 - early storage scale claims are local; cluster node, quorum, evacuation and
@@ -170,9 +173,11 @@ pre-execution coverage, and `v0.44.8`–`v0.44.10` migration/post-retention/
 external-witnessed uniqueness are mandatory correctness prerequisites. They are
 not option rows and cannot become tested non-goals before 1.0. Five-domain witness
 independence, exact-record authorization and freshness/effect-class stale limits
-are part of that mandatory baseline. Only per-platform `HardwareMonotonic`
-support is optional; `v0.456.0` decides it and `v0.456.5` closes it without
-weakening `ExternalWitnessed`/`Unverifiable` behavior.
+are part of that mandatory baseline, as are conservative `v0.4.4` lease
+evaluation and `v0.10.3`-authorized witness-signer succession/compromise rules.
+Only per-platform `HardwareMonotonic` support is optional; `v0.456.0` decides it
+and `v0.456.5` closes it without weakening `ExternalWitnessed`/`Unverifiable`
+behavior.
 
 ## Non-Negotiable Boundaries
 

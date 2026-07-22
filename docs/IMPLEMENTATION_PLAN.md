@@ -284,11 +284,17 @@ the workload's snapshot/restore, storage-failure, administrative, signing-key an
 consensus/recovery domains; cluster-local consensus alone is only a replicated
 anchor. Dispatch binds the exact witness record/epoch/identity/authority class
 and signed `TimeTrust` lease, bounded again by each `v0.44.5` effect class's
-declared maximum stale/offline interval. Missing/conflicting/rolled-back/expired
-evidence mounts historical data read-only and disables every effect until
-authorized reconciliation. The epoch advances only after every registered
-pending, unknown, compensation, reconciliation and delayed state below it is
-terminal/spent; otherwise tombstones remain. Tenant crypto-shred removes
+declared maximum stale/offline interval. The full conservative `v0.4.4` time-
+uncertainty interval must fit the signed lease; local time may shorten but never
+extend it. `v0.10.3`-authorized signer-successor records bind old/new witness
+identities and the current minimum epoch without letting rotation, revocation or
+compromise fork/lower the chain. Missing/conflicting/rolled-back/expired evidence,
+time discontinuity/uncertainty, a revoked/compromised permit signer or signer
+conflict cause historical data to mount read-only and disable every effect until
+authorized reconciliation. The epoch
+advances only after every registered pending, unknown, compensation,
+reconciliation and delayed state below it is terminal/spent; otherwise
+tombstones remain. Tenant crypto-shred removes
 identifying/payload keys without erasing the minimal replay fence.
 Cancellation wins before intent, becomes a request after intent, and cannot erase
 uncertainty after outbox commit. Local and HA paths use intent/receipt recovery
@@ -320,7 +326,8 @@ set contracts, ledger-migration uniqueness, post-retention handoff replay
 fencing, external witnessing and unverifiable fail-closed dispatch are mandatory
 correctness work, not optional scope. Only `HardwareMonotonic` support is
 conditional; the five-domain-independent witness and freshness baseline cannot
-be rejected, disabled or deferred.
+be rejected, disabled or deferred, including conservative lease evaluation and
+quorum-authorized signer rotation/compromise handling.
 
 ## 3. Engineering Sequence
 
@@ -519,10 +526,13 @@ by an audit/operator authority outside the workload's snapshot/restore, storage,
 administration, signing-key and consensus/recovery domains. The operational
 anchor group never qualifies as external merely because it uses consensus.
 Exact-record witness permits carry signed `TimeTrust` leases and effect-class
-offline/stale limits declared at `v0.44.5`. Backup, whole-cluster restore and
-air-gap bundles can never lower the fence; expired/stale/missing/conflicting
-evidence yields read-only `Unverifiable` recovery until an authorized
-reconciliation ceremony.
+offline/stale limits declared at `v0.44.5`; the complete `v0.4.4` uncertainty
+interval must prove validity. Quorum-authorized successor records preserve the
+minimum epoch across signer rotation/revocation/compromise, and unresolved old/
+new signer conflict fails closed. Backup, whole-cluster restore and air-gap
+bundles can never lower the fence; expired/stale/missing/conflicting evidence
+yields read-only `Unverifiable` recovery until an authorized reconciliation
+ceremony.
 The canonical local acknowledgement envelope and historical verification
 lifecycle precede batching; its cluster extension precedes active-write
 replication and owns practical quorum acknowledgements. The local query coverage

@@ -23,14 +23,14 @@ The sequence remains:
 | --- | --- |
 | `v0.1.0`–`v0.20.9` | early fixture governance, portable/host crypto, split time, text/certificate codecs, operator authority, local tenant lifecycle/control, runtime/TLS, device keys/PKI, encrypted raw persistence, and objectives |
 | `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/gRPC, OTLP/OCSF, authenticated time refinement, secure transport, backfill/reprocessing, and hardening |
-| `v0.41.0`–`v0.60.0` | storage, layered scheduler core/store/worker/effect/consumer integration, raw evidence, integrity/keys, backup/restore, migration/reindex, and local multi-terabyte proof |
+| `v0.41.0`–`v0.60.0` | storage, isolated scheduler core/store/worker, atomic effect handoff and mixed-version consumer integration, raw evidence, integrity/keys, backup/restore, migration/reindex, and local multi-terabyte proof |
 | `v0.65.0`–`v0.100.1` | VQL authority/planning/operators/cold queries, hardening, and binding admission decisions for optional 1.0 evidence/ingestion capabilities |
 | `v0.110.0`–`v0.200.0` | deterministic detection/state, behavior/risk/intelligence, conditional artifact-matching implementation/integration, ATT&CK, interoperability, and rollout |
 | `v0.205.0`–`v0.268.0` | agent integrity, native platforms, conditional WEF and per-format executable implementation/integration, Kubernetes, and future Aesynx portability |
 | `v0.270.0`–`v0.342.0` | API, compartmented platform vault, isolated connector host, provider contracts, conditional cloud archive/stream and PCAP implementation series, integrity content, and notification substrate |
 | `v0.345.0`–`v0.405.0` | transactional alert notifications, analyst workflow, identity/auth, live forensics, dashboards/scheduled reports, authorization/audit, and local UIs |
-| `v0.407.0`–`v0.458.0` | Wasm/response, unknown-outcome effects, action recovery, server/node software integrity, and all-plane single-node tenant lifecycle conformance |
-| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, scheduler/state HA, raw quorum, tenant propagation, distributed query/routing, node quarantine, SRE/DR/scale, and cluster administration |
+| `v0.407.0`–`v0.458.0` | Wasm/response, action recovery, node measurement/attestation decisions, server integrity, tenant audit-residue policy, and all-plane single-node tenant lifecycle conformance |
+| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, scheduler/state HA, raw quorum, tenant/audit propagation, distributed query/routing with proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
 | `v0.485.0`–`v0.520.0` | optional proposal-only AI plus separate privacy-policy, field/purpose, residency, retention/deletion, and compliance-workflow stops |
 | `v0.530.0` | approved-cryptographic-mode admission or explicit rejection |
 | `v0.540.0`–`v0.570.0` | separate endpoint, ingest/storage, query/detection/analyst, and cluster/recovery performance campaigns |
@@ -66,7 +66,8 @@ architecture:
   certificate validation cannot bootstrap from the same unvalidated channel;
 - portable scheduler state, journal persistence, hosted dispatch, effect handoff,
   consumer admission and storage CPU/IO scheduling are separate layers; storage
-  durability never depends on ordinary scheduler availability;
+  durability never depends on ordinary scheduler availability, and atomic
+  scheduler/outbox handoff remains unique across recovery and mixed versions;
 - storage and query admission are designed for worst-case work and multi-tenant
   isolation before large-scale deployment;
 - early storage scale claims are local; cluster node, quorum, evacuation and
@@ -96,8 +97,16 @@ architecture:
   its own patch/intermediate interoperability release;
 - tenant lifecycle and suspension/destruction propagate across every local and
   distributed authority/data/job/cache/key domain without identifier reuse;
-- signed/measured server builds, epoch-bound cluster admission, anti-rollback and
-  runtime drain/quarantine extend software integrity beyond endpoint agents;
+- retained/pseudonymized independent audit evidence, vault remnants,
+  notifications and action receipts have separate keys/retention and cannot
+  reactivate destroyed tenant authority;
+- signed-build, startup, privileged OS and hardware-attested node evidence are
+  distinct assurance levels; optional levels close before 1.0 and self-report
+  cannot become remote attestation;
+- epoch-bound cluster admission, anti-rollback and runtime drain/quarantine
+  extend software integrity beyond endpoint agents;
+- native routing binds backend acknowledgements/epochs/identity end to end,
+  while terminating standard-protocol proxies are explicit narrowly scoped TCB;
 - cluster safety is authenticated crash-fault tolerance. A compromised voting
   quorum is outside the safety claim and is handled through explicit containment
   and recovery controls, not mislabeled Byzantine tolerance.
@@ -113,8 +122,11 @@ options skip implementation but still pass the tested non-goal integration gate.
 Admitted work may add more intermediate versions rather than enlarge that gate.
 
 Named providers, eBPF/driver surfaces, Aesynx support, Wasm/AI enablement,
-regulated cryptographic mode and SDK publication close through their owning
-milestones in [RELEASE_PLAN.md](RELEASE_PLAN.md). `v0.730.0` rejects every
+privileged OS runtime measurement, hardware remote attestation, regulated
+cryptographic mode and SDK publication close through their owning milestones in
+[RELEASE_PLAN.md](RELEASE_PLAN.md). Node assurance is decided at `v0.456.0`,
+conditionally implemented through `v0.456.4`, and closed at `v0.456.5`.
+`v0.730.0` rejects every
 remaining conditional/TBD decision or missing closure.
 
 ## Non-Negotiable Boundaries

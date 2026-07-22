@@ -69,19 +69,19 @@ replace or renumber it.
 | Crypto provider, split time, certificate codecs, host/OS adapters/TLS, device keys, PKI and operator authority | `v0.4.1`–`v0.4.5`, `v0.10.1`–`v0.10.4`, `v0.20.2`–`v0.20.9`, `v0.30.2` |
 | Fact conflicts, schema ownership, extension governance, and mapping loss | `v0.11.0`, `v0.15.0`, `v0.16.0`, `v0.20.1` |
 | Deterministic identity resolution, asset inventory, ownership, exposure, and retirement | `v0.13.0`, `v0.298.0` |
-| Local identities/control/authorization plus complete tenant lifecycle before consumers | `v0.17.0`, `v0.17.1`, `v0.19.0`; all-plane single-node gate at `v0.458.0`; distributed at `v0.460.0`, `v0.465.1`, `v0.474.1` |
+| Local identities/control/authorization plus complete tenant lifecycle before consumers | `v0.17.0`, `v0.17.1`, `v0.19.0`; audit/remnant policy at `v0.457.1`; all-plane single-node gate at `v0.458.0`; independent audit at `v0.467.3`; distributed closure at `v0.474.1` |
 | Conservation, acknowledgement truth, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`, `v0.39.0`, `v0.40.0` |
 | Exact external protocol and identity-codec profiles | `v0.20.1`, `v0.26.0`–`v0.30.2`, `v0.306.0`, `v0.392.0`–`v0.395.0`, `v0.407.0`–`v0.410.0` |
 | Database capacity, raw evidence, integrity/encryption/keys, local backup/restore, migration, and scoped early scale | `v0.41.0` through `v0.60.0`, especially `v0.53.0`–`v0.58.0` |
-| Layered durable local and HA jobs/timers with consumer admission, effect isolation, declared time, retry, fencing and idempotency | `v0.44.1`–`v0.44.6`, consumer matrix, `v0.459.0`, `v0.467.4` |
+| Layered durable local and HA jobs/timers with atomic effect handoff, upgrade compatibility, consumer admission, declared time, retry, fencing and idempotency | `v0.44.1`–`v0.44.7`, consumer matrix, `v0.459.0`, `v0.467.4` |
 | Query authority/planning/operators, cold rehydration, side channels, federation and distributed execution | `v0.72.0`–`v0.100.0`, `v0.475.0`, `v0.476.0` |
 | Detection identity/state/placement, split behavior families, entity risk, intelligence lifecycle/matching, ATT&CK | `v0.115.0`–`v0.200.0`, especially `v0.170.0`–`v0.179.0` |
 | Common agent/helper boundary, signed software integrity/self-protection and platform continuity | `v0.205.0` through `v0.267.5`, especially `v0.206.0` |
 | Base API before client, later case/response extensions, credential vault, connector isolation and split provider profiles | `v0.270.0`–`v0.342.0`, `v0.376.0`, `v0.450.1` |
 | Simulated/live forensics, confidential cases, auth/audit, dashboards/scheduled reports and split UIs | `v0.382.0`–`v0.405.0`, especially `v0.400.0`, `v0.402.0` |
 | Wasm, bound actions, storm/kill controls, unknown outcomes, split providers, and recovery | `v0.407.0` through `v0.455.0`, especially `v0.446.0`–`v0.453.2` |
-| Signed/measured server and node software, build admission, anti-rollback and runtime quarantine | `v0.457.0`, `v0.460.0`, `v0.465.1`, `v0.483.0`, `v0.483.1` |
-| State CFT/HA, raw quorum, tenant propagation, distributed query, discovery/routing, SRE/DR/scale/admin | `v0.459.0` through `v0.484.1`, especially `v0.465.1`–`v0.479.0` |
+| Honest node measurement assurance, optional attestation closure, signed builds, admission, anti-rollback and runtime quarantine | `v0.456.0`–`v0.457.0`, `v0.460.0`, `v0.465.1`, `v0.483.0`, `v0.483.1` |
+| State CFT/HA, raw quorum, tenant propagation, distributed query, discovery/routing/proxy trust, SRE/DR/scale/admin | `v0.459.0` through `v0.484.1`, especially `v0.465.1`–`v0.479.1` |
 | Regulated cryptographic-mode claims require an applicable validated boundary or explicit rejection | `v0.530.0` |
 | Every optional 1.0 capability has a binding decision and implementation-or-non-goal closure | `v0.100.1`, reserved closures, audited at `v0.730.0` |
 
@@ -111,8 +111,9 @@ authority.
 
 `v0.44.5` requires every persistent timer/job consumer to declare job identity,
 checkpoint, cancellation, misfire/catch-up/skip, idempotency, recovery and
-uncertain-time behavior. Externally visible effects additionally use `v0.44.4`;
-the generic scheduler never owns blind effect retries.
+uncertain-time behavior. Externally visible effects additionally use `v0.44.4`
+and its `v0.44.7` compatibility gate; the generic scheduler never owns blind
+effect retries.
 
 | Consumer | Integration owner |
 | --- | --- |
@@ -147,17 +148,20 @@ may be deferred to 1.0.
 | eBPF and any Windows driver | `v0.220.0`/`v0.240.0` decide admitted surface and preserve tested no-driver fallbacks |
 | Aesynx 1.0 support | `v0.267.0` closes as future portability only unless a later explicit implementation stop is inserted |
 | Optional Wasm extensions and proposal-only AI | `v0.420.0` and `v0.485.0` prove complete disable paths |
+| Privileged/OS-backed runtime measurement | Decide at `v0.456.0`; if admitted implement `v0.456.2`; close at `v0.456.5` |
+| Hardware measured boot and remote attestation | Decide at `v0.456.0`; if admitted implement `v0.456.3`–`v0.456.4`; close at `v0.456.5` |
 | Regulated cryptographic operating mode | Admit or reject at `v0.530.0` |
 | Public SDK publication | Admit or reject at `v0.660.0`; all other crates remain private |
 
 `v0.730.0` audits this register and fails if any row remains conditional, lacks
 its closure evidence, or silently changes the 1.0 product claim.
 
-Conditional implementation-series milestones execute only when `v0.100.1`
-admits that capability. Rejection skips their implementation work but never the
-reserved final closure, which must enforce and test the non-goal. If an admitted
-series still exceeds one safe pass, add more intermediate versions; the listed
-closure remains an integration/security gate, never a container for hidden work.
+Conditional implementation-series milestones execute only when their owning
+decision (`v0.100.1` or `v0.456.0`) admits that capability. Rejection skips their
+implementation work but never the reserved final closure, which must enforce and
+test the non-goal. If an admitted series still exceeds one safe pass, add more
+intermediate versions; the listed closure remains an integration/security gate,
+never a container for hidden work.
 
 ## Phase A — Constitutional Foundation
 
@@ -858,7 +862,9 @@ Deliverables:
 - suspension propagation contract for sessions, agents, connectors, queries,
   jobs, actions, caches and API tokens;
 - hold/export/offboarding precedence, crypto-shred/deletion proof and recovery
-  rules that cannot revive suspended or destroyed authority.
+  rules that cannot revive suspended or destroyed authority;
+- destruction distinguishes tenant authority/data from independently retained
+  security-audit evidence; exact residue policy is integrated at `v0.457.1`.
 
 Verification:
 
@@ -1737,6 +1743,8 @@ Goal: persist `v0.44.1` through a narrow journal interface without owning storag
 Deliverables:
 
 - scheduler-store append/read/snapshot contract over `v0.44.0` WAL primitives;
+- separate scheduler journal namespace, files, queues, reserved space and
+  corruption/failure domain from the primary fact WAL;
 - durable create/claim/checkpoint/complete/cancel/retry transitions and recovery;
 - schema/version, compaction, corruption, quota and explicit unavailable state.
 
@@ -1744,7 +1752,8 @@ Verification:
 
 - crash at every append/sync/snapshot/restore boundary;
 - torn/reordered/duplicate/corrupt transitions and deterministic replay;
-- scheduler-store failure cannot corrupt or block the primary storage WAL.
+- scheduler-store full/corrupt/unavailable cannot consume primary-WAL reserves,
+  queues or recovery authority or block primary storage recovery.
 
 Exit criteria: job state is durable without coupling scheduler recovery to
 storage durability control flow. `v0.44.2 implementation stop reached. Run
@@ -1780,17 +1789,26 @@ Goal: prevent generic retries from duplicating externally visible effects.
 
 Deliverables:
 
-- effect classification and handoff to a durable outbox/action ledger;
+- stable `(job identity, effect identity)` and an atomic logical handoff protocol
+  to a durable outbox/action ledger;
+- job remains `HandoffPending` until the uniquely keyed outbox/action record is
+  durable; only then may it become `HandedOff`;
 - prepared/dispatched/unknown-outcome/reconciled/terminal protocol compatible
   with later SOAR effect semantics;
-- idempotency, retry ownership, reconciliation, cancellation and impairment rules.
+- recovery idempotently completes one handoff and cannot create two outbox
+  records for one effect identity;
+- cancellation after handoff cannot delete, reinterpret or hide an uncertain
+  effect; retry ownership, reconciliation and impairment remain explicit;
 - no production effect adapter activates until its owning durable outbox/action
   ledger milestone passes.
 
 Verification:
 
 - crash before/after handoff/send/ack, timeout, duplicate and ambiguous response;
+- crash at every scheduler-intent/outbox-durable/HandedOff boundary and concurrent
+  cancellation/recovery;
 - non-idempotent destination and unavailable reconciler scenarios;
+- uniqueness/property proof for one durable outbox record per effect identity;
 - prove generic scheduler retry cannot directly repeat an external side effect.
 
 Exit criteria: effectful work leaves the scheduler through a durable protocol
@@ -1842,6 +1860,28 @@ Verification:
 Exit criteria: renewal timing is shared and durable while cryptographic authority
 remains independently authorized. `v0.44.6 implementation stop reached. Run
 pentest for this exact commit.`
+
+### v0.44.7 — Scheduler-Outbox Upgrade Compatibility Gate
+
+Status: planned
+
+Goal: preserve atomic handoff while scheduler and outbox schemas are mixed-version.
+
+Deliverables:
+
+- current/previous scheduler-journal, handoff-intent and outbox record matrix;
+- upgrade/migration order, dual-read/write limits and irreversible boundaries;
+- old/new worker fencing and stable job/effect identity across schema changes.
+
+Verification:
+
+- every supported mixed-version pair and crash at each handoff transition;
+- partial migration, rollback, stale worker, duplicate recovery and cancellation;
+- prove one durable outbox record and an honest job state after every trace.
+
+Exit criteria: mixed versions cannot lose, duplicate or reinterpret an effect
+handoff. `v0.44.7 implementation stop reached. Run pentest for this exact
+commit.`
 
 ### v0.45.0 — Storage Workload Scheduler
 
@@ -5579,30 +5619,205 @@ Exit criteria: no action is reported complete without effect evidence, and
 unrecoverable outcomes produce explicit incidents. `v0.455.0 implementation stop
 reached. Run pentest for this exact commit.`
 
+## Pre-Cluster Integration Gates
+
+### v0.456.0 — Node Measurement And Attestation Admission Decision
+
+Status: planned
+
+Goal: bind honest 1.0 support/non-goal decisions before node-integrity claims.
+
+Deliverables:
+
+- separate decisions for privileged/OS-backed runtime measurement and hardware
+  measured boot/remote attestation;
+- platform availability, trust anchor, freshness, privacy, recovery, operations,
+  zero-third-party feasibility and support-cost analysis;
+- admitted routes through `v0.456.2`–`v0.456.4`; rejected routes require tested
+  non-goals at `v0.456.5` and remain `Unverifiable` where appropriate.
+
+Verification:
+
+- signed decision/owner for each option and exact admitted platforms/assurance;
+- challenge self-measurement, compromised-process, replay and downgrade claims;
+- reject any plan that converts an unavailable/untrusted report into healthy.
+
+Exit criteria: both optional assurance levels are admitted with bounded scope or
+explicitly rejected for 1.0. `v0.456.0 implementation stop reached. Run pentest
+for this exact commit.`
+
+### v0.456.1 — Node Measurement Assurance Model
+
+Status: planned
+
+Goal: distinguish software-integrity evidence without implying remote attestation.
+
+Deliverables:
+
+- assurance states for signed-build verification, startup file/config measurement,
+  privileged/OS-backed runtime measurement, hardware measured boot/remote
+  attestation and `Unverifiable`;
+- evidence issuer, target build/config, freshness, nonce, trust, policy and
+  limitation fields with monotonic non-upgrade rules;
+- explicit rule that self-report alone cannot prove a fully compromised process
+  healthy or impersonate a stronger assurance level.
+
+Verification:
+
+- forged/replayed/stale/missing evidence, level confusion and downgrade;
+- compromised self-reporter and unavailable verifier result in `Unverifiable`;
+- formal/state-machine and documentation claim audit.
+
+Exit criteria: every node-integrity result states exactly what measured it and
+what remains unverifiable. `v0.456.1 implementation stop reached. Run pentest
+for this exact commit.`
+
+### v0.456.2 — Privileged OS Runtime Measurement Adapters
+
+Status: conditional on admission at `v0.456.0`
+
+Goal: obtain admitted runtime measurements outside the ordinary server process.
+
+Deliverables:
+
+- narrowly scoped OS/privileged adapters for admitted platforms and artifacts;
+- authenticated evidence bound to process/image/config/build identity and epoch;
+- capability discovery, freshness, failure and unsupported-platform semantics.
+
+Verification:
+
+- compromised/unavailable helper, process replacement, stale PID/image and TOCTOU;
+- forged/replayed evidence, permission loss and platform update matrix;
+- no-third-party feasibility and privileged-boundary pentest.
+
+Exit criteria: admitted OS-backed evidence cannot be replaced by process self-
+report. `v0.456.2 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.456.3 — Hardware Measured-Boot Evidence Acquisition
+
+Status: conditional on admission at `v0.456.0`
+
+Goal: acquire admitted hardware/firmware-backed boot measurements and identity.
+
+Deliverables:
+
+- supported root-of-trust, boot/event-log and device identity profiles;
+- nonce-bound evidence acquisition with firmware/boot-chain/config provenance;
+- enrollment, key rotation/revocation, privacy and unavailable-state behavior.
+
+Verification:
+
+- replay, cloned identity, stale boot log, reset/reprovision and trust-root change;
+- malformed event log, unsupported firmware and hardware-provider outage;
+- real-device interoperability and hardware-boundary pentest.
+
+Exit criteria: hardware evidence is attributable, fresh and limited to its exact
+measured boundary. `v0.456.3 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.456.4 — Remote Attestation Verification And Policy
+
+Status: conditional on admission at `v0.456.0`
+
+Goal: verify hardware-backed evidence without allowing replay or policy confusion.
+
+Deliverables:
+
+- challenge/nonce, verifier identity, reference values, freshness and verdicts;
+- build/config/boot policy binding, revocation, cache limits and audit evidence;
+- `Trusted`/`Rejected`/`Unverifiable` results without binary false-green fallback.
+
+Verification:
+
+- nonce replay, verifier compromise/outage, stale reference value and mixed policy;
+- valid hardware with unapproved build, approved build with incomplete evidence;
+- independent protocol/cryptographic/attestation pentest.
+
+Exit criteria: only fresh evidence under the exact admitted trust policy produces
+an attested result. `v0.456.4 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.456.5 — Node Attestation Scope Closure
+
+Status: planned
+
+Goal: close both optional node-assurance decisions before server integrity ships.
+
+Deliverables:
+
+- if admitted: integrate and independently audit the applicable `v0.456.2`–
+  `v0.456.4` paths with platform/support boundaries;
+- if rejected: explicit 1.0 non-goal, disabled configuration/API/claim paths and
+  mandatory `Unverifiable` handling;
+- either path updates cluster admission, operations, SDK/API and documentation.
+
+Verification:
+
+- admitted path: end-to-end evidence, downgrade, outage and real-platform matrix;
+- rejected path: configuration/API rejection and support-claim audit;
+- self-report can never be promoted to OS-backed or hardware-attested health.
+
+Exit criteria: privileged runtime measurement and hardware remote attestation are
+each implemented within admitted bounds or conclusively excluded from 1.0.
+`v0.456.5 implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.457.0 — Server And Node Software Integrity Baseline
 
 Status: planned
 
-Goal: give server/node runtimes the signed identity protections already required
-for agents before clustering trusts them.
+Goal: give server/node runtimes mandatory signed/startup identity protections
+without overstating the optional assurance closed at `v0.456.5`.
 
 Deliverables:
 
 - signed server binary/component/update manifests with build/toolchain identity;
-- startup binary/build/configuration digest measurement and audit evidence;
+- startup binary/build/configuration digest measurement labeled under `v0.456.1`;
 - anti-rollback, incompatible-feature rejection and revoked-build policy;
-- explicit impaired/unmeasurable state rather than false healthy integrity.
+- explicit impaired/unmeasurable state rather than false healthy integrity;
+- optional OS/hardware evidence only through admitted `v0.456.5` paths; ordinary
+  process self-measurement never claims remote attestation.
 
 Verification:
 
 - binary/helper/config/manifest substitution, signature confusion and rollback;
 - measured-after-start mutation where detectable, missing measurement and stale
   revocation/configuration;
+- compromised self-report remains `Unverifiable` and triggers configured policy;
 - supported server OS/package/update matrix and independent node-integrity pentest.
 
-Exit criteria: no server build activates as trusted without verified identity,
-anti-rollback and honest measurement state. `v0.457.0 implementation stop
+Exit criteria: no server build activates with trusted build identity without
+signature verification, anti-rollback and an honest `v0.456.1` measurement state.
+`v0.457.0 implementation stop
 reached. Run pentest for this exact commit.`
+
+### v0.457.1 — Tenant Destruction Audit And External-Receipt Policy
+
+Status: planned
+
+Goal: define what security evidence may survive tenant destruction without
+preserving tenant authority.
+
+Deliverables:
+
+- policy for retained, minimized or pseudonymized audit tenant identity and
+  statutory/compliance retention;
+- separate audit key domains, crypto-shred/rotation behavior and legal-hold/
+  statutory-retention precedence;
+- credential-vault remnant, notification-delivery record and external-action
+  receipt disposition with purpose/access/expiry limits;
+- independent audit-replica deletion/retention proof and permanent non-authority
+  tombstone preventing credential/session/tenant reactivation.
+
+Verification:
+
+- destroy under legal hold/statutory retention, audit-key loss/rotation and expiry;
+- restore retained audit/remnants without tenant keys, sessions or capabilities;
+- vault handle/notification/action receipt cannot reactivate or address tenant;
+- independent privacy, compliance, audit-separation and resurrection pentest.
+
+Exit criteria: every permitted post-destruction residue is minimal, separately
+keyed, purpose-bound and cryptographically incapable of restoring authority.
+`v0.457.1 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.458.0 — Single-Node Tenant Lifecycle Integration Gate
 
@@ -5616,13 +5831,16 @@ Deliverables:
   agents, connectors, ingest, storage, queries, detection, cases, reports, jobs,
   actions, caches, exports, keys and backups;
 - all-plane lifecycle conformance harness and transition/denial evidence;
-- restore/resurrection, tenant-ID/key-domain tombstone and deletion-proof audit.
+- restore/resurrection, tenant-ID/key-domain tombstone and deletion-proof audit;
+- `v0.457.1` disposition across local audit, vault remnants, notification
+  delivery and action receipts with retained evidence unable to restore authority.
 
 Verification:
 
 - transition at every queued/running/checkpointed/cached/exported state;
 - stale tokens/agents/jobs/actions/caches, concurrent hold/offboard/destroy and
   restore from every local backup/cold/spill class;
+- retained/pseudonymized audit access, expiry and non-reactivation tests;
 - cross-plane single-node pentest and independent deletion-proof review.
 
 Exit criteria: no completed local plane can outlive or bypass the tenant lifecycle;
@@ -5644,8 +5862,8 @@ Deliverables:
 - human sessions/WebAuthn credentials/revocations/elevation, notification
   outbox/delivery, acquisition/custody, backfill/reprocessing, API idempotency,
   audit records and audit cursors;
-- allowed/revoked build identity, node measurement, admission, drain and
-  quarantine state from `v0.457.0`;
+- allowed/revoked build identity, `v0.456.1` assurance level, node measurement,
+  admission, drain and quarantine state from `v0.457.0`;
 - durable scheduler jobs for cold rehydration, backup/restore, repair/reindex,
   rule rollout, retro-hunt/risk recompute, report/export, certificate/key renewal,
   tenant offboarding and playbook wait/compensation, including classes whose RPO
@@ -5677,8 +5895,8 @@ Deliverables:
 
 - node/fleet identity, trust roots, config, schema, parser, rule and component
   registries, policy, tenant, storage and upgrade metadata;
-- allowed/revoked `v0.457.0` server build identities and measurement requirements
-  bound to each candidate configuration epoch;
+- allowed/revoked `v0.457.0` server build identities and exact `v0.456.1`
+  assurance requirements bound to each candidate configuration epoch;
 - current/previous candidate epoch, validation, staging, rollback, drift and
   audit; local nodes retain `v0.17.0` activation authority;
 - bootstrap, break-glass and least-privilege administration;
@@ -5688,7 +5906,8 @@ Deliverables:
 Verification:
 
 - unauthorized/stale/tampered/partial candidate epoch and split dissemination;
-- unknown/revoked build, missing measurement and build/config digest mismatch;
+- unknown/revoked build, evidence below required assurance, `Unverifiable` policy
+  and build/config digest mismatch;
 - rollover, rollback, drift, break-glass and compromised admin scenarios;
 - control-plane API/UI pentest.
 
@@ -5773,8 +5992,8 @@ Deliverables:
 
 - committed candidate-to-active transition, quorum proof and activation epoch;
 - node compatibility/readiness, staged rollout, fencing, rollback and drift;
-- cluster admission rejects unknown/revoked/unmeasured builds and binds admitted
-  runtime identity to the activation epoch;
+- cluster admission rejects unknown/revoked builds or evidence below the epoch's
+  required `v0.456.1` assurance and binds the admitted result to activation;
 - semantic equivalence with local control, authorization, registry, trust-root
   and audit behavior.
 
@@ -5783,7 +6002,7 @@ Verification:
 - partition/leader change/crash before and after commit/activation;
 - stale/incompatible node, partial rollout, rollback, trust change and audit
   destination failure;
-- revoked build and startup measurement change before/during activation;
+- revoked build, assurance downgrade and measurement change before/during activation;
 - no node activates an uncommitted or invalid epoch.
 
 Exit criteria: distributed configuration becomes authoritative only after a
@@ -5925,6 +6144,8 @@ Deliverables:
 
 - backfill/reprocessing and forensic-acquisition job adapters over `v0.465.3`;
 - notification outbox/delivery and API idempotency ledgers;
+- `v0.457.1` tenant-destruction disposition for delivery records and external
+  action receipts, retaining no routable tenant authority;
 - fenced ownership, progress/custody checkpoints, retry/unknown-outcome and
   per-class RPO/RTO.
 
@@ -5953,6 +6174,10 @@ Deliverables:
   scheduler, storage and failure domains from operational state;
 - append sequencing, remote placement, acknowledgement, gap and retention RPO/
   RTO while preserving independent writer/reader roles;
+- `v0.457.1` retained/pseudonymized tenant identity, separate audit key domains,
+  legal/statutory hold precedence and post-destruction access/expiry policy;
+- independent audit replicas participate explicitly in retention, crypto-shred
+  and deletion proofs without joining tenant authority;
 - failover/restore verification and explicit unavailable-audit behavior.
 
 Verification:
@@ -5962,6 +6187,8 @@ Verification:
 - compromised operational authority cannot alter replicated audit history;
 - loss/compromise of the operational-state cluster does not remove the audit
   replica set or its recovery authority;
+- tenant destruction cannot erase required retained audit, reactivate authority
+  through it or leave an undeclared independently replicated copy;
 - offline sequence/signature comparison after failover.
 
 Exit criteria: audit HA increases availability without merging audit and
@@ -5972,7 +6199,7 @@ Run pentest for this exact commit.`
 
 Status: planned
 
-Goal: fail over `v0.44.1`–`v0.44.5` scheduler state/dispatch semantics through
+Goal: fail over `v0.44.1`–`v0.44.7` scheduler state/dispatch semantics through
 the replicated operational-state engine without duplicate authority.
 
 Deliverables:
@@ -5983,11 +6210,15 @@ Deliverables:
   dispatch;
 - preservation of monotonic-versus-wall schedule, misfire/catch-up/skip,
   cancellation, dependency and idempotency semantics;
+- HA `HandoffPending`/outbox durability protocol with stable effect identity and
+  one `v0.467.2` outbox record across owner/leader failover;
 - per-job-class RPO/RTO and rebuild-from-immutable-evidence option where declared.
 
 Verification:
 
 - owner loss/partition/clock change at every claim/checkpoint/complete boundary;
+- failover at each scheduler-intent/outbox-durable/HandedOff boundary and
+  cancellation after handoff;
 - stale worker, duplicate dispatch, lease expiry, dependency storm, restore and
   tenant/noisy-neighbor failures;
 - local/HA scheduler state-machine equivalence and canonical idempotent outcomes.
@@ -6161,6 +6392,10 @@ Deliverables:
   tenant-ID/key-domain tombstone;
 - recovery/failover rules that cannot revive suspended/offboarding/destroyed
   authority from stale replicas or backups;
+- `v0.457.1` disposition for credential-vault remnants, notification records,
+  external action receipts and separately keyed independent audit replicas;
+- legal-hold/statutory-retention precedence and pseudonymized permanent
+  non-authority tombstones across regions;
 - shared conformance suite proving local and distributed lifecycle outcomes do
   not diverge.
 
@@ -6169,7 +6404,9 @@ Verification:
 - partition/region outage during activate/suspend/hold/offboard/destroy;
 - stale session/agent/job/cache/action, failover, restore and rolling upgrade;
 - deletion/shred proof across replicas, cold tiers, backup, spill and operational
-  state plus tenant-ID/key reuse attacks;
+  state plus independent audit replicas and tenant-ID/key reuse attacks;
+- retained audit/remnant access cannot mint credentials, address notifications,
+  invoke actions or restore tenant/session identity;
 - single-node/distributed trace equivalence for every lifecycle transition.
 
 Exit criteria: tenant lifecycle state and denial propagate within declared bounds,
@@ -6280,6 +6517,35 @@ semantics, regional exhaustion is explicit, and no external balancer is part of
 the correctness model. `v0.479.0
 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.479.1 — End-To-End Backend Binding And Proxy Trust
+
+Status: planned
+
+Goal: define exactly what routing proxies can attest, terminate and forward.
+
+Deliverables:
+
+- per-protocol trust profile for native ingest, OTLP, API/query, browser and relay;
+- native end-to-end backend binding for durability acknowledgements, source/
+  session/sequence identity, query snapshot/policy epochs, response completeness
+  and backend service/build identity plus its `v0.456.1` assurance state;
+- proxy capabilities that cannot forge `DurableQuorum`, widen authority,
+  substitute tenant/source, or convert backend failure/partial results to success;
+- where OTLP/browser standards terminate at the proxy, explicit proxy membership
+  in that protocol's TCB, narrow service identity, authenticated backend hop,
+  audit and disclosed claim limits.
+
+Verification:
+
+- compromised proxy forges ack/completeness/backend identity or swaps tenant;
+- replay/substitution across backend, route, session, snapshot and policy epochs;
+- terminating-proxy confused-deputy, capability widening and failure laundering;
+- end-to-end cryptographic/protocol binding and routing-proxy pentest.
+
+Exit criteria: every routed response states its trust terminus; a proxy cannot
+claim backend facts it cannot cryptographically or protocol-bind. `v0.479.1
+implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.480.0 — Multi-Region Replication And Failover
 
 Status: planned
@@ -6292,6 +6558,7 @@ Deliverables:
 - region-aware placement, asynchronous replication, failover and sovereignty;
 - policy-authorized cross-region discovery/routing activation with regional
   fencing, endpoint identity, tenant/residency and failback authority;
+- `v0.479.1` end-to-end/TCB bindings preserved across regional proxy/backend hops;
 - per-state-class regional RPO/RTO, authority and completeness evidence;
 - failover/failback fencing, lag, conflict and unavailable-region behavior.
 
@@ -6366,6 +6633,7 @@ Deliverables:
 
 - compatibility matrix, staged/canary order, drain/handoff and feature gates;
 - signed server update manifests, allowed-build epoch transitions and anti-rollback;
+- `v0.44.7` scheduler-journal/outbox handoff compatibility and migration order;
 - schema/format/protocol/state migration and downgrade boundaries;
 - automatic abort, deterministic rollback and irreversible-step approval.
 
@@ -6375,6 +6643,7 @@ Verification:
   rollback after partial migration;
 - stale binary/config, incompatible state and failed drain/handoff;
 - unknown/revoked build, manifest rollback and binary/config measurement mismatch;
+- old/new scheduler/outbox crash during atomic effect handoff and cancellation;
 - full single-node/cluster/multi-region upgrade rehearsal.
 
 Exit criteria: unsupported downgrade fails before mutation, and supported
@@ -6385,17 +6654,21 @@ Run pentest for this exact commit.`
 
 Status: planned
 
-Goal: contain an admitted node whose measured runtime unexpectedly changes.
+Goal: contain an admitted node whose measured state changes or becomes unverifiable.
 
 Deliverables:
 
-- periodic/on-demand binary/build/config measurement and epoch comparison;
+- periodic/on-demand evidence labeled as startup, OS-backed or hardware-attested
+  strictly according to `v0.456.1` and `v0.456.5` admission;
+- ordinary self-measurement never upgrades assurance; an untrusted/unavailable
+  report becomes `Unverifiable`, not healthy;
 - authenticated drain, admission revoke, quarantine and recovery/reimage workflow;
 - workload/leadership handoff, impairment evidence and operator escalation.
 
 Verification:
 
-- runtime/config mutation, measurement unavailable, stale result and false report;
+- runtime/config mutation, measurement unavailable, compromised self-report,
+  assurance downgrade, stale result and false report;
 - change during ingest/query/job/action/leadership and concurrent node failures;
 - drain timeout, quarantine bypass, rollback/rejoin and node-integrity pentest.
 
@@ -7207,14 +7480,18 @@ explicit maintainer authorization and never publishes internal crates.
 - Agent binaries/helpers/updates are signed, anti-rollback protected, measured,
   controllably removable and emit self-protection impairment evidence.
 - Server/node binaries, components and updates are signed, measured,
-  anti-rollback protected and epoch-admitted; drift drains or quarantines them.
+  anti-rollback protected and epoch-admitted; every assurance level is honest,
+  self-report cannot imply attestation, and drift/unverifiable state follows
+  configured drain or quarantine policy.
 - Cloud, identity, network, syslog, OTLP, OCSF, JSON and file ingestion work.
 - Source lineage, immutable facts, telemetry gaps and completeness are queryable.
 - Trusted-time bootstrap/refinement and PKI issuance, renewal, revocation and
   compromise recovery pass their cross-platform and ceremony exercises.
 - Durable local and HA jobs/timers prove declared time bases, misfire policy,
   fencing, idempotency, cancellation, dependency and checkpoint semantics;
-  storage durability/recovery remains available without scheduler workers/state.
+  storage durability/recovery remains available without scheduler workers/state,
+  and mixed-version effect handoff creates one canonical durable outbox record
+  per effect identity.
 - Storage survives crash, corruption, node/rack/region loss and rolling upgrade.
 - Historical hot/cold, live, temporal, graph, federated and distributed-physical
   VQL queries work safely with honest partial/cost/cancellation behavior.
@@ -7235,12 +7512,14 @@ explicit maintainer authorization and never publishes internal crates.
   assessment.
 - Tenant provisioning, suspension, read-only/quarantine, hold, export,
   offboarding and cryptographic destruction propagate across every product plane;
-  tenant identifiers and key domains cannot be reused or resurrected.
+  tenant identifiers and key domains cannot be reused or resurrected, while any
+  lawfully retained independent audit/remnant evidence conveys no authority.
 - Single-node, cluster, sovereign multi-region and air-gap operation are tested.
 - Cluster discovery and authenticated data-plane routing preserve loop,
   backpressure, sequence, retry and acknowledgement truth through drain,
   leader movement, partition and stale-route failure; cross-region routing occurs
-  only after committed failover authority.
+  only after committed failover authority, and proxy trust termini/backend
+  bindings are explicit per protocol.
 - Backup, restore, repair, reindex, migration, upgrade and rollback are complete.
 - The SDK publication decision is explicit; internal crates remain unpublished.
 - Dashboards, scheduled analytics reports, analyst and administration interfaces,

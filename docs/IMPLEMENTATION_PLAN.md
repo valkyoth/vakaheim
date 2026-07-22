@@ -204,13 +204,18 @@ and timer contract after WAL exists. The implementation is layered:
 persists transitions over a narrow journal/WAL interface; `scheduler-worker`
 owns hosted claims and dispatch; the storage workload scheduler owns only CPU/IO
 priority. WAL sync, storage recovery and emergency compaction never depend on
-scheduler-store/workers and ordinary jobs never run on durability threads.
+scheduler-store/workers and ordinary jobs never run on durability threads. The
+scheduler journal has separate namespaces, files, queues, reserved space and a
+corruption domain from the primary fact WAL even when both reuse WAL primitives.
 
 Every consumer declares job identity, checkpoint, cancellation, misfire,
 idempotency, recovery and uncertain-time behavior. Effectful work leaves the
 generic scheduler through a durable outbox/UnknownOutcome protocol; blind retry
-of external effects is forbidden. Stage K adds a fenced HA adapter over the
-operational-state engine.
+of external effects is forbidden. Handoff is logically atomic: the job cannot be
+`HandedOff` before its unique outbox/effect record is durable, recovery cannot
+create a second record, and post-handoff cancellation cannot erase uncertainty.
+Mixed-version journal/outbox compatibility is a separate gate. Stage K adds a
+fenced HA adapter over the operational-state engine.
 
 ### Optional scope closes before implementation freeze
 
@@ -221,8 +226,11 @@ implementation series before the reserved scope-closure gate; a rejected choice
 skips implementation but still passes the closure gate's tested non-goal path.
 More intermediate versions are added whenever needed—the closure gate may not
 hide a large implementation. AI, regulated cryptographic mode, SDK publication,
-named providers, optional drivers, and future Aesynx support retain their own
-decision gates. No conditional or “TBD” capability may survive `v0.730.0`.
+named providers, optional drivers and future Aesynx support retain their own
+decision gates. Privileged OS runtime measurement and hardware remote attestation
+are decided at `v0.456.0`, conditionally implemented through `v0.456.4`, and
+closed at `v0.456.5`. Rejected attestation cannot be replaced by a healthy self-
+report. No conditional or “TBD” capability may survive `v0.730.0`.
 
 ## 3. Engineering Sequence
 
@@ -423,18 +431,29 @@ backpressure, retry, stragglers, worker loss and coordinator/tenant bounds.
 Raw chunks/manifests participate in quorum durability and atomic publication.
 Independent audit HA uses a separately deployed administrative/storage/scheduler
 failure domain, not only different keys in the operational cluster.
-Before clustering, signed/measured server builds, anti-rollback and an all-plane
-single-node tenant lifecycle gate must pass. Control epochs admit exact build
-identities; unknown/revoked/unmeasured nodes are rejected, and later runtime
-measurement drift causes authenticated drain or quarantine.
+Before clustering, node assurance distinguishes signed-build verification,
+startup measurement, privileged OS evidence, hardware remote attestation and
+`Unverifiable`; software self-report never implies the stronger levels. Optional
+levels receive binding support/non-goal closure. Signed server builds,
+anti-rollback and an all-plane single-node tenant lifecycle gate must pass.
+Control epochs admit exact build identities and required assurance; unknown,
+revoked or under-assured nodes are rejected, and later drift/unverifiable state
+causes policy-driven authenticated drain or quarantine.
 Cluster-native service discovery and authenticated routing precede distributed
 scale tests and preserve sequence/acknowledgement truth across rerouting. The
 first routing stop is in-region and reports regional endpoint exhaustion as
 unavailable; only the following multi-region milestone may authorize and fence
 cross-region routing/failover.
+Native routing binds backend durability acknowledgements, source/session/
+sequence identity, query snapshot/policy epochs, response completeness and
+backend service/build identity end to end. When OTLP/browser trust terminates at
+a proxy, that proxy is an explicit narrowly identified member of the protocol's
+trusted computing base and cannot widen capability or launder backend failure.
 Tenant lifecycle has local and distributed state machines from proposal through
 hold/offboarding/destruction, including suspension propagation and no identifier
-or key-domain reuse.
+or key-domain reuse. Independently retained audit evidence and external receipts
+use separate keys, minimized/pseudonymized identity and statutory/hold policy;
+they can never reactivate tenant authority.
 
 ### Stage L: product completion
 
@@ -467,7 +486,7 @@ not permission to create empty crates prematurely.
 | Detection | `-rule-model`, `-rule-compiler`, `-detect-core`, `-detect-state`, `-behavior`, `-risk-ledger`, `-intel-match` | core `no_std + alloc`; workers `std` |
 | Response | `-wasm-core`, `-wasm-abi`, `-wasm-validate`, `-wasm-host`, `-soar-core`, `-action-ledger`, `-approval` | ABI/core portable; host isolated `std` |
 | Identity | `-cbor`, `-cose`, `-jose`, `-oauth`, `-xml`, `-scim`, `-webauthn`, `-identity-federation` | codecs portable; services `std` |
-| Control | `-control`, `-auth`, `-authorization`, `-audit`, `-pki`, `-credential-vault`, `-node-integrity`, `-opstate`, `-cluster`, `-federation` | explicit `std` services |
+| Control | `-control`, `-auth`, `-authorization`, `-audit`, `-pki`, `-credential-vault`, `-node-integrity`, `-attestation`, `-opstate`, `-cluster`, `-federation` | explicit `std` services |
 | Analyst | `-finding`, `-incident`, `-case`, `-dashboard`, `-report`, `-scheduled-report`, `-api-model`, `-api-host`, `-sdk`, `-ui-model` | mixed |
 | Verification | `-testkit`, fixtures, attack scenarios, fuzz, Kani, Loom, conformance, bench | never product dependencies |
 
@@ -574,4 +593,8 @@ evidence, complete tenant lifecycle enforcement, discovery/routing continuity,
 scheduled report and dashboard operation, and a closed option-decision register:
 no conditional, undecided, or `TBD` 1.0 capability may cross the release freeze.
 Every server/node build is signed, measured, anti-rollback protected and bound to
-an admitted control epoch; unavailable measurement is explicit impairment.
+an admitted control epoch; evidence states its exact assurance level, unavailable
+or untrusted measurement is `Unverifiable`, and optional attestation is either
+implemented within admitted bounds or an explicit tested non-goal. Tenant
+destruction leaves only policy-permitted independently keyed audit/remnant
+evidence with no authority, and proxy/backend trust termini are protocol-explicit.

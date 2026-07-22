@@ -73,15 +73,15 @@ replace or renumber it.
 | Conservation, acknowledgement truth/manifests/runtime permits, exact asynchronous coverage, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`–`v0.31.4`, `v0.39.0`, `v0.40.0`, `v0.44.0`, `v0.48.1`, `v0.50.0`, `v0.54.0`, `v0.140.1`–`v0.140.2`, `v0.470.1`, `v0.471.0` |
 | Exact external protocol and identity-codec profiles | `v0.20.1`, `v0.26.0`–`v0.30.2`, `v0.306.0`, `v0.392.0`–`v0.395.0`, `v0.407.0`–`v0.410.0` |
 | Database capacity, raw evidence, integrity/encryption/keys, local backup/restore, migration, and scoped early scale | `v0.41.0` through `v0.60.0`, especially `v0.53.0`–`v0.58.0` |
-| Layered durable local and HA jobs/timers with atomic effect handoff, ledger migration, post-retention replay fencing, upgrade compatibility, consumer admission, declared time, retry, fencing and idempotency | `v0.44.1`–`v0.44.9`, consumer matrix, `v0.459.0`, `v0.467.4` |
+| Layered durable local and HA jobs/timers with atomic effect handoff, ledger migration, post-retention replay fencing/anchor assurance, upgrade compatibility, consumer admission, declared time, retry, fencing and idempotency | `v0.44.1`–`v0.44.10`, consumer matrix, `v0.459.0`, `v0.467.4` |
 | Query authority/planning/operators, local coverage/committed sets, cold rehydration, side channels, federation, distributed execution and coverage reconciliation | `v0.72.0`–`v0.100.0`, especially `v0.79.1`–`v0.79.2`; distributed extension at `v0.475.1`–`v0.476.1` |
 | Detection identity/state/placement, split behavior families, entity risk, intelligence lifecycle/matching, ATT&CK | `v0.115.0`–`v0.200.0`, especially `v0.170.0`–`v0.179.0` |
 | Common agent/helper boundary, signed software integrity/self-protection and platform continuity | `v0.205.0` through `v0.267.5`, especially `v0.206.0` |
 | Base API before client, later case/response extensions, credential vault, connector isolation and split provider profiles | `v0.270.0`–`v0.342.0`, `v0.376.0`, `v0.450.1` |
 | Simulated/live forensics, confidential cases, auth/audit, dashboards/scheduled reports and split UIs | `v0.382.0`–`v0.405.0`, especially `v0.400.0`, `v0.402.0` |
 | Wasm, bound actions, storm/kill controls, unknown outcomes, split providers, and recovery | `v0.407.0` through `v0.455.0`, especially `v0.446.0`–`v0.453.2` |
-| Honest node measurement assurance, optional attestation closure, signed builds, admission, anti-rollback and runtime quarantine | `v0.456.0`–`v0.457.0`, `v0.460.0`, `v0.465.1`, `v0.483.0`, `v0.483.1` |
-| State CFT/HA, raw quorum, tenant propagation, distributed query, discovery/routing/proxy trust, SRE/DR/scale/admin | `v0.459.0` through `v0.484.1`, especially `v0.465.1`–`v0.479.1` |
+| Honest node/keystore/rollback assurance, optional attestation and hardware-monotonic closure, signed builds, admission, anti-rollback and runtime quarantine | `v0.20.6`, `v0.44.10`, `v0.456.0`–`v0.457.0`, `v0.460.0`, `v0.465.1`, `v0.483.0`, `v0.483.1` |
+| State CFT/HA, independently witnessed scheduler fence, raw quorum, tenant propagation, distributed query, discovery/routing/proxy trust, SRE/DR/scale/admin | `v0.459.0` through `v0.484.1`, especially `v0.465.1`–`v0.482.0` |
 | Regulated cryptographic-mode claims require an applicable validated boundary or explicit rejection | `v0.530.0` |
 | Every optional 1.0 capability has a binding decision and implementation-or-non-goal closure | `v0.100.1`, reserved closures, audited at `v0.730.0` |
 
@@ -112,9 +112,9 @@ authority.
 `v0.44.5` requires every persistent timer/job consumer to declare job identity,
 checkpoint, cancellation, misfire/catch-up/skip, idempotency, recovery and
 uncertain-time behavior. Externally visible effects additionally use `v0.44.4`
-and its `v0.44.7` compatibility gate; every ledger passes `v0.44.9`, and any
-migrating ledger also passes `v0.44.8`. The generic scheduler never owns blind
-effect retries.
+and its `v0.44.7` compatibility gate; every ledger passes `v0.44.9`–`v0.44.10`,
+and any migrating ledger also passes `v0.44.8`. The generic scheduler never owns
+blind effect retries.
 
 | Consumer | Integration owner |
 | --- | --- |
@@ -169,9 +169,11 @@ requires an explicit boundary, rejection behavior and documentation. No decision
 may be deferred to 1.0.
 
 Runtime claim permits, exact asynchronous/pre-execution coverage contracts,
-ledger-migration uniqueness and post-retention handoff replay fencing are
-mandatory correctness prerequisites, not optional capabilities; they cannot be
-disabled or converted into 1.0 non-goals through this register.
+ledger-migration uniqueness, post-retention handoff replay fencing and the
+`ExternalWitnessed`/`Unverifiable` fail-closed anchor model are mandatory
+correctness prerequisites, not optional capabilities. Only platform-specific
+`HardwareMonotonic` support is optional; the mandatory baseline cannot be
+disabled or converted into a 1.0 non-goal through this register.
 
 | Option | Binding decision/closure |
 | --- | --- |
@@ -186,6 +188,7 @@ disabled or converted into 1.0 non-goals through this register.
 | Optional Wasm extensions and proposal-only AI | `v0.420.0` and `v0.485.0` prove complete disable paths |
 | Privileged/OS-backed runtime measurement | Decide at `v0.456.0`; if admitted implement `v0.456.2`; close at `v0.456.5` |
 | Hardware measured boot and remote attestation | Decide at `v0.456.0`; if admitted implement `v0.456.3`–`v0.456.4`; close at `v0.456.5` |
+| Hardware/OS monotonic anti-replay fence anchor | Decide per platform at `v0.456.0`; if admitted implement counter evidence/reset handling in `v0.456.2`–`v0.456.3`; close at `v0.456.5`; rejection retains mandatory `ExternalWitnessed`/`Unverifiable` behavior |
 | Post-destruction audit-pseudonym re-identification | Permit or forbid at `v0.457.2`; implement the selected path at `v0.457.4`; close at `v0.457.5` |
 | Byzantine/compromised-backend truth guarantees | `v0.462.0` closes as a 1.0 non-goal; manifests authenticate claims but do not prove backend honesty |
 | Regulated cryptographic operating mode | Admit or reject at `v0.530.0` |
@@ -1137,6 +1140,9 @@ Deliverables:
 - tenant/source/purpose domain separation so agent, relay and server spool keys
   are neither interchangeable nor derivable across roles;
 - anti-rollback binding, least-privilege access and unattended-boot policy;
+- explicit `PreventRollback`, `DetectInconsistency` or `NoRollbackEvidence`
+  capability per adapter: an ordinary keystore/encrypted-file value cannot imply
+  a monotonic counter or `v0.44.10` `HardwareMonotonic` fence assurance;
 - rotation is manually/event driven here; persistent timing is prohibited until
   shared-scheduler integration at `v0.44.6`.
 
@@ -1144,6 +1150,8 @@ Verification:
 
 - key theft/substitution/rollback, permission loss, corrupt keystore, rotation
   interruption, reinstall/clone and hardware-provider outage;
+- full disk-image rollback and hardware/OS counter reset/reprovision distinguish
+  prevention from detection-only behavior;
 - platform matrix and no-third-party feasibility review;
 - spool data cannot be decrypted or silently reinitialized under the wrong
   device/service identity, role or key domain.
@@ -2009,7 +2017,7 @@ Deliverables:
   separate stores rather than claiming a shared transaction domain;
 - no production effect adapter activates until its owning durable outbox/action
   ledger milestone plus `v0.44.8` migration and `v0.44.9` post-retention replay
-  gates pass.
+  gates and `v0.44.10` current anchor assurance pass.
 
 Verification:
 
@@ -2095,7 +2103,8 @@ Deliverables:
 - upgrade/migration order, dual-read/write limits and irreversible boundaries;
 - old/new worker fencing and stable canonical `HandoffKey` identity across schema
   changes, including authority-domain and routing-epoch fields required by
-  `v0.44.8` plus anti-replay epoch/tombstone fields required by `v0.44.9`.
+  `v0.44.8`, anti-replay epoch/tombstone fields required by `v0.44.9` and anchor-
+  assurance/witness fields required by `v0.44.10`.
 
 Verification:
 
@@ -2162,9 +2171,9 @@ Deliverables:
   terminal disposition and anti-replay epoch, but no payload or external identity;
 - tombstone retention covering the maximum scheduler-journal, outbox-replica,
   delayed-delivery, backup, restore and disaster-recovery replay horizon;
-- irreversible scheduler/consumer minimum-accepted anti-replay epoch fence for
-  intents older than retained tombstones, persisted outside rollback-prone
-  workload snapshots;
+- scheduler/consumer minimum-accepted anti-replay epoch fence for intents older
+  than retained tombstones, persisted separately from workload snapshots and
+  usable for dispatch only under the `v0.44.10` anchor-assurance contract;
 - coordinated GC proof across scheduler journals, outbox generations/replicas,
   backup catalogs and disaster-recovery copies before payload/dedup/tombstone
   removal or replay-fence advancement;
@@ -2185,13 +2194,63 @@ Verification:
   the minimum accepted epoch;
 - tombstone correlation/dictionary/privacy attacks, tenant destruction,
   anti-replay key rotation/loss and crypto-shred conformance;
-- model proof that either a live key record, spent tombstone or irreversible
-  epoch fence rejects every replayable historical intent.
+- model proof that either a live key record, spent tombstone or currently
+  verifiable epoch anchor rejects every replayable historical intent.
 
 Exit criteria: no retained or restorable historical artifact can make a spent
 handoff key usable again, while replay protection retains no unnecessary tenant
 identity or payload. `v0.44.9 implementation stop reached. Run pentest for this
 exact commit.`
+
+### v0.44.10 — Anti-Replay Fence Anchor Assurance
+
+Status: planned
+
+Goal: distinguish a logically monotonic fence from evidence that can resist or
+detect full-host, disk-image and workload-state rollback.
+
+Deliverables:
+
+- dependency-free `FenceAnchorAssurance` state machine with exactly
+  `HardwareMonotonic`, `ExternalWitnessed` and `Unverifiable` dispatch states;
+- `HardwareMonotonic` only for an admitted hardware/OS counter profile that proves
+  non-rollback semantics and reset/reprovision handling; ordinary files,
+  encrypted-file fallbacks and generic keystores cannot claim it;
+- mandatory `ExternalWitnessed` baseline using an independent audit domain,
+  cluster consensus witness or `v0.10.3` operator-quorum-signed chained record,
+  bound to authority domain, logical ledger/consumer, minimum epoch, prior record
+  digest, witness identity, signed `TimeTrust` and activation generation;
+- deterministic comparison/merge/conflict rules for multiple witnesses and
+  restore/import; a backup witness is evidence to compare, never authority to
+  lower the active fence;
+- `Unverifiable` on absent/corrupt/conflicting/stale/reset evidence: historical
+  data may mount read-only, but scheduler/outbox/action/notification dispatch and
+  compensation remain disabled; no automatic fresh-epoch initialization;
+- epoch-advance barrier proving no older `HandoffPending`, `UnknownOutcome`,
+  compensation, reconciliation, delayed-delivery or registered effect state can
+  remain live in journals, replicas, backups or DR copies; unknown/unproven
+  consumers block advancement and require retaining spent-key tombstones;
+- explicit authorized reconciliation ceremony from read-only recovery to a
+  current hardware or external witness, with immutable audit evidence.
+
+Verification:
+
+- full-host/disk-image rollback and clone of an old backup onto a replacement
+  machine;
+- missing/corrupt/conflicting witnesses, witness rollback and attempted fresh
+  initialization;
+- hardware counter reset/reprovision, clone, unsupported provider and downgrade
+  to a local file/keystore;
+- candidate epoch advance with every older pending/unknown/compensation/
+  reconciliation/delayed state, incomplete consumer registry or unavailable copy;
+- read-only recovery followed by authorized fence reconciliation, including
+  wrong quorum, stale witness and audit omission;
+- model proof that effect dispatch is possible only with a current verified
+  anchor and cannot advance beyond the proven live-state barrier.
+
+Exit criteria: fence assurance states exactly what prevents or detects rollback;
+missing proof is `Unverifiable` and fail-closed for every external effect.
+`v0.44.10 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.45.0 — Storage Workload Scheduler
 
@@ -2513,7 +2572,9 @@ Deliverables:
   control/audit state and key references;
 - incremental/full backup, retention, verification and encrypted destination
   adapter;
-- clean-directory restore, dependency ordering, reindex and post-restore proof.
+- clean-directory restore, dependency ordering, reindex and post-restore proof;
+- export the current signed `v0.44.10` fence witness/assurance record beside the
+  backup without treating that copy as authority to lower an active fence;
 - `v0.44.5` backup profile; restore/recovery remains explicit operator work and
   never depends on scheduler availability.
 
@@ -2522,6 +2583,11 @@ Verification:
 - backup concurrent with ingest/compaction, crash, missing/corrupt object,
   stale manifest, wrong/lost key and disk-full;
 - restore to empty host, point-in-time boundary and authorization/audit checks;
+- restore/clone behind the active external/hardware witness, missing/conflicting
+  witness and full-host image rollback: mount read-only as `Unverifiable`, never
+  initialize a fresh epoch or dispatch effects;
+- authorized witness reconciliation can re-enable effects only after the active
+  fence and all older live-state barriers prove current;
 - independent reconstruction and source/reference integrity comparison.
 
 Exit criteria: `v0.58.0` can test an implemented backup/restore path with a
@@ -5061,12 +5127,15 @@ Deliverables:
 - typed notification envelope, transactional outbox, delivery attempts and
   terminal outcome ledger;
 - sandboxed email/webhook/messaging adapters with secret/egress capabilities;
-- idempotency, rate/fairness, retry/dead-letter, redaction and audit policy.
+- idempotency, rate/fairness, retry/dead-letter, redaction and audit policy;
+- `v0.44.4` handoff plus `v0.44.9` spent-key retention, and registration of every
+  delayed/unknown/dead-letter delivery in the `v0.44.10` epoch-advance barrier.
 
 Verification:
 
 - crash between enqueue/send/ack, duplicate, reorder, provider timeout and
   unknown outcome;
+- candidate replay-fence advance while an older delivery/dead letter remains;
 - webhook redirect/rebinding, secret leakage, cross-tenant and flood attacks;
 - conservation and user-visible delivery-status tests.
 
@@ -5784,12 +5853,17 @@ Deliverables:
 - typed steps, branching, waits, retries, deadlines, idempotency and recovery;
 - `v0.44.5` wait/delayed-compensation profiles; external effects use `v0.44.4`
   handoff and the later action ledger rather than scheduler retries;
+- every pending/unknown/reconciliation/verification/compensation/delayed state
+  registers its minimum live anti-replay epoch with the `v0.44.10` advance
+  barrier and unregisters only at a durable terminal/spent transition;
 - immutable execution audit and deterministic dry-run plan.
 
 Verification:
 
 - exhaustive small-workflow transitions and crash/retry/cancel at every state;
 - duplicate delivery, stale approval, timeout and compensation failures;
+- epoch advance with an older live state, missing registry entry or crash between
+  terminal transition and spent-key publication;
 - workflow fuzz/model checking and replay.
 
 Exit criteria: no workflow step executes from an invalid or unaudited state.
@@ -5902,13 +5976,18 @@ Deliverables:
 - provider/tenant/action idempotency ledger, target/precondition snapshot and
   dispatch receipt state;
 - verification-before-retry rules and explicit manual reconciliation for
-  providers without reliable idempotency keys.
+  providers without reliable idempotency keys;
+- `v0.44.10` live-epoch registration for dispatch, `UnknownOutcome`, manual/
+  automatic reconciliation and compensation, blocking fence advancement until
+  durable terminal/spent proof.
 
 Verification:
 
 - crash or partition before/after every send, provider apply and response write;
 - stale worker, duplicate dispatch, idempotency collision/expiry, unverifiable
   target and provider lying/timeout;
+- attempted fence advance/GC while any older action state remains live or its
+  provider outcome is unknown;
 - state-machine model proving no unknown outcome is reported as failure or safe
   retry without reconciliation.
 
@@ -6144,21 +6223,27 @@ Goal: bind honest 1.0 support/non-goal decisions before node-integrity claims.
 Deliverables:
 
 - separate decisions for privileged/OS-backed runtime measurement and hardware
-  measured boot/remote attestation;
+  measured boot/remote attestation, plus per-platform hardware/OS monotonic
+  anti-replay fence anchoring;
 - platform availability, trust anchor, freshness, privacy, recovery, operations,
   zero-third-party feasibility and support-cost analysis;
 - admitted routes through `v0.456.2`–`v0.456.4`; rejected routes require tested
-  non-goals at `v0.456.5` and remain `Unverifiable` where appropriate.
+  non-goals at `v0.456.5` and remain `Unverifiable` where appropriate;
+- rejecting `HardwareMonotonic` never removes the mandatory `v0.44.10`
+  `ExternalWitnessed` baseline or effect-disable behavior when unverifiable.
 
 Verification:
 
 - signed decision/owner for each option and exact admitted platforms/assurance;
 - challenge self-measurement, compromised-process, replay and downgrade claims;
+- counter rollback/reset/reprovision and attempts to label a file/ordinary
+  keystore value as hardware monotonic;
 - reject any plan that converts an unavailable/untrusted report into healthy.
 
-Exit criteria: both optional assurance levels are admitted with bounded scope or
-explicitly rejected for 1.0. `v0.456.0 implementation stop reached. Run pentest
-for this exact commit.`
+Exit criteria: all three optional assurance capabilities are admitted with
+bounded platform scope or explicitly rejected for 1.0 without weakening the
+external-witness baseline. `v0.456.0 implementation stop reached. Run pentest for
+this exact commit.`
 
 ### v0.456.1 — Node Measurement Assurance Model
 
@@ -6173,6 +6258,9 @@ Deliverables:
   attestation and `Unverifiable`;
 - evidence issuer, target build/config, freshness, nonce, trust, policy and
   limitation fields with monotonic non-upgrade rules;
+- separate `v0.44.10` fence-anchor assurance dimension: node measurement or
+  attestation never implies rollback prevention; only counter/witness evidence
+  can yield `HardwareMonotonic`/`ExternalWitnessed`, otherwise `Unverifiable`;
 - explicit rule that self-report alone cannot prove a fully compromised process
   healthy or impersonate a stronger assurance level.
 
@@ -6196,12 +6284,15 @@ Deliverables:
 
 - narrowly scoped OS/privileged adapters for admitted platforms and artifacts;
 - authenticated evidence bound to process/image/config/build identity and epoch;
-- capability discovery, freshness, failure and unsupported-platform semantics.
+- capability discovery, freshness, failure and unsupported-platform semantics;
+- if separately admitted, OS monotonic-counter adapter with authenticated
+  counter identity/value, reset/reprovision state and `v0.44.10` binding.
 
 Verification:
 
 - compromised/unavailable helper, process replacement, stale PID/image and TOCTOU;
 - forged/replayed evidence, permission loss and platform update matrix;
+- counter rollback/reset/reprovision, cloned host and fallback-to-file downgrade;
 - no-third-party feasibility and privileged-boundary pentest.
 
 Exit criteria: admitted OS-backed evidence cannot be replaced by process self-
@@ -6217,11 +6308,14 @@ Deliverables:
 
 - supported root-of-trust, boot/event-log and device identity profiles;
 - nonce-bound evidence acquisition with firmware/boot-chain/config provenance;
-- enrollment, key rotation/revocation, privacy and unavailable-state behavior.
+- enrollment, key rotation/revocation, privacy and unavailable-state behavior;
+- if separately admitted, hardware monotonic-counter evidence distinct from
+  measured-boot evidence, including reset/replacement/reprovision semantics.
 
 Verification:
 
 - replay, cloned identity, stale boot log, reset/reprovision and trust-root change;
+- counter/boot-evidence confusion and counter reset masked by valid measured boot;
 - malformed event log, unsupported firmware and hardware-provider outage;
 - real-device interoperability and hardware-boundary pentest.
 
@@ -6255,7 +6349,8 @@ exact commit.`
 
 Status: planned
 
-Goal: close both optional node-assurance decisions before server integrity ships.
+Goal: close all optional node/fence-assurance decisions before server integrity
+ships.
 
 Deliverables:
 
@@ -6263,16 +6358,21 @@ Deliverables:
   `v0.456.4` paths with platform/support boundaries;
 - if rejected: explicit 1.0 non-goal, disabled configuration/API/claim paths and
   mandatory `Unverifiable` handling;
+- close `HardwareMonotonic` per platform; rejection preserves
+  `ExternalWitnessed` and disables effects whenever no current witness exists;
 - either path updates cluster admission, operations, SDK/API and documentation.
 
 Verification:
 
 - admitted path: end-to-end evidence, downgrade, outage and real-platform matrix;
 - rejected path: configuration/API rejection and support-claim audit;
-- self-report can never be promoted to OS-backed or hardware-attested health.
+- self-report can never be promoted to OS-backed or hardware-attested health;
+- ordinary local storage/keystore or measured boot alone can never be promoted
+  to monotonic anti-replay fence assurance.
 
-Exit criteria: privileged runtime measurement and hardware remote attestation are
-each implemented within admitted bounds or conclusively excluded from 1.0.
+Exit criteria: privileged runtime measurement, hardware remote attestation and
+hardware/OS monotonic fence anchoring are each implemented within admitted bounds
+or conclusively excluded from 1.0 without weakening witnessed fail-closed fencing.
 `v0.456.5 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.457.0 — Server And Node Software Integrity Baseline
@@ -6287,6 +6387,8 @@ Deliverables:
 - signed server binary/component/update manifests with build/toolchain identity;
 - startup binary/build/configuration digest measurement labeled under `v0.456.1`;
 - anti-rollback, incompatible-feature rejection and revoked-build policy;
+- label whether each platform prevents rollback or only detects build/config
+  inconsistency; this startup control cannot imply a `v0.44.10` monotonic fence;
 - explicit impaired/unmeasurable state rather than false healthy integrity;
 - optional OS/hardware evidence only through admitted `v0.456.5` paths; ordinary
   process self-measurement never claims remote attestation.
@@ -6294,6 +6396,8 @@ Deliverables:
 Verification:
 
 - binary/helper/config/manifest substitution, signature confusion and rollback;
+- full disk-image/host rollback distinguishes detection from prevention and
+  forces effect-fence `Unverifiable` where no current witness/counter remains;
 - measured-after-start mutation where detectable, missing measurement and stale
   revocation/configuration;
 - compromised self-report remains `Unverifiable` and triggers configured policy;
@@ -6667,13 +6771,18 @@ Deliverables:
   journals and fencing epochs;
 - leases, snapshots, compaction, watch streams and idempotency records;
 - separate storage/scheduling, tenant quotas, encryption, backup/restore,
-  migration, RPO/RTO and impairment interfaces.
+  migration, RPO/RTO and impairment interfaces;
+- monotonic cluster anti-replay fence register in a dedicated control/anchor
+  group, excluded from ordinary workload snapshots and exposing signed witness
+  checkpoints for independent audit/operator comparison.
 
 Verification:
 
 - implementation/model trace comparison under deterministic network schedules;
 - concurrent/stale writes, leader/owner loss, partition, duplicate/reorder,
   snapshot/compaction race, watch gap, restore and tenant isolation;
+- workload-snapshot restore cannot lower the anchor-group fence; whole-cluster
+  restore behind an external witness becomes `Unverifiable` rather than current;
 - sustained fault/load campaign and operational-state pentest.
 
 Exit criteria: the engine conforms to `v0.465.2`; later HA milestones add only
@@ -6767,13 +6876,17 @@ Deliverables:
 - `v0.457.5` tenant-destruction disposition for delivery records and external
   action receipts, retaining no routable tenant authority;
 - fenced ownership, progress/custody checkpoints, retry/unknown-outcome and
-  per-class RPO/RTO.
+  per-class RPO/RTO;
+- replicated minimum-live effect epochs for notification/delivery state, feeding
+  the `v0.44.10` cluster advance barrier before tombstone GC/fence advancement.
 
 Verification:
 
 - failover at every job checkpoint, acquisition custody step, notification send
   and API side effect;
 - stale worker, duplicate retry, unknown outcome, cancellation and restore;
+- fence advance while an older delivery/unknown/dead-letter state exists on any
+  owner, replica or backup;
 - conservation and no authority/custody expansion after failover.
 
 Exit criteria: failover neither duplicates outward effects nor loses job,
@@ -6790,6 +6903,8 @@ of the operations they record.
 Deliverables:
 
 - independently keyed audit-record/cursor adapters over `v0.465.3`;
+- independently signed witness chain for `v0.44.10` anti-replay fence epochs,
+  retained outside operational-state/workload snapshot and restore authority;
 - independently deployed audit consensus groups with separate administrative,
   scheduler, storage and failure domains from operational state;
 - append sequencing, remote placement, acknowledgement, gap and retention RPO/
@@ -6805,6 +6920,8 @@ Verification:
 - writer/admin/replica failure, partition, omission, reorder, duplicate, stale
   cursor, full destination and restore;
 - compromised operational authority cannot alter replicated audit history;
+- missing/conflicting fence checkpoint, operational rollback and attempted audit-
+  witness rollback/fork;
 - loss/compromise of the operational-state cluster does not remove the audit
   replica set or its recovery authority;
 - tenant destruction cannot erase required retained audit, reactivate authority
@@ -6819,7 +6936,7 @@ Run pentest for this exact commit.`
 
 Status: planned
 
-Goal: fail over `v0.44.1`–`v0.44.9` scheduler state/dispatch semantics through
+Goal: fail over `v0.44.1`–`v0.44.10` scheduler state/dispatch semantics through
 the replicated operational-state engine without duplicate authority.
 
 Deliverables:
@@ -6836,7 +6953,11 @@ Deliverables:
   validated routing/commit-epoch receipt and one `v0.467.2` outbox record across
   owner/leader or ledger-generation failover;
 - replicated `v0.44.9` spent-key commitments, coordinated replay-horizon GC and
-  monotonic minimum-accepted anti-replay epoch outside rollback-prone snapshots;
+  monotonic minimum-accepted anti-replay epoch in the `v0.465.3` anchor group,
+  checked against the `v0.467.3` independent witness or operator-quorum record;
+- `v0.44.10` assurance gate: current `ExternalWitnessed` (or later admitted
+  `HardwareMonotonic`) permits dispatch; missing/conflicting/behind evidence is
+  `Unverifiable` and permits read-only recovery/reconciliation only;
 - same handoff key/different digest integrity incident and the `v0.44.4`
   cancellation precedence preserved across separate replicated state groups;
 - per-job-class RPO/RTO and rebuild-from-immutable-evidence option where declared.
@@ -6853,13 +6974,18 @@ Verification:
   during owner or leader failover;
 - restore an operational-state snapshot older than outbox/dedup/tombstone cleanup
   and prove the replicated replay fence still rejects its intents;
+- whole-cluster restore behind the independent witness, missing/conflicting
+  witness, anchor-group rollback and attempted fresh epoch initialization;
+- epoch advance is rejected while any node/partition/backup can retain older
+  pending/unknown/reconciliation/compensation/delayed effect state;
 - stale worker, duplicate dispatch, lease expiry, dependency storm, restore and
   tenant/noisy-neighbor failures;
 - local/HA scheduler state-machine equivalence and canonical idempotent outcomes.
 
 Exit criteria: scheduled work survives failover within declared RPO/RTO without
-exactly-once claims or concurrent unfenced owners. `v0.467.4 implementation stop
-reached. Run pentest for this exact commit.`
+exactly-once claims or concurrent unfenced owners, and effect dispatch remains
+disabled whenever the current cluster fence cannot be independently verified.
+`v0.467.4 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.468.0 — Alert, Incident And Case State HA
 
@@ -6897,12 +7023,15 @@ Deliverables:
 - playbook/action/approval/outbox adapters over `v0.465.3`;
 - replicated playbook state, approvals, outbox/inbox and idempotency ledger;
 - fenced worker recovery and `UnknownOutcome` reconciliation after owner loss;
-- RPO/RTO and durable linkage to action envelopes, verification and audit.
+- RPO/RTO and durable linkage to action envelopes, verification and audit;
+- replicated minimum-live epochs for every pending/unknown/reconciliation/
+  compensation state, blocking `v0.44.10` fence advancement until terminal/spent.
 
 Verification:
 
 - failover before/after dispatch/provider apply/receipt/verification;
 - stale worker, duplicate send, approval race, compensation and region partition;
+- fence advance/GC with an older live effect state on a failed owner or replica;
 - state-machine/model comparison under replicated-log faults.
 
 Exit criteria: failover cannot authorize a new effect or turn uncertainty into a
@@ -7334,17 +7463,24 @@ Deliverables:
 
 - backup/restore for control, evidence, keys, operational state and audit;
 - repair/reindex/migration ordering, consistency points and dependency manifest;
-- full disaster runbooks, clean-room bootstrap and recovery verification.
+- full disaster runbooks, clean-room bootstrap and recovery verification;
+- export signed hardware/external fence evidence and compare restore state with
+  the current independent `v0.44.10` witness; backup contents cannot lower it;
+- `Unverifiable` read-only recovery plus operator-quorum reconciliation when no
+  current non-rollback anchor can be established.
 
 Verification:
 
 - stale/partial/corrupt backup, missing key, incompatible version and interrupted
   restore;
+- entire cluster/host restored behind the witnessed epoch, replacement-machine
+  clone, missing/conflicting witness and attempted fresh epoch initialization;
 - point-in-time/state-class RPO checks and post-restore authorization/audit;
 - independent clean-environment disaster exercise.
 
 Exit criteria: restored state is complete to declared recovery points, and every
-unavailable class is explicit. `v0.481.0 implementation stop reached. Run
+unavailable class is explicit; recovery cannot lower the effect fence or dispatch
+while its anchor is unverifiable. `v0.481.0 implementation stop reached. Run
 pentest for this exact commit.`
 
 ### v0.482.0 — Air-Gapped And Sovereign Operations
@@ -7358,18 +7494,26 @@ Deliverables:
 
 - signed offline update, trust, configuration, rule and component bundles;
 - policy-aware evidence/import export, transfer custody and replay protection;
-- offline freshness/revocation limitations and deterministic re-entry workflow.
+- offline freshness/revocation limitations and deterministic re-entry workflow;
+- operator-quorum-signed chained anti-replay fence bundle carrying authority/
+  consumer epochs and prior digest; import rejects older/forked bundles and can
+  never lower a locally current hardware/external witness;
+- missing current fence bundle yields `Unverifiable` read-only operation with
+  effect dispatch disabled until authorized reconciliation.
 
 Verification:
 
 - tampered/stale/replayed bundle, revoked signer, clock uncertainty and partial
   transfer;
+- old air-gap fence bundle replay, forked quorum records, removable-media rollback
+  and reconciliation after prolonged disconnection;
 - cross-domain policy/redaction/custody and removable-media attacks;
 - prolonged disconnected operation and reconnection rehearsal.
 
 Exit criteria: air-gapped operation neither bypasses trust/policy nor claims
-fresh online revocation knowledge. `v0.482.0 implementation stop reached. Run
-pentest for this exact commit.`
+fresh online revocation/fence knowledge, and stale/missing fence bundles disable
+effects. `v0.482.0 implementation stop reached. Run pentest for this exact
+commit.`
 
 ### v0.483.0 — Rolling Upgrade And Deterministic Rollback
 
@@ -7787,12 +7931,16 @@ Deliverables:
 
 - crash, power-loss, corruption, disk-full, network and clock fault campaigns;
 - single-node, cluster, multi-region, air-gap and endpoint recovery scenarios;
-- conservation, durability-vector, impairment and recovery evidence bundles.
+- conservation, durability-vector, impairment and recovery evidence bundles;
+- full-host/disk-image/whole-cluster rollback and `v0.44.10` hardware/external/
+  unverifiable fence-assurance campaigns.
 
 Verification:
 
 - faults at each durable transition and simultaneous dependent failures;
 - stale/partial restore, corrupt backup, uncertain clock and operator error;
+- replacement-machine clone, old air-gap bundle, missing/conflicting witness,
+  counter reset and read-only recovery/reconciliation under effect-disable gates;
 - independent chaos schedule reproduction and invariant review.
 
 Exit criteria: every promised recovery path survives its declared fault model or
@@ -8254,8 +8402,11 @@ explicit maintainer authorization and never publishes internal crates.
   digest, linearizable put-if-absent and validated receipt to create one outbox
   record per handoff key; ledger migration fences generations and preserves the
   deduplication index without placing the routing epoch in that key, while
-  non-identifying spent-key commitments and an irreversible anti-replay epoch
-  reject old journals/messages/restores after ordinary record retention.
+  non-identifying spent-key commitments and a current `HardwareMonotonic` or
+  `ExternalWitnessed` fence reject old journals/messages/restores after ordinary
+  record retention. `Unverifiable` recovery is read-only for effects, never
+  initializes a fresh epoch, and fence advancement proves no older pending/
+  unknown/reconciliation/compensation/delayed state remains.
 - Storage survives crash, corruption, node/rack/region loss and rolling upgrade.
 - Historical hot/cold, live, temporal, graph, federated and distributed-physical
   VQL queries work safely with canonical coverage manifests, verifiable

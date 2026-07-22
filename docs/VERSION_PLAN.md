@@ -23,14 +23,14 @@ The sequence remains:
 | --- | --- |
 | `v0.1.0`–`v0.20.9` | early fixture governance, portable/host crypto, split time, text/certificate codecs, operator authority, local tenant lifecycle/control, runtime/TLS, device keys/PKI, encrypted raw persistence, and objectives |
 | `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/gRPC, OTLP/OCSF, authenticated time refinement, secure transport, canonical acknowledgement, historical evidence, claim registry and runtime permit authority, backfill/reprocessing, and hardening |
-| `v0.41.0`–`v0.60.0` | storage, isolated scheduler core/store/worker, authority-scoped atomic effect handoff, ledger-migration fencing/deduplication, spent-key replay protection, exact index-coverage claims, mixed-version integration, raw evidence, integrity/keys, backup/restore, migration/reindex, and local multi-terabyte proof |
+| `v0.41.0`–`v0.60.0` | storage, isolated scheduler core/store/worker, authority-scoped atomic effect handoff, ledger migration, spent-key replay protection and rollback-anchor assurance, exact index-coverage claims, mixed-version integration, raw evidence, integrity/keys, backup/restore, migration/reindex, and local multi-terabyte proof |
 | `v0.65.0`–`v0.100.1` | VQL authority/planning, pre-execution canonical local coverage and authoritative expected-set commitments, operators/cold queries, hardening, and binding admission decisions for optional 1.0 evidence/ingestion capabilities |
 | `v0.110.0`–`v0.200.0` | deterministic detection/state, authoritative active-rule-set/cohort commitments and progress acknowledgement, behavior/risk/intelligence, conditional artifact-matching implementation/integration, ATT&CK, interoperability, and rollout |
 | `v0.205.0`–`v0.268.0` | agent integrity, native platforms, conditional WEF and per-format executable implementation/integration, Kubernetes, and future Aesynx portability |
 | `v0.270.0`–`v0.342.0` | API, compartmented platform vault, isolated connector host, provider contracts, conditional cloud archive/stream and PCAP implementation series, integrity content, and notification substrate |
 | `v0.345.0`–`v0.405.0` | transactional alert notifications, analyst workflow, identity/auth, live forensics, dashboards/scheduled reports, authorization/audit, and local UIs |
-| `v0.407.0`–`v0.458.0` | Wasm/response, action recovery, node measurement/attestation decisions, server integrity, tenant audit/identifier/pseudonym policy, and all-plane single-node tenant lifecycle conformance |
-| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, scheduler/state HA, cluster acknowledgement extension before quorum activation, tenant/audit propagation, distributed coverage extension/reconciliation, routing/proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
+| `v0.407.0`–`v0.458.0` | Wasm/response, action recovery, node measurement/attestation and optional hardware-monotonic-anchor decisions, server integrity, tenant audit/identifier/pseudonym policy, and all-plane single-node tenant lifecycle conformance |
+| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, independently witnessed scheduler fence/state HA, cluster acknowledgement extension before quorum activation, tenant/audit propagation, distributed coverage extension/reconciliation, routing/proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
 | `v0.485.0`–`v0.520.0` | optional proposal-only AI plus separate privacy-policy, field/purpose, residency, retention/deletion, and compliance-workflow stops |
 | `v0.530.0` | approved-cryptographic-mode admission or explicit rejection |
 | `v0.540.0`–`v0.570.0` | separate endpoint, ingest/storage, query/detection/analyst, and cluster/recovery performance campaigns |
@@ -71,8 +71,10 @@ architecture:
   authority domain, consumer/job/ordinal/stable-logical-ledger key, canonical
   digest, linearizable put-if-absent and validated receipt across recovery and
   mixed versions; a separately fenced routing epoch preserves uniqueness across
-  ledger migration, while spent-key commitments and an irreversible replay epoch
-  preserve it after ordinary record retention and old-snapshot restore;
+  ledger migration, while spent-key commitments plus a hardware/external/
+  unverifiable anchor state preserve it after ordinary record retention and old-
+  snapshot restore; unverifiable state disables effects, and the epoch cannot
+  advance past any older live effect state;
 - storage and query admission are designed for worst-case work and multi-tenant
   isolation before large-scale deployment;
 - early storage scale claims are local; cluster node, quorum, evacuation and
@@ -119,7 +121,9 @@ architecture:
   re-identification authority follow explicit closed policy;
 - signed-build, startup, privileged OS and hardware-attested node evidence are
   distinct assurance levels; optional levels close before 1.0 and self-report
-  cannot become remote attestation;
+  cannot become remote attestation; node/keystore evidence separately states
+  whether rollback is prevented, merely detected or unverifiable, and cannot
+  promote an ordinary local value to `HardwareMonotonic`;
 - epoch-bound cluster admission, anti-rollback and runtime drain/quarantine
   extend software integrity beyond endpoint agents;
 - canonical local query coverage precedes the first executor, joins, sets and
@@ -146,20 +150,23 @@ options skip implementation but still pass the tested non-goal integration gate.
 Admitted work may add more intermediate versions rather than enlarge that gate.
 
 Named providers, eBPF/driver surfaces, Aesynx support, Wasm/AI enablement,
-privileged OS runtime measurement, hardware remote attestation, regulated
-cryptographic mode and SDK publication close through their owning milestones in
+privileged OS runtime measurement, hardware remote attestation, hardware/OS
+monotonic fence anchoring, regulated cryptographic mode and SDK publication close
+through their owning milestones in
 [RELEASE_PLAN.md](RELEASE_PLAN.md). Node assurance is decided at `v0.456.0`,
 conditionally implemented through `v0.456.4`, and closed at `v0.456.5`.
 Post-destruction pseudonym re-identification is permitted or forbidden at
-`v0.457.2` and closed at `v0.457.5`; `v0.462.0` closes Byzantine/compromised-
-backend truth guarantees as a 1.0 non-goal. `v0.730.0` rejects every remaining
-conditional/TBD decision or missing closure.
+`v0.457.2` and closed at `v0.457.5`; `v0.462.0` closes
+Byzantine/compromised-backend truth guarantees as a 1.0 non-goal. `v0.730.0`
+rejects every remaining conditional/TBD decision or missing closure.
 
 The `v0.31.3`–`v0.31.4` claim registry/runtime permits, `v0.48.1` and
 `v0.140.1`–`v0.140.2` asynchronous coverage contracts, `v0.79.1`–`v0.79.2`
-pre-execution coverage, and `v0.44.8`–`v0.44.9` migration/post-retention
-uniqueness are mandatory correctness prerequisites. They are not option rows and
-cannot be converted into tested non-goals before 1.0.
+pre-execution coverage, and `v0.44.8`–`v0.44.10` migration/post-retention/
+external-witnessed uniqueness are mandatory correctness prerequisites. They are
+not option rows and cannot become tested non-goals before 1.0. Only per-platform
+`HardwareMonotonic` support is optional; `v0.456.0` decides it and `v0.456.5`
+closes it without weakening `ExternalWitnessed`/`Unverifiable` behavior.
 
 ## Non-Negotiable Boundaries
 

@@ -276,10 +276,15 @@ new generations both accept the same logical handoff key.
 Ordinary record retention cannot reset uniqueness. `v0.44.9` replaces deleted
 payload/outbox state with a non-identifying spent-key/request commitment for the
 maximum journal/backup/restore/delayed-delivery horizon, coordinates GC across
-all copies, and maintains an irreversible minimum accepted anti-replay epoch
-after tombstone expiry. Restoring older data cannot reactivate older intents;
-tenant crypto-shred removes identifying/payload keys without erasing the minimal
-replay fence.
+all copies, and maintains a minimum accepted anti-replay epoch after tombstone
+expiry. `v0.44.10` labels its rollback assurance as `HardwareMonotonic`,
+`ExternalWitnessed` or `Unverifiable`; ordinary files/keystores cannot claim
+hardware resistance. Missing/conflicting/rolled-back evidence mounts historical
+data read-only and disables every effect until authorized reconciliation. The
+epoch advances only after every registered pending, unknown, compensation,
+reconciliation and delayed state below it is terminal/spent; otherwise
+tombstones remain. Tenant crypto-shred removes identifying/payload keys without
+erasing the minimal replay fence.
 Cancellation wins before intent, becomes a request after intent, and cannot erase
 uncertainty after outbox commit. Local and HA paths use intent/receipt recovery
 across separate stores, not an assumed shared transaction. Mixed-version
@@ -295,18 +300,21 @@ skips implementation but still passes the closure gate's tested non-goal path.
 More intermediate versions are added whenever needed—the closure gate may not
 hide a large implementation. AI, regulated cryptographic mode, SDK publication,
 named providers, optional drivers and future Aesynx support retain their own
-decision gates. Privileged OS runtime measurement and hardware remote attestation
-are decided at `v0.456.0`, conditionally implemented through `v0.456.4`, and
-closed at `v0.456.5`. Rejected attestation cannot be replaced by a healthy self-
-report. Post-destruction audit re-identification is permitted or forbidden at
-`v0.457.2` and closed at `v0.457.5`. `v0.462.0` closes Byzantine/compromised-
-backend truth guarantees as a 1.0 non-goal. No conditional or “TBD” capability
+decision gates. Privileged OS runtime measurement, hardware remote attestation
+and platform `HardwareMonotonic` fence anchoring are decided at `v0.456.0`,
+conditionally implemented through `v0.456.4`, and closed at `v0.456.5`.
+Rejection preserves mandatory external witnessing; attestation cannot be
+replaced by a healthy self-report. Post-destruction audit re-identification is
+permitted or forbidden at `v0.457.2` and closed at `v0.457.5`. `v0.462.0` closes
+Byzantine/compromised-backend truth guarantees as a 1.0 non-goal. No conditional
+or “TBD” capability
 may survive `v0.730.0`.
 
 Runtime claim permits, exact asynchronous and pre-execution coverage/expected-
-set contracts, ledger-migration uniqueness and post-retention handoff replay
-fencing are mandatory correctness work, not optional scope. They cannot be
-rejected, disabled or deferred through an option decision.
+set contracts, ledger-migration uniqueness, post-retention handoff replay
+fencing, external witnessing and unverifiable fail-closed dispatch are mandatory
+correctness work, not optional scope. Only `HardwareMonotonic` support is
+conditional; the baseline cannot be rejected, disabled or deferred.
 
 ## 3. Engineering Sequence
 
@@ -500,6 +508,10 @@ recovery.
 Operational-state HA is implemented by state class, and the distributed
 scale/failover campaign occurs only after replication, evacuation, tenancy,
 federation, SRE, and disaster mechanisms exist.
+The replicated scheduler fence lives outside workload snapshots and is witnessed
+by the independent audit/operator domain. Backup, whole-cluster restore and
+air-gap bundles can never lower it; stale/missing/conflicting evidence yields
+read-only `Unverifiable` recovery until an authorized reconciliation ceremony.
 The canonical local acknowledgement envelope and historical verification
 lifecycle precede batching; its cluster extension precedes active-write
 replication and owns practical quorum acknowledgements. The local query coverage
@@ -523,6 +535,9 @@ startup measurement, privileged OS evidence, hardware remote attestation and
 `Unverifiable`; software self-report never implies the stronger levels. Optional
 levels receive binding support/non-goal closure. Signed server builds,
 anti-rollback and an all-plane single-node tenant lifecycle gate must pass.
+Fence-anchor assurance is a separate dimension: only admitted counter evidence
+or an independent witness can authorize effect dispatch; node health, measured
+boot and ordinary keystore state cannot silently upgrade it.
 Control epochs admit exact build identities and required assurance; unknown,
 revoked or under-assured nodes are rejected, and later drift/unverifiable state
 causes policy-driven authenticated drain or quarantine.

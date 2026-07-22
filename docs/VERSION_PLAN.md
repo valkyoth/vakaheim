@@ -19,17 +19,17 @@ The sequence remains:
 
 | Range | Context |
 | --- | --- |
-| `v0.1.0`–`v0.20.8` | constitution, trusted time, usable crypto/text, evidence/facts, local authority, runtime/TLS, device keys/PKI, raw quarantine, diagnostics, and system-wide objectives |
-| `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/2/gRPC, split OTLP/OCSF endpoints, secure transport, backfill/reprocessing, and hardening |
+| `v0.1.0`–`v0.20.8` | constitution, usable crypto, portable/hosted time, text/certificate codecs, offline operator authority, evidence/facts, local control, runtime/TLS, device keys/PKI, and system objectives |
+| `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/gRPC, OTLP/OCSF, authenticated time refinement, secure transport, backfill/reprocessing, and hardening |
 | `v0.41.0`–`v0.60.0` | stable-media storage, raw evidence, integrity/key lifecycle, local backup/restore, migration/reindex, and correctly scoped local multi-terabyte proof |
 | `v0.65.0`–`v0.100.0` | VQL authority/planning/admission, joins/operators, cold catalog/rehydration, graph/live semantics, side-channel controls, and hardening |
 | `v0.110.0`–`v0.200.0` | deterministic detection/state, split behavioral families, entity-risk ledger, intelligence lifecycle/matching, ATT&CK, interoperability, and rollout |
-| `v0.205.0`–`v0.267.0` | common sensor continuity and privilege boundary, native platforms, Kubernetes, and future Aesynx portability |
+| `v0.205.0`–`v0.267.0` | common sensor boundary, signed software integrity/self-protection, native platforms, Kubernetes, and future Aesynx portability |
 | `v0.270.0`–`v0.342.0` | base SDK/API sequence, credential vault, isolated connector host, independently tested provider families, integrity content, and notification outbox |
-| `v0.345.0`–`v0.405.0` | analyst workflow, case API, simulated then authenticated live forensics, split authentication, authorization/audit, confidential cases, and split UIs |
+| `v0.345.0`–`v0.405.0` | alert notification integration, analyst workflow, workload case API, identity-protocol codecs, human API activation, live forensics, authorization/audit, and local UIs |
 | `v0.407.0`–`v0.455.0` | Wasm, bound actions, trigger/storm/kill controls, unknown-outcome dispatch, response API, independently tested action families, and recovery |
-| `v0.459.0`–`v0.484.0` | expanded state matrix/shared replication, consensus-backed control activation, state HA, active-write quorum durability, distributed query, SRE/DR, and scale campaign |
-| `v0.485.0`–`v0.500.0` | optional proposal-only AI, privacy, multi-terabyte performance, verification, independent assessment, beta, and stable-candidate gates |
+| `v0.459.0`–`v0.484.1` | state matrix, formal operational CFT and engine, consensus activation, independent audit HA, raw-aware quorum durability, distributed query, SRE/DR/scale, and cluster administration |
+| `v0.485.0`–`v0.500.0` | optional proposal-only AI, privacy, approved-crypto-mode admission, performance, verification, independent assessment, beta, and stable-candidate gates |
 | `v1.0.0-rc.N`–`v1.0.0` | exact-candidate audit, production proof, and unchanged promotion |
 
 ## Cross-Cutting Strengthening
@@ -44,12 +44,16 @@ architecture:
   source protocol cannot prove continuity;
 - protocol names are backed by pinned normative profiles and fixtures rather
   than broad compatibility claims;
+- DER/X.509, CBOR/COSE, JOSE/OAuth, restricted XML/SAML and SCIM have bounded
+  codecs before TLS or human identity consumes them;
 - cryptography, text, runtime, TLS, raw evidence, transport, API and Wasm
   substrates precede their consumers and each can block the roadmap on an
   unacceptable zero-third-party feasibility result;
 - provider contracts never substitute for a usable provider: trusted time,
   baseline crypto, device/spool keys, PKI and connector credentials each have
   concrete lifecycle and failure milestones;
+- portable, hosted and authenticated-network time are separate trust stages;
+  certificate validation cannot bootstrap from the same unvalidated channel;
 - storage and query admission are designed for worst-case work and multi-tenant
   isolation before large-scale deployment;
 - early storage scale claims are local; cluster node, quorum, evacuation and
@@ -58,6 +62,8 @@ architecture:
   on ambient state;
 - behavior, entity-risk accumulation and threat-intelligence matching have
   separate deterministic state and evidence contracts;
+- entity-risk thresholds remain immutable findings until alert routing promotes
+  them, and generic notification becomes transactional with alerts only later;
 - response approval binds the exact effect plan, with reversible,
   compensatable, and irreversible recovery classes;
 - uncertain external effects use durable dispatch and reconciliation rather
@@ -67,8 +73,14 @@ architecture:
 - each mutable operational-state class has its own consistency, fencing,
   replication, RPO and RTO contract instead of being forced through metadata
   consensus;
+- operational state formally reuses authenticated CFT in separate sharded groups
+  before its engine and state-specific HA are implemented;
 - static control dissemination precedes consensus, but distributed activation
   and `DurableQuorum` claims wait for consensus and active-write replication;
+- quorum acknowledgement carries separate fact, raw, provenance, index and
+  detection progress claims, preserving atomic fact/raw publication;
+- family connector milestones do not claim vendors; each named provider needs
+  its own patch/intermediate interoperability release;
 - cluster safety is authenticated crash-fault tolerance. A compromised voting
   quorum is outside the safety claim and is handled through explicit containment
   and recovery controls, not mislabeled Byzantine tolerance.

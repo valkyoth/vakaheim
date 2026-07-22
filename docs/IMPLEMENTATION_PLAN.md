@@ -128,7 +128,8 @@ forensic acquisition, UI, authentication, Wasm, SOAR, and disaster recovery.
 
 An interface milestone cannot satisfy a consumer dependency by itself.
 `v0.4.3` implements the mandatory baseline cryptographic provider before source
-digests or signatures. `v0.4.4` then provides measured trusted-time uncertainty.
+digests or signatures. `v0.4.4` defines portable time-trust semantics;
+`v0.10.2` measures hosted clocks and `v0.30.2` adds network refinement.
 Device keystore/spool keys and local PKI precede enrollment and agent spooling;
 the connector credential vault precedes the connector host. A provider that
 cannot meet the zero-third-party security gate blocks its consumers.
@@ -154,6 +155,42 @@ action-state HA consume that substrate rather than inventing replication four
 times. The matrix includes identity/session, notification, acquisition,
 backfill, API-idempotency and audit state as well as the original classes.
 
+The shared substrate is not an unnamed second consensus system. It reuses the
+authenticated CFT algorithm in independent sharded groups with separate data,
+storage and scheduling. An operational-state fault model and formal refinement
+prove conditional-write linearizability, journal ordering, lease/fencing safety,
+snapshot installation and watch continuity before the engine is implemented.
+
+### Identity protocols require codecs
+
+TLS and human identity milestones may not hide parser or canonicalization work.
+Portable DER/PEM/X.509 precedes TLS. Bounded CBOR/COSE, JOSE/JWK/JWT/OAuth,
+XML/namespaces/canonicalization/signature restrictions, and SCIM schema/filter/
+pagination stops precede WebAuthn, OIDC, SAML and provisioning respectively.
+All are governed by pinned normative fixtures and zero-third-party feasibility.
+
+### Time has no circular trust bootstrap
+
+Portable `TimeTrust`, uncertainty/epoch semantics and signed-time-token
+verification follow the crypto provider without requiring a host. Hosted clock
+acquisition follows the host-boundary proof. Authenticated network refinement
+follows TLS/networking and cannot bootstrap certificate validity from time
+learned solely through the same unvalidated connection.
+
+### Administrative authority starts offline
+
+Before federated human login exists, hardware/offline operator signing
+identities, quorum/separation policy, recovery/revocation, ceremony transcripts
+and audit binding authorize PKI, vault, provisioning and local activation. The
+later WebAuthn/OIDC system has a witnessed transition from these principals.
+
+### Durability is a vector
+
+Acknowledgement evidence distinguishes fact, raw-capsule, mapping/provenance,
+index and detection progress. `DurableQuorum` never implies raw reconstruction
+unless referenced chunks and manifests meet the same quorum failure claim.
+Cluster publication preserves the local atomic fact/reference/object invariant.
+
 ## 3. Engineering Sequence
 
 ### Stage A: constitution and portable foundations
@@ -167,6 +204,8 @@ policy, and bounded-memory primitives. These crates remain dependency free and
 
 The mandatory crypto implementation and trusted-time provider must pass before
 any digest, signature, certificate or authenticated capability consumer.
+Portable time semantics precede hosted clock acquisition; network refinement is
+deferred until authenticated transport exists.
 
 ### Stage B: facts and interoperability
 
@@ -180,6 +219,8 @@ ranges, parent/output digests, and replay requirements.
 Before ingestion, establish a local control and authority plane for identities,
 trust roots, immutable configuration epochs, registries, authorization
 decisions, capability issuance, and security audit events.
+An offline/local operator authority contract authenticates early ceremonies and
+later transitions into federated human identities.
 
 ### Stage C: ingestion and transport
 
@@ -194,6 +235,9 @@ Hosted runtime, TLS/certificate, Protobuf/compression, HTTP/2/gRPC, bounded raw
 quarantine, and self-observability substrates land as separate prerequisites.
 Device keystore/spool-keying, local PKI and a system-wide deployment/resource/
 latency/RPO/RTO contract also land before operational ingestion.
+Portable DER/PEM/X.509 precedes TLS. Authenticated network-time refinement
+occurs only after transport validates from independent bootstrap trust and
+bounded local time.
 Historical backfill and quarantine reprocessing preserve original, ingest, and
 backfill/reprocess time plus parser/mapping identity.
 
@@ -241,6 +285,8 @@ automatic quarantine/rollback thresholds.
 Behavioral families are separate releases. Entity-risk accumulation and actual
 threat-intelligence streaming/retro-hunt matching are explicit stateful engines,
 not implied by scoring or intelligence lifecycle governance.
+Entity risk emits immutable threshold events/findings; alert routing alone owns
+promotion into mutable alerts.
 
 ### Stage G: native sensors
 
@@ -272,6 +318,9 @@ rule surfaces. Case and response extensions ship beside their state machines.
 Connector credentials come from a dedicated vault/broker. Productivity,
 source-control, ticketing, flow, DNS/DHCP, network-control, email, IDS and
 CEF/LEEF providers each receive independent acceptance milestones.
+Family milestones are contracts, not vendor support claims. Every named vendor
+requires its own patch/intermediate release with schema, cursor, permission,
+rate-limit, outage and live interoperability evidence.
 
 The SDK stays unpublished until a dedicated admission milestone. If publication
 is later approved, only the SDK uses `MIT OR Apache-2.0`.
@@ -289,6 +338,9 @@ Forensic acquisition has its own narrow capability, approval, target fencing,
 and privileged-agent protocol; it never inherits ordinary collector authority.
 The early milestone validates those contracts without live privileged effects;
 live activation follows authentication, elevation and independent audit.
+Case APIs remain workload/internal until human-session activation. The early
+administration UI exposes implemented local features only; cluster and upgrade
+surfaces arrive after Stage K.
 
 ### Stage J: extension and response
 
@@ -326,10 +378,14 @@ Active-write replication owns practical quorum acknowledgements. Distributed
 physical query execution owns authenticated fragments, exchanges, shuffle,
 partial aggregation, distributed joins/graphs, snapshot coordination,
 backpressure, retry, stragglers, worker loss and coordinator/tenant bounds.
+Raw chunks/manifests participate in quorum durability and atomic publication.
+Independent audit HA uses a separately deployed administrative/storage/scheduler
+failure domain, not only different keys in the operational cluster.
 
 ### Stage L: product completion
 
 Add optional audited AI assistance, privacy and compliance enforcement,
+approved-cryptographic-mode admission without unsupported validation claims,
 published reference performance evidence, full verification and chaos
 campaigns, independent assessment and remediation, production-like beta, API
 and format freezes, an exact release candidate, and unchanged 1.0 promotion.
@@ -342,16 +398,17 @@ not permission to create empty crates prematurely.
 | Family | Representative crates | Environment |
 | --- | --- | --- |
 | Facade | `vakaheim` | `no_std` by default |
-| Foundation | `vakaheim-core`, `-bytes`, `-id`, `-time`, `-value`, `-policy`, `-crypto-api`, `-text` | `no_std`; optional `alloc` |
+| Foundation | `vakaheim-core`, `-bytes`, `-id`, `-time`, `-time-trust`, `-value`, `-policy`, `-crypto-api`, `-crypto-provider`, `-text`, `-asn1` | `no_std`; optional `alloc` |
 | Facts | `-event`, `-entity`, `-provenance`, `-integrity`, `-source-capsule` | `no_std`; optional `alloc` |
 | Ingestion | `-ingest-core`, `-parser-sdk`, `-syslog`, `-json`, `-protobuf`, `-otlp`, `-ocsf` | core portable; runtimes `std` |
 | Platform | `-linux`, `-windows`, `-macos`, `-bsd`, `-android`, `-ios`, `-kubernetes` | isolated `std`/FFI |
-| Runtime | `-runtime-core`, OS reactors, channels, HTTP/TLS/protocol transports, enrollment | mixed explicit boundary |
+| Runtime | `-runtime-core`, `-time-host`, OS reactors, channels, HTTP/TLS/PKI/protocol transports, enrollment | mixed explicit boundary |
 | Storage | `-storage-format`, `-wal`, `-segment`, `-raw-store`, `-index`, `-retention`, `-backup` | format `no_std`; engine `std` |
-| Query | `-query-syntax`, `-ast`, `-ir`, `-typecheck`, `-plan`, `-exec`, `-graph` | front-end `no_std + alloc`; exec `std` |
-| Detection | `-rule-model`, `-rule-compiler`, `-detect-core`, `-detect-state`, `-behavior` | core `no_std + alloc`; workers `std` |
+| Query | `-query-syntax`, `-ast`, `-ir`, `-typecheck`, `-plan`, `-exec`, `-query-distributed`, `-graph` | front-end `no_std + alloc`; exec `std` |
+| Detection | `-rule-model`, `-rule-compiler`, `-detect-core`, `-detect-state`, `-behavior`, `-risk-ledger`, `-intel-match` | core `no_std + alloc`; workers `std` |
 | Response | `-wasm-core`, `-wasm-abi`, `-wasm-validate`, `-wasm-host`, `-soar-core`, `-action-ledger`, `-approval` | ABI/core portable; host isolated `std` |
-| Control | `-control`, `-auth`, `-authorization`, `-audit`, `-cluster`, `-federation` | explicit `std` services |
+| Identity | `-cbor`, `-cose`, `-jose`, `-oauth`, `-xml`, `-scim`, `-webauthn`, `-identity-federation` | codecs portable; services `std` |
+| Control | `-control`, `-auth`, `-authorization`, `-audit`, `-pki`, `-credential-vault`, `-opstate`, `-cluster`, `-federation` | explicit `std` services |
 | Analyst | `-finding`, `-incident`, `-case`, `-report`, `-api-model`, `-api-host`, `-sdk`, `-ui-model` | mixed |
 | Verification | `-testkit`, fixtures, attack scenarios, fuzz, Kani, Loom, conformance, bench | never product dependencies |
 

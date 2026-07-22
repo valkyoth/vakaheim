@@ -19,16 +19,16 @@ The sequence remains:
 
 | Range | Context |
 | --- | --- |
-| `v0.1.0`–`v0.20.8` | constitution, usable crypto, portable/hosted time, text/certificate codecs, offline operator authority, evidence/facts, local control, runtime/TLS, device keys/PKI, and system objectives |
+| `v0.1.0`–`v0.20.9` | early fixture governance, portable/host crypto, split time, text/certificate codecs, operator authority, local tenant lifecycle/control, runtime/TLS, device keys/PKI, encrypted raw persistence, and objectives |
 | `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/gRPC, OTLP/OCSF, authenticated time refinement, secure transport, backfill/reprocessing, and hardening |
-| `v0.41.0`–`v0.60.0` | stable-media storage, raw evidence, integrity/key lifecycle, local backup/restore, migration/reindex, and correctly scoped local multi-terabyte proof |
-| `v0.65.0`–`v0.100.0` | VQL authority/planning/admission, joins/operators, cold catalog/rehydration, graph/live semantics, side-channel controls, and hardening |
-| `v0.110.0`–`v0.200.0` | deterministic detection/state, split behavioral families, entity-risk ledger, intelligence lifecycle/matching, ATT&CK, interoperability, and rollout |
-| `v0.205.0`–`v0.267.0` | common sensor boundary, signed software integrity/self-protection, native platforms, Kubernetes, and future Aesynx portability |
-| `v0.270.0`–`v0.342.0` | base SDK/API sequence, credential vault, isolated connector host, independently tested provider families, integrity content, and notification outbox |
-| `v0.345.0`–`v0.405.0` | alert notification integration, analyst workflow, workload case API, identity-protocol codecs, human API activation, live forensics, authorization/audit, and local UIs |
+| `v0.41.0`–`v0.60.0` | storage, shared durable scheduler, raw evidence, integrity/keys, backup/restore, migration/reindex, and local multi-terabyte proof |
+| `v0.65.0`–`v0.100.1` | VQL authority/planning/operators/cold queries, hardening, and binding admission decisions for optional 1.0 evidence/ingestion capabilities |
+| `v0.110.0`–`v0.200.0` | deterministic detection/state, behavior/risk/intelligence, conditional artifact-content closure, ATT&CK, interoperability, and rollout |
+| `v0.205.0`–`v0.268.0` | agent integrity, native platforms, conditional WEF/executable-metadata closures, Kubernetes, and future Aesynx portability |
+| `v0.270.0`–`v0.342.0` | API, compartmented platform vault, isolated connector host, provider contracts, conditional cloud archive/stream and PCAP closures, integrity content, and notification substrate |
+| `v0.345.0`–`v0.405.0` | transactional alert notifications, analyst workflow, identity/auth, live forensics, dashboards/scheduled reports, authorization/audit, and local UIs |
 | `v0.407.0`–`v0.455.0` | Wasm, bound actions, trigger/storm/kill controls, unknown-outcome dispatch, response API, independently tested action families, and recovery |
-| `v0.459.0`–`v0.484.1` | state matrix, formal operational CFT and engine, consensus activation, independent audit HA, raw-aware quorum durability, distributed query, SRE/DR/scale, and cluster administration |
+| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, scheduler/state HA, raw quorum, tenant propagation, distributed query/routing, SRE/DR/scale, and cluster administration |
 | `v0.485.0`–`v0.500.0` | optional proposal-only AI, privacy, approved-crypto-mode admission, performance, verification, independent assessment, beta, and stable-candidate gates |
 | `v1.0.0-rc.N`–`v1.0.0` | exact-candidate audit, production proof, and unchanged promotion |
 
@@ -44,6 +44,8 @@ architecture:
   source protocol cannot prove continuity;
 - protocol names are backed by pinned normative profiles and fixtures rather
   than broad compatibility claims;
+- generic fixture provenance/governance exists before the first consumer, with
+  later milestones adding protocol-specific sets;
 - DER/X.509, CBOR/COSE, JOSE/OAuth, restricted XML/SAML and SCIM have bounded
   codecs before TLS or human identity consumes them;
 - cryptography, text, runtime, TLS, raw evidence, transport, API and Wasm
@@ -54,6 +56,8 @@ architecture:
   concrete lifecycle and failure milestones;
 - portable, hosted and authenticated-network time are separate trust stages;
   certificate validation cannot bootstrap from the same unvalidated channel;
+- one durable scheduler owns jobs/timers locally and through fenced HA rather
+  than every subsystem inventing retry and misfire semantics;
 - storage and query admission are designed for worst-case work and multi-tenant
   isolation before large-scale deployment;
 - early storage scale claims are local; cluster node, quorum, evacuation and
@@ -81,9 +85,23 @@ architecture:
   detection progress claims, preserving atomic fact/raw publication;
 - family connector milestones do not claim vendors; each named provider needs
   its own patch/intermediate interoperability release;
+- tenant lifecycle and suspension/destruction propagate across every local and
+  distributed authority/data/job/cache/key domain without identifier reuse;
 - cluster safety is authenticated crash-fault tolerance. A compromised voting
   quorum is outside the safety claim and is handled through explicit containment
   and recovery controls, not mislabeled Byzantine tolerance.
+
+## Pre-1.0 Decision Closure
+
+`v0.100.1` decides PCAP, artifact-content matching, executable metadata, WEF and
+cloud archive/message-stream scope. Their reserved closure releases are
+`v0.316.0`, `v0.181.0`, `v0.268.0`, `v0.235.0` and `v0.308.0`. Each closure
+either implements admitted support or enforces a documented 1.0 non-goal.
+
+Named providers, eBPF/driver surfaces, Aesynx support, Wasm/AI enablement,
+regulated cryptographic mode and SDK publication close through their owning
+milestones in [RELEASE_PLAN.md](RELEASE_PLAN.md). `v0.499.0` rejects every
+remaining conditional/TBD decision or missing closure.
 
 ## Non-Negotiable Boundaries
 

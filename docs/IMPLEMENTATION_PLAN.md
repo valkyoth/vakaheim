@@ -191,6 +191,26 @@ index and detection progress. `DurableQuorum` never implies raw reconstruction
 unless referenced chunks and manifests meet the same quorum failure claim.
 Cluster publication preserves the local atomic fact/reference/object invariant.
 
+### Durable work has one scheduler contract
+
+Connector polls, renewal, retention, scrub, compaction, backup, reindex,
+retro-hunt, risk recomputation, SLA escalation, scheduled query/report,
+playbook wait/compensation and cold rehydration consume one durable local job
+and timer scheduler after WAL exists. It distinguishes monotonic deadlines from
+trusted wall schedules and defines misfire, catch-up, skip, duplicate,
+checkpoint, cancellation, retry, quota, fairness and uncertain-clock behavior.
+Stage K adds a fenced HA adapter over the operational-state engine.
+
+### Optional scope closes before implementation freeze
+
+`v0.100.1` makes binding support/non-goal decisions for PCAP, artifact-content
+matching, PE/ELF/Mach-O metadata, Windows Event Forwarding, and cloud archive/
+message-stream ingestion. Each has a reserved later scope-closure version that
+either implements admitted support with full evidence or enforces and documents
+the non-goal. AI, regulated cryptographic mode, SDK publication, named providers,
+optional drivers, and future Aesynx support retain their own decision gates. No
+conditional or “TBD” capability may survive `v0.499.0`.
+
 ## 3. Engineering Sequence
 
 ### Stage A: constitution and portable foundations
@@ -256,6 +276,8 @@ explicit deduplication, quarantine lifecycle, retention, and orphan repair.
 Single-node backup/restore is implemented before the early storage campaign.
 Cold export has catalog, authorization, planning, rehydration, cancellation,
 snapshot and partial-availability semantics before VQL claims historical reach.
+A shared durable job/timer scheduler lands after WAL and before background
+storage work; every later scheduled subsystem consumes it.
 
 ### Stage E: VQL query and reasoning
 
@@ -321,6 +343,9 @@ CEF/LEEF providers each receive independent acceptance milestones.
 Family milestones are contracts, not vendor support claims. Every named vendor
 requires its own patch/intermediate release with schema, cursor, permission,
 rate-limit, outage and live interoperability evidence.
+The platform credential vault is shared but independently compartmented for
+collection, response, PKI and notifications; authority never flows between
+compartments implicitly.
 
 The SDK stays unpublished until a dedicated admission milestone. If publication
 is later approved, only the SDK uses `MIT OR Apache-2.0`.
@@ -341,6 +366,8 @@ live activation follows authentication, elevation and independent audit.
 Case APIs remain workload/internal until human-session activation. The early
 administration UI exposes implemented local features only; cluster and upgrade
 surfaces arrive after Stage K.
+Saved searches, dashboards and scheduled analytics reports bind snapshot/query/
+policy epochs, completeness and recipient authorization before the analyst UI.
 
 ### Stage J: extension and response
 
@@ -381,6 +408,11 @@ backpressure, retry, stragglers, worker loss and coordinator/tenant bounds.
 Raw chunks/manifests participate in quorum durability and atomic publication.
 Independent audit HA uses a separately deployed administrative/storage/scheduler
 failure domain, not only different keys in the operational cluster.
+Cluster-native service discovery and authenticated routing precede distributed
+scale tests and preserves sequence/acknowledgement truth across rerouting.
+Tenant lifecycle has local and distributed state machines from proposal through
+hold/offboarding/destruction, including suspension propagation and no identifier
+or key-domain reuse.
 
 ### Stage L: product completion
 
@@ -402,14 +434,14 @@ not permission to create empty crates prematurely.
 | Facts | `-event`, `-entity`, `-provenance`, `-integrity`, `-source-capsule` | `no_std`; optional `alloc` |
 | Ingestion | `-ingest-core`, `-parser-sdk`, `-syslog`, `-json`, `-protobuf`, `-otlp`, `-ocsf` | core portable; runtimes `std` |
 | Platform | `-linux`, `-windows`, `-macos`, `-bsd`, `-android`, `-ios`, `-kubernetes` | isolated `std`/FFI |
-| Runtime | `-runtime-core`, `-time-host`, OS reactors, channels, HTTP/TLS/PKI/protocol transports, enrollment | mixed explicit boundary |
+| Runtime | `-runtime-core`, `-time-host`, `-scheduler`, OS reactors, channels, HTTP/TLS/PKI/protocol transports, enrollment | mixed explicit boundary |
 | Storage | `-storage-format`, `-wal`, `-segment`, `-raw-store`, `-index`, `-retention`, `-backup` | format `no_std`; engine `std` |
 | Query | `-query-syntax`, `-ast`, `-ir`, `-typecheck`, `-plan`, `-exec`, `-query-distributed`, `-graph` | front-end `no_std + alloc`; exec `std` |
 | Detection | `-rule-model`, `-rule-compiler`, `-detect-core`, `-detect-state`, `-behavior`, `-risk-ledger`, `-intel-match` | core `no_std + alloc`; workers `std` |
 | Response | `-wasm-core`, `-wasm-abi`, `-wasm-validate`, `-wasm-host`, `-soar-core`, `-action-ledger`, `-approval` | ABI/core portable; host isolated `std` |
 | Identity | `-cbor`, `-cose`, `-jose`, `-oauth`, `-xml`, `-scim`, `-webauthn`, `-identity-federation` | codecs portable; services `std` |
 | Control | `-control`, `-auth`, `-authorization`, `-audit`, `-pki`, `-credential-vault`, `-opstate`, `-cluster`, `-federation` | explicit `std` services |
-| Analyst | `-finding`, `-incident`, `-case`, `-report`, `-api-model`, `-api-host`, `-sdk`, `-ui-model` | mixed |
+| Analyst | `-finding`, `-incident`, `-case`, `-dashboard`, `-report`, `-scheduled-report`, `-api-model`, `-api-host`, `-sdk`, `-ui-model` | mixed |
 | Verification | `-testkit`, fixtures, attack scenarios, fuzz, Kani, Loom, conformance, bench | never product dependencies |
 
 ## 5. Product Roles
@@ -510,4 +542,7 @@ Version 1.0.0 requires all product planes, all supported platform collectors,
 storage/query/detection/case/response/cluster/SDK/UI operation, format and API
 stability, production documentation, signed reproducible artifacts, independent
 assessment, no unresolved critical or high findings, and unchanged promotion
-of an approved release candidate.
+of an approved release candidate. It also requires local and HA scheduler
+evidence, complete tenant lifecycle enforcement, discovery/routing continuity,
+scheduled report and dashboard operation, and a closed option-decision register:
+no conditional, undecided, or `TBD` 1.0 capability may cross the release freeze.

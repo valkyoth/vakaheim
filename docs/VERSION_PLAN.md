@@ -21,17 +21,17 @@ The sequence remains:
 
 | Range | Context |
 | --- | --- |
-| `v0.1.0`–`v0.20.9` | early fixture governance, portable/host crypto, split time, text/certificate codecs, operator authority, local tenant lifecycle/control, runtime/TLS, device keys/PKI, encrypted raw persistence, and objectives |
-| `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/gRPC, OTLP/OCSF, authenticated time refinement, secure transport, canonical acknowledgement, historical evidence, claim registry and runtime permit authority, backfill/reprocessing, and hardening |
+| `v0.1.0`–`v0.20.14` | early fixture governance, portable/host crypto, split time, text/certificate codecs, operator authority, local tenant lifecycle/control, exact OCSF support, OpenTelemetry cross-signal/AI workload models, runtime/TLS, device keys/PKI, encrypted raw persistence, and objectives |
+| `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/gRPC, hosted OTLP logs/traces/metrics/events/profiles/AI endpoints and correlation, authenticated time refinement, secure transport, canonical acknowledgement, historical evidence, claim registry and runtime permit authority, backfill/reprocessing, and hardening |
 | `v0.41.0`–`v0.60.0` | storage, isolated scheduler core/store/worker, authority-scoped atomic effect handoff, ledger migration, spent-key replay protection and rollback-anchor assurance, exact index-coverage claims, mixed-version integration, raw evidence, integrity/keys, backup/restore, migration/reindex, and local multi-terabyte proof |
-| `v0.65.0`–`v0.100.1` | VQL authority/planning, pre-execution canonical local coverage and authoritative expected-set commitments, operators/cold queries, hardening, and binding admission decisions for optional 1.0 evidence/ingestion capabilities |
-| `v0.110.0`–`v0.200.0` | deterministic detection/state, authoritative active-rule-set/cohort commitments and progress acknowledgement, behavior/risk/intelligence, conditional artifact-matching implementation/integration, ATT&CK, interoperability, and rollout |
+| `v0.65.0`–`v0.101.3` | VQL authority/planning, pre-execution canonical local coverage and authoritative expected-set commitments, operators/cold queries, hardening, two binding option-decision sets, and conditional external query-in-place implementation/closure |
+| `v0.110.0`–`v0.200.0` | deterministic detection/state, authoritative active-rule-set/cohort commitments and progress acknowledgement, behavior/risk/intelligence, conditional artifact matching, current ATT&CK Detection Strategies/Analytics, Sigma 2.1 correlation/filter interoperability, and rollout |
 | `v0.205.0`–`v0.268.0` | agent integrity, native platforms, conditional WEF and per-format executable implementation/integration, Kubernetes, and future Aesynx portability |
-| `v0.270.0`–`v0.342.0` | API, compartmented platform vault, isolated connector host, provider contracts including named ServiceNow transport at `v0.305.2`, conditional cloud archive/stream and PCAP implementation series, integrity content, and notification substrate |
-| `v0.344.1`–`v0.405.0` | semantic entity boundaries, signed bounded framework engine, structured alert/formal-incident/case lifecycle, default/ENISA/NIS2/DORA/GDPR packs, obligations/reports/submission receipts, identity/auth, live forensics, dashboards, APIs, authorization/audit, and specialized local UIs |
-| `v0.407.0`–`v0.458.0` | non-authoritative read-only Wasm/response, action recovery, named ServiceNow action/reconciliation, node measurement/attestation and optional hardware-monotonic-anchor decisions, server integrity, tenant audit/identifier/pseudonym policy, and all-plane single-node tenant lifecycle conformance |
-| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, framework/obligation/report/submission/external-sync HA, five-domain-independent and freshness-bounded scheduler witnessing, cluster acknowledgement extension before quorum activation, tenant/audit propagation, distributed coverage extension/reconciliation, routing/proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
-| `v0.485.0`–`v0.520.0` | optional proposal-only AI plus separate privacy-policy, field/purpose, residency, retention/deletion, and compliance-workflow stops |
+| `v0.270.0`–`v0.343.6` | API, compartmented platform vault, isolated connector host, individually admitted cloud/identity/SaaS/source-control/network/email/EDR providers, governed source onboarding, conditional DSPM/EASM, cloud archive/stream, passive OT/ICS and PCAP series, signed first-party content, continuous detection effectiveness, notifications, and disabled-by-default security-data export |
+| `v0.344.1`–`v0.406.3` | semantic entity boundaries, signed bounded framework engine, structured alert/formal-incident/case lifecycle, default/ENISA/NIST/NIS2/DORA/GDPR packs, obligations/reports/submission receipts, formal hunts, identity/auth, live forensics, dashboards, APIs, authorization/audit, specialized local UIs and canonical SOC metrics |
+| `v0.407.0`–`v0.458.0` | non-authoritative read-only Wasm/response, CACAO 2.0 and OpenC2 2.0 interoperability, action recovery, named ServiceNow action/reconciliation, node measurement/attestation and optional hardware-monotonic-anchor decisions, server integrity, tenant audit/identifier/pseudonym policy, and all-plane single-node tenant lifecycle conformance |
+| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, framework/report/external-sync/export/hunt/content/effectiveness/metric HA, optional MSSP tenancy, five-domain-independent and freshness-bounded scheduler witnessing, cluster acknowledgement extension before quorum activation, tenant/audit propagation, distributed coverage extension/reconciliation, routing/proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
+| `v0.485.0`–`v0.520.0` | AI workload security content and optional proposal-only assistance split across authority, registry, provenance, data policy, prompt-injection isolation, grounding, drafting, TEVV, drift, local/external runtime and integration stops, followed by separate privacy-policy, field/purpose, residency, retention/deletion and compliance-workflow stops |
 | `v0.530.0` | approved-cryptographic-mode admission or explicit rejection |
 | `v0.540.0`–`v0.570.0` | separate endpoint, ingest/storage, query/detection/analyst, and cluster/recovery performance campaigns |
 | `v0.580.0`–`v0.610.0` | separate fuzz/conformance, formal/concurrency/memory, chaos/recovery, and compatibility/reproducibility campaigns |
@@ -90,6 +90,18 @@ architecture:
   on ambient state;
 - behavior, entity-risk accumulation and threat-intelligence matching have
   separate deterministic state and evidence contracts;
+- OCSF, OpenTelemetry semantic conventions, ATT&CK, Sigma, CACAO and OpenC2 are
+  exact versioned interoperability claims with pinned fixtures, mapping-loss,
+  migration and current-source audits rather than timeless feature labels;
+- logs, traces, metrics, events/profiles and AI workload telemetry have distinct
+  completeness and trust semantics; correlation requires evidence and cannot be
+  inferred from a shared identifier alone;
+- a detection engine does not satisfy the content obligation: signed first-party
+  detections, hunts, dashboards, runbooks and safe playbooks have platform/source
+  coverage gates, while disposition feedback, controlled miss/precision/recall,
+  adversary emulation and continuous validation independently measure efficacy;
+- formal threat hunts bind hypothesis, scope, snapshot, query, coverage and
+  evidence and use governed idempotent promotion into detections and incidents;
 - entity-risk thresholds remain immutable findings until alert routing promotes
   them, and generic notification becomes transactional with alerts only later;
 - evidence/findings, mutable alerts, formal incidents, primary cases and
@@ -108,6 +120,16 @@ architecture:
 - ServiceNow transport, typed actions and bidirectional sync have separate stops;
   explicit field authority/conflicts prevent last-write-wins, and provider
   failure cannot block internal incident handling;
+- security-data export is disabled by default and policy/cursor/outcome-bound;
+  air-gapped internal operation remains complete, while admitted export formats
+  provide auditable portability, interruption recovery and re-import proof;
+- SOC metrics define timestamps, populations, censoring and incomplete-data
+  behavior before reporting workload, quality or response outcomes;
+- CACAO/OpenC2 interoperability cannot bypass native playbook/action approval,
+  idempotency, verification, compensation or unknown-outcome semantics;
+- AI workload monitoring and detection are separate from optional assistance;
+  assistance is proposal-only, provenance/grounding/TEVV-bound and cannot close
+  alerts, declare incidents, determine obligations or dispatch actions;
 - response approval binds the exact effect plan, with reversible,
   compensatable, and irreversible recovery classes;
 - uncertain external effects use durable dispatch and reconciliation rather
@@ -173,6 +195,13 @@ remain `v0.316.0`, `v0.181.0`, `v0.268.0`, `v0.235.0` and `v0.308.0`. Rejected
 options skip implementation but still pass the tested non-goal integration gate.
 Admitted work may add more intermediate versions rather than enlarge that gate.
 
+`v0.100.2` decides external data-lake query-in-place, DSPM/EASM, passive OT/ICS,
+MSSP hierarchical tenancy and named national NIS2-profile scope. Admitted work
+uses the small implementation series ending at `v0.101.3`, `v0.298.6`,
+`v0.318.6`, `v0.474.6` or `v0.360.15`; rejection still requires tested absence,
+fail-closed behavior and explicit documentation. Automatic OT response remains a
+1.0 non-goal even when passive OT monitoring is admitted.
+
 Named providers, eBPF/driver surfaces, Aesynx support, Wasm/AI enablement,
 privileged OS runtime measurement, hardware remote attestation, hardware/OS
 monotonic fence anchoring, regulated cryptographic mode and SDK publication close
@@ -185,8 +214,9 @@ Byzantine/compromised-backend truth guarantees as a 1.0 non-goal. `v0.730.0`
 rejects every remaining conditional/TBD decision or missing closure.
 
 `v0.344.7` binds the 1.0 framework set and makes authoritative framework Wasm a
-non-goal; `v0.360.12` closes default/ENISA/NIS2/DORA/GDPR package claims and
-national-overlay limits, while `v0.420.0` proves Wasm cannot issue authoritative
+non-goal; `v0.360.14` closes default/ENISA/NIST/NIS2/DORA/GDPR package claims,
+and `v0.360.15` closes named national-profile decisions, while `v0.420.0` proves
+Wasm cannot issue authoritative
 decisions. ServiceNow is a committed named provider at `v0.305.2` and closes only
 after typed actions and bidirectional reconciliation pass at `v0.453.3`–
 `v0.453.4`. No generic package/connector contract implies another named support
@@ -204,7 +234,7 @@ Only per-platform `HardwareMonotonic` support is optional; `v0.456.0` decides it
 and `v0.456.5` closes it without weakening `ExternalWitnessed`/`Unverifiable`
 behavior.
 The `v0.344.1`–`v0.390.2` native incident/package/obligation/report chain and
-`v0.468.1`–`v0.468.2` HA closure are also mandatory. Tenant activation of a
+`v0.468.1`–`v0.468.4` HA closure are also mandatory. Tenant activation of a
 legal/operational pack is optional; its admitted implementation stop, the base
 workflow and fail-closed absence/disable behavior are not.
 

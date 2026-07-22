@@ -16,14 +16,22 @@ Build Vakaheim into a self-contained security evidence platform that can:
 - compile observations into typed immutable facts;
 - store and query facts without a mandatory external database;
 - run explainable deterministic and behavioral detection;
+- ship signed first-party detections, hunts, dashboards, runbooks and safe
+  playbooks, and continuously measure whether they work;
 - manage immutable findings, structured alert triage, formal incidents, cases,
   independent obligations, regulatory reports, and chain of custody;
+- support formal evidence-bound threat hunts and governed promotion into durable
+  detection and incident content;
 - run a framework-neutral incident process with signed bounded optional
-  ENISA/NIS2/DORA/GDPR packs and no automatic legal-compliance claim;
+  ENISA/NIST/NIS2/DORA/GDPR packs and no automatic legal-compliance claim;
 - synchronize explicitly governed incident fields with ServiceNow without making
   external availability or state authoritative by default;
 - execute capability-limited, approved response actions whose effects are
   classified as reversible, compensatable, or irreversible;
+- remain fully useful without external egress while permitting disabled-by-
+  default, policy-governed security-data export and standards interoperability;
+- monitor AI workloads as security subjects while keeping optional AI assistance
+  proposal-only and outside authoritative incident/response decisions;
 - operate as a single node, cluster, sovereign federation, air-gapped system,
   endpoint collector, or embedded portable core;
 - expose a deliberately scoped SDK before production 1.0.
@@ -140,11 +148,52 @@ external ITSM. `v0.344.2`–`v0.344.6` implement immutable signed manifests, a
 bounded deterministic declarative IR, tenant-scoped registry, independent
 composition and explicit shadow migration. Packs have no native/I/O/network/
 ambient-time authority and preserve `Unknown` outcomes. Default, ENISA, NIS2,
-DORA and GDPR packs are separately versioned at `v0.360.4`–`v0.360.10`; optional
+DORA, GDPR and NIST SP 800-61r3 packs are separately versioned at
+`v0.360.4`–`v0.360.13`; optional
 activation never means their admitted implementation gates may be skipped. The
 private authoring tool at `v0.360.11` grants no activation or crates.io authority.
-`v0.344.7`, `v0.360.12`, `v0.420.0` and `v0.730.0` close named-pack, national-
-profile, authoritative-Wasm and support/compliance claims before 1.0.
+`v0.344.7`, `v0.360.14`–`v0.360.15`, `v0.420.0` and `v0.730.0` close named-
+pack, national-profile, authoritative-Wasm and support/compliance claims before
+1.0.
+
+### Current standards are versioned product contracts
+
+OCSF, OpenTelemetry semantic conventions, ATT&CK, Sigma, CACAO and OpenC2 are
+not timeless labels. Their exact admitted versions, profiles, fixtures, mapping
+loss, upgrade windows and deprecation behavior are frozen at their owning
+milestones and checked again at candidate qualification. Logs, traces, metrics,
+events/profiles and AI workload telemetry remain distinct signals with explicit
+correlation evidence; a shared attribute is not proof of common causality.
+
+### The engine and first-party security content are separate products
+
+A correct rule engine with no usable content is not a complete SIEM. The
+`v0.336.0`–`v0.336.13` series owns signed offline-capable detections, hunts,
+dashboards, investigation runbooks and safe playbooks for every admitted
+platform and named source. The `v0.337.0`–`v0.337.6` series separately owns
+disposition feedback, controlled miss/precision/recall evidence, adversary
+emulation, purple-team validation, tuning debt and recurring effectiveness
+checks. Coverage tags never substitute for required telemetry or test evidence.
+
+### Internal completeness and optional portability coexist
+
+Air-gapped and egress-denied deployments retain complete ingest, detection,
+hunting, incident and response operation. The `v0.343.0`–`v0.343.6` export
+series is disabled by default and requires tenant authority, policy filtering,
+explicit destinations, durable cursors, outcome reconciliation and audit. It
+provides data ownership and migration paths without making an external service,
+data lake or second SIEM part of Vakaheim's correctness boundary.
+
+### AI monitoring is not AI authority
+
+AI workloads are monitored like other high-risk identities and execution
+surfaces through cross-signal telemetry and first-party detections. Optional AI
+assistance has separate registry, provenance, data-policy, prompt-injection,
+grounding, TEVV, drift, local-runtime and external-gateway stops at
+`v0.485.0`–`v0.485.14`. It may draft queries, rules, tests, hunts and response
+suggestions, but cannot close alerts, declare incidents, determine legal duties
+or dispatch effects. Autonomous decision or response authority is a tested 1.0
+non-goal.
 
 ### Scale claims follow implemented capability
 
@@ -348,6 +397,13 @@ Byzantine/compromised-backend truth guarantees as a 1.0 non-goal. No conditional
 or “TBD” capability
 may survive `v0.730.0`.
 
+`v0.100.2` makes a second binding decision set for external data-lake query-in-
+place, DSPM/EASM, passive OT/ICS monitoring, MSSP hierarchical tenancy and named
+national NIS2 profiles. Admitted scope uses the small series ending at
+`v0.101.3`, `v0.298.6`, `v0.318.6`, `v0.474.6` or `v0.360.15`; rejected scope
+must still pass tested absence, rejection and documentation gates. OT/ICS is
+passive by default, and automatic OT response remains outside the 1.0 claim.
+
 Runtime claim permits, exact asynchronous and pre-execution coverage/expected-
 set contracts, ledger-migration uniqueness, post-retention handoff replay
 fencing, external witnessing and unverifiable fail-closed dispatch are mandatory
@@ -380,6 +436,9 @@ OCSF and OpenTelemetry are boundaries, not the internal source of truth. Every
 transformation emits a bounded canonical mapping outcome with exact loss,
 policy redaction, reconstruction availability, parser/mapping identity, source
 ranges, parent/output digests, and replay requirements.
+Exact current OCSF classes/profiles and OpenTelemetry logs, traces, metrics,
+events/profiles and AI workload semantic conventions receive separate model,
+endpoint, cross-signal and upgrade stops before support is claimed.
 
 Before ingestion, establish a local control and authority plane for identities,
 trust roots, immutable configuration epochs, registries, authorization
@@ -440,6 +499,9 @@ Physical planning explicitly owns scan/index, join, aggregate, sort/top-k,
 spill, partition/rollup, fusion, batch sizing, and stale-statistics fallback.
 Stable pagination, set operations, rates/ratios/percentiles/cardinality, and
 bounded text/glob/regex/collation equivalence have named operator milestones.
+An external data-lake query-in-place path exists only if admitted at `v0.100.2`;
+it uses explicit foreign-authority, pushdown, cost, coverage and partial-result
+contracts and can never make local/internal querying depend on external access.
 
 ### Stage F: detection
 
@@ -450,6 +512,12 @@ immutable findings, placement equivalence, graph and behavioral detection,
 threat-intelligence lifecycle, ATT&CK coverage graph, decomposable risk
 projection, content import, simulation, shadow deployment, canary rollout, and
 automatic quarantine/rollback thresholds.
+
+ATT&CK Detection Strategies/Analytics and Sigma 2.1 rules, correlations and
+filters use pinned versioned models. First-party content then lands in small
+platform/source families, followed by a separate continuous-effectiveness
+series; neither imported rule compatibility nor a technique mapping proves
+detection efficacy.
 
 Behavioral families are separate releases. Entity-risk accumulation and actual
 threat-intelligence streaming/retro-hunt matching are explicit stateful engines,
@@ -490,6 +558,14 @@ CEF/LEEF providers each receive independent acceptance milestones.
 Family milestones are contracts, not vendor support claims. Every named vendor
 requires its own patch/intermediate release with schema, cursor, permission,
 rate-limit, outage and live interoperability evidence.
+The committed 1.0 set has independent stops for AWS, Azure/Entra, GCP, Okta,
+Google Workspace, Microsoft 365, Slack, GitHub, GitLab, PAN-OS, FortiGate,
+Zscaler, Defender for Office 365, Proofpoint, Defender for Endpoint and
+CrowdStrike, in addition to ServiceNow. A governed onboarding lifecycle covers
+safe sampling, parser/mapping lineage, schema drift, shadow replay, volume/
+cardinality/cost, permission completeness, canary activation and rollback.
+DSPM/EASM and passive OT/ICS source families exist only if admitted by their
+pre-1.0 decisions and must pass their own protocol/safety boundaries.
 ServiceNow is the first named ticketing provider: `v0.305.2` owns its transport,
 authentication/schema/capability profile; `v0.453.3` activates approved typed
 writes; `v0.453.4` owns bidirectional polling/webhook reconciliation, loop
@@ -532,6 +608,13 @@ administration UI exposes implemented local features only; cluster and upgrade
 surfaces arrive after Stage K.
 Saved searches, dashboards and scheduled analytics reports bind snapshot/query/
 policy epochs, completeness and recipient authorization before the analyst UI.
+Formal hunts bind hypothesis, scope, snapshot, queries, expected coverage and
+evidence; support collaboration and recurrence; and promote idempotently into
+rules, findings, incidents and signed content. SOC metrics define timestamp,
+population, censoring and incomplete-data semantics before measuring alert
+quality/workload, incident response or corrective-action outcomes. Optional
+security-data export has dedicated governance and UI and remains disabled by
+default.
 
 ### Stage J: extension and response
 
@@ -546,6 +629,10 @@ Core Wasm execution and the Component Model Canonical ABI precede the host.
 Read-only Wasm may suggest or format, but only the bounded declarative framework
 IR may make authoritative applicability, classification, obligation, deadline or
 reporting decisions for 1.0.
+CACAO 2.0 import/export and OpenC2 2.0 translation are interoperability layers
+over this native authority model. Semantic loss, approval, exact effect identity,
+idempotency and unknown outcomes remain explicit; an imported playbook or
+command cannot bypass Vakaheim policy.
 External actions use a transactional outbox/inbox, fenced workers, provider
 idempotency ledgers, verification-before-retry, and an explicit unknown-outcome
 reconciliation state.
@@ -570,7 +657,9 @@ scale/failover campaign occurs only after replication, evacuation, tenancy,
 federation, SRE, and disaster mechanisms exist.
 Framework activation/binding, assessment, obligation/deadline, report/submission
 and external synchronization journals receive separate `v0.468.1`–`v0.468.2`
-HA contracts. Failover cannot change a deterministic assessment, move a deadline
+HA contracts. Export receives `v0.468.3`; hunt, content, effectiveness and SOC-
+metric state receive `v0.468.4`; admitted MSSP tenancy closes at `v0.474.6`.
+Failover cannot change a deterministic assessment, move a deadline
 forward, duplicate a submission/ServiceNow action, erase a conflict or convert
 an unknown external outcome into success.
 The replicated scheduler fence lives outside workload snapshots and is witnessed
@@ -636,7 +725,8 @@ closed before all-plane lifecycle testing.
 
 ### Stage L: product completion
 
-Add optional audited AI assistance; then implement privacy policy, field/purpose,
+Add AI workload detection and optional audited proposal-only assistance; then
+implement privacy policy, field/purpose,
 residency, retention/deletion and compliance workflow passes separately. Split
 performance by endpoint, ingest/storage, query/detection/analyst and cluster;
 split verification by fuzz/conformance, formal/concurrency/memory, chaos and
@@ -667,11 +757,15 @@ not permission to create empty crates prematurely.
 | Storage | `-storage-format`, `-wal`, `-segment`, `-raw-store`, `-index`, `-retention`, `-backup`, `-work-scheduler` | format `no_std`; engine `std` |
 | Query | `-query-syntax`, `-ast`, `-ir`, `-typecheck`, `-plan`, `-exec`, `-query-coverage`, `-query-distributed`, `-graph` | front-end/manifests `no_std + alloc`; exec `std` |
 | Detection | `-rule-model`, `-rule-compiler`, `-detect-core`, `-detect-state`, `-behavior`, `-risk-ledger`, `-intel-match` | core `no_std + alloc`; workers `std` |
+| Content and hunting | `-content-core`, `-content-package`, `-content-registry`, `-effectiveness`, `-hunt` | models/packages `no_std + alloc`; validation and execution hosted `std` |
+| Standards interop | `-attack`, `-sigma`, `-cacao`, `-openc2`, plus ingestion `-ocsf` and `-otlp` | models/codecs portable; hosted adapters explicit `std` |
+| Export | `-export-core`, `-export-policy`, `-export-host` | policy/envelopes portable; destinations and scheduling hosted `std` |
 | Response | `-wasm-core`, `-wasm-abi`, `-wasm-validate`, `-wasm-host`, `-soar-core`, `-action-ledger`, `-approval` | ABI/core portable; host isolated `std` |
 | Identity | `-cbor`, `-cose`, `-jose`, `-oauth`, `-xml`, `-scim`, `-webauthn`, `-identity-federation` | codecs portable; services `std` |
 | Control | `-control`, `-auth`, `-authorization`, `-audit`, `-tenant-id`, `-audit-pseudonym`, `-pki`, `-credential-vault`, `-node-integrity`, `-attestation`, `-opstate`, `-cluster`, `-federation` | portable identity/policy; explicit `std` services |
 | Framework | `-framework-core`, `-framework-package`, `-framework-registry`, `-obligation`, `-regulatory-report`, `-framework-sdk` | core/package/evaluator `no_std + alloc`; registry/tools hosted `std`; private only |
 | Analyst | `-finding`, `-alert`, `-incident`, `-case`, `-external-link`, `-dashboard`, `-report`, `-scheduled-report`, `-api-model`, `-api-host`, `-sdk`, `-ui-model` | mixed |
+| AI security | `-ai-telemetry`, `-ai-policy`, `-ai-provenance`, optional `-ai-host`, `-ai-gateway` | telemetry/policy models portable; runtimes isolated hosted `std` |
 | Verification | `-testkit`, fixtures, attack scenarios, fuzz, Kani, Loom, conformance, bench | never product dependencies |
 
 ## 5. Product Roles
@@ -709,6 +803,16 @@ Testing is designed with each API, not added after it:
 - fault injection, corruption, partial-write, disk-full, clock, and network
   partitions;
 - attack-scenario replay and deterministic finding replay;
+- first-party content provenance/revocation/rollback, controlled miss/precision/
+  recall corpora, adversary emulation and recurring detection validation;
+- formal hunt snapshot/coverage/replay/promotion tests and SOC-metric population,
+  timestamp, censoring and incomplete-data tests;
+- named-provider source-onboarding drift, permission, cost, outage, cursor,
+  canary/rollback and live-interoperability suites;
+- export policy, cursor, duplicate, interruption, reconciliation, HA and re-import
+  tests, including complete operation with every egress path disabled;
+- AI workload attack scenarios plus assistance prompt-injection, exfiltration,
+  provenance, grounding, TEVV, drift and no-authority tests;
 - framework package canonical/conformance/negative corpora, legal-source review,
   historical shadow replay and obligation/deadline time-uncertainty models;
 - alert/incident/case/report/external-sync state machines and unknown-outcome
@@ -781,6 +885,13 @@ of an approved release candidate. It also requires local and HA scheduler
 evidence, complete tenant lifecycle enforcement, discovery/routing continuity,
 scheduled report and dashboard operation, and a closed option-decision register:
 no conditional, undecided, or `TBD` 1.0 capability may cross the release freeze.
+It requires current pinned OCSF/OpenTelemetry/ATT&CK/Sigma support, cross-signal
+telemetry, the committed named-provider set, governed source onboarding, signed
+first-party content, formal hunts, continuous detection-effectiveness evidence,
+SOC metrics and disabled-by-default security-data export with air-gap-safe
+internal operation. CACAO/OpenC2 interoperability cannot weaken native authority.
+AI workloads are monitored; optional assistance remains proposal-only,
+provenance-bound and incapable of authoritative workflow or response effects.
 It requires the framework-neutral default workflow, admitted signed pack set,
 structured alert/incident/closure semantics, exact obligation clocks, report
 payload/receipt evidence, ServiceNow conflict-safe synchronization and their HA

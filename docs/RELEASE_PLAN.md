@@ -68,23 +68,49 @@ replace or renumber it.
 | Normative fixture governance precedes every parser/crypto/text consumer | `v0.1.1`, expanded at `v0.20.1` and each protocol milestone |
 | Crypto provider, split time, certificate codecs, host/OS adapters/TLS, device keys, PKI and operator authority | `v0.4.1`–`v0.4.5`, `v0.10.1`–`v0.10.4`, `v0.20.2`–`v0.20.9`, `v0.30.2` |
 | Fact conflicts, schema ownership, extension governance, and mapping loss | `v0.11.0`, `v0.15.0`, `v0.16.0`, `v0.20.1` |
+| Current OCSF class/profile/version support, OpenTelemetry cross-signal correlation and AI workload telemetry | `v0.18.1`–`v0.18.3`, `v0.20.10`–`v0.20.14`, `v0.30.3`–`v0.30.6` |
 | Deterministic identity resolution, asset inventory, ownership, exposure, and retirement | `v0.13.0`, `v0.298.0` |
 | Local identities/control/authorization plus complete tenant lifecycle before consumers | `v0.17.0`, `v0.17.1`, `v0.19.0`; audit/remnant/identifier policy at `v0.457.1`–`v0.457.5`; all-plane single-node gate at `v0.458.0`; independent audit at `v0.467.3`; distributed closure at `v0.474.1` |
 | Conservation, acknowledgement truth/manifests/runtime permits, exact asynchronous coverage, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`–`v0.31.4`, `v0.39.0`, `v0.40.0`, `v0.44.0`, `v0.48.1`, `v0.50.0`, `v0.54.0`, `v0.140.1`–`v0.140.2`, `v0.470.1`, `v0.471.0` |
 | Exact external protocol and identity-codec profiles | `v0.20.1`, `v0.26.0`–`v0.30.2`, `v0.306.0`, `v0.392.0`–`v0.395.0`, `v0.407.0`–`v0.410.0` |
 | Database capacity, raw evidence, integrity/encryption/keys, local backup/restore, migration, and scoped early scale | `v0.41.0` through `v0.60.0`, especially `v0.53.0`–`v0.58.0` |
 | Layered durable local and HA jobs/timers with atomic effect handoff, ledger migration, post-retention replay fencing/anchor assurance, upgrade compatibility, consumer admission, declared time, retry, fencing and idempotency | `v0.44.1`–`v0.44.10`, consumer matrix, `v0.459.0`, `v0.467.4` |
-| Query authority/planning/operators, local coverage/committed sets, cold rehydration, side channels, federation, distributed execution and coverage reconciliation | `v0.72.0`–`v0.100.0`, especially `v0.79.1`–`v0.79.2`; distributed extension at `v0.475.1`–`v0.476.1` |
-| Detection identity/state/placement, split behavior families, entity risk, intelligence lifecycle/matching, ATT&CK | `v0.115.0`–`v0.200.0`, especially `v0.170.0`–`v0.179.0` |
+| Query authority/planning/operators, local coverage/committed sets, cold rehydration, side channels, conditional external data-lake query, federation, distributed execution and coverage reconciliation | `v0.72.0`–`v0.101.3`, especially `v0.79.1`–`v0.79.2`; distributed extension at `v0.475.1`–`v0.476.1` |
+| Detection identity/state/placement, split behavior families, entity risk, intelligence lifecycle/matching, current ATT&CK strategies/analytics and Sigma 2.1 | `v0.115.0`–`v0.200.0`, especially `v0.170.0`–`v0.180.6` |
 | Common agent/helper boundary, signed software integrity/self-protection and platform continuity | `v0.205.0` through `v0.267.5`, especially `v0.206.0` |
-| Base API before client, later analyst/response extensions, credential vault, connector isolation, split provider profiles and named ServiceNow transport | `v0.270.0`–`v0.342.0`, `v0.305.2`, `v0.376.0`–`v0.376.2`, `v0.450.1` |
-| Framework-neutral alert/formal-incident/case lifecycle, signed bounded pack engine, independent obligations, default/ENISA/NIS2/DORA/GDPR packs and regulatory reports | `v0.344.1`–`v0.390.2`, especially `v0.344.7`, `v0.360.2`–`v0.360.12`, `v0.375.1`–`v0.376.2` |
-| Simulated/live forensics, confidential cases, auth/audit, dashboards/scheduled reports and split analyst/framework/external-sync UIs | `v0.382.0`–`v0.405.0`, especially `v0.400.0`, `v0.402.0`, `v0.404.1`–`v0.404.4` |
-| Wasm, bound actions, storm/kill controls, unknown outcomes, split providers, named ServiceNow actions/sync, and recovery | `v0.407.0` through `v0.455.0`, especially `v0.446.0`–`v0.453.4` |
+| Named cloud/identity/productivity/source-control/network/email/EDR providers, DSPM/EASM decisions and governed source onboarding | `v0.292.1`–`v0.329.6` |
+| First-party signed detection/hunt/dashboard/runbook/playbook content and continuous effectiveness evidence | `v0.336.0`–`v0.337.6` |
+| Optional disabled-by-default normalized security-data export and portability | `v0.343.0`–`v0.343.6`, HA at `v0.468.3` |
+| Framework-neutral alert/formal-incident/case lifecycle, signed bounded pack engine, independent obligations, default/ENISA/NIST/NIS2/DORA/GDPR packs and regulatory reports | `v0.344.1`–`v0.390.2`, especially `v0.344.7`, `v0.360.2`–`v0.360.15`, `v0.375.1`–`v0.376.2` |
+| Formal threat-hunt workflow, simulated/live forensics, confidential cases, auth/audit, dashboards/scheduled reports and specialized analyst UIs | `v0.377.0`–`v0.406.3`, especially `v0.404.1`–`v0.404.8` |
+| Wasm, CACAO/OpenC2 interoperability, bound actions, storm/kill controls, unknown outcomes, named ServiceNow actions/sync and recovery | `v0.407.0` through `v0.455.0`, especially `v0.430.1`–`v0.430.3`, `v0.450.2`–`v0.450.4` |
 | Honest node/keystore/rollback assurance, optional attestation and hardware-monotonic closure, signed builds, admission, anti-rollback and runtime quarantine | `v0.20.6`, `v0.44.10`, `v0.456.0`–`v0.457.0`, `v0.460.0`, `v0.465.1`, `v0.483.0`, `v0.483.1` |
-| State CFT/HA including framework/obligation/report/submission/external-sync journals, independently witnessed scheduler fence, raw quorum, tenant propagation, distributed query, discovery/routing/proxy trust, SRE/DR/scale/admin | `v0.459.0` through `v0.484.1`, especially `v0.465.1`–`v0.482.0` |
+| State CFT/HA including framework/report/export/hunt/content/metric journals, independently witnessed scheduler fence, raw quorum, tenant/MSSP propagation, distributed query, discovery/routing/proxy trust, SRE/DR/scale/admin | `v0.459.0` through `v0.484.1`, especially `v0.465.1`–`v0.482.0` |
+| AI workload monitoring/detection and optional proposal-only governed assistance | `v0.20.14`, `v0.30.5`, `v0.485.0`–`v0.485.14` |
 | Regulated cryptographic-mode claims require an applicable validated boundary or explicit rejection | `v0.530.0` |
-| Every optional 1.0 capability has a binding decision and implementation-or-non-goal closure | `v0.100.1`, reserved closures, audited at `v0.730.0` |
+| Every optional 1.0 capability has a binding decision and implementation-or-non-goal closure | `v0.100.1`–`v0.100.2`, reserved closures, audited at `v0.730.0` |
+
+## Modern SIEM 1.0 Closure Matrix
+
+This matrix makes the reviewed modern-SIEM scope auditable as product work. A
+schema, interface or generic framework alone does not close a row: the listed
+implementation, adversarial verification, operational evidence and pentest
+stops must all pass before 1.0.
+
+| Product outcome | Small implementation series and closure |
+| --- | --- |
+| Current open security schemas and cross-signal observability | Exact OCSF support at `v0.18.1`–`v0.18.3`; OpenTelemetry logs/traces/metrics/events/profiles and AI workload telemetry at `v0.20.10`–`v0.20.14`; hosted endpoints and correlation at `v0.30.3`–`v0.30.6` |
+| Current detection standards and explainable coverage | ATT&CK strategies/analytics and upgrade evidence at `v0.178.1`–`v0.178.3`; Sigma 2.1 rules/correlations/filters at `v0.180.4`–`v0.180.6` |
+| Usable first-party SOC content rather than an empty engine | Content constitution, signed distribution, platform/cloud/identity/network detections, hunts, dashboards, runbooks, playbooks and minimum coverage at `v0.336.0`–`v0.336.13` |
+| Measured detection quality and continuous control validation | Disposition feedback, controlled precision/recall/miss evidence, adversary emulation, tuning debt and scheduled validation at `v0.337.0`–`v0.337.6` |
+| Governed source onboarding and named integrations | Named provider stops at `v0.292.1`–`v0.314.2`; lifecycle, safe sampling, mapping, drift, cost, permissions and canary onboarding at `v0.329.0`–`v0.329.6` |
+| Formal threat hunting and promotion into detections/incidents | Hunt identity, evidence, collaboration, promotion, recurrence and API at `v0.377.0`–`v0.377.5`; dedicated UI at `v0.404.5` |
+| Internal-first alert/incident response with standards interoperability | Native workflow at `v0.344.1`–`v0.390.2`; CACAO 2.0 at `v0.430.1`–`v0.430.3`; OpenC2 2.0 at `v0.450.2`–`v0.450.4`; external services remain non-authoritative |
+| Air-gap-safe data ownership and optional portability | Disabled-by-default normalized export, subscriptions, OCSF/OTLP/syslog/archive/stream profiles, re-import and HA at `v0.343.0`–`v0.343.6` and `v0.468.3`; internal-only operation remains complete |
+| SOC operational measurement | Alert quality/workload and incident/corrective-action metrics with governed dashboards/exports at `v0.406.0`–`v0.406.3` |
+| AI-era monitoring and safely bounded assistance | AI workload telemetry/detection plus proposal-only assistance, provenance, prompt-injection isolation, grounding, TEVV, drift and local/external execution boundaries at `v0.20.14`, `v0.30.5` and `v0.485.0`–`v0.485.14`; autonomous authority is excluded |
+| Conditional advanced scope cannot disappear | External query-in-place closes at `v0.101.3`, DSPM/EASM at `v0.298.6`, passive OT/ICS at `v0.318.6`, MSSP tenancy at `v0.474.6`, and named national NIS2 profiles at `v0.360.15`; each is implemented or a tested explicit 1.0 non-goal |
+| Production assurance across every admitted plane | State-specific HA at `v0.459.0`–`v0.474.6`; performance/fuzz/formal/chaos/compatibility at `v0.540.0`–`v0.610.0`; independent assessment, betas and exact-candidate qualification at `v0.620.0`–`v1.0.0-rc.N` |
 
 ## Provider Claim Admission
 
@@ -101,12 +127,12 @@ next phase gate, with:
 - pinned/live interoperability, upgrade/rollback, secrets/egress and pentest
   evidence on the exact release commit.
 
-The first such releases use the next available patch numbers under the owning
-family (`v0.304.P` for productivity, `v0.305.P` for source control/ticketing,
-and `v0.310.P` through `v0.315.P` for network/security families). ServiceNow is
-the first named ticketing provider: transport is `v0.305.2`, with action/sync
-activation at `v0.453.3`–`v0.453.4`. Unallocated patch numbers are reservations,
-not planned support or publication authority.
+Named 1.0 admissions are explicit: AWS, Azure/Entra, GCP, Okta, Google Workspace,
+Microsoft 365, Slack, GitHub, GitLab, ServiceNow, PAN-OS, FortiGate, Zscaler,
+Defender for Office 365, Proofpoint, Defender for Endpoint and CrowdStrike each
+own a separate milestone. ServiceNow transport is `v0.305.2`, with action/sync
+activation at `v0.453.3`–`v0.453.4`. Names not listed still require their own
+release; a generic family or protocol creates no support claim.
 
 ## Incident And Framework Coverage Matrix
 
@@ -119,18 +145,19 @@ no compliance/provider claim outside its listed owner.
 | --- | --- |
 | Entity boundaries, primary case and graph separation | `v0.344.1`, `v0.360.1` |
 | Signed package model, bounded policy, registry, composition and immutable upgrades | `v0.344.2`–`v0.344.6` |
-| Named-pack/opaque-Wasm/national-profile decisions | `v0.344.7`, closed by `v0.360.12` and `v0.420.0` |
+| Named-pack/opaque-Wasm/national-profile decisions | `v0.344.7`, closed by `v0.360.14`–`v0.360.15` and `v0.420.0` |
 | Alert triage, structured closure and tuning feedback | `v0.345.1`–`v0.345.2` |
 | Atomic promotion, formal incident lifecycle and merge/split/reopen controls | `v0.346.1`–`v0.346.3` |
 | Applicability assessments and independent conservative obligations | `v0.360.2`–`v0.360.3` |
-| Default, ENISA, NIS2 EU/national-overlay contract, DORA and GDPR packs | `v0.360.4`–`v0.360.10` |
-| Private authoring/conformance tools and integrated pack claim closure | `v0.360.11`–`v0.360.12` |
+| Default, ENISA, NIS2 EU/national-overlay contract, DORA, GDPR and NIST SP 800-61r3 packs | `v0.360.4`–`v0.360.13` |
+| Private authoring/conformance tools and integrated pack claim closure | `v0.360.11`–`v0.360.15` |
 | Closure/post-analysis/corrective-action evidence | `v0.375.1`–`v0.375.2` |
 | Analyst/framework/report and external-sync APIs | `v0.376.1`–`v0.376.2` |
+| Formal threat hunt lifecycle, evidence, promotion, recurrence and API | `v0.377.0`–`v0.377.5` |
 | Regulatory report versions, approvals, submissions, receipts and corrections | `v0.390.1`–`v0.390.2` |
-| Triage, incident, obligation/report and external-sync UIs | `v0.404.1`–`v0.404.4` |
+| Triage, incident, obligation/report, external-sync, hunt, onboarding, export and effectiveness UIs | `v0.404.1`–`v0.404.8` |
 | ServiceNow named transport, actions and bidirectional reconciliation | `v0.305.2`, `v0.453.3`–`v0.453.4` |
-| Framework/obligation and report/submission/external-sync HA | `v0.468.1`–`v0.468.2` |
+| Framework/obligation/report/submission/external-sync/export/hunt/content/metric HA | `v0.468.1`–`v0.468.4` |
 
 ## Scheduler Consumer Admission Matrix
 
@@ -148,10 +175,12 @@ blind effect retries.
 | Scrub, repair/reindex, backup, retention and compaction | `v0.57.0`, `v0.57.1`, `v0.60.0` |
 | Cold catalog retrieval and rehydration | `v0.86.0` |
 | Rule rollout, entity-risk recompute and intelligence retro-hunt | `v0.190.0`, `v0.176.0`, `v0.179.0` |
+| Content validation and recurring threat hunts | `v0.337.5`, `v0.377.4` |
 | Connector polling and credential/token renewal | `v0.290.0` plus every named provider admission; ServiceNow at `v0.305.2`/`v0.453.4` |
 | Alert escalation/SLA, framework shadow replay/migration and obligation/deadline clocks | `v0.345.0`, `v0.344.6`, `v0.360.3`, `v0.468.1` |
 | Corrective-action reminders and effectiveness windows | `v0.375.2` |
 | Scheduled queries, reports and governed delivery | `v0.402.0` |
+| Export subscriptions and reconciliation | `v0.343.1`, `v0.468.3` |
 | Playbook waits and delayed compensation | `v0.430.0`; effects continue through later action ledgers |
 
 The owning milestone fails if it creates a private persistent scheduler or omits
@@ -217,12 +246,16 @@ activation is tenant-optional; implementation cannot be silently skipped.
 | PE/ELF/Mach-O metadata and signature extraction | Decide at `v0.100.1`; if admitted implement `v0.267.1`–`v0.267.5`; close at `v0.268.0` |
 | Remote Windows Event Forwarding | Decide at `v0.100.1`; if admitted implement `v0.231.0`–`v0.234.0`; close at `v0.235.0` |
 | Cloud object/archive and message-stream ingestion | Decide at `v0.100.1`; if admitted implement `v0.307.0`–`v0.307.3`; close at `v0.308.0` |
-| Named connector/action providers | One provider-admission release per claim before its phase security gate; ServiceNow is committed at `v0.305.2` and closed at `v0.453.4` |
+| Named connector/action providers | Named 1.0 source matrix is committed across `v0.292.1`–`v0.314.2`; one provider-admission release remains required per additional claim; ServiceNow action/sync closes at `v0.453.4` |
 | eBPF and any Windows driver | `v0.220.0`/`v0.240.0` decide admitted surface and preserve tested no-driver fallbacks |
 | Aesynx 1.0 support | `v0.267.0` closes as future portability only unless a later explicit implementation stop is inserted |
-| Optional Wasm extensions and proposal-only AI | `v0.420.0` rejects authoritative framework determinations and proves read-only suggestion/formatting disable; `v0.485.0` proves proposal-only AI disable |
-| Framework pack 1.0 set | Decide at `v0.344.7`; implement default/ENISA/NIS2/DORA/GDPR and national-overlay contract at `v0.360.4`–`v0.360.10`; close all claims at `v0.360.12` |
-| Named national NIS2 profiles and other future named packs | `v0.344.7`/`v0.360.7` prohibit implied support; each admitted country/framework requires its own pre-`v0.730.0` stop or remains an explicit 1.0 non-goal |
+| Optional Wasm extensions and proposal-only AI | `v0.420.0` rejects authoritative framework determinations; `v0.485.0`–`v0.485.14` implement monitored/disabled/proposal-only AI and enforce autonomous authority as a 1.0 non-goal |
+| Framework pack 1.0 set | Decide at `v0.344.7`; implement default/ENISA/NIS2/DORA/GDPR/NIST SP 800-61r3 and national-overlay contract at `v0.360.4`–`v0.360.13`; close at `v0.360.14` |
+| Named national NIS2 profiles and other future named packs | Decide at `v0.100.2`; `v0.360.15` requires one separate implementation stop per admitted country or explicit rejection; SANS/VERIS remain non-goals unless separately implemented |
+| External data-lake query-in-place | Decide at `v0.100.2`; if admitted implement `v0.101.0`–`v0.101.2`; close at `v0.101.3` |
+| DSPM/data-security monitoring and external attack-surface management | Decide at `v0.100.2`; if admitted implement `v0.298.1`–`v0.298.5`; close at `v0.298.6` |
+| OT/ICS monitoring | Decide at `v0.100.2`; if admitted implement passive-only `v0.318.0`–`v0.318.5`; close at `v0.318.6`; automatic OT response remains a 1.0 non-goal |
+| MSSP hierarchical tenancy | Decide at `v0.100.2`; if admitted implement `v0.474.2`–`v0.474.5`; close at `v0.474.6` |
 | Privileged/OS-backed runtime measurement | Decide at `v0.456.0`; if admitted implement `v0.456.2`; close at `v0.456.5` |
 | Hardware measured boot and remote attestation | Decide at `v0.456.0`; if admitted implement `v0.456.3`–`v0.456.4`; close at `v0.456.5` |
 | Hardware/OS monotonic anti-replay fence anchor | Decide per platform at `v0.456.0`; if admitted implement counter evidence/reset handling in `v0.456.2`–`v0.456.3`; close at `v0.456.5`; rejection retains mandatory `ExternalWitnessed`/`Unverifiable` behavior |
@@ -235,7 +268,7 @@ activation is tenant-optional; implementation cannot be silently skipped.
 its closure evidence, or silently changes the 1.0 product claim.
 
 Conditional implementation-series milestones execute only when their owning
-decision (`v0.100.1` or `v0.456.0`) admits that capability. Rejection skips their
+decision (`v0.100.1`, `v0.100.2` or `v0.456.0`) admits that capability. Rejection skips their
 implementation work but never the reserved final closure, which must enforce and
 test the non-goal. If an admitted series still exceeds one safe pass, add more
 intermediate versions; the listed closure remains an integration/security gate,
@@ -985,6 +1018,85 @@ Verification:
 Exit criteria: compatibility never silently claims a lossless mapping.
 `v0.18.0 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.18.1 — OCSF Version And Class Support Contract
+
+Status: planned
+
+Goal: bind an exact, current OCSF baseline and class/profile support matrix before
+compatibility code becomes a vague forever-claim.
+
+Deliverables:
+
+- implementation-time latest-stable selection, currently OCSF `1.8.0`, with
+  source digest, license, retrieval date and freshness owner;
+- class/profile/extension matrix marking import, export, lossless, lossy,
+  unsupported and experimental semantics independently;
+- explicit AI-operation, finding, identity, cloud, network, endpoint and data-
+  security scope decisions plus extension-ownership rules;
+- schema-change, deprecation and unsupported-future-version policy.
+
+Verification:
+
+- official metaschema and representative class/profile fixtures;
+- omitted-class, extension collision, unknown enum and misleading lossless-claim
+  tests;
+- independent schema-scope and licensing review.
+
+Exit criteria: every OCSF class/profile claim names an exact supported version
+and mapping outcome. `v0.18.1 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.18.2 — OCSF Core And Security Profile Mapping Corpus
+
+Status: planned
+
+Goal: implement the admitted OCSF mappings as reviewable per-class artifacts.
+
+Deliverables:
+
+- canonical fixtures and field-level lineage for each admitted event class,
+  object, observable, profile and platform extension;
+- import/export mapping rules with required/recommended/optional handling,
+  enum/unknown preservation and explicit loss records;
+- separate mapping packages for core activity, findings, identity, cloud,
+  network, endpoint, data-security and AI-operation families;
+- bounded decoder/encoder and mapping resource budgets without third-party code.
+
+Verification:
+
+- per-class positive, negative, boundary, future-field and round-trip corpora;
+- semantic-confusion, extension spoofing, type/enum drift and loss suppression;
+- cross-platform deterministic mapping and sustained fuzzing.
+
+Exit criteria: every admitted OCSF family has executable conformance evidence
+and field-attributable loss reporting. `v0.18.2 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.18.3 — OCSF Upgrade Migration And Compatibility Gate
+
+Status: planned
+
+Goal: upgrade OCSF support without rewriting historical normalized truth.
+
+Deliverables:
+
+- old/current schema coexistence, mapping-version pinning and explicit migration
+  or query-time projection rules;
+- historical shadow remap and field/class/profile difference reports;
+- producer/consumer negotiation and downgrade behavior;
+- recurring freshness review that inserts a new pre-1.0 stop for material newer
+  stable releases rather than silently changing fixtures.
+
+Verification:
+
+- previous/current/future schema matrices, rollback and mixed-version exchange;
+- historical replay, extension removal/rename, lossy migration and stale cache;
+- independent compatibility, downgrade and claim-boundary pentest.
+
+Exit criteria: OCSF evolution is attributable and reversible, and no schema
+upgrade mutates historical facts silently. `v0.18.3 implementation stop reached.
+Run pentest for this exact commit.`
+
 ### v0.19.0 — Portable Authorization And Capability Issuer
 
 Status: planned
@@ -1284,6 +1396,144 @@ Exit criteria: operational ingestion may persist raw/quarantine data only throug
 the approved encrypted key-owned path. `v0.20.9 implementation stop reached. Run
 pentest for this exact commit.`
 
+### v0.20.10 — OpenTelemetry Signal And Correlation Contract
+
+Status: planned
+
+Goal: extend OTLP beyond logs without confusing observability measurements with
+security evidence.
+
+Deliverables:
+
+- implementation-time latest-stable semantic-convention selection, currently
+  `1.43.0`, with per-domain stability and version-selection records;
+- typed log, event, span/trace, metric, profile, resource and scope identities;
+- trace/span/session/resource/entity correlation with conflict, sampling,
+  missing-context and untrusted-baggage semantics;
+- signal-specific provenance, privacy, cardinality, retention and evidence-claim
+  boundaries; no metric or sampled trace implies complete activity.
+
+Verification:
+
+- official data-model/semantic-convention fixtures and cross-signal joins;
+- forged trace context, baggage injection, resource collision, sampling gaps and
+  unstable-convention downgrade;
+- bounded cardinality and deterministic correlation property tests.
+
+Exit criteria: every admitted OpenTelemetry signal has distinct truth and
+correlation semantics. `v0.20.10 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.20.11 — OTLP Trace And Span Mapping
+
+Status: planned
+
+Goal: normalize distributed operation paths for application and service attack
+investigation without trusting caller-propagated context blindly.
+
+Deliverables:
+
+- bounded trace/span/resource/scope/status/event/link mapping and canonical IDs;
+- parent/link validation, partial-trace and sampling evidence, clock/ordering
+  uncertainty and service/workload entity links;
+- pinned HTTP, RPC, messaging, database, FaaS and cloud semantic-convention
+  profiles with explicit unstable/unsupported fields;
+- security-sensitive route, peer, identity and error extraction under field
+  protection policy.
+
+Verification:
+
+- broken/cyclic parents, reused IDs, cross-tenant links, spoofed peer/resource,
+  huge fan-out and partial sampling;
+- semantic-convention version migration and ambiguous service identity;
+- trace reconstruction, loss reporting, fuzz and privacy campaigns.
+
+Exit criteria: traces provide bounded attributable context and never fabricate a
+complete request path. `v0.20.11 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.20.12 — OTLP Metric Security Context Mapping
+
+Status: planned
+
+Goal: admit metrics as contextual measurements with explicit aggregation and
+cardinality limits.
+
+Deliverables:
+
+- gauge, sum, histogram and exponential-histogram mapping with temporality,
+  reset, exemplar and aggregation identity;
+- metric-to-resource/entity and exemplar-to-trace correlation;
+- sampling/aggregation/error and source-health metadata preventing a metric from
+  becoming immutable event evidence;
+- per-instrument/attribute cardinality, series count, memory and output budgets.
+
+Verification:
+
+- counter reset/wrap, temporality switch, duplicate/out-of-order points, hostile
+  buckets and cardinality explosion;
+- exemplar substitution, tenant/resource collision and aggregation ambiguity;
+- hand-calculated vectors, deterministic rollups and sustained load tests.
+
+Exit criteria: metric context is useful and bounded while its weaker evidentiary
+meaning stays explicit. `v0.20.12 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.20.13 — OTLP Event And Profile Mapping
+
+Status: planned
+
+Goal: support named application events and profiles without hiding their
+different maturity, privacy or sampling characteristics.
+
+Deliverables:
+
+- named-event mapping over log records with event-name/version and trace context;
+- pinned profile signal/data-model subset with sample type, period, frame/module,
+  symbolization provenance and explicit development-status warning;
+- secret/PII/source-path redaction, bounded stacks/labels/samples and retention;
+- implementation-time admission check that inserts another stop if the profile
+  specification is materially unstable.
+
+Verification:
+
+- event/log confusion, profile symbol/path leakage, hostile stacks/labels,
+  missing binaries and sample bias;
+- unsupported profile/version rejection and future-field preservation;
+- cross-platform event/profile fixtures, fuzzing and privacy pentest.
+
+Exit criteria: events and profiles remain versioned bounded signal types with
+honest maturity and sampling limits. `v0.20.13 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.20.14 — AI Workload Telemetry Model
+
+Status: planned
+
+Goal: model AI-system operations as monitored workload evidence independently
+from Vakaheim's later optional AI assistant.
+
+Deliverables:
+
+- OCSF AI-operation and current OpenTelemetry GenAI mapping profiles for model,
+  provider, operation, agent/tool, token/use and response metadata;
+- prompt/context/output/tool payload classification with default minimization,
+  digest/reference options and explicit collection consent;
+- model/version, system/developer prompt, retrieval source and tool-call lineage;
+- prompt-injection, data-exfiltration, unsafe-tool and anomalous-usage facts with
+  no inference that missing sensitive payload equals safe behavior.
+
+Verification:
+
+- secret/personal-data capture, malicious prompt/tool output, model-name spoof,
+  cross-tenant context and unbounded token/cardinality attacks;
+- OCSF/OpenTelemetry mapping drift and missing-redacted-payload explanations;
+- privacy review and hostile AI-telemetry corpus.
+
+Exit criteria: Vakaheim can monitor AI workloads without requiring or trusting an
+AI assistant. `v0.20.14 implementation stop reached. Run pentest for this exact
+commit.`
+
 ## Phase C — Ingestion And Transport
 
 ### v0.22.0 — Local Ingestion Pipeline
@@ -1535,6 +1785,106 @@ Verification:
 Exit criteria: network time strengthens independently established trust without
 creating a certificate-validation cycle. `v0.30.2 implementation stop reached.
 Run pentest for this exact commit.`
+
+### v0.30.3 — OTLP Trace Ingestion Endpoint
+
+Status: planned
+
+Goal: expose authenticated bounded trace ingestion over common OTLP transport.
+
+Deliverables:
+
+- OTLP trace Protobuf/gRPC/HTTP profile over `v0.20.11` mappings;
+- source/tenant/resource registration, batch limits, partial success,
+  idempotency and signal-specific acknowledgements;
+- sampling/configuration metadata and trace completeness outcomes;
+- separate trace quotas and overload impairment from log ingestion.
+
+Verification:
+
+- malformed spans, deep/fan-out traces, disconnect/retry and partial success;
+- cross-tenant trace IDs, forged resource context and trace/log quota starvation;
+- representative sender interoperability and endpoint pentest.
+
+Exit criteria: trace ingestion is bounded and never claims complete or durable
+logs by association. `v0.30.3 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.30.4 — OTLP Metric Ingestion Endpoint
+
+Status: planned
+
+Goal: ingest admitted metrics with series/cardinality admission before storage
+or detection sees them.
+
+Deliverables:
+
+- OTLP metric Protobuf/gRPC/HTTP profile over `v0.20.12`;
+- per-source instrument/series/attribute budgets and temporality negotiation;
+- partial-success accounting, reset/gap health and backpressure;
+- metric-specific retention/tiering and evidence labels.
+
+Verification:
+
+- series explosion, hostile histograms, reset/reorder, disconnect and retry;
+- tenant/resource confusion and metric load starving event durability;
+- representative sender interoperability and sustained capacity pentest.
+
+Exit criteria: admitted metric load remains bounded and its aggregation limits
+remain queryable. `v0.30.4 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.30.5 — OTLP Event Profile And AI Telemetry Endpoint
+
+Status: planned
+
+Goal: activate named-event, admitted-profile and AI-operation ingestion under
+their stricter privacy and maturity policies.
+
+Deliverables:
+
+- signal negotiation over `v0.20.13`–`v0.20.14` with unsupported profiles
+  rejected explicitly;
+- payload minimization/redaction preview, consent/purpose and source registration;
+- per-signal quotas, partial success, lineage and development-spec warnings;
+- feature gates allowing AI/profile telemetry to be disabled independently.
+
+Verification:
+
+- sensitive prompt/profile leakage, hostile frames/attributes, version downgrade,
+  unsupported-signal smuggling and disable bypass;
+- cross-signal retry/acknowledgement confusion and quota isolation;
+- sender interoperability, privacy assessment and endpoint pentest.
+
+Exit criteria: experimental or sensitive signals are never silently admitted as
+ordinary logs. `v0.30.5 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.30.6 — OpenTelemetry Cross-Signal Integration Gate
+
+Status: planned
+
+Goal: prove all admitted signals correlate without collapsing their different
+coverage and truth claims.
+
+Deliverables:
+
+- end-to-end correlation/query fixtures across logs, traces, metrics, events,
+  profiles and AI telemetry;
+- source-health/coverage views and downgrade/disable behavior per signal;
+- semantic-convention freshness review and migration inventory;
+- explicit unsupported behavior for every non-admitted domain/profile.
+
+Verification:
+
+- missing/partial signal combinations, ID spoofing, schema drift, overload and
+  cross-signal policy differences;
+- same-source and cross-source reconstruction with honest completeness;
+- independent interoperability, privacy and correlation pentest.
+
+Exit criteria: each signal adds context without allowing another to imply its
+completeness or authority. `v0.30.6 implementation stop reached. Run pentest for
+this exact commit.`
 
 ### v0.31.0 — Native Durable Ingestion Protocol
 
@@ -3248,6 +3598,132 @@ Exit criteria: all five options are decided; none remains “possible,” implie
 deferred to 1.0. `v0.100.1 implementation stop reached. Run pentest for this
 exact commit.`
 
+### v0.100.2 — Extended Modern-SIEM Scope Admission Decisions
+
+Status: planned
+
+Goal: bind advanced product-scope decisions early enough that none can remain an
+implicit promise or late 1.0 surprise.
+
+Deliverables:
+
+- signed implement-or-non-goal decisions for external data-lake query-in-place,
+  OT/ICS monitoring, DSPM/data-security monitoring, external attack-surface
+  management and MSSP hierarchical tenancy;
+- named national NIS2 profile decision with jurisdiction/legal-review ownership;
+- per-option threat, privacy, safety, protocol/format, no-third-party feasibility,
+  operations, performance and support analysis;
+- exact admitted implementation/closure series and tested rejection surfaces.
+
+Verification:
+
+- every option has owner, bounded support claim, dependencies and closure route;
+- rejected paths fail through API/config/UI and documentation claim tests;
+- admitted paths have enough small stops before `v0.730.0`.
+
+Exit criteria: all extended-scope choices are executable plans or explicit
+tested 1.0 non-goals. `v0.100.2 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.101.0 — External Data-Lake Catalog And Snapshot Contract
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: query external retained security data without treating remote listings or
+mutable objects as a complete Vakaheim snapshot.
+
+Deliverables:
+
+- provider-neutral catalog, object/version/partition identity and snapshot
+  manifest contracts;
+- admitted open columnar format decision, schema/statistics provenance and
+  explicit unsupported encodings;
+- credential/egress/residency/purpose capabilities and immutable query audit;
+- missing, changed, deleted, permission-limited and unverifiable object states.
+
+Verification:
+
+- mutable listing, object replacement, stale catalog, partial permissions and
+  partition omission;
+- hostile metadata/statistics/schema and cross-tenant credentials;
+- zero-third-party feasibility and catalog threat-model pentest.
+
+Exit criteria: remote catalog state never implies an authoritative complete
+snapshot without evidence. `v0.101.0 implementation stop reached. Run pentest
+for this exact commit.`
+
+### v0.101.1 — External Columnar Reader And Predicate Safety
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: read the admitted external format with bounded native code before VQL
+pushdown is allowed.
+
+Deliverables:
+
+- checked metadata/page/encoding reader with byte/depth/row/value limits;
+- projection and predicate evaluation with exact null/type/time semantics;
+- encrypted bounded cache/spill and range-read integrity evidence;
+- corruption, unsupported-codec and partial-object outcomes.
+
+Verification:
+
+- malformed metadata/pages, decompression bombs, integer/offset overflow and
+  adversarial nesting/cardinality;
+- reference-reader differential fixtures and projection/predicate equivalence;
+- sustained fuzzing, allocation failure and parser pentest.
+
+Exit criteria: hostile remote columnar data cannot escape parser or work bounds.
+`v0.101.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.101.2 — External VQL Planning Coverage And Pushdown
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: integrate external scans without weakening VQL policy or completeness.
+
+Deliverables:
+
+- catalog/snapshot-aware logical and physical scan operators;
+- policy-safe projection/predicate pushdown with local recheck;
+- expected-set/coverage manifests, cost uncertainty and partial-result reasons;
+- cancellation, checkpoint, replan and remote-rate/cost admission.
+
+Verification:
+
+- malicious statistics, changing snapshot, unsafe pushdown, policy drift and
+  partial range reads;
+- local reference equivalence and exact incomplete-result behavior;
+- hostile cost, cancellation, privacy and query pentest.
+
+Exit criteria: query-in-place is policy-equivalent and never hides missing or
+changing remote data. `v0.101.2 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.101.3 — External Data-Lake Scope Closure
+
+Status: conditional on `v0.100.2`
+
+Goal: close the 1.0 query-in-place decision without hiding implementation work.
+
+Deliverables:
+
+- admitted path integration of `v0.101.0`–`v0.101.2`, or enforced unsupported
+  API/config/UI behavior when rejected;
+- named format/provider support inventory and no implied lakehouse claim;
+- capacity, outage, migration, support and release-note evidence.
+
+Verification:
+
+- live/offline representative stores, schema evolution, outage and rollback for
+  admitted scope;
+- rejection-path and unsupported-provider claim scans;
+- independent query-in-place architecture and exact-commit pentest.
+
+Exit criteria: external query-in-place is either bounded and proven or
+conclusively absent from 1.0. `v0.101.3 implementation stop reached. Run pentest
+for this exact commit.`
+
 ## Phase F — Detection
 
 ### v0.110.0 — Signed Rule Packages
@@ -3703,6 +4179,85 @@ Exit criteria: intelligence cannot silently remain authoritative after expiry
 or revocation. `v0.178.0 implementation stop reached. Run pentest for this exact
 commit.`
 
+### v0.178.1 — ATT&CK Current Data Model And Provenance
+
+Status: planned
+
+Goal: track the current ATT&CK defensive model rather than freezing the pre-v18
+detection representation.
+
+Deliverables:
+
+- implementation-time latest stable ATT&CK STIX 2.1 collection, currently
+  `v19.1`, with signed-source/digest/license/retrieval provenance;
+- tactics, techniques/sub-techniques, Detection Strategies, Analytics, Data
+  Components, platforms, log sources and mutable elements as versioned objects;
+- explicit handling for deprecated Data Sources and renamed/split tactics,
+  including Stealth and Defense Impairment;
+- Enterprise, Mobile and ICS domain separation with no implied domain coverage.
+
+Verification:
+
+- official STIX bundles, object relationships, revoked/deprecated/replaced IDs
+  and current/previous-version differences;
+- malicious bundles, reference cycles, ID reuse and cross-domain confusion;
+- deterministic import, fixture freshness and licensing review.
+
+Exit criteria: Vakaheim represents current ATT&CK defensive objects and their
+exact source version. `v0.178.1 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.178.2 — Detection Strategy Analytic And Telemetry Coverage Graph
+
+Status: planned
+
+Goal: connect Vakaheim rules and source health to ATT&CK Detection Strategies and
+platform-specific Analytics.
+
+Deliverables:
+
+- many-to-many rule/package-to-strategy/analytic/technique/platform mappings;
+- analytic log-source/Data Component requirements mapped to concrete Vakaheim
+  facts, source profiles and completeness states;
+- coverage statuses implemented, partial, unavailable, policy-limited, untested
+  and stale with explanation;
+- migration history from legacy technique-only/data-source coverage.
+
+Verification:
+
+- missing required telemetry, one rule mapped to several analytics, platform
+  mismatch and stale/revoked ATT&CK objects;
+- coverage inflation, deprecated-source fallback and malicious content mapping;
+- deterministic coverage graph and gap-report fixtures.
+
+Exit criteria: every claimed ATT&CK detection coverage path reaches tested rules
+and currently healthy required telemetry. `v0.178.2 implementation stop reached.
+Run pentest for this exact commit.`
+
+### v0.178.3 — ATT&CK Upgrade Shadow Migration And Freshness Gate
+
+Status: planned
+
+Goal: absorb ATT&CK releases without silently rewriting historical coverage or
+detection claims.
+
+Deliverables:
+
+- staged current/new collection registry and shadow coverage recomputation;
+- tactic/technique/strategy/analytic/data-component diff and owner review;
+- preserved historical reports pinned to prior ATT&CK versions;
+- scheduled freshness monitor that creates a new version stop for material
+  stable updates before release freeze.
+
+Verification:
+
+- rename/split/revoke, relationship changes, missing collection and rollback;
+- old/new coverage comparison and unchanged-rule drift detection;
+- offline update bundle, migration and claim-boundary pentest.
+
+Exit criteria: ATT&CK updates are reviewed migrations, never mutable labels.
+`v0.178.3 implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.179.0 — Threat-Intelligence Matching Engine
 
 Status: planned
@@ -3815,6 +4370,87 @@ Verification:
 
 Exit criteria: every match proves exact rule and source bytes under current
 policy. `v0.180.3 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.180.4 — Sigma 2.1 Rule And Taxonomy Profile
+
+Status: planned
+
+Goal: bind a precise current Sigma support profile instead of promising a generic
+mapping.
+
+Deliverables:
+
+- implementation-time latest stable Sigma selection, currently specification
+  `2.1.0`, with grammar/schema/source/license digest;
+- admitted logsource, detection, modifier, condition, taxonomy, metadata and
+  package semantics plus explicit exclusions;
+- canonical bounded parser and normalized Sigma IR with unknown-field handling;
+- mapping from Sigma logsources/fields into exact Vakaheim schema and telemetry
+  requirements.
+
+Verification:
+
+- official/representative rules, every modifier/condition boundary, duplicate
+  YAML keys, aliases, recursion and oversized input;
+- taxonomy ambiguity, unsupported feature and lossy mapping diagnostics;
+- parser/type-checker fuzzing and reproducible compilation.
+
+Exit criteria: Sigma support is versioned and feature-exact rather than a best-
+effort query translation. `v0.180.4 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.180.5 — Sigma Correlation And Filter Compilation
+
+Status: planned
+
+Goal: support admitted Sigma 2.1 correlations and reusable filters without
+bypassing Vakaheim state/resource limits or tuning audit.
+
+Deliverables:
+
+- correlation rule references, grouping, aliases, timespan and condition mapping
+  into bounded predicate/temporal IR;
+- reusable filter identity, scope, version, author/reviewer and rule-binding
+  provenance;
+- compile-time state/cardinality/work estimates and unsupported correlation
+  diagnostics;
+- environment tuning as signed overlay packages, never silent source edits.
+
+Verification:
+
+- missing/cyclic rule references, conflicting aliases, unbounded grouping,
+  filter precedence and stale filter/rule versions;
+- Sigma/reference examples and native-equivalent execution comparisons;
+- hostile correlation/filter corpus, state exhaustion and tuning pentest.
+
+Exit criteria: correlation and filtering remain bounded, attributable and
+reviewable. `v0.180.5 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.180.6 — Sigma Interoperability Upgrade And Closure Gate
+
+Status: planned
+
+Goal: close current Sigma import support across compilation, simulation and
+rollout while preserving unsupported semantics honestly.
+
+Deliverables:
+
+- native-versus-imported rule/correlation/filter conformance corpus;
+- package, test, ATT&CK mapping, rollout and rollback integration;
+- current/previous Sigma migration and material-update freshness policy;
+- import report listing every preserved, transformed, lost and rejected element.
+
+Verification:
+
+- official SigmaHQ representative content, hostile packages and version skew;
+- old/new compiler differential, round-trip where defined and semantic-loss
+  review;
+- independent interoperability, licensing and exact-commit pentest.
+
+Exit criteria: admitted Sigma 2.1 content follows the same security lifecycle as
+native content. `v0.180.6 implementation stop reached. Run pentest for this exact
 commit.`
 
 ### v0.181.0 — Artifact-Content Matching Scope Closure
@@ -4606,6 +5242,83 @@ Exit criteria: every configured account/region has explicit collection and
 permission evidence. `v0.292.0 implementation stop reached. Run pentest for this
 exact commit.`
 
+### v0.292.1 — AWS CloudTrail Integrity And Data-Event Profile
+
+Status: planned
+
+Goal: make AWS audit coverage precise enough for security claims.
+
+Deliverables:
+
+- management/data/network-activity event profiles, trail/channel/lake identity,
+  organization scope, digest validation and selector/exclusion evidence;
+- S3, Lambda and other admitted high-value data-event mappings;
+- delivery latency, duplication, region/global-service and permission coverage;
+- exact supported AWS API/schema surface and current/live fixtures.
+
+Verification:
+
+- digest failure, selector gap, disabled trail, organization move, late/duplicate
+  delivery and partial permissions;
+- cross-account/region/source confusion and malicious event payloads;
+- live AWS interoperability and source-completeness pentest.
+
+Exit criteria: CloudTrail coverage states exactly which activity classes and
+scopes are visible. `v0.292.1 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.292.2 — AWS GuardDuty And Security Hub Profile
+
+Status: planned
+
+Goal: ingest AWS-native findings without treating vendor classification as
+Vakaheim evidence or incident authority.
+
+Deliverables:
+
+- GuardDuty finding and Security Hub ASFF profiles with stable IDs, updates,
+  workflow/status, resources, severity and product provenance;
+- source-finding version/dedup/supersession and raw-capsule preservation;
+- account/region/organization coverage and delegated-administrator semantics;
+- mapping to immutable Vakaheim findings with explicit vendor-trust limits.
+
+Verification:
+
+- update/retraction, duplicate aggregation, stale finding, product spoof and
+  delegated-admin changes;
+- cross-account resource reuse and partial product permissions;
+- live interoperability, mapping conformance and connector pentest.
+
+Exit criteria: AWS findings remain attributable inputs, never automatic Vakaheim
+incidents. `v0.292.2 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.292.3 — AWS Network DNS And Edge Security Profile
+
+Status: planned
+
+Goal: cover admitted AWS network and edge evidence with sampling and visibility
+limits explicit.
+
+Deliverables:
+
+- VPC Flow Logs, Route 53 Resolver query logs and WAF log profiles;
+- interface/VPC/account/region identity, aggregation/sampling, action and rule
+  provenance;
+- delivery/sink/exclusion health and high-volume capacity profiles;
+- entity/network mapping and ATT&CK analytic telemetry bindings.
+
+Verification:
+
+- aggregation window, skipped records, interface reuse, resolver/WAF disable,
+  schema drift and rate pressure;
+- NAT/proxy ambiguity and cross-account network identity;
+- live fixtures, load campaign and provider-profile pentest.
+
+Exit criteria: AWS network/edge visibility is measurable and never represented
+as unsampled completeness. `v0.292.3 implementation stop reached. Run pentest
+for this exact commit.`
+
 ### v0.294.0 — Azure Source Profile
 
 Status: planned
@@ -4625,6 +5338,82 @@ throttling, delayed availability and partial-permission campaigns.
 Exit criteria: every tenant/subscription scope has explicit visibility evidence.
 `v0.294.0 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.294.1 — Microsoft Entra Identity Security Profile
+
+Status: planned
+
+Goal: implement named Entra sign-in, audit and identity-risk evidence with exact
+tenant and licensing/permission visibility.
+
+Deliverables:
+
+- sign-in, service-principal, managed-identity, audit, provisioning and admitted
+  risk event/detection profiles;
+- conditional-access/MFA/session/device/application context and stable IDs;
+- API retention, latency, paging, license/scope and partial-permission health;
+- identity reuse, guest/cross-tenant and role/group change semantics.
+
+Verification:
+
+- deleted/recreated principals, guest tenants, risk update, paging gaps, license
+  loss and conditional-access schema change;
+- token/app confusion, cross-tenant leakage and incomplete scopes;
+- live Entra interoperability and identity-profile pentest.
+
+Exit criteria: every Entra identity claim exposes tenant, source, permission and
+freshness limits. `v0.294.1 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.294.2 — Microsoft Defender XDR Profile
+
+Status: planned
+
+Goal: ingest Defender XDR alerts/incidents and advanced-hunting evidence without
+ceding Vakaheim alert or incident authority.
+
+Deliverables:
+
+- named alert, incident, evidence/entity and admitted event API profiles;
+- external update/supersession, severity/status and product/service provenance;
+- stable link to raw source records and immutable Vakaheim findings;
+- permission, retention, API quota and delayed-availability health.
+
+Verification:
+
+- external incident merge/split/close, alert update/retract, ID reuse and API
+  partial outage;
+- vendor severity/status attempting to mutate internal incident state;
+- live Defender XDR interoperability and mapping pentest.
+
+Exit criteria: Defender XDR contributes attributable evidence while Vakaheim
+retains internal workflow authority. `v0.294.2 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.294.3 — Azure Platform And Resource Security Profile
+
+Status: planned
+
+Goal: complete named Azure Activity, resource, policy and admitted security-
+control evidence.
+
+Deliverables:
+
+- Activity Log, resource graph/inventory, policy and admitted Defender for Cloud
+  finding profiles;
+- tenant/subscription/resource-group/resource identity and movement history;
+- diagnostic-setting/export/exclusion and delegated-management visibility;
+- region, latency, cursor, throttling and permission coverage.
+
+Verification:
+
+- subscription transfer, resource ID reuse, diagnostic disable, policy update,
+  paging and partial delegated scope;
+- cross-tenant resource confusion and poisoned inventory/finding inputs;
+- live Azure platform interoperability and connector pentest.
+
+Exit criteria: Azure platform scope and every visibility exclusion are explicit.
+`v0.294.3 implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.296.0 — GCP Source Profile
 
 Status: planned
@@ -4643,6 +5432,56 @@ paging, throttling and partial-permission campaigns.
 
 Exit criteria: hierarchy and exclusion gaps cannot appear as complete coverage.
 `v0.296.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.296.1 — Google Security Command Center Profile
+
+Status: planned
+
+Goal: ingest Security Command Center findings with organization/folder/project
+scope and source-product authority explicit.
+
+Deliverables:
+
+- SCC finding, mute/state, source, resource and vulnerability/exposure profiles;
+- update/supersession, stable identity and raw-source preservation;
+- service tier, activation, organization scope, latency and permission health;
+- immutable Vakaheim finding mapping without automatic incident creation.
+
+Verification:
+
+- finding update/reopen/mute, source spoof, project move, service-tier loss and
+  partial permissions;
+- cross-organization resource reuse and stale inventory links;
+- live SCC interoperability and finding-mapping pentest.
+
+Exit criteria: SCC output is attributable vendor evidence with visible coverage
+and authority limits. `v0.296.1 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.296.2 — GCP Network DNS And Workload Security Profile
+
+Status: planned
+
+Goal: cover admitted GCP network, DNS and workload audit evidence under exact
+sink/exclusion semantics.
+
+Deliverables:
+
+- VPC Flow Logs, Cloud DNS logs and admitted GKE/workload audit profiles;
+- organization/folder/project/network/resource identity, sampling and aggregation;
+- log-router sink/exclusion, region, latency and permission health;
+- ATT&CK analytic and source-assurance mappings.
+
+Verification:
+
+- sampling, excluded logs, sink change, project move, workload identity reuse and
+  throttling;
+- NAT/proxy ambiguity, poisoned labels and cross-project linkage;
+- live GCP fixtures, load campaign and profile pentest.
+
+Exit criteria: GCP network/workload coverage states every sample, sink and
+permission limitation. `v0.296.2 implementation stop reached. Run pentest for
+this exact commit.`
 
 ### v0.298.0 — Asset, CMDB And Vulnerability Connectors
 
@@ -4666,6 +5505,152 @@ Verification:
 Exit criteria: enrichment remains attributable and asset retirement never erases
 historical identity. `v0.298.0 implementation stop reached. Run pentest for this
 exact commit.`
+
+### v0.298.1 — Data Asset Classification And Lineage Model
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: model sensitive data assets before DSPM findings or exposure scores depend
+on them.
+
+Deliverables:
+
+- datastore/bucket/database/table/object/data-set identities and lifecycle;
+- classification labels, sensitivity confidence, owner, jurisdiction, purpose,
+  lineage and source provenance;
+- discovery/classifier conflict, staleness and unknown semantics;
+- field-minimized metadata model that does not require ingesting protected data.
+
+Verification:
+
+- renamed/moved/reused assets, conflicting labels, stale scans and poisoned
+  ownership/classification;
+- cross-tenant lineage and sensitive sample leakage;
+- deterministic identity/merge and privacy review.
+
+Exit criteria: data context remains attributable metadata rather than assumed
+truth. `v0.298.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.298.2 — Data Access Exposure And Control Graph
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: represent who can reach sensitive data and which controls mediate access.
+
+Deliverables:
+
+- principal/role/service/network/public path to data-asset relationships;
+- encryption, key, policy, sharing, backup and residency control observations;
+- effective-time, confidence, permission-limited and unknown graph edges;
+- bounded attack/exposure path computation over source-backed relationships.
+
+Verification:
+
+- inherited/conditional permissions, stale policies, public-link expiry, role
+  churn and graph fan-out;
+- false exposure from identity merge and poisoned control status;
+- path evidence, incompleteness and tenant-isolation tests.
+
+Exit criteria: every data-exposure path decomposes into current source-backed
+edges and visible unknowns. `v0.298.2 implementation stop reached. Run pentest
+for this exact commit.`
+
+### v0.298.3 — Data Security Finding And Risk Integration
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: create explainable data-security findings without converting classification
+or exposure tools into incident authority.
+
+Deliverables:
+
+- OCSF-aligned data-security finding profile and immutable source finding;
+- rules for public/overbroad access, weak controls, anomalous access and residency
+  conflict with exact prerequisites;
+- decomposable sensitivity/exposure/control/activity risk contribution;
+- alert/incident promotion and corrective-action links through ordinary gates.
+
+Verification:
+
+- stale classification, missing activity, vendor finding update and risk
+  inflation;
+- unauthorized sensitive context disclosure and cross-tenant correlation;
+- end-to-end data finding/alert/incident tabletop and pentest.
+
+Exit criteria: DSPM evidence follows normal finding authority and privacy rules.
+`v0.298.3 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.298.4 — External Attack-Surface Discovery Authority
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: discover externally visible assets without allowing uncontrolled scanning
+or guessed ownership.
+
+Deliverables:
+
+- explicit authorized domains, address ranges, cloud tenants and scan limits;
+- passive DNS/certificate/domain and approved active observation source models;
+- attribution confidence, ownership claim/review and third-party-hosting ambiguity;
+- target authorization, rate, jurisdiction, opt-out and evidence retention.
+
+Verification:
+
+- unauthorized target expansion, shared hosting/CDN, domain takeover, IP reuse,
+  wildcard certificates and stale passive data;
+- scan abuse, service disruption and cross-tenant attribution;
+- legal/abuse/security review and bounded discovery pentest.
+
+Exit criteria: no asset is scanned or assigned to a tenant without explicit
+authority and evidence. `v0.298.4 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.298.5 — External Exposure Change And Finding Engine
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: turn attributable perimeter changes into reviewable findings.
+
+Deliverables:
+
+- service/certificate/DNS/cloud-edge/software exposure observations and history;
+- new/disappeared/changed exposure, weak TLS, expired certificate and admitted
+  vulnerability correlation rules;
+- confidence, freshness, validation and false-positive suppression evidence;
+- links to asset/vulnerability/risk and ordinary alert promotion.
+
+Verification:
+
+- transient services, honeypots, CDN/proxy, scan blocking, banner deception and
+  vulnerability-version ambiguity;
+- false ownership and stale observation attacks;
+- controlled perimeter fixtures and finding-quality pentest.
+
+Exit criteria: external exposure findings remain evidence-backed and uncertainty-
+aware. `v0.298.5 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.298.6 — DSPM And EASM Scope Closure
+
+Status: conditional on `v0.100.2`
+
+Goal: close data-security and external-attack-surface scope before provider and
+content claims expand.
+
+Deliverables:
+
+- admitted path integration of `v0.298.1`–`v0.298.5`, or tested disabled
+  API/config/UI paths for rejected capabilities;
+- named discovery/classification/scanner support inventory;
+- privacy, authorization, support, capacity and limitation documentation.
+
+Verification:
+
+- full data/external-exposure tabletop on admitted paths;
+- rejected-path and implied-provider/capability claim scans;
+- independent privacy, safety and exact-commit pentest.
+
+Exit criteria: DSPM/EASM are proven bounded capabilities or explicit 1.0 non-
+goals. `v0.298.6 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.300.0 — Shared Identity And SaaS Connector Substrate
 
@@ -4708,6 +5693,80 @@ replay, paging and least-privilege coverage tests.
 Exit criteria: identity reuse and ambiguity are represented, never guessed away.
 `v0.302.0 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.302.1 — Okta Identity And System Log Profile
+
+Status: planned
+
+Goal: implement named Okta identity, authentication, policy and administration
+evidence with cursor and permission health.
+
+Deliverables:
+
+- System Log, user/group/application/session/authentication/policy profiles;
+- stable organization/object IDs, lifecycle, pagination, polling and hook identity;
+- rate/retention/schema/permission coverage and source-capsule preservation;
+- exact supported API/event-type matrix and entity mappings.
+
+Verification:
+
+- actor/target reuse, deleted users/apps, cursor expiry, duplicate events,
+  throttling and permission loss;
+- webhook spoof, organization confusion and schema drift;
+- live Okta interoperability and connector pentest.
+
+Exit criteria: Okta visibility and every missing scope are independently proven.
+`v0.302.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.302.2 — Google Workspace Identity And Admin Profile
+
+Status: planned
+
+Goal: implement named Google Workspace identity, login, token and administration
+evidence.
+
+Deliverables:
+
+- Admin, Login, Token, SAML and admitted directory activity profiles;
+- customer/domain/user/application identity, rename/deletion and delegated admin;
+- reporting latency, retention, paging, authorization and partial-data health;
+- Workspace-to-cloud-project identity conflicts represented explicitly.
+
+Verification:
+
+- renamed/reused accounts, alias/domain changes, late activity, paging gaps and
+  delegated-scope loss;
+- cross-customer leakage, application/token confusion and malicious fields;
+- live Workspace interoperability and identity pentest.
+
+Exit criteria: Workspace identity evidence has stable customer scope and visible
+API limits. `v0.302.2 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.302.3 — Named Identity Provider Integration Gate
+
+Status: planned
+
+Goal: prove Entra, Okta and Google Workspace identity semantics coexist without
+unsafe automatic merging.
+
+Deliverables:
+
+- cross-provider alias/link conflict and manual resolution workflows;
+- source-specific completeness, latency and permission health comparison;
+- identity-risk/behavioral model inputs retaining source provenance;
+- named support matrix and update/freshness ownership.
+
+Verification:
+
+- same email/different principal, tenant/customer migration, provider outage and
+  conflicting lifecycle states;
+- poisoned merge and cross-tenant identity-link attacks;
+- multi-provider replay, behavior/risk and integration pentest.
+
+Exit criteria: named identity providers add context without silently collapsing
+principal identity. `v0.302.3 implementation stop reached. Run pentest for this
+exact commit.`
+
 ### v0.304.0 — Productivity SaaS Provider Contract
 
 Status: planned
@@ -4728,6 +5787,82 @@ rate limit, outage, webhook spoof/replay and live interoperability.
 Exit criteria: the conformance contract is testable; no named productivity
 provider is supported by this milestone alone.
 `v0.304.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.304.1 — Microsoft 365 Unified Audit Profile
+
+Status: planned
+
+Goal: implement named Microsoft 365 audit coverage across admitted collaboration
+services.
+
+Deliverables:
+
+- Unified Audit profiles for Exchange, SharePoint, OneDrive, Teams and admitted
+  administration activities;
+- workload/tenant/user/object identity, record version, duplication and latency;
+- subscription, retention, licensing, permission and throttling health;
+- source-specific raw capsules and explicit unsupported workloads/operations.
+
+Verification:
+
+- delayed/duplicate records, workload outage, subscription stop, license/scope
+  loss and schema-version drift;
+- tenant/user/object reuse and malicious message/file metadata;
+- live Microsoft 365 interoperability and connector pentest.
+
+Exit criteria: every claimed Microsoft 365 workload has measured collection and
+permission coverage. `v0.304.1 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.304.2 — Google Workspace Collaboration Audit Profile
+
+Status: planned
+
+Goal: implement named Gmail, Drive and collaboration administration evidence
+separately from identity events.
+
+Deliverables:
+
+- admitted Gmail, Drive, Meet/Chat and administration activity profiles;
+- customer/user/object/message/file identity, visibility and shared-drive scope;
+- report latency, paging, retention, authorization and application-access health;
+- policy-safe metadata mapping with content collection disabled by default.
+
+Verification:
+
+- shared object moves, deleted/recreated files, delayed reports, paging gaps and
+  permission changes;
+- content/metadata leakage, cross-customer IDs and malicious filenames/URLs;
+- live Workspace interoperability and privacy pentest.
+
+Exit criteria: collaboration activity is attributable without silently ingesting
+content or claiming unavailable events. `v0.304.2 implementation stop reached.
+Run pentest for this exact commit.`
+
+### v0.304.3 — Slack Enterprise Audit Profile
+
+Status: planned
+
+Goal: implement a bounded named messaging/administration audit profile.
+
+Deliverables:
+
+- admitted Slack Enterprise audit actions, actor/entity/context and organization/
+  workspace identity;
+- cursor, retention, plan/permission, rate and delayed-availability health;
+- content minimization, link/file metadata redaction and legal-hold interaction;
+- exact supported action/version matrix.
+
+Verification:
+
+- organization/workspace changes, actor deletion, cursor replay, rate limit and
+  permission loss;
+- malicious text/URL metadata, content leakage and cross-workspace confusion;
+- live Slack interoperability and connector pentest.
+
+Exit criteria: named messaging audit support remains metadata-minimized and
+scope-exact. `v0.304.3 implementation stop reached. Run pentest for this exact
+commit.`
 
 ### v0.305.0 — Source-Control Provider Contract
 
@@ -4800,6 +5935,81 @@ Verification:
 Exit criteria: ServiceNow transport and schema limits are independently proven;
 write activation waits for `v0.453.3` and reconciliation for `v0.453.4`.
 `v0.305.2 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.305.3 — GitHub Organization And Audit Profile
+
+Status: planned
+
+Goal: implement named GitHub organization, repository, identity and workflow
+security evidence.
+
+Deliverables:
+
+- organization/enterprise audit, repository, branch/ruleset, deployment,
+  workflow and token/application profiles;
+- stable enterprise/org/repository/actor/application identity and rename/delete;
+- cursor/webhook, permission, retention, rate and schema health;
+- exact supported GitHub API/event matrix and raw source capsules.
+
+Verification:
+
+- organization/repository transfer, actor deletion, webhook replay, cursor gap,
+  rate limit and permission drift;
+- fork/repository ID confusion, malicious workflow metadata and app spoofing;
+- live GitHub interoperability and connector pentest.
+
+Exit criteria: GitHub support has explicit enterprise/org/repository coverage and
+cannot infer visibility from webhook success. `v0.305.3 implementation stop
+reached. Run pentest for this exact commit.`
+
+### v0.305.4 — GitLab Group Project And Audit Profile
+
+Status: planned
+
+Goal: implement named GitLab group/project, identity and pipeline security
+evidence.
+
+Deliverables:
+
+- audit, group/project, protected branch, pipeline/job, runner, token and
+  application profiles for admitted editions/deployment modes;
+- instance/namespace/project/user identity, moves/renames/deletion and version;
+- paging/webhook, permissions, rate, retention and self-managed-version health;
+- explicit unsupported feature/edition matrix.
+
+Verification:
+
+- namespace/project move, ID reuse, self-managed upgrade, webhook replay, paging
+  and permission loss;
+- runner/token confusion and malicious pipeline metadata;
+- live supported GitLab interoperability and connector pentest.
+
+Exit criteria: GitLab claims name exact deployment/version and visible scopes.
+`v0.305.4 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.305.5 — Named Source-Control Integration Gate
+
+Status: planned
+
+Goal: close GitHub/GitLab source-control coverage and common detection mappings.
+
+Deliverables:
+
+- common repository/identity/workflow facts with provider-specific provenance;
+- provider capability/coverage comparison and fail-closed unsupported behavior;
+- signed detections for token abuse, protection change, suspicious workflow and
+  runner/deployment activity;
+- update/freshness and live interoperability ownership.
+
+Verification:
+
+- cross-provider ID/name collision, migration, duplicate signals and outage;
+- common mapping semantic loss and detection equivalence;
+- integrated source-control attack exercises and pentest.
+
+Exit criteria: named source-control support is useful and provider distinctions
+remain visible. `v0.305.5 implementation stop reached. Run pentest for this exact
+commit.`
 
 ### v0.306.0 — TAXII Threat-Intelligence Connector
 
@@ -4998,6 +6208,79 @@ Exit criteria: the conformance contract is testable; each named VPN, firewall or
 proxy provider requires its own admitted release. `v0.312.0 implementation stop
 reached. Run pentest for this exact commit.`
 
+### v0.312.1 — Palo Alto PAN-OS Security Profile
+
+Status: planned
+
+Goal: implement named PAN-OS traffic, threat, URL, system and configuration
+evidence.
+
+Deliverables:
+
+- exact admitted PAN-OS/syslog/API versions and log-type mappings;
+- device/virtual-system/interface/rule/session/NAT identity and sequence health;
+- configuration/policy version, HA member and collector transport provenance;
+- truncation/rate/loss/schema and unsupported-feature matrix.
+
+Verification:
+
+- HA failover, rule rename/reorder, NAT ambiguity, log loss, version upgrade and
+  malformed extensions;
+- device/tenant confusion and external verdict provenance;
+- live PAN-OS interoperability and provider pentest.
+
+Exit criteria: PAN-OS evidence retains exact device, policy and session context.
+`v0.312.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.312.2 — Fortinet FortiGate Security Profile
+
+Status: planned
+
+Goal: implement named FortiGate traffic, UTM, VPN, system and configuration
+evidence.
+
+Deliverables:
+
+- exact admitted FortiOS/syslog/API versions and event families;
+- device/VDOM/interface/policy/session/NAT/VPN identity;
+- HA, configuration version, sequence/loss and source-health evidence;
+- field/version drift and unsupported-feature matrix.
+
+Verification:
+
+- VDOM/HA changes, policy reuse, session collision, upgrade, loss and malformed
+  key/value payloads;
+- cross-tenant/device confusion and vendor-verdict trust boundaries;
+- live FortiGate interoperability and provider pentest.
+
+Exit criteria: FortiGate support is versioned, VDOM-aware and source-attributable.
+`v0.312.2 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.312.3 — Zscaler Cloud Security Profile
+
+Status: planned
+
+Goal: implement named Zscaler web/private-access security evidence with cloud-
+service delivery limitations explicit.
+
+Deliverables:
+
+- admitted ZIA/ZPA audit, web, tunnel, policy and session profiles;
+- tenant/user/device/application/location identity and policy version;
+- streaming/polling cursor, delay, rate, permission and service-health evidence;
+- URL/content minimization, residency and unsupported-surface matrix.
+
+Verification:
+
+- delayed/duplicate streams, tenant/location move, policy change, outage and
+  permission loss;
+- URL leakage, user/device ambiguity and malicious remote metadata;
+- live supported Zscaler interoperability and provider pentest.
+
+Exit criteria: Zscaler collection has explicit cloud-delivery and identity
+coverage. `v0.312.3 implementation stop reached. Run pentest for this exact
+commit.`
+
 ### v0.313.0 — Email-Security Provider Contract
 
 Status: planned
@@ -5017,6 +6300,56 @@ malformed identity, redaction and live interoperability acceptance.
 Exit criteria: the conformance contract is testable; each named email-security
 provider requires its own admitted release. `v0.313.0 implementation stop
 reached. Run pentest for this exact commit.`
+
+### v0.313.1 — Microsoft Defender For Office 365 Profile
+
+Status: planned
+
+Goal: implement named Microsoft email-security alerts, investigations and
+message-event evidence.
+
+Deliverables:
+
+- admitted alert, campaign, investigation, quarantine and message trace profiles;
+- tenant/message/network-message/recipient/attachment/URL identity and updates;
+- API/license/retention/latency/permission health and raw provenance;
+- strict separation from Defender XDR incident authority.
+
+Verification:
+
+- alert/campaign update, message-ID collision, delayed trace, license/scope loss
+  and malicious message metadata;
+- content/redaction leakage and tenant confusion;
+- live Defender for Office 365 interoperability and privacy pentest.
+
+Exit criteria: email-security evidence is message-attributable and does not
+silently become an internal incident. `v0.313.1 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.313.2 — Proofpoint Email Security Profile
+
+Status: planned
+
+Goal: implement a second independent named email-security profile to prove the
+provider contract is not vendor-shaped.
+
+Deliverables:
+
+- admitted message, threat, quarantine, URL/attachment and administration APIs;
+- organization/message/recipient/campaign identity and update semantics;
+- cursor/rate/retention/permission/schema health and source-native capsules;
+- exact product/service/version and unsupported-feature matrix.
+
+Verification:
+
+- duplicate/update/retract, cursor gap, rate/outage, message-ID reuse and schema
+  drift;
+- malicious content metadata, redaction and cross-customer isolation;
+- live supported Proofpoint interoperability and connector pentest.
+
+Exit criteria: Proofpoint support independently satisfies the email-security
+contract. `v0.313.2 implementation stop reached. Run pentest for this exact
+commit.`
 
 ### v0.314.0 — IDS And Detection-Appliance Provider Contract
 
@@ -5038,6 +6371,56 @@ duplicate/retracted alerts and live interoperability acceptance.
 Exit criteria: the conformance contract preserves appliance/rule provenance;
 each named provider requires its own admitted release. `v0.314.0 implementation
 stop reached. Run pentest for this exact commit.`
+
+### v0.314.1 — Microsoft Defender For Endpoint Profile
+
+Status: planned
+
+Goal: implement named endpoint alerts, incidents, device inventory and admitted
+advanced event evidence.
+
+Deliverables:
+
+- alert, evidence, device, vulnerability and admitted advanced-hunting profiles;
+- tenant/device/agent/user/process/file/network identity and update lineage;
+- retention, latency, API/license/permission and sensor-health evidence;
+- vendor finding/incident state kept separate from Vakaheim authority.
+
+Verification:
+
+- device reimage/reuse, alert update, incident merge, sensor outage, license loss
+  and delayed evidence;
+- external-state overwrite attempts and cross-tenant device linkage;
+- live Defender for Endpoint interoperability and profile pentest.
+
+Exit criteria: Defender endpoint evidence is source-backed and internal workflow
+remains authoritative. `v0.314.1 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.314.2 — CrowdStrike Falcon Profile
+
+Status: planned
+
+Goal: implement a second named EDR profile with detection, incident and host
+visibility limits explicit.
+
+Deliverables:
+
+- admitted detection, incident, host, identity and event-stream profiles;
+- customer/host/agent/process/file/network identity, update and containment state;
+- cursor/rate/retention/permission/sensor-health and API-version evidence;
+- exact supported Falcon service/API matrix and raw source capsules.
+
+Verification:
+
+- host reinstall/reuse, detection update, stream gap, sensor impairment, rate
+  limit and permission loss;
+- vendor containment/status attempting internal mutation and tenant confusion;
+- live supported Falcon interoperability and connector pentest.
+
+Exit criteria: Falcon support independently preserves vendor provenance and
+Vakaheim authority. `v0.314.2 implementation stop reached. Run pentest for this
+exact commit.`
 
 ### v0.315.0 — CEF And LEEF Device Compatibility Contract
 
@@ -5193,6 +6576,358 @@ Exit criteria: PCAP/packet evidence is implemented within admitted bounds or
 conclusively excluded from 1.0. `v0.316.0 implementation stop reached. Run
 pentest for this exact commit.`
 
+### v0.318.0 — OT ICS Asset Zone And Safety Model
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: model operational-technology identity and safety boundaries before any
+protocol parsing or response claim.
+
+Deliverables:
+
+- site/zone/conduit/controller/device/module/engineering-station identities;
+- safety criticality, process role, owner, maintenance state and uncertainty;
+- passive-observation authority, tap/interface provenance and no-active-scan
+  default;
+- binding prohibition on automatic OT response for 1.0 unless a later explicit
+  safety-reviewed milestone is inserted.
+
+Verification:
+
+- shared/reused addresses, redundant controllers, failover, stale inventory and
+  safety-zone conflict;
+- unauthorized active probe/action and cross-site identity merge;
+- OT safety/domain review and model pentest.
+
+Exit criteria: OT evidence cannot create unsafe collection or response behavior.
+`v0.318.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.318.1 — Passive Industrial Protocol Framing Foundation
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: provide bounded passive flow/session/transaction parsing shared by admitted
+industrial protocols.
+
+Deliverables:
+
+- capture/flow direction, endpoint/role, transaction and retransmission identity;
+- checked length/function/object framing with fragmentation and timeout bounds;
+- no packet generation, connection establishment or device interaction;
+- raw packet references, parser outcomes and protocol impairment health.
+
+Verification:
+
+- truncation, overlap, retransmit, malformed length/function, evasion and state
+  exhaustion;
+- role/address ambiguity and tap loss;
+- differential fixtures, fuzzing and passive-parser pentest.
+
+Exit criteria: hostile industrial traffic remains bounded and collection stays
+strictly passive. `v0.318.1 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.318.2 — Modbus TCP Evidence Profile
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: decode admitted Modbus/TCP activity into attributable OT facts.
+
+Deliverables:
+
+- MBAP, unit/function, address/range, read/write/exception and role semantics;
+- broadcast/gateway, transaction pairing and register meaning left source-
+  specific unless configured;
+- write/configuration/safety-sensitive activity facts and coverage limits;
+- conformance corpus without active device testing outside an authorized lab.
+
+Verification:
+
+- malformed lengths/functions, transaction reuse, gateway/unit ambiguity, scan
+  storms and parser evasions;
+- authorized lab captures and hostile fixture fuzzing;
+- safety and protocol pentest.
+
+Exit criteria: every Modbus fact retains packet, endpoint, unit and uncertainty
+lineage. `v0.318.2 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.318.3 — DNP3 Evidence Profile
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: decode admitted DNP3 link/transport/application evidence safely.
+
+Deliverables:
+
+- address, control, sequence, fragmentation, function/object and indication facts;
+- master/outstation role, unsolicited response and command/operate lineage;
+- time-quality and protocol-error semantics;
+- exact admitted serial-over-IP/profile limits.
+
+Verification:
+
+- CRC/fragment/sequence errors, object explosion, address reuse, unsolicited
+  storms and role inversion;
+- official/lab fixtures, fuzzing and allocation failure;
+- safety and parser pentest.
+
+Exit criteria: DNP3 state and command observations are bounded and source-
+attributable. `v0.318.3 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.318.4 — OPC UA Evidence Profile
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: observe admitted OPC UA security/session/service activity without becoming
+an OPC UA client or trust authority.
+
+Deliverables:
+
+- endpoint, application, certificate, secure-channel, session and service facts;
+- security mode/policy, identity-token type and certificate validation evidence;
+- bounded binary framing/message/chunk handling for admitted services;
+- encrypted-uninspectable and unsupported-service outcomes.
+
+Verification:
+
+- chunk/message bombs, certificate/application spoof, session reuse, downgrade
+  and encrypted visibility gaps;
+- lab/official fixtures, fuzzing and crypto-boundary review;
+- protocol and privacy pentest.
+
+Exit criteria: OPC UA observations state exact security and visibility limits.
+`v0.318.4 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.318.5 — OT Behavioral Detection And ATT&CK ICS Content
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: add first-party passive OT detections mapped to current ATT&CK ICS
+strategies/analytics.
+
+Deliverables:
+
+- role/function baseline, new device/path, engineering change, write/command,
+  unsafe mode and protocol-impairment detections;
+- ATT&CK ICS strategy/analytic/Data Component and required-telemetry mappings;
+- safety-aware severity, maintenance-window and expected-operation overlays;
+- lab replay, tuning guidance and incident runbooks.
+
+Verification:
+
+- maintenance/failover false positives, incomplete tap visibility, address reuse,
+  malicious commands and baseline poisoning;
+- representative lab attack/normal corpora and deterministic replay;
+- independent OT detection review and pentest.
+
+Exit criteria: OT detections are passive, explainable and tested against normal
+operations. `v0.318.5 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.318.6 — OT ICS Scope Closure
+
+Status: conditional on `v0.100.2`
+
+Goal: close 1.0 OT/ICS support and safety claims.
+
+Deliverables:
+
+- admitted integration of `v0.318.0`–`v0.318.5`, or enforced disabled parser/
+  API/UI paths when rejected;
+- exact protocol/platform/domain support matrix and passive-only limitation;
+- operations, performance, privacy, safety and incident-response documentation.
+
+Verification:
+
+- lab end-to-end normal/attack/impairment campaign for admitted scope;
+- rejection/no-active-scan/no-automatic-response proofs;
+- independent OT safety/security assessment and exact-commit pentest.
+
+Exit criteria: OT/ICS is either safely bounded and evidenced or an explicit 1.0
+non-goal. `v0.318.6 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.329.0 — Source Onboarding Workspace Model
+
+Status: planned
+
+Goal: make source onboarding a governed lifecycle rather than scattered parser,
+mapping and connector configuration.
+
+Deliverables:
+
+- draft, sampled, mapped, validated, canary, active, impaired, rolled-back and
+  retired source states;
+- source owner, purpose, tenant, credential, schema/mapping, capacity, retention
+  and approval bindings;
+- optimistic version, idempotency and immutable change/audit journal;
+- server-owned transition/authorization contract for later API/UI.
+
+Verification:
+
+- stale/concurrent activation, source-ID reuse, credential/purpose change and
+  rollback/retirement races;
+- cross-tenant sample/mapping access and audit omission;
+- exhaustive onboarding state-machine tests and pentest.
+
+Exit criteria: no source becomes active outside one attributable reviewed
+onboarding lifecycle. `v0.329.0 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.329.1 — Safe Sample Capture And Replay
+
+Status: planned
+
+Goal: inspect representative source data without bypassing quarantine, privacy
+or bounded parsing.
+
+Deliverables:
+
+- bounded encrypted sample capture with source capsule, consent/purpose,
+  retention and deletion;
+- sensitive-field discovery/redaction preview and raw-access approval;
+- deterministic sample replay across candidate parser/mapping versions;
+- malformed/outlier sampling and coverage caveats.
+
+Verification:
+
+- secret/PII leakage, oversized/malicious samples, biased sampling, retention
+  expiry and unauthorized export;
+- old/new parser replay and quarantine conservation;
+- privacy, parser-isolation and sample-workflow pentest.
+
+Exit criteria: onboarding samples remain protected evidence and reproducible test
+inputs. `v0.329.1 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.329.2 — Parser Mapping Preview And Field Lineage
+
+Status: planned
+
+Goal: preview normalization outcomes and losses before activation.
+
+Deliverables:
+
+- source/raw-to-parser-to-schema-to-fact field lineage and transformation view;
+- parsed, normalized, conflict, unknown, dropped, redacted and quarantined
+  outcomes with reasons;
+- candidate mapping edit/compile/test workflow and immutable package identity;
+- representative/outlier coverage and required-field validation.
+
+Verification:
+
+- silent drop/coercion, duplicate fields, timezone/unit/encoding loss, mapping
+  conflict and malicious values;
+- field-policy/redaction change and cross-tenant preview;
+- golden sample comparison, fuzz and mapping pentest.
+
+Exit criteria: operators can see every field transformation and loss before a
+mapping activates. `v0.329.2 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.329.3 — Schema Drift Diff And Historical Shadow Replay
+
+Status: planned
+
+Goal: evaluate source/schema changes against historical samples and data before
+production activation.
+
+Deliverables:
+
+- current/candidate schema/parser/mapping structural and semantic diff;
+- bounded historical shadow replay with fact/field/quarantine/loss differences;
+- downstream rule/coverage/dashboard impact inventory;
+- migration, new-source-only or rollback decision with approval evidence.
+
+Verification:
+
+- field rename/type/enum/unit change, partial replay, stale sample and downstream
+  dependency omission;
+- candidate package substitution and unauthorized bulk replay;
+- deterministic before/after corpus and migration pentest.
+
+Exit criteria: schema drift is an explicit reviewed change, never silent
+normalization drift. `v0.329.3 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.329.4 — Volume Cardinality Cost And Capacity Preview
+
+Status: planned
+
+Goal: estimate source resource impact before it can overload ingestion, storage,
+query or detection.
+
+Deliverables:
+
+- event/byte rate, burst, field/cardinality, raw/index/retention and detection-
+  state projections with uncertainty;
+- tenant/source quotas, sampling/summarization proposal and data-loss disclosure;
+- hardware/topology capacity comparison and cost/showback estimate;
+- worst-case rather than expected-only admission bound.
+
+Verification:
+
+- biased samples, rare cardinality explosion, burst/seasonality, compression
+  error and underestimated state growth;
+- quota bypass and cost-estimate manipulation;
+- replayed actual-versus-estimate and overload pentest.
+
+Exit criteria: no source activates without explicit worst-case capacity and loss
+understanding. `v0.329.4 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.329.5 — Permission Completeness And Canary Activation
+
+Status: planned
+
+Goal: prove collection visibility and safe production behavior before full
+activation.
+
+Deliverables:
+
+- least-privilege permission/capability discovery and expected-scope inventory;
+- cursor/sequence/time/schema/source-health baseline and completeness test;
+- bounded canary cohort, success/rollback thresholds and automatic expiry;
+- activation evidence linking packages, credentials, capacity and approvals.
+
+Verification:
+
+- partial permissions, deleted scope, cursor reset, delayed data, canary false
+  health and rollback failure;
+- unauthorized expansion, stale approval and credential substitution;
+- representative live canary and onboarding pentest.
+
+Exit criteria: active sources have proven permissions, coverage, capacity and a
+tested rollback. `v0.329.5 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.329.6 — Source Onboarding API And Conformance Gate
+
+Status: planned
+
+Goal: expose the complete onboarding workflow safely and prove every named
+provider uses it.
+
+Deliverables:
+
+- versioned sample/preview/diff/capacity/permission/canary/activate APIs;
+- server-generated forms, authorization, pagination/watch and audit;
+- common conformance suite for native files, agents, OTLP and named connectors;
+- provider-specific extensions without bypassing common gates.
+
+Verification:
+
+- stale/duplicate requests, cross-tenant samples, forged health/capacity and API
+  downgrade;
+- every named provider and offline/air-gap onboarding path;
+- independent API/workflow and exact-commit pentest.
+
+Exit criteria: every source family reaches activation through the same governed
+contract. `v0.329.6 implementation stop reached. Run pentest for this exact
+commit.`
+
 ### v0.330.0 — Adaptive Collection And Source Assurance
 
 Status: planned
@@ -5241,6 +6976,533 @@ Exit criteria: every required integrity-detection class has tested signed
 content and visible coverage limits. `v0.335.0 implementation stop reached. Run
 pentest for this exact commit.`
 
+### v0.336.0 — First-Party Security Content Constitution
+
+Status: planned
+
+Goal: make Vakaheim ship as a useful SIEM rather than only a detection engine.
+
+Deliverables:
+
+- first-party content catalog covering rule, behavioral analytic, hunt, dashboard,
+  runbook and response-playbook package kinds;
+- stable IDs, owner, severity/confidence, required telemetry, ATT&CK strategy/
+  analytic, tests, tuning and support metadata;
+- supported/default/optional/experimental/deprecated/quarantined lifecycle;
+- minimum platform/domain coverage policy and no unsupported-coverage claim.
+
+Verification:
+
+- orphan content, missing owner/tests/telemetry/runbook, duplicate IDs and unsafe
+  severity/response coupling;
+- catalog version/compatibility and no-content fallback;
+- independent content architecture and security review.
+
+Exit criteria: every first-party item has one governed identity, purpose and
+quality contract. `v0.336.0 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.336.1 — Signed Content Distribution Update And Revocation
+
+Status: planned
+
+Goal: deliver first-party content safely in connected and air-gapped deployments.
+
+Deliverables:
+
+- signed immutable release bundles, manifest/digest/dependency/engine profiles;
+- online staged channel plus offline transfer bundle, transparency history and
+  rollback/revocation/compromise procedure;
+- tenant pinning, shadow/canary activation and previous-version retention;
+- freshness monitor and emergency security-content release process.
+
+Verification:
+
+- tamper, rollback, freeze, equivocation, signer compromise, partial bundle and
+  expired/revoked content;
+- disconnected update/recovery and mixed engine/content versions;
+- supply-chain, signing and update-channel pentest.
+
+Exit criteria: content updates are attributable, reversible and safe offline.
+`v0.336.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.336.2 — Windows First-Party Detection Pack
+
+Status: planned
+
+Goal: ship tested Windows endpoint and identity detections over admitted native
+and forwarded telemetry.
+
+Deliverables:
+
+- process/script/service/task/registry/logon/credential/persistence/defense-
+  impairment and lateral-movement rule/analytic set;
+- current ATT&CK Detection Strategy/Analytic mappings and telemetry prerequisites;
+- Sysmon/ETW/Event Log/WEF variant mappings where admitted;
+- normal/attack fixtures, tuning overlays and investigation runbooks.
+
+Verification:
+
+- representative benign administration and attack chains, missing telemetry,
+  version/policy variants and adversarial evasion;
+- replay, performance, false-positive/negative and content-signing tests;
+- independent Windows detection review and pentest.
+
+Exit criteria: supported Windows telemetry has a useful tested default detection
+baseline. `v0.336.2 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.336.3 — Linux First-Party Detection Pack
+
+Status: planned
+
+Goal: ship tested Linux host, authentication and container-adjacent detections.
+
+Deliverables:
+
+- process/shell/auth/sudo/service/package/file/kernel/audit/eBPF/defense-
+  impairment and persistence content;
+- distro/init/audit configuration variants and required-telemetry mappings;
+- current ATT&CK strategy/analytic coverage, tuning and runbooks;
+- normal/attack fixtures including living-off-the-land behavior.
+
+Verification:
+
+- distro/kernel/config variation, missing audit/eBPF, benign automation, evasion
+  and overload;
+- deterministic replay, FP/FN and resource tests;
+- independent Linux content review and pentest.
+
+Exit criteria: supported Linux profiles have useful explainable default
+detections. `v0.336.3 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.336.4 — macOS BSD And Mobile First-Party Detection Pack
+
+Status: planned
+
+Goal: cover supported non-Windows/Linux native platforms without implying sensor
+capabilities they cannot provide.
+
+Deliverables:
+
+- macOS process/auth/persistence/TCC/launch/file/network content;
+- FreeBSD/OpenBSD auth/process/service/package/pf/audit content;
+- Android/iOS security/audit/permission/lifecycle content within platform limits;
+- platform-specific ATT&CK Enterprise/Mobile mappings, fixtures and runbooks.
+
+Verification:
+
+- OS/version/permission differences, mobile background gaps, BSD audit variants,
+  benign administration and evasion;
+- missing-sensor honest coverage and cross-platform content confusion;
+- independent platform content review and pentest.
+
+Exit criteria: every supported native platform ships bounded content matching its
+actual visibility. `v0.336.4 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.336.5 — Identity And SaaS First-Party Detection Pack
+
+Status: planned
+
+Goal: ship provider-aware identity, token, application and SaaS abuse detections.
+
+Deliverables:
+
+- password spray, impossible/anomalous access, MFA/policy impairment, privilege/
+  group changes, token/app abuse and suspicious administration content;
+- Entra/Okta/Google Workspace/Microsoft 365/Slack source variants;
+- peer/baseline/risk integration with explicit cold-start and source gaps;
+- ATT&CK strategy/analytic mappings, fixtures, tuning and runbooks.
+
+Verification:
+
+- travel/VPN/proxy, service accounts, automation, tenant migration, provider
+  outage and poisoned identity merges;
+- provider semantic equivalence and source-specific limitations;
+- identity attack tabletop and content pentest.
+
+Exit criteria: supported identity/SaaS sources produce useful default detections
+without unsafe provider conflation. `v0.336.5 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.336.6 — AWS First-Party Detection Pack
+
+Status: planned
+
+Goal: detect AWS control, identity, data and network abuse across admitted
+profiles.
+
+Deliverables:
+
+- root/IAM/role/key, trail/log impairment, policy/security-group, data access,
+  persistence, discovery and exfiltration content;
+- GuardDuty/Security Hub correlation without verdict trust;
+- account/organization/region coverage and ATT&CK cloud analytics;
+- fixtures, tuning, investigation and containment runbooks.
+
+Verification:
+
+- normal automation, organization changes, partial regions/permissions, delayed
+  data and attacker log impairment;
+- multi-account attack chains, replay and FP/FN evaluation;
+- AWS content review and pentest.
+
+Exit criteria: admitted AWS telemetry has tested multi-account security content.
+`v0.336.6 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.336.7 — Azure Microsoft 365 And GCP First-Party Detection Pack
+
+Status: planned
+
+Goal: ship cloud/control/collaboration detections for the remaining named
+hyperscaler ecosystems.
+
+Deliverables:
+
+- Azure/Entra/Microsoft 365 identity, control, resource, log-impairment and data-
+  access content;
+- GCP IAM/control/project/log-router/network/SCC and Workspace attack content;
+- tenant/subscription/project/organization coverage and current ATT&CK analytics;
+- provider-specific fixtures, tuning and runbooks.
+
+Verification:
+
+- normal automation, hierarchy moves, partial scopes, delayed APIs, provider
+  findings and log exclusions;
+- cross-cloud identity/resource confusion and multi-stage attacks;
+- independent Azure/GCP content review and pentest.
+
+Exit criteria: all named cloud ecosystems have tested source-aware default
+detections. `v0.336.7 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.336.8 — Kubernetes And Container First-Party Detection Pack
+
+Status: planned
+
+Goal: detect control-plane, workload, identity and container abuse with cluster
+and namespace visibility explicit.
+
+Deliverables:
+
+- RBAC/admission/exec/secret/service-account/image/workload/network and audit-
+  impairment content;
+- host/container/cloud identity joins and cluster/namespace source prerequisites;
+- current ATT&CK container/cloud analytics, fixtures and tuning;
+- investigation and safe containment runbooks.
+
+Verification:
+
+- controller automation, workload churn, missing audit, identity reuse, noisy
+  namespaces and malicious admission changes;
+- multi-cluster attacks, replay and load/FP/FN evaluation;
+- Kubernetes content review and pentest.
+
+Exit criteria: Kubernetes content remains cluster/namespace attributable and
+coverage honest. `v0.336.8 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.336.9 — Network Email And External Security Product Detection Pack
+
+Status: planned
+
+Goal: turn admitted network, DNS, VPN, firewall, proxy, email and EDR evidence
+into first-party multi-vendor detections.
+
+Deliverables:
+
+- beaconing, exfiltration, scanning, tunneling, suspicious DNS, VPN/session,
+  policy impairment, phishing and malicious-message content;
+- PAN-OS/FortiGate/Zscaler/email/EDR source variants preserving vendor provenance;
+- current ATT&CK strategy/analytic requirements, fixtures, tuning and runbooks;
+- external vendor alerts treated as inputs, not truth.
+
+Verification:
+
+- NAT/proxy/VPN ambiguity, sampling, vendor outage/verdict drift, benign scanners
+  and bulk mail;
+- multi-source chain replay, FP/FN/load and evasion tests;
+- network/email/EDR content review and pentest.
+
+Exit criteria: admitted external products contribute to tested Vakaheim-native
+detections. `v0.336.9 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.336.10 — Cross-Domain Living-Off-The-Land Detection Pack
+
+Status: planned
+
+Goal: detect multi-stage behavior chains that isolated source rules miss.
+
+Deliverables:
+
+- identity-to-endpoint-to-cloud-to-network sequence and graph analytics;
+- signed-binary/interpreter/admin-tool abuse and defense-impairment strategies;
+- exact entity-resolution, timing, source-completeness and state budgets;
+- campaign fixtures, explanations, tuning and hunt/runbook links.
+
+Verification:
+
+- benign administration/deployment, incomplete sources, late/reordered events,
+  poisoned entities and state exhaustion;
+- current CISA living-off-the-land scenarios and ATT&CK analytics;
+- multi-domain detection and adversarial-evasion pentest.
+
+Exit criteria: cross-domain detections are evidence-backed, bounded and useful
+under partial visibility. `v0.336.10 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.336.11 — First-Party Investigation Dashboard And Runbook Packs
+
+Status: planned
+
+Goal: pair detections with usable investigation context rather than leaving
+analysts with isolated alerts.
+
+Deliverables:
+
+- per-domain saved searches, timelines, entity pivots and coverage dashboards;
+- alert-specific triage questions, expected evidence, false-positive guidance,
+  escalation and containment runbooks;
+- exact rule/source/schema/query/package version bindings;
+- accessibility, localization and disconnected operation.
+
+Verification:
+
+- stale queries/schema, missing source, misleading complete dashboard, unsafe
+  runbook instruction and authorization changes;
+- full analyst exercises for representative content families;
+- usability, policy and content pentest.
+
+Exit criteria: every high-severity first-party alert has tested investigation
+and coverage guidance. `v0.336.11 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.336.12 — First-Party Safe Response Playbook Packs
+
+Status: planned
+
+Goal: provide reviewed default playbooks without bypassing later action authority
+or enabling premature automation.
+
+Deliverables:
+
+- proposal-only investigation/containment playbooks bound to content families;
+- required approvals, preconditions, targets, evidence, verification,
+  compensation and kill-switch metadata;
+- unavailable placeholders until each action implementation passes Phase J;
+- no automatic execution from a finding/alert by default.
+
+Verification:
+
+- stale target/content, missing action, approval bypass, irreversible step,
+  simulation divergence and kill-switch behavior;
+- safe disabled behavior before action activation;
+- response-domain review and playbook pentest.
+
+Exit criteria: first-party playbooks improve readiness without granting action
+authority early. `v0.336.12 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.336.13 — First-Party Content Minimum-Coverage Gate
+
+Status: planned
+
+Goal: prove the default installation contains useful maintained content across
+every claimed source and platform.
+
+Deliverables:
+
+- signed minimum catalog/ATT&CK strategy/analytic/source coverage matrix;
+- required telemetry, rule, dashboard, runbook and safe-playbook linkage audit;
+- default/optional content installation and upgrade/rollback evidence;
+- unsupported-source/domain and residual coverage-gap documentation.
+
+Verification:
+
+- fresh install, disconnected install, update, rollback, revoked bundle and
+  partial source configurations;
+- no-content/orphan/missing-runbook/false-coverage scans;
+- independent detection-content assessment and exact-commit pentest.
+
+Exit criteria: Vakaheim ships with a defensible useful content baseline, not only
+an engine. `v0.336.13 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.337.0 — Detection Effectiveness Evidence Model
+
+Status: planned
+
+Goal: measure detection quality without presenting uncertain labels as ground
+truth.
+
+Deliverables:
+
+- test/scenario/population/outcome/label provenance and confidence model;
+- detected/missed/noisy/indeterminate/unobservable outcomes and coverage context;
+- exact rule/content/source/schema/cohort/time identity;
+- privacy-preserving production and controlled-test evidence separation.
+
+Verification:
+
+- label leakage, biased population, duplicate outcomes, missing telemetry and
+  changed rule/source identity;
+- false precision/recall claims from unknown ground truth;
+- statistical semantics and privacy review.
+
+Exit criteria: every effectiveness number exposes population, labels, coverage
+and uncertainty. `v0.337.0 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.337.1 — Alert Disposition And Production Feedback Loop
+
+Status: planned
+
+Goal: connect analyst outcomes to content improvement without allowing mutable
+feedback to rewrite historical findings.
+
+Deliverables:
+
+- structured disposition/tuning/corrective-action aggregation by exact rule;
+- delayed/reopened/duplicate/incident-confirmed outcome handling;
+- minimum sample/confidence and anti-gaming/poisoning controls;
+- signed proposed tuning/test changes through ordinary review and rollout.
+
+Verification:
+
+- malicious/mistaken disposition, analyst bias, reopen, duplicate alerts and
+  changed rule versions;
+- feedback poisoning and unauthorized automatic suppression;
+- end-to-end disposition-to-reviewed-content test.
+
+Exit criteria: feedback creates attributable proposals, never silent rule
+mutation. `v0.337.1 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.337.2 — Controlled Precision Recall And Miss Evaluation
+
+Status: planned
+
+Goal: quantify first-party detection behavior on controlled labeled corpora.
+
+Deliverables:
+
+- per-scenario true/false positive/negative and indeterminate accounting;
+- precision/recall/rate metrics only where population/labels justify them;
+- severity, latency, evidence quality and resource regression thresholds;
+- platform/source/content-version comparison reports.
+
+Verification:
+
+- imbalanced/duplicate/leaked datasets, ambiguous labels, missing source and
+  threshold manipulation;
+- reproducible holdout and adversarial variants;
+- independent methodology and metric review.
+
+Exit criteria: detection-quality claims are reproducible and cannot hide
+unobservable cases. `v0.337.2 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.337.3 — Adversary Emulation And Purple-Team Validation
+
+Status: planned
+
+Goal: validate telemetry, detections and workflows against controlled end-to-end
+attacker behavior.
+
+Deliverables:
+
+- signed safe emulation scenario format with prerequisites and cleanup;
+- current ATT&CK strategy/analytic chains across endpoint, identity, cloud,
+  network, SaaS and admitted OT labs;
+- observe-only, simulation and authorized lab execution modes;
+- result chain from source health through finding, alert and runbook.
+
+Verification:
+
+- unsafe target/scope, incomplete cleanup, scenario drift, telemetry impairment
+  and false success;
+- expected miss/partial/complete outcomes and kill controls;
+- independent purple-team and safety assessment.
+
+Exit criteria: claimed critical detection paths have controlled end-to-end proof.
+`v0.337.3 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.337.4 — Detection Ownership Review And Tuning Debt
+
+Status: planned
+
+Goal: prevent stale, noisy or broadly suppressed content from remaining silently
+active.
+
+Deliverables:
+
+- owner/reviewer, review interval, telemetry dependency and support state;
+- suppression/tuning/exception debt with approver, expiry and affected coverage;
+- noise, miss, impairment and stale-dependency thresholds;
+- quarantine, rollback and emergency-disable workflow preserving coverage gaps.
+
+Verification:
+
+- expired owner/review/suppression, broad filter, stale source, noisy rule and
+  emergency disable;
+- debt hiding through package/version changes;
+- lifecycle state-machine and governance pentest.
+
+Exit criteria: every active rule is owned, current and free of invisible tuning
+debt. `v0.337.4 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.337.5 — Continuous Detection Validation Scheduler
+
+Status: planned
+
+Goal: rerun bounded content tests when rules, mappings, sources or ATT&CK content
+change.
+
+Deliverables:
+
+- dependency-triggered unit/simulation/shadow/emulation test selection;
+- durable checkpoints, coalescing, cancellation, resource admission and results;
+- regression quarantine and rollout blocking thresholds;
+- offline deterministic execution plus separate live-provider validation.
+
+Verification:
+
+- missed dependency, test storm, stale result, cancellation, partial corpus and
+  scheduler outage;
+- malicious content attempting to skip tests;
+- change-to-test completeness and recovery properties.
+
+Exit criteria: material content/source changes cannot bypass relevant validation.
+`v0.337.5 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.337.6 — Detection Effectiveness Integration Gate
+
+Status: planned
+
+Goal: close first-party content quality before alert notification and analyst
+product phases depend on it.
+
+Deliverables:
+
+- per-content-family coverage/effectiveness/debt/readiness report;
+- critical strategy/analytic controlled-validation evidence;
+- accepted residual gaps, owners, compensating hunts and release notes;
+- no unsupported numerical quality claims.
+
+Verification:
+
+- missing family/scenario/telemetry, stale metrics, unresolved high noise/miss and
+  expired debt;
+- independent content and purple-team review;
+- exact-commit detection pentest.
+
+Exit criteria: first-party content is measurable, maintained and honest about
+remaining gaps. `v0.337.6 implementation stop reached. Run pentest for this exact
+commit.`
+
 ### v0.342.0 — Generic Notification Substrate And Durable Outbox
 
 Status: planned
@@ -5268,6 +7530,180 @@ Verification:
 Exit criteria: generic notification requests and outcomes are durable and
 auditable, with no alert-transaction claim. `v0.342.0 implementation stop
 reached. Run pentest for this exact commit.`
+
+### v0.343.0 — Security Data Export Authority And Envelope
+
+Status: planned; disabled by default
+
+Goal: provide optional portable event/finding/alert egress without weakening
+internal operation, evidence custody or air-gap defaults.
+
+Deliverables:
+
+- typed export envelope for source/raw references, normalized facts, findings,
+  alerts and approved incident summaries with distinct authority;
+- tenant/source/query/snapshot/schema/mapping/policy/purpose/residency bindings;
+- redaction/minimization, recipient capability, payload digest and audit;
+- global and per-tenant disable switch; no configured sink means no egress.
+
+Verification:
+
+- unauthorized class/field/tenant export, stale policy, schema confusion and
+  source-versus-derived truth conflation;
+- disable/air-gap proof and export audit conservation;
+- privacy, custody and authority pentest.
+
+Exit criteria: export is explicit opt-in and internal SIEM operation never
+depends on it. `v0.343.0 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.343.1 — Durable Export Subscription Cursor And Outcome Ledger
+
+Status: planned; disabled by default
+
+Goal: make continuous exports restartable and loss/duplication outcomes visible.
+
+Deliverables:
+
+- immutable subscription definition, expected-set/snapshot and per-partition
+  cursor/checkpoint;
+- transactional outbox, idempotency/correlation, terminal receipt/rejection/
+  `UnknownOutcome` and reconciliation;
+- pause/resume/cancel/backfill with policy re-evaluation;
+- rate/fairness/backpressure/dead-letter and impairment facts.
+
+Verification:
+
+- crash before/after select/enqueue/send/receipt/checkpoint, replay, reorder and
+  sink outage;
+- policy/schema change mid-range and cursor rollback;
+- conservation/model tests and export-ledger pentest.
+
+Exit criteria: every admitted export item reaches a durable explicit outcome.
+`v0.343.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.343.2 — OCSF Security Data Export Profile
+
+Status: planned; disabled by default
+
+Goal: export admitted normalized security records through exact OCSF mappings.
+
+Deliverables:
+
+- `v0.18.1`–`v0.18.3` class/profile/version selection per subscription;
+- batch/framing, mapping-loss and source-extension manifests;
+- exact schema/content digest and producer identity;
+- downgrade/unsupported consumer behavior.
+
+Verification:
+
+- lossy/unknown fields, class/profile mismatch, mixed versions, oversized batch
+  and malicious recipient negotiation;
+- round-trip where defined and declared-loss validation;
+- representative consumer interoperability and export pentest.
+
+Exit criteria: OCSF export is version-exact and never hides mapping loss.
+`v0.343.2 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.343.3 — OTLP And Syslog Security Export Profiles
+
+Status: planned; disabled by default
+
+Goal: support common security-event sinks without inventing provider authority.
+
+Deliverables:
+
+- OTLP log/event export plus bounded RFC syslog and admitted CEF/LEEF output
+  profiles;
+- transport authentication, framing/batching, schema/mapping and retry semantics;
+- recipient-specific redaction and unsupported-field/loss reports;
+- no custom durability claim inserted into external protocols.
+
+Verification:
+
+- framing/escaping, partial success, reconnect, duplicate, downgrade, TLS and
+  hostile sink behavior;
+- field truncation/loss and cross-tenant destination confusion;
+- representative receiver interoperability and transport pentest.
+
+Exit criteria: common sinks receive bounded attributable data with honest
+delivery and mapping outcomes. `v0.343.3 implementation stop reached. Run pentest
+for this exact commit.`
+
+### v0.343.4 — Object Archive And Message Stream Export
+
+Status: planned; disabled by default
+
+Goal: provide bulk and streaming portability for approved security data.
+
+Deliverables:
+
+- signed encrypted object/archive manifests with partitions, schema, record/
+  byte counts, checksums and snapshot coverage;
+- provider-neutral message-stream sink contract with partition/key/order/cursor
+  semantics;
+- credential/egress/residency/cost limits and immutable delivery journal;
+- each named store/broker requires its own later provider admission.
+
+Verification:
+
+- partial object, overwrite, listing inconsistency, partition loss, stream
+  rebalance, duplicate/reorder and unknown outcome;
+- recipient key/policy change and cross-region/tenant leakage;
+- offline archive verification and sink-contract pentest.
+
+Exit criteria: bulk/stream export preserves exact scope, order limits and custody.
+`v0.343.4 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.343.5 — Data Portability Migration And Re-Import Proof
+
+Status: planned; disabled by default
+
+Goal: prove customers can leave or migrate without treating exported derivatives
+as original source truth.
+
+Deliverables:
+
+- full authorized export inventory for raw references, facts, findings, alerts,
+  content/configuration and audit-safe metadata;
+- manifest/verifier and controlled re-import preserving source/derived identity;
+- omissions, inaccessible/held/deleted data and unsupported object disclosure;
+- large-volume checkpoint/resume and migration runbook.
+
+Verification:
+
+- tamper/omit/reorder, interrupted resume, policy/hold conflict, wrong tenant and
+  re-import duplication;
+- source-versus-exported-copy truth and custody tests;
+- clean-room migration exercise and portability pentest.
+
+Exit criteria: approved data is portable with independently verifiable scope and
+no provenance inflation. `v0.343.5 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.343.6 — Security Data Export Integration Gate
+
+Status: planned; disabled by default
+
+Goal: close egress safety and interoperability before analyst workflows expose
+export controls.
+
+Deliverables:
+
+- every export class/profile/subscription/disable/reconciliation matrix;
+- air-gap/no-sink/internal-only proof and independent egress inventory;
+- performance, capacity, privacy, residency and support evidence;
+- named-sink claim register with generic contracts implying no provider.
+
+Verification:
+
+- malicious/unavailable sink, policy change, failover/restart and export storm;
+- no-egress build/config and network-deny validation;
+- independent export architecture and exact-commit pentest.
+
+Exit criteria: optional export is useful and safe while a fully internal SIEM
+remains complete. `v0.343.6 implementation stop reached. Run pentest for this
+exact commit.`
 
 ### v0.344.1 — Alert Incident Case And Graph Semantic Boundaries
 
@@ -5483,9 +7919,10 @@ Deliverables:
   reporting and GDPR breach packs for implementation at `v0.360.5`–`v0.360.10`;
 - national NIS2 overlay contract admitted at `v0.360.7`; each named country pack
   still requires its own later legal-source/interoperability stop before support;
-- NIST SP 800-61, SANS, VERIS and other named future packs are explicit 1.0
-  non-goals unless an implementation milestone is inserted and passed before
-  `v0.730.0`; package kinds remain extensible;
+- admit the current NIST SP 800-61r3 operational profile at `v0.360.13`; SANS,
+  VERIS and other named future packs remain explicit 1.0 non-goals unless their
+  own implementation milestones are inserted and passed before `v0.730.0`;
+  package kinds remain extensible;
 - authoritative native/Wasm framework decisions are a binding 1.0 non-goal;
   `v0.420.0` closes suggestion/formatting isolation;
 - no pack claims legal compliance automatically; source edition, effective date,
@@ -6085,12 +8522,12 @@ Exit criteria: pack authors can produce reproducible conformance evidence, but
 only the registry trust/approval path can activate a package.
 `v0.360.11 implementation stop reached. Run pentest for this exact commit.`
 
-### v0.360.12 — Framework Pack Integration And Claim Closure
+### v0.360.12 — Baseline Framework Pack Integration Gate
 
 Status: planned
 
-Goal: close the `v0.344.7` 1.0 framework set without hiding implementation in an
-integration gate.
+Goal: integrate the legal/ENISA baseline before adding the independent NIST
+operational profile.
 
 Deliverables:
 
@@ -6113,9 +8550,89 @@ Verification:
   authoritative-Wasm bypass attempt while default workflow remains usable;
 - independent security, privacy and legal/domain review plus exact-commit pentest.
 
-Exit criteria: every admitted 1.0 pack has passed its own stop and integrated
-claim audit; no framework option or compliance implication remains unresolved.
+Exit criteria: the baseline legal/ENISA packs are integrated without claiming
+that the final 1.0 framework set is closed.
 `v0.360.12 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.13 — NIST SP 800-61r3 Operational Profile Pack
+
+Status: planned; optional tenant activation
+
+Goal: implement current NIST incident-response guidance as a source-pinned
+operational overlay without replacing the default process or claiming compliance.
+
+Deliverables:
+
+- signed pack pinned to final NIST SP 800-61 Revision 3 and its CSF 2.0 Community
+  Profile source/digest;
+- Govern/Identify/Protect preparation and Detect/Respond/Recover incident-
+  response outcome mappings onto Vakaheim workflow, tasks and post-analysis;
+- roles, communications, prioritization, recovery, lessons and improvement
+  requirements with exact guidance references;
+- explicit revision-2 supersession and migration/limitation documentation.
+
+Verification:
+
+- every admitted outcome mapping, optional/recommended distinction, phase/role
+  conflict and missing organizational context;
+- composition with ENISA/default/legal packs without deadline or authority
+  collapse;
+- independent incident-response domain review and package pentest.
+
+Exit criteria: tenants can activate an exact NIST SP 800-61r3 operational profile
+while default/legal authority remains separate. `v0.360.13 implementation stop
+reached. Run pentest for this exact commit.`
+
+### v0.360.14 — Final Framework Pack Integration And Claim Closure
+
+Status: planned
+
+Goal: close the complete admitted 1.0 framework set after every pack has its own
+implementation evidence.
+
+Deliverables:
+
+- integrated default, ENISA, NIST SP 800-61r3, NIS2, DORA and GDPR pack matrix;
+- all composition/disable/upgrade/migration/unknown/conflict combinations;
+- final source/version/effective-date/freshness owner and support-claim inventory;
+- named national-profile decision evidence and explicit SANS/VERIS non-goals
+  unless later implemented stops exist.
+
+Verification:
+
+- cross-operational/legal conflict, source update, malicious/unavailable pack,
+  tenant leakage and authoritative-Wasm bypass;
+- default-only operation and every admitted multi-pack composition;
+- independent security, privacy, legal/domain and exact-commit pentest.
+
+Exit criteria: every admitted pack and non-goal is closed with no implied
+compliance or framework support. `v0.360.14 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.360.15 — Named National NIS2 Profile Closure
+
+Status: conditional on `v0.100.2`
+
+Goal: close the exact 1.0 national NIS2 profile set without allowing the generic
+overlay contract to imply country support.
+
+Deliverables:
+
+- signed jurisdiction list selected at `v0.100.2` with legal owner and sources;
+- one separately inserted implementation/pentest stop per admitted country before
+  this closure; this milestone contains no hidden country implementation;
+- rejected/absent country API/config/package behavior and support documentation;
+- base/overlay version, effective date, recipient/channel and migration evidence.
+
+Verification:
+
+- reject any named support lacking its own current-law implementation stop;
+- wrong jurisdiction, expired source, base mismatch and implied fallback;
+- independent legal-claim and exact-commit pentest.
+
+Exit criteria: each named country is independently implemented and current, or
+explicitly unsupported for 1.0. `v0.360.15 implementation stop reached. Run
+pentest for this exact commit.`
 
 ### v0.375.0 — Case Management
 
@@ -6293,6 +8810,157 @@ Verification:
 Exit criteria: neither side is silently overwritten and every synchronization
 attempt/outcome is durable, attributable and reconcilable.
 `v0.376.2 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.377.0 — Formal Threat Hunt Record And Lifecycle
+
+Status: planned
+
+Goal: make proactive hunting a first-class governed workflow distinct from a
+saved query, alert, incident or case.
+
+Deliverables:
+
+- stable `HuntId`, hypothesis, rationale, scope, owner/team, priority, status,
+  start/end, review and confidentiality;
+- draft, approved, running, paused, completed, inconclusive, cancelled and
+  converted lifecycle with optimistic version and immutable journal;
+- source/query/rule/content/ATT&CK/package/policy identities and expected evidence;
+- explicit links to findings, alerts, incidents, cases and corrective actions.
+
+Verification:
+
+- exhaustive transitions, stale/concurrent updates, unauthorized scope, cross-
+  tenant links and audit omission;
+- saved-query/case/incident state confusion;
+- state-machine replay and hunt-model pentest.
+
+Exit criteria: every proactive investigation has an attributable hypothesis,
+scope and outcome. `v0.377.0 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.377.1 — Hunt Snapshot Coverage And Query Evidence
+
+Status: planned
+
+Goal: bind hunt conclusions to exact data, query and visibility context.
+
+Deliverables:
+
+- query text/IR/plan, parameters, time range, snapshot and expected-set coverage;
+- source health, unavailable/cold/policy-limited data and completeness record;
+- result-set digest, analyst annotations and retained evidence references;
+- re-run semantics preserving original and revised executions separately.
+
+Verification:
+
+- changed query/schema/mapping/policy/source set, partial cold retrieval and
+  stale snapshot;
+- result substitution, omitted gaps and unauthorized annotations;
+- deterministic rerun and coverage-honesty tests.
+
+Exit criteria: a hunt outcome cannot outlive or hide its exact query and coverage
+evidence. `v0.377.1 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.377.2 — Hunt Execution Checkpoint And Collaboration
+
+Status: planned
+
+Goal: support long-running collaborative hunts without duplicate work or hidden
+state loss.
+
+Deliverables:
+
+- durable execution/checkpoint/cancel/pause/resume and bounded scheduled tasks;
+- assignments, notes, hypotheses/sub-hypotheses, evidence bookmarks and peer
+  review with compartment authorization;
+- query/result lineage and handoff journal across analysts/shifts;
+- resource/cost admission and impairment outcomes.
+
+Verification:
+
+- crash/restart, duplicate execution, cancellation race, analyst removal,
+  compartment change and query cost overrun;
+- stale handoff, annotation leakage and checkpoint rollback;
+- long-running collaborative hunt and recovery pentest.
+
+Exit criteria: hunt work survives handoff and failure with complete attributable
+history. `v0.377.2 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.377.3 — Hunt Outcome Promotion And Detection Engineering Loop
+
+Status: planned
+
+Goal: convert hunt discoveries through ordinary authority boundaries rather than
+copying mutable conclusions into production.
+
+Deliverables:
+
+- promote evidence to immutable finding, alert, incident or primary-case link;
+- generate signed draft rule/test/content/tuning proposal with exact hunt inputs;
+- negative/inconclusive finding and coverage-gap/corrective-action outcomes;
+- duplicate/idempotency and required review/approval per destination.
+
+Verification:
+
+- duplicate promotion, stale hunt/query, unsupported conclusion, cross-tenant
+  target and direct rule activation attempt;
+- finding/evidence immutability and content-review enforcement;
+- hunt-to-detection-to-alert end-to-end tabletop.
+
+Exit criteria: hunts feed detection and response only through existing reviewed
+authority paths. `v0.377.3 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.377.4 — Recurring Threat Hunt Program
+
+Status: planned
+
+Goal: run approved recurring hunts as measurable security work rather than
+unowned scheduled queries.
+
+Deliverables:
+
+- recurrence, owner, hypothesis review/expiry, trigger and required coverage;
+- scheduler checkpoint/misfire/catch-up/skip and result comparison;
+- intelligence/ATT&CK/content/source-change triggers and automatic review task;
+- effectiveness, findings, gaps and retirement rationale.
+
+Verification:
+
+- missed/duplicate schedule, stale hypothesis, owner departure, source change,
+  intelligence revoke and cost growth;
+- recurrence cannot auto-promote or bypass review;
+- multi-cycle program and recovery tests.
+
+Exit criteria: recurring hunts remain current, owned and outcome-measured.
+`v0.377.4 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.377.5 — Threat Hunt API And Integration Gate
+
+Status: planned
+
+Goal: expose the full hunt lifecycle and close its security/coverage semantics
+before UI implementation.
+
+Deliverables:
+
+- versioned hunt lifecycle/query/execution/collaboration/promotion APIs;
+- server-generated forms, idempotency, pagination/watch and audit;
+- ATT&CK/content/intelligence/case integration and export restrictions;
+- hunt conformance corpus and support documentation.
+
+Verification:
+
+- stale/duplicate API calls, query injection, cross-tenant/compartment access,
+  result pagination and unauthorized promotion;
+- full hunt lifecycle under source impairment and policy change;
+- independent API/workflow and exact-commit pentest.
+
+Exit criteria: hunt clients cannot invent evidence, completeness or promotion
+authority. `v0.377.5 implementation stop reached. Run pentest for this exact
+commit.`
 
 ### v0.382.0 — Automated Forensic Acquisition And Evidence Vault
 
@@ -6891,6 +9559,106 @@ Exit criteria: analysts can see and reconcile every sync conflict without silent
 overwrite or loss of internal workflow availability.
 `v0.404.4 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.404.5 — Threat Hunt Workspace UI
+
+Status: planned
+
+Goal: make formal hunts usable without turning browser state into query,
+completeness or promotion authority.
+
+Deliverables:
+
+- hypothesis/scope/owner/lifecycle, execution/checkpoint and coverage views;
+- query/result/evidence lineage, sub-hypotheses, notes, peer review and handoff;
+- finding/alert/incident/rule-proposal promotion previews using server forms;
+- recurring-hunt health, outcome and coverage-gap views.
+
+Verification:
+
+- stale tabs, concurrent analysts, unsafe query/result rendering, compartment
+  change and promotion race;
+- hidden partial data, cross-tenant evidence and client-authored completeness;
+- accessible hunt tabletop, browser security and UI pentest.
+
+Exit criteria: analysts can run complete hunts while the server owns evidence,
+coverage and transitions. `v0.404.5 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.404.6 — Source Onboarding And Data Quality UI
+
+Status: planned
+
+Goal: expose safe sample, mapping, drift, capacity, permission and canary
+workflows before source administration is considered complete.
+
+Deliverables:
+
+- onboarding lifecycle and protected sample/redaction views;
+- parser/mapping field-lineage, loss, schema-diff and shadow-replay views;
+- volume/cardinality/cost/capacity and permission/completeness previews;
+- canary/activation/rollback forms plus continuous source-health dashboards.
+
+Verification:
+
+- unsafe sample render, field leak, forged capacity/health, stale activation,
+  cross-tenant mapping and rollback conflict;
+- representative native/OTLP/cloud/SaaS source onboarding;
+- accessibility, browser security and workflow pentest.
+
+Exit criteria: operators can safely onboard and diagnose sources without bypassing
+server validation. `v0.404.6 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.404.7 — Security Data Export Administration UI
+
+Status: planned; disabled by default
+
+Goal: expose opt-in export configuration and outcomes without normalizing egress
+or weakening internal-only operation.
+
+Deliverables:
+
+- subscription/scope/schema/recipient/redaction/residency preview and approval;
+- cursor, coverage, delivery, receipt, dead-letter, `UnknownOutcome` and reconcile
+  views;
+- global/tenant disable and air-gap/internal-only evidence;
+- migration export manifests and independent verification workflow.
+
+Verification:
+
+- stale policy/recipient, cross-tenant scope, redaction bypass, duplicate submit,
+  unknown outcome and malicious sink metadata;
+- disabled/no-sink UI and API paths;
+- accessibility, egress/privacy and browser pentest.
+
+Exit criteria: every export is visibly optional, scoped and reconcilable.
+`v0.404.7 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.404.8 — Detection Content And Effectiveness UI
+
+Status: planned
+
+Goal: make content coverage, quality, debt and update state actionable to
+detection engineers and analysts.
+
+Deliverables:
+
+- catalog/package/version/source/ATT&CK strategy and telemetry coverage views;
+- tests, simulation, purple-team, production feedback and uncertainty displays;
+- owner/review/tuning/suppression debt, quarantine and rollout controls;
+- signed update/offline bundle and before/after coverage diffs.
+
+Verification:
+
+- misleading percentages, unknown labels, stale results, unauthorized activation,
+  debt hiding and malicious content rendering;
+- complete content update/rollback/effectiveness workflows;
+- accessibility, browser security and detection-engineering pentest.
+
+Exit criteria: content quality and gaps remain visible and all mutations follow
+server review gates. `v0.404.8 implementation stop reached. Run pentest for this
+exact commit.`
+
 ### v0.405.0 — Administration UI
 
 Status: planned
@@ -6915,6 +9683,109 @@ Verification:
 Exit criteria: the UI never replaces server-side enforcement or generated
 evidence explanations and claims no later Stage K operation. `v0.405.0
 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.406.0 — SOC Operational Metric Semantics
+
+Status: planned
+
+Goal: define trustworthy operational measurements before dashboards incentivize
+incorrect behavior.
+
+Deliverables:
+
+- canonical detection, awareness, assignment, acknowledgement, containment,
+  recovery, resolution, closure and post-analysis timestamps with `TimeTrust`;
+- active/waiting/hold/external-dependency and uncertainty interval rules;
+- cohort/population/scope, exclusions and revision identity for every metric;
+- prohibition on presenting uncertain or incomparable intervals as exact ranks.
+
+Verification:
+
+- clock uncertainty, corrected awareness, reopen/merge/split, waiting/hold abuse
+  and missing timestamps;
+- gaming by premature acknowledge/resolve/close;
+- hand-calculated metric and anti-gaming review.
+
+Exit criteria: each SOC metric states exactly what time, population and uncertainty
+it measures. `v0.406.0 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.406.1 — Alert Queue Workload And Triage Quality Metrics
+
+Status: planned
+
+Goal: measure queue health and analyst workload without turning throughput into
+the sole objective.
+
+Deliverables:
+
+- queue age, assignment delay, acknowledgement, SLA, waiting reason, reopen,
+  duplicate and disposition distributions;
+- workload by queue/team/content/severity with authorization-preserving aggregates;
+- noise/tuning debt and source-impairment context;
+- minimum cohort/privacy thresholds and no individual productivity ranking by
+  default.
+
+Verification:
+
+- reassignment/close/reopen gaming, tiny cohorts, compartment inference and
+  duplicated alerts;
+- source outage/noise spikes and changing rule versions;
+- privacy, fairness and metric correctness review.
+
+Exit criteria: queue metrics expose service health and quality without unsafe
+surveillance or incentives. `v0.406.1 implementation stop reached. Run pentest
+for this exact commit.`
+
+### v0.406.2 — Incident Response And Corrective Action Metrics
+
+Status: planned
+
+Goal: measure incident response and improvement outcomes across their distinct
+states.
+
+Deliverables:
+
+- time-to-declare/contain/recover/resolve/close/post-analysis intervals;
+- severity change, reopen, obligation lateness, external wait and exception rates;
+- corrective-action ownership, overdue, effectiveness and recurrence metrics;
+- per-framework/source/topology context without collapsing obligations.
+
+Verification:
+
+- merge/split/reopen, corrected awareness, late evidence, exception abuse and
+  external-provider outage;
+- regulatory deadline versus internal SLA confusion;
+- tabletop metric reproduction and privacy review.
+
+Exit criteria: response metrics preserve incident/obligation semantics and never
+reward premature closure. `v0.406.2 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.406.3 — SOC Metric Dashboard Export And Governance Gate
+
+Status: planned
+
+Goal: expose governed operational metrics with exact definitions, access and
+change history.
+
+Deliverables:
+
+- versioned dashboards/reports and metric-definition registry;
+- drill-down to source records where authorized, with aggregate privacy controls;
+- threshold/SLO alerting, scheduled reports and signed export;
+- owner/review/change/retirement lifecycle and interpretation guidance.
+
+Verification:
+
+- definition drift, stale dashboards, aggregate inference, unauthorized drill-
+  down and misleading comparison;
+- historical regeneration after metric revision;
+- independent analytics, privacy and dashboard pentest.
+
+Exit criteria: SOC measurements are reproducible governed evidence, not mutable
+dashboard formulas. `v0.406.3 implementation stop reached. Run pentest for this
+exact commit.`
 
 ## Phase J — Wasm And SOAR
 
@@ -7090,6 +9961,79 @@ Verification:
 Exit criteria: no workflow step executes from an invalid or unaudited state.
 `v0.430.0 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.430.1 — CACAO 2.0 Playbook Data Model And Parser
+
+Status: planned
+
+Goal: admit portable signed playbook interchange without granting imported
+content execution authority.
+
+Deliverables:
+
+- pinned OASIS CACAO Security Playbooks `2.0` schema/taxonomy/source/license;
+- bounded model/parser for playbooks, steps, commands, agents, targets,
+  extensions, markings and signatures;
+- exact supported object/property/extension matrix and unknown-critical handling;
+- package provenance and no-activation-on-import rule.
+
+Verification:
+
+- official examples/schema, malformed graph, cycles, deep/wide objects, signature
+  substitution and malicious extensions;
+- allocation limits, canonicalization and fuzzing;
+- licensing and parser pentest.
+
+Exit criteria: CACAO content is bounded and inert until validated and approved.
+`v0.430.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.430.2 — CACAO Import Translation And Semantic-Loss Review
+
+Status: planned
+
+Goal: translate admitted CACAO workflows into Vakaheim proposals with every
+authority or semantic mismatch explicit.
+
+Deliverables:
+
+- object/step/condition/variable/command/target/marking mapping report;
+- unsupported/lossy/stricter Vakaheim safety semantics and required human edits;
+- capability, secret, approval, idempotency and compensation gaps;
+- translated package tests, simulation and exact source linkage.
+
+Verification:
+
+- unsafe command/target, missing approval/compensation, extension ambiguity,
+  data-marking conflict and variable injection;
+- imported-versus-native dry-run differences;
+- hostile playbook and semantic-review pentest.
+
+Exit criteria: imported CACAO playbooks cannot bypass Vakaheim's action model.
+`v0.430.2 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.430.3 — CACAO Export Conformance And Closure Gate
+
+Status: planned
+
+Goal: export portable playbooks where semantics fit and disclose every non-
+portable Vakaheim control.
+
+Deliverables:
+
+- canonical signed CACAO export with markings, extensions and source package;
+- export report for omitted/approximated/non-portable capabilities;
+- import-export round-trip subset and current/previous version behavior;
+- conformance, support and limitation documentation.
+
+Verification:
+
+- signature/marking loss, extension collision, round-trip drift and downgrade;
+- external consumer examples and disabled interoperability mode;
+- independent CACAO interoperability and exact-commit pentest.
+
+Exit criteria: CACAO interchange is exact where claimed and cannot weaken native
+safety. `v0.430.3 implementation stop reached. Run pentest for this exact
+commit.`
+
 ### v0.435.0 — Dry Run, Simulation And Canary Planning
 
 Status: planned
@@ -7263,6 +10207,80 @@ Verification:
 Exit criteria: the response API exposes only already-implemented safe state
 transitions. `v0.450.1 implementation stop reached. Run pentest for this exact
 commit.`
+
+### v0.450.2 — OpenC2 2.0 Language And Message Profile
+
+Status: planned
+
+Goal: parse and represent portable cyber-defense commands without granting them
+execution authority.
+
+Deliverables:
+
+- pinned OASIS OpenC2 Language Specification `2.0` source/schema/license;
+- bounded action/target/args/actuator/profile/status/request/response model;
+- canonical identity, producer/consumer authentication and replay protection;
+- exact supported language/profile matrix and inert-on-import behavior.
+
+Verification:
+
+- malformed/oversized messages, unknown action/target, extension collision,
+  replay and identity spoof;
+- canonical vectors, fuzzing and unsupported-profile rejection;
+- protocol/parser pentest.
+
+Exit criteria: an OpenC2 message is only an authenticated proposal until ordinary
+Vakaheim policy approves an exact effect plan. `v0.450.2 implementation stop
+reached. Run pentest for this exact commit.`
+
+### v0.450.3 — OpenC2 Action And Outcome Translation
+
+Status: planned
+
+Goal: map admitted OpenC2 profiles to narrow Vakaheim actions and outcomes with
+all semantic differences visible.
+
+Deliverables:
+
+- action/target/argument-to-native profile mappings and unsupported/loss report;
+- exact target/precondition/effect/approval/idempotency/verification binding;
+- response/status mapping preserving `UnknownOutcome` and compensation state;
+- no mapping to arbitrary command execution.
+
+Verification:
+
+- target ambiguity/reuse, stale command, action widening, missing approval,
+  status confusion and unknown-outcome collapse;
+- native/OpenC2 simulation comparisons;
+- hostile command and translation pentest.
+
+Exit criteria: OpenC2 interoperability cannot broaden native action capability or
+outcome truth. `v0.450.3 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.450.4 — OpenC2 Conformance And Closure Gate
+
+Status: planned
+
+Goal: close the admitted OpenC2 profile set across transport, execution and
+reconciliation.
+
+Deliverables:
+
+- supported actuator/profile/version matrix and conformance corpus;
+- current/previous message compatibility and signed interoperability evidence;
+- disabled mode and no-provider/no-action behavior;
+- documentation separating language support from actuator/provider support.
+
+Verification:
+
+- representative producer/consumer exchange, duplicate/replay/outage and schema
+  migration;
+- implied actuator/provider claim scans and disabled behavior;
+- independent OpenC2 interoperability and exact-commit pentest.
+
+Exit criteria: OpenC2 support is profile-exact and retains every native safety
+gate. `v0.450.4 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.451.0 — Endpoint Actions
 
@@ -7870,17 +10888,19 @@ Deliverables:
 
 - matrix for detection state, connector checkpoints, alerts/incidents/cases,
   incident graphs, framework activations/bindings, assessments, obligations,
-  report/submission/external-sync journals, playbooks/actions/approvals,
-  live-query leases and saved queries;
+  report/submission/external-sync journals, export subscriptions/cursors,
+  hunts/collaboration, content rollout/effectiveness/debt, SOC metric revisions,
+  source-onboarding state, playbooks/actions/approvals, live-query leases and
+  saved queries;
 - human sessions/WebAuthn credentials/revocations/elevation, notification
   outbox/delivery, acquisition/custody, backfill/reprocessing, API idempotency,
   audit records and audit cursors;
 - allowed/revoked build identity, `v0.456.1` assurance level, node measurement,
   admission, drain and quarantine state from `v0.457.0`;
 - durable scheduler jobs for cold rehydration, backup/restore, repair/reindex,
-  rule rollout, retro-hunt/risk recompute, report/export, certificate/key renewal,
-  tenant offboarding and playbook wait/compensation, including classes whose RPO
-  is rebuild from immutable evidence;
+  rule/content rollout and validation, recurring/retro hunt, risk recompute,
+  report/export, certificate/key renewal, tenant offboarding and playbook wait/
+  compensation, including classes whose RPO is rebuild from immutable evidence;
 - authority, partition key, consistency, fencing, replication, RPO, RTO,
   backup/restore, migration and loss/impairment semantics per class;
 - explicit routing decision separating control metadata, immutable evidence and
@@ -7892,7 +10912,8 @@ Verification:
   failover, region loss and restore per state class;
 - reject undefined RPO/RTO or accidental metadata-log placement;
 - cross-state transaction and irreversible-loss analysis, including atomic alert
-  promotion and report/submission/external-sync unknown outcomes.
+  promotion, hunt promotion, content activation and report/submission/external-
+  sync/export unknown outcomes.
 
 Exit criteria: no mutable state class enters cluster implementation without a
 named durability and failover contract. `v0.459.0 implementation stop reached.
@@ -8401,6 +11422,56 @@ Exit criteria: HA cannot turn an uncertain external effect into success/retry,
 erase a synchronization conflict or lose an exact report/receipt chain.
 `v0.468.2 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.468.3 — Export Subscription And Portability State HA
+
+Status: planned
+
+Goal: fail over optional export without duplicates, cursor rollback, policy bypass
+or accidental egress activation.
+
+Deliverables:
+
+- replicated export definitions, expected-set snapshots, cursors, outbox/receipt,
+  dead-letter, `UnknownOutcome` and reconciliation state;
+- fenced workers, idempotency and anti-replay minimum-live epochs;
+- policy/redaction/residency/recipient versions and global/tenant disable state;
+- per-class RPO/RTO and internal-only recovery behavior.
+
+Verification:
+
+- failover before/after select/send/receipt/checkpoint, duplicate sink effects,
+  stale policy/recipient and cursor rollback;
+- restore cannot enable disabled/no-sink egress;
+- conservation, chaos and export-HA pentest.
+
+Exit criteria: HA preserves opt-in egress, exact scope and explicit uncertainty.
+`v0.468.3 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.468.4 — Hunt Content Effectiveness And SOC Metric HA
+
+Status: planned
+
+Goal: replicate collaborative security-program state without changing evidence,
+coverage or measurement semantics.
+
+Deliverables:
+
+- hunt lifecycle/execution/checkpoint/collaboration and recurring schedule state;
+- content rollout/revocation/validation/effectiveness/debt state;
+- metric definitions/materializations with source record and revision identity;
+- fenced ownership, RPO/RTO, rebuild and stale-result invalidation.
+
+Verification:
+
+- failover during hunt query/promotion, content update/test/quarantine and metric
+  recomputation;
+- duplicate promotion, lost debt, stale validation and changed metric result;
+- state-machine equivalence and HA pentest.
+
+Exit criteria: failover cannot fabricate hunt conclusions, content quality or
+SOC measurements. `v0.468.4 implementation stop reached. Run pentest for this
+exact commit.`
+
 ### v0.469.0 — Playbook And Action State HA
 
 Status: planned
@@ -8609,6 +11680,126 @@ Verification:
 Exit criteria: tenant lifecycle state and denial propagate within declared bounds,
 and destroyed authority/data cannot resurrect. `v0.474.1 implementation stop
 reached. Run pentest for this exact commit.`
+
+### v0.474.2 — MSSP Tenant Hierarchy And Delegated Authority Model
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: support managed-security hierarchy without weakening tenant isolation or
+making a parent an implicit data owner.
+
+Deliverables:
+
+- provider/organization/customer/tenant relationship and immutable hierarchy
+  epochs;
+- separately granted management, content, hunt, triage and incident capabilities;
+- field/compartment/purpose/residency limits and customer revocation;
+- no inherited evidence access without a scoped grant.
+
+Verification:
+
+- parent/child confusion, hierarchy move, provider compromise, customer revoke,
+  delegated-admin escalation and cross-customer inference;
+- capability attenuation and audit completeness;
+- formal authorization review and tenancy pentest.
+
+Exit criteria: MSSP delegation is explicit, revocable and never erases customer
+authority. `v0.474.2 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.474.3 — Cross-Customer SOC Queue And Workflow Isolation
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: let authorized managed analysts work across customers without combining
+evidence, metrics or incidents.
+
+Deliverables:
+
+- federated queue metadata with per-item tenant/compartment capability checks;
+- tenant-preserving assignment, handoff, escalation and SLA policies;
+- no cross-customer bulk evidence/query by default and safe aggregate counts;
+- per-customer audit, notification and incident authority.
+
+Verification:
+
+- stale queue authorization, analyst/customer removal, sort/filter side channel,
+  wrong-tenant action and bulk export;
+- noisy customer fairness and compartment changes;
+- multi-customer SOC tabletop and UI/API pentest.
+
+Exit criteria: one analyst experience cannot turn into shared customer data or
+authority. `v0.474.3 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.474.4 — Shared Content With Customer-Specific Policy
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: distribute provider-managed content without sharing customer evidence or
+silently overriding local policy.
+
+Deliverables:
+
+- signed provider content channels and customer pin/approve/override/disable;
+- provider base plus customer overlays with deterministic precedence;
+- aggregate effectiveness only under privacy/minimum-cohort policy;
+- per-customer rollout, rollback, coverage and audit evidence.
+
+Verification:
+
+- malicious provider package, customer override loss, cross-customer feedback,
+  rollout cohort confusion and revocation;
+- content update while provider/customer relationship changes;
+- isolation, supply-chain and governance pentest.
+
+Exit criteria: content may be shared; evidence, decisions and private tuning are
+not. `v0.474.4 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.474.5 — MSSP Hierarchy HA And Lifecycle Propagation
+
+Status: conditional on admission at `v0.100.2`
+
+Goal: replicate delegation and customer lifecycle without stale cross-customer
+authority during failure.
+
+Deliverables:
+
+- hierarchy/delegation epoch replication, fencing, watches and revocation RPO/RTO;
+- provider/customer offboarding, transfer and emergency suspension propagation;
+- queue/content/session cache invalidation across nodes/regions;
+- audit evidence for every stale-deny/fail-closed decision.
+
+Verification:
+
+- failover during grant/revoke/move/offboard, stale region, partition and restore;
+- old provider session/content/queue replay;
+- distributed authorization model and chaos pentest.
+
+Exit criteria: failure cannot resurrect provider access or cross-customer state.
+`v0.474.5 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.474.6 — MSSP Scope Closure
+
+Status: conditional on `v0.100.2`
+
+Goal: close hierarchical managed-security support before federation expands.
+
+Deliverables:
+
+- admitted integration of `v0.474.2`–`v0.474.5`, or enforced rejection of
+  hierarchy/delegation APIs/config/UI;
+- exact provider/customer responsibility and support model;
+- privacy, residency, audit, incident and exit/portability documentation.
+
+Verification:
+
+- full provider compromise/customer revocation/offboarding tabletop;
+- rejection-path and implied-MSSP claim scans;
+- independent multi-tenant security assessment and exact-commit pentest.
+
+Exit criteria: MSSP operation is demonstrably isolated or an explicit 1.0 non-
+goal. `v0.474.6 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.475.0 — Federated Query
 
@@ -9040,28 +12231,378 @@ stop reached. Run pentest for this exact commit.`
 
 ## Phase L — Completion And Hardening
 
-### v0.485.0 — Optional AI Assistance
+### v0.485.0 — AI Scope Authority And Threat Constitution
 
 Status: planned
 
-Goal: add audited proposal-only AI outside the trusted correctness path.
+Goal: bind AI monitoring and proposal-only assistance boundaries before any model
+is connected to Vakaheim data.
 
 Deliverables:
 
-- query/rule/test drafting, explanations, summaries and response suggestions;
-- explicit evidence selection, redaction, tenant boundaries, citations/audit;
-- local-model adapter, provider policy and complete disable switch.
+- separate monitored external AI workloads from Vakaheim's optional assistant;
+- proposal-only allowed uses and binding prohibitions on autonomous state change,
+  authority, evidence claims, rule activation, incident decisions and actions;
+- prompt/context/model/tool/output trust boundaries and AI-specific threat model;
+- global/tenant/use-case disable, fail-closed unavailable behavior and non-AI
+  feature equivalence.
 
 Verification:
 
-- prompt injection, evidence exfiltration, cross-tenant, false citation and
-  fact/inference confusion;
-- attempted direct action/rule activation and disabled-mode proof;
-- AI threat-model review and pentest.
+- direct/indirect prompt injection, evidence exfiltration, cross-tenant context,
+  false citation and fact/inference confusion;
+- attempted authority/tool/action/rule/incident bypass and disabled-mode proof;
+- independent AI threat-model, privacy and architecture pentest.
 
 Exit criteria: AI output cannot mutate authoritative state without normal human
 gates. `v0.485.0 implementation stop reached. Run pentest for this exact
 commit.`
+
+### v0.485.1 — AI Model Provider And Artifact Registry
+
+Status: planned; optional and disabled by default
+
+Goal: make every model/provider/runtime/configuration an attributable reviewed
+artifact.
+
+Deliverables:
+
+- model/provider/version/digest/license/source/runtime/quantization identity;
+- trust, approval, revocation, capability, context/output and resource limits;
+- local/external provider distinction and network/credential capabilities;
+- immutable activation epoch and no unpinned model aliases.
+
+Verification:
+
+- model substitution, mutable alias, malicious artifact, license/provenance gap,
+  provider drift and rollback;
+- wrong tenant/use-case activation and revoked model cache;
+- registry supply-chain and model-loading pentest.
+
+Exit criteria: no inference runs without an approved exact model/provider
+identity. `v0.485.1 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.485.2 — Prompt Context Retrieval And Tool Provenance
+
+Status: planned; optional and disabled by default
+
+Goal: bind every AI input and proposed tool use to exact authorized sources.
+
+Deliverables:
+
+- versioned system/developer/user prompt-template digests and parameter identity;
+- selected evidence/query/result/retrieval source digests, coverage and redaction;
+- context ordering/truncation/token budget and untrusted-content labels;
+- proposed tool name/arguments/result lineage with no direct execution capability.
+
+Verification:
+
+- hidden/stale prompt, retrieval poisoning, evidence substitution, truncation,
+  cross-tenant context and tool-argument injection;
+- citation/result/context consistency;
+- provenance model and prompt-boundary pentest.
+
+Exit criteria: each output can be traced to exact prompts, authorized context and
+proposed tools. `v0.485.2 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.485.3 — AI Data Policy Minimization And Retention
+
+Status: planned; optional and disabled by default
+
+Goal: prevent AI assistance from becoming an uncontrolled evidence-copying or
+provider-retention path.
+
+Deliverables:
+
+- field/purpose/residency/compartment/legal-hold checks before context selection;
+- prompt/output/cache/conversation classification, encryption and retention;
+- provider training/retention/region policy and no-send denial;
+- deletion, export, audit and subject-request propagation.
+
+Verification:
+
+- secret/PII/classified evidence exfiltration, cache/index leakage, provider
+  policy change and deletion/hold conflict;
+- inference from aggregates and cross-session/tenant reuse;
+- privacy impact assessment and data-lifecycle pentest.
+
+Exit criteria: AI sees and retains only explicitly authorized minimized context.
+`v0.485.3 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.485.4 — Indirect Prompt Injection And Content Isolation
+
+Status: planned; optional and disabled by default
+
+Goal: treat all evidence, tickets, intelligence, webhooks and model output as
+untrusted instructions.
+
+Deliverables:
+
+- structured context channels separating data from trusted prompt instructions;
+- untrusted-content encoding, origin labels and instruction-suppression policy;
+- output parser/schema validation and safe rendering;
+- canary/secret-leak and forbidden-action detectors that block output use.
+
+Verification:
+
+- direct/indirect/multilingual/encoded injection, poisoned documents, tool-output
+  injection, data exfiltration and rendered active content;
+- multi-turn persistence and retrieval-store poisoning;
+- sustained adversarial corpus and AI boundary pentest.
+
+Exit criteria: untrusted evidence cannot acquire instruction or tool authority.
+`v0.485.4 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.485.5 — Grounded Query Explanation And Citation Assistance
+
+Status: planned; optional and disabled by default
+
+Goal: provide summaries/explanations that distinguish source facts, calculated
+results and model inference.
+
+Deliverables:
+
+- query/result/coverage-bound summaries with field/evidence citations;
+- statement-level fact/inference/unknown labels and unsupported-claim rejection;
+- citation verification against authorized immutable source snapshots;
+- abstention and missing/partial-data behavior.
+
+Verification:
+
+- false/mismatched citation, unsupported conclusion, partial result, redacted
+  evidence and stale snapshot;
+- prompt injection and confident fabrication corpus;
+- human/domain evaluation and explanation pentest.
+
+Exit criteria: AI prose never masquerades as evidence and every factual claim is
+verifiably grounded or rejected. `v0.485.5 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.485.6 — Query Rule Test And Hunt Drafting Assistance
+
+Status: planned; optional and disabled by default
+
+Goal: draft security artifacts while preserving ordinary parsing, testing,
+review and activation gates.
+
+Deliverables:
+
+- VQL, rule/test, hunt-hypothesis and tuning proposal generation;
+- schema/telemetry/content/version context and resource-budget preview;
+- mandatory compile/validate/simulate/review with model output retained as source;
+- no direct save-overwrite, activation or production execution.
+
+Verification:
+
+- injection, unsafe/unbounded query/rule, missing tests, fabricated fields,
+  malicious content and direct activation attempts;
+- disabled mode and model/provider changes;
+- detection-engineer evaluation and drafting pentest.
+
+Exit criteria: AI creates reviewable drafts only; native validators remain the
+authority. `v0.485.6 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.485.7 — Incident Case And Response Suggestion Assistance
+
+Status: planned; optional and disabled by default
+
+Goal: summarize cases and suggest next steps without altering incident,
+obligation or action state.
+
+Deliverables:
+
+- evidence-grounded timeline/summary, missing-data and investigation suggestions;
+- response/playbook proposals bound to exact targets/preconditions and simulations;
+- regulatory content limited to cited package explanations, never legal decisions;
+- explicit human approval and ordinary server transition/action forms.
+
+Verification:
+
+- malicious case/evidence text, stale incident state, unsafe response, deadline
+  invention and external-ticket injection;
+- attempted state/action/obligation mutation and approval bypass;
+- incident tabletop and suggestion pentest.
+
+Exit criteria: AI can advise but cannot declare, close, classify, submit or act.
+`v0.485.7 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.485.8 — AI Evaluation TEVV And Quality Contract
+
+Status: planned; optional and disabled by default
+
+Goal: evaluate security, grounding and usefulness before a model/use case is
+activated.
+
+Deliverables:
+
+- versioned use-case corpora for correctness, citation, abstention, safety,
+  privacy, bias, prompt injection and resource behavior;
+- exact model/prompt/context/runtime/configuration identity and repeated-run
+  distribution;
+- minimum thresholds, confidence intervals and unacceptable-failure gates;
+- human/domain review with protected test/holdout separation.
+
+Verification:
+
+- benchmark contamination, test leakage, nondeterminism, small/biased samples,
+  threshold gaming and evaluation harness compromise;
+- adversarial and out-of-distribution corpora;
+- independent TEVV methodology and security review.
+
+Exit criteria: each AI use case has reproducible evidence and fails closed below
+thresholds. `v0.485.8 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.485.9 — AI Shadow Canary Upgrade And Drift Lifecycle
+
+Status: planned; optional and disabled by default
+
+Goal: change models/prompts/providers without silent behavior or privacy drift.
+
+Deliverables:
+
+- staged/shadow/canary/active/quarantined/rolled-back lifecycle;
+- old/new output, citation, safety, latency, resource and data-policy comparison;
+- drift monitors and automatic quarantine thresholds;
+- explicit tenant/use-case approval and immutable migration history.
+
+Verification:
+
+- provider/model alias drift, prompt change, degraded grounding, policy/region
+  change, rollback and mixed versions;
+- canary cohort leakage and stale cache/context;
+- historical shadow replay and upgrade pentest.
+
+Exit criteria: AI changes are measured migrations, never transparent provider
+updates. `v0.485.9 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.485.10 — Local AI Runtime Sandbox And Resource Isolation
+
+Status: planned; optional and disabled by default
+
+Goal: run admitted local models outside trusted services with bounded resources
+and no ambient capabilities.
+
+Deliverables:
+
+- isolated process/OS sandbox, authenticated IPC and model artifact verification;
+- CPU/memory/GPU/time/context/output/concurrency quotas and cancellation;
+- no ambient network/filesystem/secrets and evidence-only scoped handles;
+- crash, corruption, update and zeroization behavior.
+
+Verification:
+
+- malicious model, parser/runtime exploit, resource exhaustion, cancellation,
+  device reset and sandbox escape attempts;
+- model/context residue and cross-tenant scheduling;
+- runtime hardening and independent sandbox pentest.
+
+Exit criteria: a compromised local model/runtime cannot reach authoritative state
+or unrelated data. `v0.485.10 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.485.11 — External AI Provider Gateway And Unknown Outcomes
+
+Status: planned; optional and disabled by default
+
+Goal: govern optional external inference as an uncertain data-egress operation.
+
+Deliverables:
+
+- named provider admission, exact API/model/region/retention policy and credentials;
+- request digest, redaction, idempotency, rate/cost and response provenance;
+- timeout/partial/stream interruption, `UnknownOutcome` and reconciliation;
+- provider outage/disable cannot block non-AI SIEM workflows.
+
+Verification:
+
+- provider drift, redirect/rebinding, lost response, replay, quota/cost abuse,
+  retention-policy change and malicious output;
+- cross-tenant credential/context and unknown-outcome retry;
+- live provider interoperability and gateway pentest.
+
+Exit criteria: external AI is named, opt-in and never a hidden availability or
+egress dependency. `v0.485.11 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.485.12 — AI Assistance Integration Gate
+
+Status: planned
+
+Goal: integrate proposal-only AI assistance before AI-specific detection content
+and final closure.
+
+Deliverables:
+
+- AI telemetry/detection, model/prompt/context/tool/output provenance and use-case
+  matrix;
+- every model/provider/use case TEVV, shadow/rollback and disable evidence;
+- autonomous/authoritative AI as an explicit enforced 1.0 non-goal;
+- current NIST AI RMF/GenAI and Cyber AI guidance review with limitations.
+
+Verification:
+
+- end-to-end monitored AI attack and assistant prompt-injection scenarios;
+- no-model/no-network/disabled/provider-outage equivalence for core SIEM;
+- independent AI red team, privacy assessment and exact-commit pentest.
+
+Exit criteria: assistance is useful where enabled but remains outside the trusted
+authority path. `v0.485.12 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.485.13 — AI Workload Threat Detection Content
+
+Status: planned
+
+Goal: ship first-party detections for monitored AI systems independently from
+whether Vakaheim assistance is enabled.
+
+Deliverables:
+
+- prompt-injection, sensitive-context/output, unsafe tool/agent behavior, model/
+  prompt/config change, anomalous usage and provider impairment content;
+- AI model/prompt/tool/data entities and attack-chain graph analytics;
+- exact OCSF/OpenTelemetry AI telemetry prerequisites, gaps and privacy limits;
+- tests, tuning, hunts, dashboards and incident runbooks.
+
+Verification:
+
+- benign prompt/tool variation, redacted payloads, missing telemetry, adversarial
+  injection/exfiltration and poisoned model/provider metadata;
+- deterministic replay, FP/FN evaluation and cross-tenant isolation;
+- independent AI-security content review and pentest.
+
+Exit criteria: monitored AI workloads have useful evidence-backed security
+content even when Vakaheim AI assistance is disabled. `v0.485.13 implementation
+stop reached. Run pentest for this exact commit.`
+
+### v0.485.14 — AI Monitoring And Assistance Closure Gate
+
+Status: planned
+
+Goal: close AI workload monitoring, detection and proposal-only assistance before
+privacy and release-hardening phases.
+
+Deliverables:
+
+- final telemetry/detection/model/prompt/context/tool/output/use-case matrix;
+- every model/provider/use case TEVV, shadow/rollback and disable evidence;
+- autonomous/authoritative AI as an explicit enforced 1.0 non-goal;
+- current NIST AI RMF/GenAI and Cyber AI guidance review with limitations.
+
+Verification:
+
+- end-to-end monitored AI attack and assistant prompt-injection scenarios;
+- no-model/no-network/disabled/provider-outage equivalence for core SIEM;
+- independent AI red team, privacy assessment and exact-commit pentest.
+
+Exit criteria: AI monitoring is useful and assistance is opt-in, while neither
+can become trusted authority. `v0.485.14 implementation stop reached. Run pentest
+for this exact commit.`
 
 ### v0.490.0 — Privacy Policy Model
 
@@ -9136,7 +12677,9 @@ Goal: prove retention, hold and deletion outcomes across all storage classes.
 
 Deliverables:
 
-- retention evaluation for facts, raw data, indexes, cold tiers, caches and state;
+- retention evaluation for facts, raw data, indexes, cold tiers, caches, source
+  samples, hunt/results, effectiveness/metric records, exports and AI prompts/
+  context/outputs;
 - legal-hold precedence, crypto-shred, physical cleanup and tombstone evidence;
 - replica, backup, spill and restore-aware deletion proofs.
 
@@ -9229,7 +12772,8 @@ Goal: prove conservation and durability under sustained ingest and storage load.
 
 Deliverables:
 
-- source/relay/ingest throughput, latency, burst reserve and backpressure results;
+- source/relay/ingest throughput, latency, burst reserve and backpressure across
+  logs, traces, metrics, profiles, AI telemetry and named providers;
 - WAL/segment/index/raw/cold/retention/compaction/scrub/backup capacity results;
 - exact reference systems, data distributions, schemas, encryption and commits.
 
@@ -9251,12 +12795,14 @@ Goal: prove interactive and continuous workloads within bounded admission rules.
 
 Deliverables:
 
-- query, dashboard, report, graph, live and cold-rehydration latency evidence;
-- detection throughput/state, retro-hunt, risk and intelligence-match evidence;
+- query, external-lake, dashboard, report, graph, live and cold-rehydration
+  latency evidence;
+- detection throughput/state, recurring/retro hunt, first-party content
+  validation, risk, intelligence-match and effectiveness evidence;
 - framework package composition/evaluation/shadow-replay and obligation/report
   generation bounds;
-- analyst/API/ServiceNow reconciliation concurrency, cancellation, fairness and
-  worst-case cost results.
+- analyst/API/ServiceNow/export reconciliation, SOC metric and optional local-AI
+  concurrency, cancellation, fairness and worst-case cost results.
 
 Verification:
 
@@ -9280,8 +12826,8 @@ Deliverables:
 
 - node/rack/region scale, replication, routing, rebalance and evacuation results;
 - scheduler/state/query failover and backup/restore/repair/reindex RPO/RTO;
-- framework/obligation/report/submission/external-sync failover RPO/RTO and
-  duplicate-effect/deadline invariants;
+- framework/obligation/report/submission/external-sync/export/hunt/content/metric
+  failover RPO/RTO and duplicate-effect/deadline invariants;
 - topology, hardware, placement, tenant, workload and fault schedule evidence.
 
 Verification:
@@ -9305,6 +12851,8 @@ Deliverables:
 - sustained codec/parser/protocol/format/planner fuzz campaigns;
 - framework manifest/policy IR/localization/migration and regulatory report/
   submission template fuzz campaigns;
+- OCSF/Sigma/ATT&CK/OpenTelemetry/industrial protocol/CACAO/OpenC2/content/export
+  and AI telemetry format fuzz campaigns;
 - normative positive/negative conformance and differential/metamorphic corpora;
 - coverage, sanitizer-equivalent instrumentation and residual gap inventory.
 
@@ -9329,6 +12877,8 @@ Deliverables:
 - Kani/model checks for bounded critical invariants and protocol refinements;
 - alert/incident/promotion, framework composition/obligation clocks and report/
   external-sync unknown-outcome state models;
+- hunt/promotion, content rollout/effectiveness, export cursor/outcome and MSSP
+  delegated-authority state models;
 - Loom/first-party deterministic schedules for admitted concurrency contracts;
 - Miri, unsafe inventory, allocator-failure and architecture-width evidence.
 
@@ -9361,6 +12911,8 @@ Verification:
 - faults at each durable transition and simultaneous dependent failures;
 - faults at every alert promotion, package activation/evaluation/migration,
   obligation transition, report submission and ServiceNow sync boundary;
+- faults at source activation, content update/validation, hunt promotion, export
+  select/send/checkpoint, AI provider/local runtime and MSSP delegation boundaries;
 - stale/partial restore, corrupt backup, uncertain clock and operator error;
 - replacement-machine clone, old air-gap bundle, missing/conflicting witness,
   counter reset and read-only recovery/reconciliation under effect-disable gates;
@@ -9383,8 +12935,9 @@ Goal: prove compatibility and reproducibility independently from chaos testing.
 
 Deliverables:
 
-- wire/storage/API/CLI/rule/schema/SDK/framework-package/report-template/
-  ServiceNow-profile compatibility matrices;
+- wire/storage/API/CLI/rule/content/hunt/export/schema/SDK/framework-package/
+  OCSF/OpenTelemetry/Sigma/ATT&CK/CACAO/OpenC2/report-template/named-provider
+  compatibility matrices;
 - install, migration, rolling upgrade, rollback and downgrade-boundary evidence;
 - reproducible builds, archives, packages, SBOM, provenance and signatures.
 
@@ -9413,6 +12966,8 @@ Deliverables:
   test scopes with exact commits and environments;
 - framework package/evaluator/registry, alert/incident/case, obligation/report/
   submission, ServiceNow synchronization and legal-source limitation scopes;
+- first-party content/effectiveness, source onboarding, threat hunts, export,
+  SOC metrics, AI monitoring/assistance, industrial protocols and MSSP scopes;
 - assessor independence, disclosure, evidence custody and retest agreements.
 
 Verification:
@@ -9527,6 +13082,8 @@ Deliverables:
 - realistic ingest, storage, query, detection, analyst and response operation;
 - default and multi-pack incident handling, deadline/report/submission exercises
   plus ServiceNow normal/outage/conflict operation;
+- first-party content/update/effectiveness, source onboarding, threat-hunt,
+  optional export, named-provider, SOC metric and AI enabled/disabled exercises;
 - issue telemetry, support bundles, triage and safe feedback procedures.
 
 Verification:
@@ -9551,6 +13108,7 @@ Deliverables:
 - supported cluster bootstrap, expansion, repair, evacuation and administration;
 - realistic multi-tenant ingest/query/detection/response and scheduled workloads;
 - framework/obligation/report/external-sync HA under tenant isolation;
+- export/hunt/content/metric HA and admitted MSSP hierarchy isolation;
 - failover, observability, support and issue-evidence procedures.
 
 Verification:
@@ -9574,6 +13132,7 @@ Deliverables:
 
 - multi-region placement/failover/residency beta deployments;
 - air-gap install, trust, update, content, backup and transfer workflows;
+- disconnected first-party/ATT&CK/framework/AI-model update and no-egress proofs;
 - mode-specific support, evidence exchange and limitation documentation.
 
 Verification:
@@ -9616,9 +13175,12 @@ Goal: finish production documentation and support operations before scope freeze
 
 Deliverables:
 
-- operator, security, developer, SDK, detector and incident-response manuals;
+- operator, security, developer, SDK, detector, threat-hunter, content-author,
+  source-onboarding, MSSP and incident-response manuals;
 - framework pack author/validator, package-source/limitation, obligation/report/
   submission and ServiceNow field-authority/reconciliation manuals;
+- named-provider, OCSF/OpenTelemetry/Sigma/ATT&CK, data export/portability,
+  CACAO/OpenC2, SOC metric and AI monitoring/assistance manuals;
 - installation, capacity, backup/recovery, upgrade/rollback and failure runbooks;
 - security response, support escalation, maintenance and compatibility policies.
 
@@ -9675,6 +13237,10 @@ Deliverables:
   fail-closed lease/staleness handling were not made optional;
 - framework/provider audit proving every `v0.344.7` named-pack/national-profile/
   authoritative-Wasm decision and the ServiceNow claim closed at its exact stop.
+- modern-SIEM audit proving `v0.100.2` external-lake, DSPM/EASM, OT/ICS, MSSP and
+  named-national-profile decisions reached their reserved closure gates;
+- mandatory first-party content, current OCSF/OpenTelemetry/ATT&CK/Sigma support,
+  hunt/effectiveness/export/onboarding/SOC-metric and AI closure audit.
 
 Verification:
 
@@ -9687,6 +13253,9 @@ Verification:
   post-1.0 option;
 - reject implied compliance, unnamed national/framework/provider support,
   authoritative framework Wasm or a skipped admitted pack/ServiceNow stop;
+- reject a generic engine with no minimum first-party content, stale ATT&CK/
+  schema/rule standards, absent hunt/effectiveness workflows, implicit egress,
+  autonomous AI authority or an unresolved extended-scope option;
 - scan APIs/configuration/UI/docs for implied or orphaned support claims;
 - independent scope-closure and product-claim pentest.
 
@@ -9702,7 +13271,9 @@ Goal: freeze externally observable compatibility surfaces after scope is closed.
 Deliverables:
 
 - public API, CLI, wire, storage, rule, framework-package, regulatory-report,
-  submission-receipt, external-sync, schema and admitted SDK baselines;
+  submission-receipt, external-sync, export, hunt, content/effectiveness,
+  OCSF/OpenTelemetry/Sigma/ATT&CK/CACAO/OpenC2, named-provider, AI, schema and
+  admitted SDK baselines;
 - compatibility manifests, migration guarantees and explicit unstable exclusions;
 - change-control rule allowing only security/correctness/release-blocking fixes.
 
@@ -9727,8 +13298,9 @@ Deliverables:
 
 - final toolchain/dependency/unsafe/action inventory and locked build inputs;
 - application packages, approved signed framework packs, regulatory templates,
-  conformance corpora, archives, SBOM, provenance, checksums and signing
-  procedures;
+  first-party content, ATT&CK/schema/semantic-convention fixtures, AI model/
+  prompt assets where admitted, conformance corpora, archives, SBOM, provenance,
+  checksums and signing procedures;
 - installation metadata and publication prohibition for every internal crate.
 
 Verification:
@@ -9758,6 +13330,9 @@ Verification:
 
 - complete clean rebuild and all repository/release campaigns;
 - install, upgrade, rollback, recovery, disaster and support exercises;
+- end-to-end qualification of current OCSF/OpenTelemetry/ATT&CK/Sigma profiles,
+  first-party content, source onboarding, hunting, effectiveness measurement,
+  data export, SOC metrics, CACAO/OpenC2 and admitted AI boundaries;
 - final independent full-product pentest with no critical/high finding.
 
 Exit criteria: every 1.0 gate passes on one exact commit; any change requires a
@@ -9842,6 +13417,16 @@ explicit maintainer authorization and never publishes internal crates.
   self-report cannot imply attestation, and drift/unverifiable state follows
   configured drain or quarantine policy.
 - Cloud, identity, network, syslog, OTLP, OCSF, JSON and file ingestion work.
+- Exact admitted OCSF and OpenTelemetry semantic-convention versions are pinned,
+  upgrade-tested and mapped across logs, traces, metrics, events/profiles and AI
+  workload telemetry without silently inventing correlation or completeness.
+- AWS, Azure/Entra, GCP, Okta, Google Workspace, Microsoft 365, Slack, GitHub,
+  GitLab, ServiceNow, PAN-OS, FortiGate, Zscaler, Defender for Office 365,
+  Proofpoint, Defender for Endpoint and CrowdStrike each pass their own named
+  schema, permission, cursor, outage, drift and live-interoperability gate.
+- New-source onboarding proves bounded safe sampling, mapping/lineage, schema-
+  drift replay, volume/cardinality/cost, permissions/completeness and canary
+  rollback before production activation.
 - Source lineage, immutable facts, telemetry gaps and completeness are queryable.
 - Trusted-time bootstrap/refinement and PKI issuance, renewal, revocation and
   compromise recovery pass their cross-platform and ceremony exercises.
@@ -9883,9 +13468,20 @@ explicit maintainer authorization and never publishes internal crates.
   separate from retained historical signature/trust verification, and raw
   reconstruction is never implied without quorum-durable chunks/manifests.
 - Predicate, temporal, stateful, graph, behavioral and integrity detection work.
+- ATT&CK strategy/analytic and Sigma 2.1 rule/correlation/filter support is
+  current, version-pinned, upgrade-tested and represented without treating a
+  technique tag as proof that required telemetry or an effective analytic exists.
 - Threat-intelligence live/retro matching and entity-risk threshold findings
   are deterministic, evidence-backed and poisoning-resistant.
 - Simulation, shadow, canary, rollback and deterministic finding replay work.
+- Signed first-party content covers every admitted platform and named source at
+  the documented minimum level, including detections, hunts, dashboards,
+  investigation runbooks and safe response playbooks; offline distribution,
+  revocation, provenance and rollback work.
+- Detection effectiveness is continuously evidenced through analyst disposition
+  feedback, controlled miss/precision/recall evaluation, adversary emulation,
+  purple-team exercises, review ownership, tuning/suppression debt and recurring
+  validation rather than alert-count metrics alone.
 - Evidence/findings remain immutable; alerts are mutable triage objects, formal
   incidents are authoritative declarations, cases are collaborative workspaces
   and incident graphs remain explanatory models rather than incident state.
@@ -9912,17 +13508,30 @@ explicit maintainer authorization and never publishes internal crates.
 - Incident closure fails on incomplete required fields, corrective actions or
   obligations unless a specific authorized audited exception exists, and
   framework upgrades pass historical shadow replay before activation.
+- Formal hunts bind hypothesis, scope, snapshot, query, coverage and evidence;
+  support collaboration, recurrence and immutable results; and promote
+  idempotently into governed rules, findings, incidents and content packages.
+- NIST SP 800-61r3 joins the independently assessed default/ENISA/NIS2/DORA/GDPR
+  pack set, and every admitted named national NIS2 profile has its own completed
+  implementation stop; unsupported profiles are explicit rather than implied.
 - ServiceNow failure never blocks internal handling; field authority is explicit,
   loops/unknown outcomes are reconciled, and conflicts never silently overwrite
   either side. Generic provider contracts imply no other named vendor support.
 - Wasm is capability-limited and OS-isolated; response requires correct approval,
   idempotency, verification and compensation.
+- CACAO 2.0 import/export and OpenC2 2.0 translation preserve semantic loss,
+  authority, approval, idempotency and unknown outcomes; interoperability never
+  bypasses the native playbook/action security model.
 - Live forensic acquisition is authenticated, elevated, independently audited
   and custody-bound; ordinary collection authority cannot invoke it.
 - SOAR cooldown/concurrency/recursion/target serialization and every scoped kill
   switch behave correctly for queued, in-flight and unknown-outcome actions.
 - Multi-tenancy, field policy, residency and purpose enforcement pass independent
   assessment.
+- Normalized security-data export is disabled by default, tenant-authorized,
+  policy-filtered, cursor/checkpoint-bound and auditable; OCSF, OTLP, syslog,
+  archive/object and message-stream profiles survive interruption, HA and
+  re-import without making external delivery necessary for internal operation.
 - Tenant provisioning, suspension, read-only/quarantine, hold, export,
   offboarding and cryptographic destruction propagate across every product plane;
   tenant identifiers and key domains cannot be reused or resurrected, while any
@@ -9931,6 +13540,8 @@ explicit maintainer authorization and never publishes internal crates.
   identifiers, audit pseudonyms, linkage-key expiry and any re-identification
   authority follow the closed `v0.457.2` policy without retaining excess identity.
 - Single-node, cluster, sovereign multi-region and air-gap operation are tested.
+- Hunt, first-party content, detection-effectiveness, SOC-metric and optional
+  export state have explicit HA, recovery, RPO/RTO and no-duplicate-effect proof.
 - Cluster discovery and authenticated data-plane routing preserve loop,
   backpressure, sequence, retry and acknowledgement truth through drain,
   leader movement, partition and stale-route failure; cross-region routing occurs
@@ -9941,6 +13552,18 @@ explicit maintainer authorization and never publishes internal crates.
 - The SDK publication decision is explicit; internal crates remain unpublished.
 - Dashboards, scheduled analytics reports, analyst and administration interfaces,
   and complete operator/developer/security documentation exist.
+- SOC metrics use canonical timestamps, populations and censoring rules and
+  expose alert workload/quality, incident response and corrective-action
+  outcomes without rewarding premature closure or hiding incomplete data.
+- AI workload monitoring detects unsafe access, prompt/context/tool misuse,
+  sensitive-data exposure and model/runtime drift. Optional AI assistance is
+  disabled by default, proposal-only, provenance- and policy-bound, resistant to
+  prompt injection, grounded with citations, TEVV-tested and unable to close an
+  alert, declare an incident, determine an obligation or dispatch an action.
+- Conditional external query-in-place, DSPM/EASM, passive OT/ICS, MSSP tenancy
+  and named national NIS2 scope each has completed implementation evidence or a
+  tested explicit non-goal; admitted OT remains passive and automatic OT response
+  remains outside the 1.0 claim.
 - Every optional capability in the pre-1.0 decision register is implemented and
   evidenced or is an explicit tested non-goal; none remains conditional or `TBD`.
 - No critical or high assessment finding remains.

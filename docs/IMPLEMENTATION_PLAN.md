@@ -202,6 +202,14 @@ quorum epoch, commit index and node-assurance evidence before `v0.471.0` may
 advertise `DurableQuorum`; authentication binds the claim but does not make a
 compromised backend truthful.
 
+Schema support is not claim activation. `v0.31.3` owns a fail-closed activation
+registry: `Received`, `Validated`, fact/raw local durability, primary/security
+indexing, detection progress and quorum durability each name an exact component
+and prerequisite owner. Until that owner passes, the tag remains parseable but
+impossible to emit. `v0.44.0`, `v0.54.0`, `v0.48.0`/`v0.50.0`, `v0.140.1` and
+`v0.471.0` activate their respective entries; no claim or component implies
+another.
+
 Transport replay acceptance and evidentiary validity are separate lifecycles.
 `v0.31.2` binds the replay deadline, manifest retention, signed time and
 `TimeTrust` uncertainty, signer/key epoch, historical certificate/trust evidence
@@ -211,11 +219,12 @@ rather than silently rewriting the claim.
 
 ### Coverage claims follow a canonical model
 
-`v0.80.1` defines local query result and coverage states before joins, set
-operators and cold tiers consume them. `v0.80.2` defines versioned expected-set
-commitments with canonical ordering, duplicate rejection, element count,
-catalog generation/root, snapshot, retention and cold-catalog watermarks, plus
-membership/opening verification or a narrowly named trusted expander. Catalog
+`v0.79.1` defines local query result and coverage states before the first
+executor, joins, set operators and cold tiers consume them. `v0.79.2` defines
+versioned expected-set commitments with canonical ordering, duplicate rejection,
+element count, catalog generation/root, snapshot, retention and cold-catalog
+watermarks, plus membership/opening verification or a narrowly named trusted
+expander. Catalog
 movement during execution cannot silently change the committed expected set.
 `v0.475.1` extends that proven model to distributed fragments before `v0.476.0`
 executes them; `v0.476.1` alone may derive `Complete` after reconciliation.
@@ -240,12 +249,22 @@ generic scheduler through a durable outbox/UnknownOutcome protocol; blind retry
 of external effects is forbidden. Handoff is logically atomic: the job cannot be
 `HandedOff` before a durable receipt validates its unique outbox/effect record.
 The mechanism is a durable `HandoffIntent` with a canonical `HandoffKey`
-containing tenant ID, consumer namespace, job ID, effect ordinal and destination
-ledger ID, plus canonical request digest and schema version. The complete key is
-issued by the admitted scheduler/consumer contract rather than accepted as an
-unscoped caller-selected ID. Linearizable outbox `put_if_absent` and the record/
-digest/commit-epoch receipt bind that key. A matching key with a conflicting
-digest is an integrity incident.
+containing a non-null authority domain (`Tenant(TenantId)` or
+`System(SystemDomainId)`), consumer namespace, job ID, effect ordinal and stable
+logical destination-ledger ID, plus canonical request digest and schema version.
+There is no ambient/global authority domain: tenant IDs come from internal tenant
+authority, while system IDs are registry-issued, purpose-scoped and non-reusable.
+The complete key is issued by the admitted scheduler/consumer contract rather
+than accepted as an unscoped caller-selected ID. Linearizable outbox
+`put_if_absent` and the record/digest/commit-epoch receipt bind that key. A
+matching key with a conflicting digest is an integrity incident.
+
+Ledger generation is deliberately outside the uniqueness key. `v0.44.8` owns a
+fenced routing epoch that authorizes exactly one generation to accept new keys,
+fences old writes before cutover, preserves or authoritatively consults the
+deduplication index, and validates receipts against the committed routing epoch.
+Intent creation, migration and insertion races recover without letting old and
+new generations both accept the same logical handoff key.
 Cancellation wins before intent, becomes a request after intent, and cannot erase
 uncertainty after outbox commit. Local and HA paths use intent/receipt recovery
 across separate stores, not an assumed shared transaction. Mixed-version
@@ -268,6 +287,10 @@ report. Post-destruction audit re-identification is permitted or forbidden at
 `v0.457.2` and closed at `v0.457.5`. `v0.462.0` closes Byzantine/compromised-
 backend truth guarantees as a 1.0 non-goal. No conditional or “TBD” capability
 may survive `v0.730.0`.
+
+Acknowledgement claim activation, pre-execution coverage/expected-set contracts
+and ledger-migration uniqueness are mandatory correctness work, not optional
+scope. They cannot be rejected, disabled or deferred through an option decision.
 
 ## 3. Engineering Sequence
 
@@ -530,9 +553,9 @@ not permission to create empty crates prematurely.
 | Facade | `vakaheim` | `no_std` by default |
 | Foundation | `vakaheim-core`, `-bytes`, `-id`, `-time`, `-time-trust`, `-value`, `-policy`, `-crypto-api`, `-crypto-provider`, `-text`, `-asn1` | `no_std`; optional `alloc` |
 | Facts | `-event`, `-entity`, `-provenance`, `-integrity`, `-source-capsule` | `no_std`; optional `alloc` |
-| Ingestion | `-ingest-core`, `-ack-manifest`, `-parser-sdk`, `-syslog`, `-json`, `-protobuf`, `-otlp`, `-ocsf` | core/manifest portable; runtimes `std` |
+| Ingestion | `-ingest-core`, `-ack-manifest`, `-parser-sdk`, `-syslog`, `-json`, `-protobuf`, `-otlp`, `-ocsf` | core/manifest/claim registry portable; runtimes `std` |
 | Platform | `-linux`, `-windows`, `-macos`, `-bsd`, `-android`, `-ios`, `-kubernetes` | isolated `std`/FFI |
-| Runtime | `-runtime-core`, `-time-host`, `-scheduler-core`, `-scheduler-store`, `-scheduler-worker`, OS reactors, channels, HTTP/TLS/PKI/protocol transports, enrollment | core `no_std`; hosted layers explicit `std` |
+| Runtime | `-runtime-core`, `-time-host`, `-scheduler-core`, `-scheduler-store`, `-scheduler-worker`, `-handoff-core`, OS reactors, channels, HTTP/TLS/PKI/protocol transports, enrollment | core/handoff identity `no_std`; hosted stores/workers explicit `std` |
 | Storage | `-storage-format`, `-wal`, `-segment`, `-raw-store`, `-index`, `-retention`, `-backup`, `-work-scheduler` | format `no_std`; engine `std` |
 | Query | `-query-syntax`, `-ast`, `-ir`, `-typecheck`, `-plan`, `-exec`, `-query-coverage`, `-query-distributed`, `-graph` | front-end/manifests `no_std + alloc`; exec `std` |
 | Detection | `-rule-model`, `-rule-compiler`, `-detect-core`, `-detect-state`, `-behavior`, `-risk-ledger`, `-intel-match` | core `no_std + alloc`; workers `std` |

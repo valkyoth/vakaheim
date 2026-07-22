@@ -22,10 +22,10 @@ The sequence remains:
 | Range | Context |
 | --- | --- |
 | `v0.1.0`–`v0.20.9` | early fixture governance, portable/host crypto, split time, text/certificate codecs, operator authority, local tenant lifecycle/control, runtime/TLS, device keys/PKI, encrypted raw persistence, and objectives |
-| `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/gRPC, OTLP/OCSF, authenticated time refinement, secure transport, canonical local acknowledgement and historical evidence lifecycles, backfill/reprocessing, and hardening |
-| `v0.41.0`–`v0.60.0` | storage, isolated scheduler core/store/worker, atomic effect handoff and mixed-version consumer integration, raw evidence, integrity/keys, backup/restore, migration/reindex, and local multi-terabyte proof |
-| `v0.65.0`–`v0.100.1` | VQL authority/planning, canonical local coverage and authoritative expected-set commitments, operators/cold queries, hardening, and binding admission decisions for optional 1.0 evidence/ingestion capabilities |
-| `v0.110.0`–`v0.200.0` | deterministic detection/state, behavior/risk/intelligence, conditional artifact-matching implementation/integration, ATT&CK, interoperability, and rollout |
+| `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/gRPC, OTLP/OCSF, authenticated time refinement, secure transport, canonical local acknowledgement, historical evidence and claim-activation registry, backfill/reprocessing, and hardening |
+| `v0.41.0`–`v0.60.0` | storage, isolated scheduler core/store/worker, authority-scoped atomic effect handoff, ledger-migration fencing/deduplication, mixed-version integration, raw evidence, integrity/keys, backup/restore, migration/reindex, and local multi-terabyte proof |
+| `v0.65.0`–`v0.100.1` | VQL authority/planning, pre-execution canonical local coverage and authoritative expected-set commitments, operators/cold queries, hardening, and binding admission decisions for optional 1.0 evidence/ingestion capabilities |
+| `v0.110.0`–`v0.200.0` | deterministic detection/state and progress acknowledgement, behavior/risk/intelligence, conditional artifact-matching implementation/integration, ATT&CK, interoperability, and rollout |
 | `v0.205.0`–`v0.268.0` | agent integrity, native platforms, conditional WEF and per-format executable implementation/integration, Kubernetes, and future Aesynx portability |
 | `v0.270.0`–`v0.342.0` | API, compartmented platform vault, isolated connector host, provider contracts, conditional cloud archive/stream and PCAP implementation series, integrity content, and notification substrate |
 | `v0.345.0`–`v0.405.0` | transactional alert notifications, analyst workflow, identity/auth, live forensics, dashboards/scheduled reports, authorization/audit, and local UIs |
@@ -67,9 +67,11 @@ architecture:
 - portable scheduler state, journal persistence, hosted dispatch, effect handoff,
   consumer admission and storage CPU/IO scheduling are separate layers; storage
   durability never depends on ordinary scheduler availability, and atomic
-  scheduler/outbox handoff uses durable intent, a canonical tenant/consumer/job/
-  ordinal/destination-ledger key, canonical digest, linearizable put-if-absent
-  and validated receipt across recovery and mixed versions;
+  scheduler/outbox handoff uses durable intent, a non-null tenant-or-system
+  authority domain, consumer/job/ordinal/stable-logical-ledger key, canonical
+  digest, linearizable put-if-absent and validated receipt across recovery and
+  mixed versions; a separately fenced routing epoch preserves uniqueness across
+  ledger migration;
 - storage and query admission are designed for worst-case work and multi-tenant
   isolation before large-scale deployment;
 - early storage scale claims are local; cluster node, quorum, evacuation and
@@ -98,7 +100,8 @@ architecture:
 - acknowledgement evidence carries separate fact, raw, provenance, index and
   detection progress claims plus request digest; its cluster extension binds
   placement/quorum epoch, and transport replay expiry remains distinct from
-  historical signature/trust verification;
+  historical signature/trust verification; parseable claim tags remain disabled
+  until the fail-closed activation registry verifies their exact component owner;
 - family connector milestones do not claim vendors; each named provider needs
   its own patch/intermediate interoperability release;
 - tenant lifecycle and suspension/destruction propagate across every local and
@@ -114,8 +117,9 @@ architecture:
   cannot become remote attestation;
 - epoch-bound cluster admission, anti-rollback and runtime drain/quarantine
   extend software integrity beyond endpoint agents;
-- canonical local query coverage precedes joins, sets and cold tiers; versioned
-  committed sets bind ordering/count, catalog generation/root, snapshot,
+- canonical local query coverage precedes the first executor, joins, sets and
+  cold tiers; versioned committed sets bind ordering/count, catalog generation/
+  root, snapshot,
   retention/cold watermarks and verifiable membership or a named trusted
   expander; the distributed extension precedes fragment execution and
   reconciliation before `Complete` is emitted;
@@ -146,6 +150,11 @@ Post-destruction pseudonym re-identification is permitted or forbidden at
 `v0.457.2` and closed at `v0.457.5`; `v0.462.0` closes Byzantine/compromised-
 backend truth guarantees as a 1.0 non-goal. `v0.730.0` rejects every remaining
 conditional/TBD decision or missing closure.
+
+The `v0.31.3` claim-activation registry, `v0.79.1`–`v0.79.2` pre-execution
+coverage contracts and `v0.44.8` ledger-migration uniqueness authority are
+mandatory correctness prerequisites. They are not option rows and cannot be
+converted into tested non-goals before 1.0.
 
 ## Non-Negotiable Boundaries
 

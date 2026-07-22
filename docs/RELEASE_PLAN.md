@@ -70,11 +70,11 @@ replace or renumber it.
 | Fact conflicts, schema ownership, extension governance, and mapping loss | `v0.11.0`, `v0.15.0`, `v0.16.0`, `v0.20.1` |
 | Deterministic identity resolution, asset inventory, ownership, exposure, and retirement | `v0.13.0`, `v0.298.0` |
 | Local identities/control/authorization plus complete tenant lifecycle before consumers | `v0.17.0`, `v0.17.1`, `v0.19.0`; audit/remnant/identifier policy at `v0.457.1`–`v0.457.5`; all-plane single-node gate at `v0.458.0`; independent audit at `v0.467.3`; distributed closure at `v0.474.1` |
-| Conservation, acknowledgement truth/manifests, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`–`v0.31.2`, `v0.39.0`, `v0.40.0`, `v0.470.1`, `v0.471.0` |
+| Conservation, acknowledgement truth/manifests/activation, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`–`v0.31.3`, component owners through `v0.140.1`, `v0.39.0`, `v0.40.0`, `v0.470.1`, `v0.471.0` |
 | Exact external protocol and identity-codec profiles | `v0.20.1`, `v0.26.0`–`v0.30.2`, `v0.306.0`, `v0.392.0`–`v0.395.0`, `v0.407.0`–`v0.410.0` |
 | Database capacity, raw evidence, integrity/encryption/keys, local backup/restore, migration, and scoped early scale | `v0.41.0` through `v0.60.0`, especially `v0.53.0`–`v0.58.0` |
-| Layered durable local and HA jobs/timers with atomic effect handoff, upgrade compatibility, consumer admission, declared time, retry, fencing and idempotency | `v0.44.1`–`v0.44.7`, consumer matrix, `v0.459.0`, `v0.467.4` |
-| Query authority/planning/operators, local coverage/committed sets, cold rehydration, side channels, federation, distributed execution and coverage reconciliation | `v0.72.0`–`v0.100.0`, especially `v0.80.1`–`v0.80.2`; distributed extension at `v0.475.1`–`v0.476.1` |
+| Layered durable local and HA jobs/timers with atomic effect handoff, ledger-migration authority, upgrade compatibility, consumer admission, declared time, retry, fencing and idempotency | `v0.44.1`–`v0.44.8`, consumer matrix, `v0.459.0`, `v0.467.4` |
+| Query authority/planning/operators, local coverage/committed sets, cold rehydration, side channels, federation, distributed execution and coverage reconciliation | `v0.72.0`–`v0.100.0`, especially `v0.79.1`–`v0.79.2`; distributed extension at `v0.475.1`–`v0.476.1` |
 | Detection identity/state/placement, split behavior families, entity risk, intelligence lifecycle/matching, ATT&CK | `v0.115.0`–`v0.200.0`, especially `v0.170.0`–`v0.179.0` |
 | Common agent/helper boundary, signed software integrity/self-protection and platform continuity | `v0.205.0` through `v0.267.5`, especially `v0.206.0` |
 | Base API before client, later case/response extensions, credential vault, connector isolation and split provider profiles | `v0.270.0`–`v0.342.0`, `v0.376.0`, `v0.450.1` |
@@ -112,8 +112,8 @@ authority.
 `v0.44.5` requires every persistent timer/job consumer to declare job identity,
 checkpoint, cancellation, misfire/catch-up/skip, idempotency, recovery and
 uncertain-time behavior. Externally visible effects additionally use `v0.44.4`
-and its `v0.44.7` compatibility gate; the generic scheduler never owns blind
-effect retries.
+and its `v0.44.7` compatibility gate; any migrating ledger also passes
+`v0.44.8`. The generic scheduler never owns blind effect retries.
 
 | Consumer | Integration owner |
 | --- | --- |
@@ -130,12 +130,43 @@ effect retries.
 The owning milestone fails if it creates a private persistent scheduler or omits
 its conformance profile.
 
+## Acknowledgement Claim Activation Matrix
+
+`v0.31.1` makes every claim tag parseable; it does not authorize every tag to be
+emitted. `v0.31.3` implements a fail-closed registry whose entries name the exact
+prerequisite versions and component state below. A claim remains disabled when
+an entry, prerequisite, requested component or mixed-version capability is
+absent. Later releases may strengthen an entry but cannot activate it by schema
+support alone.
+
+| Claim | Earliest activation owner and required state |
+| --- | --- |
+| `Received` | `v0.31.3`, only after the owning intake has authenticated the source, admitted bounded bytes and entered them into the `v0.22.0` conservation ledger; it implies no validation or durability |
+| `Validated` | `v0.31.3` registry entry for the exact protocol/schema/mapping/policy versions, only after their parser and terminal policy outcome pass; one format cannot activate another |
+| `DurableLocal.fact` | `v0.44.0` WAL commit and documented stable-media state for the fact component |
+| `DurableLocal.mapping_provenance` | `v0.44.0` atomic WAL commit for the exact mapping and provenance records; a fact-only commit cannot activate it |
+| `DurableLocal.raw` | `v0.20.9` encrypted raw persistence plus `v0.54.0` atomic fact/reference/object publication; a fact-only commit cannot activate it |
+| `Indexed.primary` | `v0.48.0` committed primary-index generation for the requested index identity |
+| `Indexed.security` | `v0.50.0` committed security-index generation for the requested index identity; neither index class implies the other |
+| `DetectionProcessed` | `v0.140.1` durable detection progress checkpoint bound to input range and the complete `v0.115.0` rule/configuration execution identity |
+| `DurableQuorum` | `v0.470.1` cluster envelope plus successful `v0.471.0` active-write quorum commit for every claimed vector component |
+
+Every activation owner inherits substitution, component-independence,
+downgrade, unknown-tag and current/previous mixed-version tests. Negotiation
+must reject a disabled claim; it may never approximate it with a weaker or
+different component.
+
 ## Pre-1.0 Option Decision Register
 
 Every option closes before the release-candidate freeze. “Support” requires its
 implementation, tests, documentation and pentest before `v0.730.0`; “non-goal”
 requires an explicit boundary, rejection behavior and documentation. No decision
 may be deferred to 1.0.
+
+The acknowledgement activation registry, pre-execution coverage contract and
+ledger-migration uniqueness authority are mandatory correctness prerequisites,
+not optional capabilities; they cannot be disabled or converted into 1.0
+non-goals through this register.
 
 | Option | Binding decision/closure |
 | --- | --- |
@@ -1490,7 +1521,8 @@ Deliverables:
 - local storage generation/commit position, signer/key epoch, explicit
   unsupported-field handling and domain-separated signature context;
 - capability negotiation that rejects unsupported classes and keeps
-  `DurableQuorum` unavailable pending `v0.470.1` and `v0.471.0`.
+  `DurableQuorum` unavailable pending `v0.470.1` and `v0.471.0`; every claim tag
+  is parseable here, while emission authority belongs only to `v0.31.3`.
 
 Verification:
 
@@ -1501,9 +1533,9 @@ Verification:
 - claim audit proving a signature authenticates the claimant but cannot prove a
   compromised storage backend truthful.
 
-Exit criteria: every enabled local durability acknowledgement is one canonical,
-request-bound claim with no stronger implied durability. `v0.31.1 implementation
-stop reached. Run pentest for this exact commit.`
+Exit criteria: every later-enabled local durability acknowledgement uses one
+canonical, request-bound claim with no stronger implied durability. `v0.31.1
+implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.31.2 — Acknowledgement Evidence And Historical Verification
 
@@ -1536,6 +1568,41 @@ Exit criteria: network expiry cannot silently destroy or overstate historical
 evidentiary validity, and historical verification grants no live authority.
 `v0.31.2 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.31.3 — Acknowledgement Claim Activation Registry
+
+Status: planned
+
+Goal: make acknowledgement schema support independent from authority to emit a
+claim whose implementation and component prerequisites have actually passed.
+
+Deliverables:
+
+- dependency-free fail-closed registry implementing the repository
+  Acknowledgement Claim Activation Matrix by claim, component, protocol/schema/
+  mapping/policy version and required implementation milestone;
+- immutable activation evidence binding exact build/configuration epochs and the
+  prerequisite state verifier; unknown, absent, stale or partially upgraded
+  entries remain disabled;
+- initial `Received` and per-profile `Validated` activation paths; later owners
+  activate fact/raw/index/detection/quorum entries without changing the envelope;
+- negotiation exposes parseable-but-disabled claims as unsupported and never
+  aliases a requested claim or component to a weaker one.
+
+Verification:
+
+- table-driven proof for every matrix row before, during and after activation;
+- `Received` cannot imply `Validated`; fact cannot imply mapping/provenance or
+  raw; primary index cannot imply security index; local durability cannot imply
+  quorum or detection;
+- missing/stale/forged activation evidence, version downgrade, unknown tags and
+  current/previous mixed-version peers;
+- failover/restart/config rollback preserves disabled state unless the complete
+  prerequisite evidence is still valid.
+
+Exit criteria: an acknowledgement tag is impossible to emit until its exact
+claim/component activation entry and all named prerequisites verify. `v0.31.3
+implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.32.0 — Agent Spool
 
 Status: planned
@@ -1567,8 +1634,10 @@ Deliverables:
 
 - batch IDs, source sequences, resumable transfer and persistent checkpoints;
 - idempotent writes, deduplication windows and acknowledgement levels carried
-  only in the `v0.31.1` envelope under the `v0.31.2` evidence lifecycle;
-- Received/Validated/DurableLocal/DurableQuorum/Indexed/DetectionProcessed.
+  only in the `v0.31.1` envelope under the `v0.31.2` evidence lifecycle and
+  enabled by the `v0.31.3` activation registry;
+- Received/Validated/DurableLocal/DurableQuorum/Indexed/DetectionProcessed tags
+  remain parseable but impossible to emit until their matrix owner passes;
 - acknowledgement carries a durability vector for fact, raw-capsule or
   intentional raw unavailability, mapping/provenance, index and detection state;
 - capability negotiation keeps `DurableQuorum` unavailable until its `v0.470.1`
@@ -1579,12 +1648,13 @@ Verification:
 
 - reconnect at every acknowledgement, duplicate storms, reordered batches;
 - checkpoint corruption, window expiry, retry exhaustion and partial writes;
-- end-to-end invariant that acknowledged levels match durable state.
+- end-to-end invariant that acknowledged levels match durable state;
+- downgrade/mixed-version and component-independence matrix conformance.
 
 Exit criteria: no exactly-once fiction; retries are safe and progress is
 honest, and quorum durability cannot be advertised before active-write
-replication exists. `v0.34.0 implementation stop reached. Run pentest for this
-exact commit.`
+replication exists; no other claim activates from enum/schema presence.
+`v0.34.0 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.36.0 — Enrollment And Secure Transport
 
@@ -1766,7 +1836,11 @@ Deliverables:
 - per-shard ownership, group commit, reserved space and explicit fsync/stable-
   media state tied to every acknowledgement level;
 - replay, torn-write detection, idempotent recovery, truncation/repair policy;
-- fsync/durability adapter contract for supported hosted systems.
+- fsync/durability adapter contract for supported hosted systems;
+- activate `v0.31.3` `DurableLocal.fact` and
+  `DurableLocal.mapping_provenance` independently only when each exact component
+  reaches its documented stable-media state; fact cannot imply mapping/
+  provenance, and raw/index/detection entries remain disabled.
 
 Verification:
 
@@ -1858,15 +1932,19 @@ transaction domains without duplicating externally visible effects.
 
 Deliverables:
 
-- canonical `HandoffKey` containing tenant ID, consumer namespace, job ID,
-  effect ordinal and destination ledger ID; the admitted scheduler/consumer
-  contract issues its scoped components and rejects arbitrary unscoped caller IDs;
+- canonical `HandoffKey` containing non-null `AuthorityDomainId` as
+  `Tenant(TenantId)` or `System(SystemDomainId)`, consumer namespace, job ID,
+  effect ordinal and stable logical destination-ledger ID; no ambient/global
+  authority exists; tenant IDs use the internal tenant authority, system IDs are
+  registry-issued/purpose-scoped/non-reusable, and the admitted scheduler/
+  consumer contract rejects fake tenant or arbitrary unscoped caller IDs;
 - durable `HandoffIntent` binding the complete handoff key, canonical request
   digest and schema version in the scheduler journal;
 - outbox `put_if_absent(handoff_key, request_digest)` with linearizable uniqueness;
   the same complete key plus another digest emits an integrity incident and stops;
 - durable outbox receipt binding the complete handoff key, record ID, request
-  digest, destination-ledger generation and commit epoch;
+  digest, destination-ledger routing/generation epoch and commit epoch; routing/
+  generation never becomes part of the uniqueness key;
 - job remains `HandoffPending` until that receipt is read back and validated;
   only then may it become `HandedOff`;
 - prepared/dispatched/unknown-outcome/reconciled/terminal protocol compatible
@@ -1888,19 +1966,23 @@ Verification:
   cancellation/recovery;
 - same handoff key/different digest, forged/stale/mismatched receipt and commit
   epoch;
-- cross-tenant collision, same apparent ID in notification/action ledgers,
-  malicious caller-selected IDs and effect-ordinal reuse;
+- cross-authority-domain collision, tenant/system-domain confusion, same apparent
+  ID in notification/action ledgers, malicious caller-selected IDs and effect-
+  ordinal reuse;
+- unknown/retired/reused `SystemDomainId`, purpose confusion and attempted
+  ambient/global infrastructure authority;
 - tenant destruction/external-ID reassignment, permanent internal-ID tombstone,
   destination-ledger migration/split and old ledger-generation replay;
 - non-idempotent destination and unavailable reconciler scenarios;
 - uniqueness/property proof for one durable outbox record per complete handoff
-  key without collisions across tenant, consumer or destination ledger;
+  key without collisions across authority domain, consumer or logical ledger;
 - prove generic scheduler retry cannot directly repeat an external side effect.
 
 Exit criteria: effectful work leaves through a concrete intent/put-if-absent/
-receipt protocol whose canonical identity is tenant-, consumer- and ledger-
-scoped, with explicit unknown outcomes. `v0.44.4 implementation stop reached.
-Run pentest for this exact commit.`
+receipt protocol whose canonical identity is authority-domain-, consumer- and
+logical-ledger-scoped, with no ambient global scope and explicit unknown
+outcomes. `v0.44.4 implementation stop reached. Run pentest for this exact
+commit.`
 
 ### v0.44.5 — Scheduler Consumer Admission Contract
 
@@ -1960,7 +2042,8 @@ Deliverables:
   schema matrix;
 - upgrade/migration order, dual-read/write limits and irreversible boundaries;
 - old/new worker fencing and stable canonical `HandoffKey` identity across schema
-  changes, including destination-ledger generation migration.
+  changes, including authority-domain and routing-epoch fields required by
+  `v0.44.8`.
 
 Verification:
 
@@ -1971,6 +2054,47 @@ Verification:
 Exit criteria: mixed versions cannot lose, duplicate or reinterpret an effect
 handoff. `v0.44.7 implementation stop reached. Run pentest for this exact
 commit.`
+
+### v0.44.8 — Outbox Ledger Migration Authority And Deduplication
+
+Status: planned
+
+Goal: migrate, split or replace an outbox ledger generation without resetting
+handoff uniqueness or allowing two writable authorities.
+
+Deliverables:
+
+- dependency-free `handoff-core` authority/routing/fencing state model with
+  hosted ledger adapters kept outside the portable uniqueness contract;
+- stable logical destination-ledger identity in `HandoffKey` and a separate
+  fenced routing/generation epoch recorded by intent, outbox record and receipt;
+- linearizable authority record permitting exactly one generation to accept new
+  handoff keys, with old-generation write fencing confirmed before cutover;
+- transferred deduplication/key index or an authoritative lookup spanning old
+  and new generations for the complete handoff/retention lifetime;
+- recovery state machine for overlap among intent creation, authority cutover,
+  dedup-index transfer/lookup and outbox insertion;
+- split/merge rules that preserve the logical ledger identity for an existing
+  semantic destination and cannot reinterpret an in-flight handoff;
+- receipt validation against the committed routing epoch while keeping that
+  epoch outside the uniqueness key.
+
+Verification:
+
+- model/property proof that old and new generations cannot both accept the same
+  handoff key at any cutover boundary;
+- crash/partition/rollback during fencing, index transfer, routing commit,
+  insertion and receipt persistence;
+- stale route, stale/malicious writer, lost/corrupt partial dedup index and
+  authoritative-lookup outage;
+- intent before/during/after migration, concurrent retry/cancellation and same
+  key/different digest across generations;
+- tenant destruction/external-ID reassignment and tenant/system authority-domain
+  separation survive migration without fake tenant or global authority.
+
+Exit criteria: ledger topology can change without making an existing effect key
+new again or authorizing concurrent generations. `v0.44.8 implementation stop
+reached. Run pentest for this exact commit.`
 
 ### v0.45.0 — Storage Workload Scheduler
 
@@ -2054,7 +2178,9 @@ Deliverables:
 
 - time, tenant, partition, class, source, numeric range, dictionary, bitmap;
 - versioned index metadata, selectivity statistics and rebuild paths;
-- safe fallback to segment scan on absence or invalidity.
+- safe fallback to segment scan on absence or invalidity;
+- activate `Indexed.primary` only per committed requested index generation in
+  the `v0.31.3` registry, never for a pending/stale/rebuilding index.
 
 Verification:
 
@@ -2075,7 +2201,9 @@ Deliverables:
 
 - exact/token/prefix/suffix text, IP prefix, port/protocol, hash/identifier;
 - entity adjacency, relationship type and finding/incident references;
-- sensitive-index policy, encryption/transform hooks and collision semantics.
+- sensitive-index policy, encryption/transform hooks and collision semantics;
+- activate `Indexed.security` only per committed requested security-index
+  generation; a primary-index entry cannot satisfy this claim.
 
 Verification:
 
@@ -2145,7 +2273,9 @@ Deliverables:
   leakage/policy decisions;
 - atomic fact/reference/object publication, quarantine promotion, retention,
   encryption hooks and access audit;
-- orphan/dangling-reference scan, repair, reprocess and secure expiry.
+- orphan/dangling-reference scan, repair, reprocess and secure expiry;
+- activate `DurableLocal.raw` only when `v0.20.9` encrypted persistence and this
+  atomic publication both verify for every referenced raw component.
 
 Verification:
 
@@ -2474,33 +2604,12 @@ Exit criteria: query pressure and temporary state cannot cross tenant or
 durability boundaries. `v0.78.0 implementation stop reached. Run pentest for
 this exact commit.`
 
-### v0.80.0 — Single-Node Execution
+### v0.79.1 — Canonical Local Query Result And Coverage Model
 
 Status: planned
 
-Goal: execute bounded queries over local immutable segments.
-
-Deliverables:
-
-- scans, filters, projections, aggregates, joins and result streaming;
-- memory/work/time/output budgets, cancellation and backpressure;
-- storage-level authorization recheck and structured partial/failure results.
-
-Verification:
-
-- reference-result comparison, cancel at every operator, disk/index faults;
-- memory, CPU, output and join/cardinality exhaustion tests;
-- benchmark suite with plans, data, indexes and exact commit.
-
-Exit criteria: queries cannot exceed policy or resource budgets silently.
-`v0.80.0 implementation stop reached. Run pentest for this exact commit.`
-
-### v0.80.1 — Canonical Local Query Result And Coverage Model
-
-Status: planned
-
-Goal: replace bare completeness booleans with a portable result/coverage model
-before joins, set operations and cold queries propagate coverage.
+Goal: define the final portable result/coverage contract before the first local
+executor can emit a result.
 
 Deliverables:
 
@@ -2512,27 +2621,28 @@ Deliverables:
 - `Complete` derivation only after all expected local elements reconcile to one
   compatible terminal success; absence, denial, truncation and faults remain
   explicit non-complete outcomes;
-- dependency-free bounded encoding shared by local operators, cold tiers and the
-  later distributed extension.
+- dependency-free bounded encoding shared by the first executor, later
+  operators, cold tiers and the distributed extension.
 
 Verification:
 
 - missing, duplicate, replayed and conflicting element/status/digest cases;
 - policy/snapshot/catalog change, cancellation, result truncation and disk fault;
-- operator composition properties prove joins, aggregates and sets cannot turn a
+- composition properties prove later joins, aggregates and sets cannot turn a
   non-complete input into `Complete`;
 - canonical round-trip/golden, malformed/bounds/fuzz and mixed-version tests.
 
-Exit criteria: every local query result carries deterministic coverage evidence,
-and no later operator can infer completeness from successful transport alone.
-`v0.80.1 implementation stop reached. Run pentest for this exact commit.`
+Exit criteria: the first local executor has one deterministic coverage contract,
+and successful transport alone can never imply completeness. `v0.79.1
+implementation stop reached. Run pentest for this exact commit.`
 
-### v0.80.2 — Authoritative Expected-Set Commitments
+### v0.79.2 — Authoritative Expected-Set Commitments
 
 Status: planned
 
 Goal: make a compact expected-set commitment verifiably represent the exact
-authoritative catalog set rather than merely authenticate an opaque value.
+authoritative catalog set before execution rather than authenticate an opaque
+value after results exist.
 
 Deliverables:
 
@@ -2555,9 +2665,36 @@ Verification:
 - catalog change during execution, retention race, cold-tier movement,
   algorithm-version downgrade and list/commitment equivalence properties.
 
-Exit criteria: a verifier can establish what authoritative expected set was
-committed and detect any context or membership substitution. `v0.80.2
-implementation stop reached. Run pentest for this exact commit.`
+Exit criteria: before execution, a verifier can establish what authoritative
+expected set was committed and detect any context or membership substitution.
+`v0.79.2 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.80.0 — Single-Node Execution
+
+Status: planned
+
+Goal: execute bounded queries over local immutable segments.
+
+Deliverables:
+
+- scans, filters, projections, aggregates and result streaming through the
+  `v0.79.1` model and `v0.79.2` expected-set context; joins remain exclusively
+  owned by `v0.82.0`;
+- memory/work/time/output budgets, cancellation and backpressure;
+- storage-level authorization recheck and canonical coverage results; the
+  executor cannot emit a legacy/bare completeness boolean.
+
+Verification:
+
+- reference-result comparison, cancel at every operator, disk/index faults;
+- memory, CPU, output and aggregate/cardinality exhaustion tests;
+- prove every result state derives through `v0.79.1` and every `Complete` result
+  verifies the pinned `v0.79.2` authoritative expected set;
+- benchmark suite with plans, data, indexes and exact commit.
+
+Exit criteria: the first executor cannot exceed policy/resource budgets or emit
+a result outside the canonical coverage contract. `v0.80.0 implementation stop
+reached. Run pentest for this exact commit.`
 
 ### v0.82.0 — Bounded Join Engine
 
@@ -2570,7 +2707,7 @@ Deliverables:
 - required bounded event time range unless privileged offline mode is explicit;
 - equality/partition key or an explicit nested-loop work budget;
 - build-side row/byte, output-cardinality, spill and replan/abort limits;
-- `v0.80.1` coverage-state composition and `v0.80.2` expected-set context are
+- `v0.79.1` coverage-state composition and `v0.79.2` expected-set context are
   preserved independently for both inputs and the output.
 
 Verification:
@@ -2593,7 +2730,7 @@ Deliverables:
 - sort/top-k with total tie-breaking order and bounded memory/spill;
 - opaque snapshot-bound pagination/resume tokens and duplicate/omission rules;
 - union/intersection/difference semantics with policy and completeness
-  propagation through the canonical `v0.80.1` model without promoting a
+  propagation through the canonical `v0.79.1` model without promoting a
   non-complete input.
 
 Verification:
@@ -2622,7 +2759,7 @@ Deliverables:
   regex remains unsupported;
 - case-folding, collation, tokenization and text-index equivalence tied to the
   pinned `v0.4.2` profile;
-- aggregate/result digests and uncertainty preserve `v0.80.1` coverage-state
+- aggregate/result digests and uncertainty preserve `v0.79.1` coverage-state
   precedence without promoting incomplete inputs.
 
 Verification:
@@ -2648,7 +2785,7 @@ Deliverables:
 - ordered/partially ordered sequences, negative conditions and timeouts;
 - bitemporal `as_of` perspective and clock uncertainty propagation.
 - negative conditions finalize only after watermark and required-telemetry
-  completeness gates pass through the `v0.80.1` coverage model.
+  completeness gates pass through the `v0.79.1` coverage model.
 
 Verification:
 
@@ -2673,9 +2810,9 @@ Deliverables:
 - physical-plan retrieval/rehydration, cache lifetime, cost/admission,
   cancellation and cleanup;
 - missing/revoked key, unavailable object, partial snapshot and completeness
-  semantics through `v0.80.1`;
+  semantics through `v0.79.1`;
 - catalog generations/roots, retention and cold watermarks participate in the
-  authoritative `v0.80.2` expected-set commitment rather than an ambient lookup.
+  authoritative `v0.79.2` expected-set commitment rather than an ambient lookup.
 - `v0.44.5` rehydration profile with stable request identity, checkpoint,
   cancellation, duplicate-fetch idempotency, misfire and uncertain-time behavior.
 
@@ -2922,6 +3059,38 @@ Verification:
 Exit criteria: state loss or eviction is visible and never silently alters a
 finding. `v0.140.0 implementation stop reached. Run pentest for this exact
 commit.`
+
+### v0.140.1 — Detection Progress Acknowledgement Activation
+
+Status: planned
+
+Goal: activate `DetectionProcessed` only from durable, attributable detection
+progress rather than successful dispatch or an in-memory rule run.
+
+Deliverables:
+
+- durable progress checkpoint/cursor binding tenant, source/session/input range,
+  fact generation and terminal per-rule outcome set;
+- complete `v0.115.0` rule/schema/mapping/policy/content/engine/configuration
+  execution identity plus detection-state generation and worker identity;
+- activation adapter for the `v0.31.3` registry that verifies the checkpoint and
+  explicitly states whether the claim covers one rule set or an admitted set;
+- impairment/unavailable outcome when a rule, state partition or required input
+  is missing; dispatch, queue acceptance and partial rule execution cannot emit
+  `DetectionProcessed`.
+
+Verification:
+
+- crash before/after execution, checkpoint persistence and acknowledgement;
+- omitted/duplicate rule, stale cursor, input-range gap, configuration/rule swap,
+  state rollback, eviction and replay;
+- `DurableLocal.fact`, `Indexed` or successful finding emission cannot imply
+  detection progress, and one rule-set claim cannot imply another;
+- current/previous mixed-version, downgrade and checkpoint-recovery properties.
+
+Exit criteria: `DetectionProcessed` proves a durable terminal outcome for the
+exact admitted inputs and execution identity, including explicit impairment.
+`v0.140.1 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.145.0 — Detection State Admission And Impairment
 
@@ -6465,7 +6634,7 @@ Run pentest for this exact commit.`
 
 Status: planned
 
-Goal: fail over `v0.44.1`–`v0.44.7` scheduler state/dispatch semantics through
+Goal: fail over `v0.44.1`–`v0.44.8` scheduler state/dispatch semantics through
 the replicated operational-state engine without duplicate authority.
 
 Deliverables:
@@ -6477,9 +6646,10 @@ Deliverables:
 - preservation of monotonic-versus-wall schedule, misfire/catch-up/skip,
   cancellation, dependency and idempotency semantics;
 - HA `HandoffPending`/outbox durability protocol preserving the complete
-  `v0.44.4` tenant/consumer/job/ordinal/destination-ledger `HandoffKey`, with
-  linearizable `put_if_absent`, validated ledger-generation/commit-epoch receipt
-  and one `v0.467.2` outbox record across owner/leader failover;
+  `v0.44.4` authority-domain/consumer/job/ordinal/logical-ledger `HandoffKey`,
+  with linearizable `put_if_absent`, `v0.44.8` single-writer generation fencing,
+  validated routing/commit-epoch receipt and one `v0.467.2` outbox record across
+  owner/leader or ledger-generation failover;
 - same handoff key/different digest integrity incident and the `v0.44.4`
   cancellation precedence preserved across separate replicated state groups;
 - per-job-class RPO/RTO and rebuild-from-immutable-evidence option where declared.
@@ -6491,8 +6661,9 @@ Verification:
   cancellation after handoff;
 - leader change between put-if-absent and receipt validation, receipt replay and
   conflicting digest;
-- cross-tenant/consumer/ledger collision, tenant destruction/ID reassignment and
-  destination-ledger migration/split during owner or leader failover;
+- cross-authority-domain/consumer/logical-ledger collision, tenant destruction/
+  ID reassignment, system-domain isolation and destination-ledger migration/split
+  during owner or leader failover;
 - stale worker, duplicate dispatch, lease expiry, dependency storm, restore and
   tenant/noisy-neighbor failures;
 - local/HA scheduler state-machine equivalence and canonical idempotent outcomes.
@@ -6590,7 +6761,8 @@ Deliverables:
 - backend signer/key epoch and `v0.456.1` node-assurance evidence digest, under
   the `v0.31.2` replay/retention/historical-verification lifecycle;
 - capability/state rule that the extension is parseable and testable here but
-  cannot emit `DurableQuorum` until `v0.471.0` active replication proves it.
+  leaves the `v0.31.3` `DurableQuorum` entry disabled until `v0.471.0` active
+  replication proves it.
 
 Verification:
 
@@ -6621,6 +6793,8 @@ Deliverables:
   batch, preserving atomic fact/reference/object publication;
 - source/session/sequence deduplication, quorum commit index and stable-media
   acknowledgement mapping into the `v0.470.1` cluster envelope;
+- `v0.31.3` activation adapter that enables `DurableQuorum` only per vector
+  component whose exact quorum commit and documented failure envelope verify;
 - crash/re-election recovery, divergent-tail truncation and handoff to immutable
   segment replication.
 
@@ -6752,10 +6926,10 @@ fragments before distributed physical execution can emit results.
 
 Deliverables:
 
-- versioned extension of `v0.80.1` retaining query/plan, tenant,
+- versioned extension of `v0.79.1` retaining query/plan, tenant,
   authorization, policy and snapshot epochs;
 - expected shard/partition/segment set as a bounded canonical list or a
-  `v0.80.2` commitment with algorithm/version, canonical ordering, duplicate
+  `v0.79.2` commitment with algorithm/version, canonical ordering, duplicate
   rejection, element count, catalog generation/root, snapshot, retention and
   cold-catalog watermarks;
 - membership/opening verification or the explicitly trusted catalog expander,
@@ -7016,7 +7190,8 @@ Deliverables:
 
 - compatibility matrix, staged/canary order, drain/handoff and feature gates;
 - signed server update manifests, allowed-build epoch transitions and anti-rollback;
-- `v0.44.7` scheduler-journal/outbox handoff compatibility and migration order;
+- `v0.44.7` scheduler-journal/outbox schema compatibility plus `v0.44.8` ledger-
+  generation fencing, deduplication preservation and migration order;
 - schema/format/protocol/state migration and downgrade boundaries;
 - automatic abort, deterministic rollback and irreversible-step approval.
 
@@ -7870,13 +8045,17 @@ explicit maintainer authorization and never publishes internal crates.
 - Source lineage, immutable facts, telemetry gaps and completeness are queryable.
 - Trusted-time bootstrap/refinement and PKI issuance, renewal, revocation and
   compromise recovery pass their cross-platform and ceremony exercises.
+- Every acknowledgement claim/component is emitted only through its verified
+  `v0.31.3` activation entry; schema presence, another component and a weaker
+  state cannot activate it across downgrade, failover or mixed versions.
 - Durable local and HA jobs/timers prove declared time bases, misfire policy,
   fencing, idempotency, cancellation, dependency and checkpoint semantics;
   storage durability/recovery remains available without scheduler workers/state,
-  and mixed-version effect handoff uses a durable intent, canonical tenant/
-  consumer/job/ordinal/destination-ledger key and canonical digest,
-  linearizable put-if-absent and validated receipt to create one outbox record
-  per handoff key with explicit cancellation precedence.
+  and mixed-version effect handoff uses a durable intent, non-null tenant-or-
+  system authority domain, canonical consumer/job/ordinal/logical-ledger key and
+  digest, linearizable put-if-absent and validated receipt to create one outbox
+  record per handoff key; ledger migration fences generations and preserves the
+  deduplication index without placing the routing epoch in that key.
 - Storage survives crash, corruption, node/rack/region loss and rolling upgrade.
 - Historical hot/cold, live, temporal, graph, federated and distributed-physical
   VQL queries work safely with canonical coverage manifests, verifiable

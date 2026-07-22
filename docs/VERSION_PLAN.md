@@ -13,7 +13,9 @@ plan” resolve to the same authoritative schedule rather than drifting copies.
 Vakaheim uses small security review stops, not calendar promises. Minor version
 numbers intentionally leave room for newly discovered work. A patch milestone
 such as `v0.6.1` can add a narrowly scoped prerequisite without renumbering the
-roadmap or weakening an earlier gate.
+roadmap or weakening an earlier gate. Neither `v0.500.0` nor any other pre-1.0
+version is a numeric ceiling: minor numbers may pass `v0.1000.0`, and 1.0 waits
+until the work and evidence are complete.
 
 The sequence remains:
 
@@ -29,7 +31,13 @@ The sequence remains:
 | `v0.345.0`–`v0.405.0` | transactional alert notifications, analyst workflow, identity/auth, live forensics, dashboards/scheduled reports, authorization/audit, and local UIs |
 | `v0.407.0`–`v0.455.0` | Wasm, bound actions, trigger/storm/kill controls, unknown-outcome dispatch, response API, independently tested action families, and recovery |
 | `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, scheduler/state HA, raw quorum, tenant propagation, distributed query/routing, SRE/DR/scale, and cluster administration |
-| `v0.485.0`–`v0.500.0` | optional proposal-only AI, privacy, approved-crypto-mode admission, performance, verification, independent assessment, beta, and stable-candidate gates |
+| `v0.485.0`–`v0.520.0` | optional proposal-only AI plus separate privacy-policy, field/purpose, residency, retention/deletion, and compliance-workflow stops |
+| `v0.530.0` | approved-cryptographic-mode admission or explicit rejection |
+| `v0.540.0`–`v0.570.0` | separate endpoint, ingest/storage, query/detection/analyst, and cluster/recovery performance campaigns |
+| `v0.580.0`–`v0.610.0` | separate fuzz/conformance, formal/concurrency/memory, chaos/recovery, and compatibility/reproducibility campaigns |
+| `v0.620.0`–`v0.650.0` | independent assessment preparation, execution, remediation, and independent retest |
+| `v0.660.0`–`v0.720.0` | SDK decision, topology-specific betas, upgrade beta, operational readiness, and beta remediation |
+| `v0.730.0`–`v0.770.0` | option-closure audit, compatibility freeze, artifact freeze, candidate qualification, and feature-complete candidate evidence |
 | `v1.0.0-rc.N`–`v1.0.0` | exact-candidate audit, production proof, and unchanged promotion |
 
 ## Cross-Cutting Strengthening
@@ -100,7 +108,7 @@ either implements admitted support or enforces a documented 1.0 non-goal.
 
 Named providers, eBPF/driver surfaces, Aesynx support, Wasm/AI enablement,
 regulated cryptographic mode and SDK publication close through their owning
-milestones in [RELEASE_PLAN.md](RELEASE_PLAN.md). `v0.499.0` rejects every
+milestones in [RELEASE_PLAN.md](RELEASE_PLAN.md). `v0.730.0` rejects every
 remaining conditional/TBD decision or missing closure.
 
 ## Non-Negotiable Boundaries

@@ -1,5 +1,9 @@
 # Initial Vakaheim Product Idea
 
+> Historical design record: version numbers in this document are illustrative.
+> The canonical [release plan](RELEASE_PLAN.md) uses unbounded small pre-1.0
+> review stops and may continue through `v0.1000.0` or beyond.
+
 Your final refinement is the correct foundation: keep deterministic security logic in portable no_std crates, then surround it with narrowly scoped OS, storage, networking, and UI adapters that may use std.
 
 I would take that architecture much further than the attached proposal.

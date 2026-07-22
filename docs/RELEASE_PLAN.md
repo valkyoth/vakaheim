@@ -10,11 +10,15 @@ its scope no longer fits one safe implementation pass.
 Tags use:
 
 ```text
-v0.N.0      milestone release
+v0.N.0      milestone release; N has no upper bound
 v0.N.P      tightly scoped correction or hardening release
 v1.0.0-rc.N exact production candidate
 v1.0.0      unchanged promotion of the approved candidate
 ```
+
+Pre-1.0 numbering has no ceiling. `v0.500.0`, `v0.1000.0`, and higher minor
+numbers are ordinary review stops; only completed production evidence permits
+the move to `v1.0.0-rc.N`.
 
 No crate may be published during this plan unless the future SDK exception is
 explicitly approved at its own milestone. A version number is not publishing
@@ -77,8 +81,8 @@ replace or renumber it.
 | Simulated/live forensics, confidential cases, auth/audit, dashboards/scheduled reports and split UIs | `v0.382.0`–`v0.405.0`, especially `v0.400.0`, `v0.402.0` |
 | Wasm, bound actions, storm/kill controls, unknown outcomes, split providers, and recovery | `v0.407.0` through `v0.455.0`, especially `v0.446.0`–`v0.453.2` |
 | State CFT/HA, raw quorum, tenant propagation, distributed query, discovery/routing, SRE/DR/scale/admin | `v0.459.0` through `v0.484.1`, especially `v0.465.1`–`v0.479.0` |
-| Regulated cryptographic-mode claims require an applicable validated boundary or explicit rejection | `v0.491.0` |
-| Every optional 1.0 capability has a binding decision and implementation-or-non-goal closure | `v0.100.1`, reserved closures, audited at `v0.499.0` |
+| Regulated cryptographic-mode claims require an applicable validated boundary or explicit rejection | `v0.530.0` |
+| Every optional 1.0 capability has a binding decision and implementation-or-non-goal closure | `v0.100.1`, reserved closures, audited at `v0.730.0` |
 
 ## Provider Claim Admission
 
@@ -103,7 +107,7 @@ authority.
 ## Pre-1.0 Option Decision Register
 
 Every option closes before the release-candidate freeze. “Support” requires its
-implementation, tests, documentation and pentest before `v0.499.0`; “non-goal”
+implementation, tests, documentation and pentest before `v0.730.0`; “non-goal”
 requires an explicit boundary, rejection behavior and documentation. No decision
 may be deferred to 1.0.
 
@@ -118,10 +122,10 @@ may be deferred to 1.0.
 | eBPF and any Windows driver | `v0.220.0`/`v0.240.0` decide admitted surface and preserve tested no-driver fallbacks |
 | Aesynx 1.0 support | `v0.267.0` closes as future portability only unless a later explicit implementation stop is inserted |
 | Optional Wasm extensions and proposal-only AI | `v0.420.0` and `v0.485.0` prove complete disable paths |
-| Regulated cryptographic operating mode | Admit or reject at `v0.491.0` |
-| Public SDK publication | Admit or reject at `v0.497.0`; all other crates remain private |
+| Regulated cryptographic operating mode | Admit or reject at `v0.530.0` |
+| Public SDK publication | Admit or reject at `v0.660.0`; all other crates remain private |
 
-`v0.499.0` audits this register and fails if any row remains conditional, lacks
+`v0.730.0` audits this register and fails if any row remains conditional, lacks
 its closure evidence, or silently changes the 1.0 product claim.
 
 ## Phase A — Constitutional Foundation
@@ -5757,28 +5761,116 @@ Exit criteria: AI output cannot mutate authoritative state without normal human
 gates. `v0.485.0 implementation stop reached. Run pentest for this exact
 commit.`
 
-### v0.490.0 — Privacy And Compliance Controls
+### v0.490.0 — Privacy Policy Model
 
 Status: planned
 
-Goal: enforce field, purpose, residency and retention policy end to end.
+Goal: define one privacy-policy model before product planes enforce it.
 
 Deliverables:
 
-- field redaction/tokenization, purpose limitation, residency placement;
-- access reports, retention/deletion proofs and privacy workflows;
-- independent policy/audit validation and operator documentation.
+- data classes, purposes, subjects, jurisdictions, obligations and policy epochs;
+- precedence/conflict rules across tenant, case, legal hold and operator policy;
+- decision/explanation interface with deny/unknown/fail-closed semantics.
 
 Verification:
 
-- policy matrix across ingest/storage/query/detection/case/export/AI/response;
-- inference, aggregation, cache/index/export/backup leakage scenarios;
-- independent privacy and compliance assessment/pentest.
+- exhaustive policy precedence and conflict tables;
+- stale/missing epoch, unknown jurisdiction, malformed policy and downgrade;
+- independent privacy model and authorization-boundary review.
 
-Exit criteria: policy enforcement is consistent across every product plane.
+Exit criteria: every privacy decision has one versioned input, result and
+explanation contract before enforcement is distributed.
 `v0.490.0 implementation stop reached. Run pentest for this exact commit.`
 
-### v0.491.0 — Approved Cryptographic Mode Admission
+### v0.495.0 — Field Protection And Purpose Enforcement
+
+Status: planned
+
+Goal: enforce field visibility and purpose limitation across every use path.
+
+Deliverables:
+
+- field redaction, tokenization, minimization and purpose-bound access;
+- enforcement at ingest, storage, index, query, detection, case, export, AI and
+  response boundaries;
+- cache, derived-value, aggregate and explanation labeling.
+
+Verification:
+
+- cross-plane policy matrix and stale-policy races;
+- inference, aggregation, cache/index/spill/export and derived-field leakage;
+- tenant, role, purpose and emergency-access adversarial combinations.
+
+Exit criteria: no direct or derived field bypasses the same purpose-bound policy.
+`v0.495.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.500.0 — Residency Placement Enforcement
+
+Status: planned
+
+Goal: enforce jurisdiction and residency constraints in placement and movement.
+
+Deliverables:
+
+- residency labels for evidence, indexes, operational state, backups and exports;
+- placement, replication, repair, failover and rehydration policy enforcement;
+- denied/unavailable/exception evidence and migration planning.
+
+Verification:
+
+- node/region loss, evacuation, restore, cold rehydrate and federation;
+- mislabeled destination, stale topology, mixed jurisdiction and failover pressure;
+- prove no prohibited copy through cache, spill, diagnostic or support paths.
+
+Exit criteria: availability pressure cannot silently override residency policy.
+`v0.500.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.510.0 — Retention And Deletion Proof
+
+Status: planned
+
+Goal: prove retention, hold and deletion outcomes across all storage classes.
+
+Deliverables:
+
+- retention evaluation for facts, raw data, indexes, cold tiers, caches and state;
+- legal-hold precedence, crypto-shred, physical cleanup and tombstone evidence;
+- replica, backup, spill and restore-aware deletion proofs.
+
+Verification:
+
+- concurrent hold/expiry/delete/export, outage and partial cleanup;
+- restore from stale backup, key-domain reuse and deleted-data reappearance;
+- proof completeness and honest residual-media limitation review.
+
+Exit criteria: each retained, held or deleted object has a truthful auditable
+outcome across every declared copy class. `v0.510.0 implementation stop reached.
+Run pentest for this exact commit.`
+
+### v0.520.0 — Compliance Workflows And Access Reporting
+
+Status: planned
+
+Goal: expose governed privacy workflows without creating a policy bypass.
+
+Deliverables:
+
+- subject/access/export/correction/deletion request workflow where applicable;
+- purpose/residency/retention access reports and signed decision evidence;
+- approvals, deadlines, exceptions, redaction and operator documentation.
+
+Verification:
+
+- identity fraud, scope expansion, deadline race and conflicting legal hold;
+- report incompleteness, unauthorized recipient and export exfiltration;
+- independent workflow, audit and compliance-evidence assessment.
+
+Exit criteria: workflows expose and execute only policy-authorized outcomes with
+complete audit linkage. `v0.520.0 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.530.0 — Approved Cryptographic Mode Admission
 
 Status: planned
 
@@ -5802,77 +5894,276 @@ Verification:
 - independent cryptographic compliance and security assessment.
 
 Exit criteria: regulated-mode documentation names the exact validated boundary,
-or states unambiguously that Vakaheim 1.0 has no such claim. `v0.491.0
+or states unambiguously that Vakaheim 1.0 has no such claim. `v0.530.0
 implementation stop reached. Run pentest for this exact commit.`
 
-### v0.492.0 — Performance Campaign
+### v0.540.0 — Endpoint Resource Performance
 
 Status: planned
 
-Goal: prove production targets on published reproducible reference systems.
+Goal: prove sensor and relay resource targets on published reference systems.
 
 Deliverables:
 
-- endpoint CPU/memory, ingest throughput/burst, detection/query latency;
-- multi-terabyte cluster scale, failover, spool, evidence verification and
-  recovery results;
-- hardware, OS, flags, data, schemas, rules, indexes, replication and commits.
+- CPU, memory, disk, network, battery and spool evidence per supported platform;
+- steady, burst, offline, catch-up, degraded-permission and update workloads;
+- exact hardware/OS/build/configuration/data and measurement methodology.
 
 Verification:
 
-- repeated cold/warm/steady/burst/failure runs and statistical reporting;
-- sustained ingest/query/retention at multi-terabyte scale, resource exhaustion,
-  noisy neighbor and regression thresholds;
-- independent result reproduction.
+- repeated idle/steady/burst/failure runs and regression thresholds;
+- overload, disk pressure, thermal/battery constraints and visibility impairment;
+- independent endpoint result reproduction.
 
-Exit criteria: every performance claim has reproducible evidence and no hidden
-loss. `v0.492.0 implementation stop reached. Run pentest for this exact commit.`
+Exit criteria: endpoint overhead claims are reproducible per supported platform
+and never hide evidence loss. `v0.540.0 implementation stop reached. Run pentest
+for this exact commit.`
 
-### v0.494.0 — Verification Campaign
+### v0.550.0 — Ingest And Storage Performance
 
 Status: planned
 
-Goal: exercise full-product correctness and failure behavior.
+Goal: prove conservation and durability under sustained ingest and storage load.
 
 Deliverables:
 
-- sustained fuzz, Kani, Loom/deterministic concurrency, Miri and conformance;
-- chaos, corruption, power-loss, disk-full, network, clock and attack replay;
-- protocol/format/API compatibility and reproducible-build evidence.
+- source/relay/ingest throughput, latency, burst reserve and backpressure results;
+- WAL/segment/index/raw/cold/retention/compaction/scrub/backup capacity results;
+- exact reference systems, data distributions, schemas, encryption and commits.
 
 Verification:
 
-- all verification suites at release duration and published coverage gaps;
-- mutation testing or equivalent test-effectiveness sampling;
-- independent review of residual unverifiable assumptions.
+- cold/warm/steady/burst, disk-full, corruption, reindex and retention overlap;
+- multi-terabyte/day duration, noisy tenant and resource-exhaustion thresholds;
+- conservation, acknowledgement and impairment evidence plus reproduction.
 
-Exit criteria: critical invariants have multiple independent evidence forms.
-`v0.494.0 implementation stop reached. Run pentest for this exact commit.`
-
-### v0.496.0 — Independent Security Assessment
-
-Status: planned
-
-Goal: obtain full external assessment before public beta.
-
-Deliverables:
-
-- architecture, source, crypto, storage, cluster, agent, UI/API, Wasm/SOAR,
-  supply-chain and operational assessment;
-- critical/high/medium remediation and regression evidence;
-- public-safe summary plus private finding archive.
-
-Verification:
-
-- retest every finding on exact remediation commits;
-- rerun complete release and performance/verification campaigns;
-- no unresolved critical or high finding.
-
-Exit criteria: assessment is complete and all release-blocking findings pass
-retest. `v0.496.0 implementation stop reached. Run pentest for this exact
+Exit criteria: ingest/storage performance claims preserve declared durability and
+loss truth. `v0.550.0 implementation stop reached. Run pentest for this exact
 commit.`
 
-### v0.497.0 — SDK Publication Admission
+### v0.560.0 — Query Detection And Analyst Performance
+
+Status: planned
+
+Goal: prove interactive and continuous workloads within bounded admission rules.
+
+Deliverables:
+
+- query, dashboard, report, graph, live and cold-rehydration latency evidence;
+- detection throughput/state, retro-hunt, risk and intelligence-match evidence;
+- analyst/API concurrency, cancellation, fairness and worst-case cost results.
+
+Verification:
+
+- skew, high cardinality, adversarial query/rule and cold/partial data;
+- concurrent ingest/detection/query/report/analyst load and noisy tenants;
+- result equivalence, completeness and independent reproduction.
+
+Exit criteria: latency and capacity claims retain correct results, policy and
+honest partial behavior. `v0.560.0 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.570.0 — Cluster Failover And Recovery Performance
+
+Status: planned
+
+Goal: quantify distributed scale, failure and recovery separately from local load.
+
+Deliverables:
+
+- node/rack/region scale, replication, routing, rebalance and evacuation results;
+- scheduler/state/query failover and backup/restore/repair/reindex RPO/RTO;
+- topology, hardware, placement, tenant, workload and fault schedule evidence.
+
+Verification:
+
+- quorum loss/return, rolling upgrade, leader movement and regional failover;
+- simultaneous workload/failure, degraded links, noisy tenant and recovery storm;
+- independent quantitative reproduction and claim-boundary review.
+
+Exit criteria: cluster and recovery claims have reproducible fault-injected
+evidence without broadening the failure model. `v0.570.0 implementation stop
+reached. Run pentest for this exact commit.`
+
+### v0.580.0 — Fuzz Conformance And Parser Verification
+
+Status: planned
+
+Goal: run release-duration fuzzing and conformance against every untrusted format.
+
+Deliverables:
+
+- sustained codec/parser/protocol/format/planner fuzz campaigns;
+- normative positive/negative conformance and differential/metamorphic corpora;
+- coverage, sanitizer-equivalent instrumentation and residual gap inventory.
+
+Verification:
+
+- crash/timeout/resource thresholds and corpus minimization/replay;
+- mutation testing or equivalent test-effectiveness sampling per family;
+- independent review of unreachable states and unfuzzed boundaries.
+
+Exit criteria: every untrusted grammar has release-duration adversarial evidence
+and explicit remaining limits. `v0.580.0 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.590.0 — Formal Concurrency And Memory Verification
+
+Status: planned
+
+Goal: consolidate proof, concurrency and memory-safety evidence at release scope.
+
+Deliverables:
+
+- Kani/model checks for bounded critical invariants and protocol refinements;
+- Loom/first-party deterministic schedules for admitted concurrency contracts;
+- Miri, unsafe inventory, allocator-failure and architecture-width evidence.
+
+Verification:
+
+- release-duration state exploration and implementation/model trace comparison;
+- cancellation, ownership, fencing, snapshot, queue and shutdown race suites;
+- independent proof-assumption and residual unsafe-boundary review.
+
+Exit criteria: critical state/concurrency/memory invariants have reproducible
+evidence and named limits. `v0.590.0 implementation stop reached. Run pentest
+for this exact commit.`
+
+### v0.600.0 — Chaos Corruption And Power-Loss Verification
+
+Status: planned
+
+Goal: exercise destructive failure behavior across every supported topology.
+
+Deliverables:
+
+- crash, power-loss, corruption, disk-full, network and clock fault campaigns;
+- single-node, cluster, multi-region, air-gap and endpoint recovery scenarios;
+- conservation, durability-vector, impairment and recovery evidence bundles.
+
+Verification:
+
+- faults at each durable transition and simultaneous dependent failures;
+- stale/partial restore, corrupt backup, uncertain clock and operator error;
+- independent chaos schedule reproduction and invariant review.
+
+Exit criteria: every promised recovery path survives its declared fault model or
+fails visibly within a documented boundary. `v0.600.0 implementation stop
+reached. Run pentest for this exact commit.`
+
+### v0.610.0 — Compatibility Upgrade And Reproducibility Verification
+
+Status: planned
+
+Goal: prove compatibility and reproducibility independently from chaos testing.
+
+Deliverables:
+
+- wire/storage/API/CLI/rule/schema/SDK compatibility matrices;
+- install, migration, rolling upgrade, rollback and downgrade-boundary evidence;
+- reproducible builds, archives, packages, SBOM, provenance and signatures.
+
+Verification:
+
+- every supported version pair and mixed-version topology;
+- interrupted migration/upgrade, stale artifact and unsupported downgrade;
+- clean-room artifact reproduction and byte/checksum comparison.
+
+Exit criteria: supported compatibility paths and release artifacts reproduce
+without hidden mutable inputs. `v0.610.0 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.620.0 — Independent Assessment Preparation
+
+Status: planned
+
+Goal: freeze a complete reviewable assessment scope before external execution.
+
+Deliverables:
+
+- architecture/source inventories and threat/data/authority flow packages;
+- crypto, storage, cluster, agent, UI/API, Wasm/SOAR, supply-chain and operations
+  test scopes with exact commits and environments;
+- assessor independence, disclosure, evidence custody and retest agreements.
+
+Verification:
+
+- scope-to-acceptance checklist trace and omitted-boundary challenge;
+- environment/artifact reproducibility and assessor access rehearsal;
+- independent readiness review before assessment begins.
+
+Exit criteria: the assessor can reproduce the product and test every security
+boundary without scope ambiguity. `v0.620.0 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.630.0 — Independent Security Assessment Execution
+
+Status: planned
+
+Goal: obtain the full external assessment against the frozen scope and commit.
+
+Deliverables:
+
+- executed architecture, source, crypto, storage, cluster, agent, UI/API,
+  Wasm/SOAR, supply-chain and operational assessment;
+- severity, exploitability, affected boundary and evidence for every finding;
+- public-safe summary and access-controlled complete finding archive.
+
+Verification:
+
+- assessor evidence signatures/custody and exact-commit traceability;
+- internal reproduction of every accepted finding;
+- dispute handling cannot suppress unresolved risk from the release record.
+
+Exit criteria: the complete independent assessment is delivered, attributable
+and reproducible; findings are not yet considered remediated. `v0.630.0
+implementation stop reached. Run pentest for this exact commit.`
+
+### v0.640.0 — Security Assessment Remediation
+
+Status: planned
+
+Goal: remediate assessment findings without combining fixes and independent retest.
+
+Deliverables:
+
+- fixes, regression tests and threat/control/documentation updates per finding;
+- explicit treatment for accepted lower-severity residual risk;
+- rerun performance, verification, compatibility and release gates as affected.
+
+Verification:
+
+- internal exploit reproduction fails for the intended reason;
+- adjacent bypass, variant, rollback and regression campaigns;
+- clean exact remediation commits and finding-to-change traceability.
+
+Exit criteria: no critical/high finding remains internally reproducible and every
+fix awaits independent retest. `v0.640.0 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.650.0 — Independent Security Retest
+
+Status: planned
+
+Goal: obtain independent closure of every release-blocking assessment finding.
+
+Deliverables:
+
+- assessor retest results for original exploits and material variants;
+- closure/reopen decision, residual-risk record and exact remediation commits;
+- updated public-safe assessment summary.
+
+Verification:
+
+- trusted assessor signatures and offline-verifiable evidence;
+- no code change between retested commit and closure report parent relation;
+- full gate rerun after any reopened finding is repaired and retested.
+
+Exit criteria: every critical/high finding is independently closed and remaining
+risk is explicit. `v0.650.0 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.660.0 — SDK Publication Admission
 
 Status: planned
 
@@ -5892,76 +6183,249 @@ Verification:
 - independent SDK API/security review.
 
 Exit criteria: publication remains disabled unless an affirmative maintainer
-decision and all evidence exist. `v0.497.0 implementation stop reached. Run
+decision and all evidence exist. `v0.660.0 implementation stop reached. Run
 pentest for this exact commit.`
 
-### v0.498.0 — Public Beta
+### v0.670.0 — Single-Node Public Beta
 
 Status: planned
 
-Goal: operate production-like deployments with complete support tooling.
+Goal: operate the complete product in production-like single-node deployments.
 
 Deliverables:
 
-- single-node, cluster, multi-region, air-gap and upgrade beta deployments;
-- migration, backup/recovery, operator, security, developer, detector and IR
-  documentation;
-- issue triage, compatibility freeze candidates and support procedures.
+- supported single-node install/upgrade/backup/restore beta deployments;
+- realistic ingest, storage, query, detection, analyst and response operation;
+- issue telemetry, support bundles, triage and safe feedback procedures.
 
 Verification:
 
 - long-duration operation and real operator/analyst exercises;
-- clean install, scale, failure, migration, upgrade and rollback rehearsals;
-- beta finding remediation and exact-commit pentest.
+- crash, disk pressure, recovery, upgrade and workload-growth rehearsals;
+- beta finding capture and exact-commit pentest.
 
-Exit criteria: production-like beta evidence has no unresolved release blocker.
-`v0.498.0 implementation stop reached. Run pentest for this exact commit.`
+Exit criteria: single-node beta operation exposes no untracked release blocker.
+`v0.670.0 implementation stop reached. Run pentest for this exact commit.`
 
-### v0.499.0 — Release Candidate Freeze
+### v0.680.0 — Cluster Public Beta
 
 Status: planned
 
-Goal: freeze product scope and all compatibility surfaces.
+Goal: operate production-like clustered deployments independently of other betas.
 
 Deliverables:
 
-- feature/API/wire/storage/rule/package/schema/upgrade and CLI freeze;
-- final dependency/unsafe/toolchain/action inventory and release documents;
-- signed audit of every Pre-1.0 Option Decision Register row and closure commit;
-- only security, correctness and release-blocking compatibility fixes allowed.
+- supported cluster bootstrap, expansion, repair, evacuation and administration;
+- realistic multi-tenant ingest/query/detection/response and scheduled workloads;
+- failover, observability, support and issue-evidence procedures.
 
 Verification:
 
-- complete clean rebuild, all gates, package/archive diff and reproducibility;
-- previous-version upgrade/rollback and all deployment topology rehearsal;
+- long duration, rolling failure/upgrade, rebalance and noisy-tenant exercises;
+- operator error, stale topology, quorum impairment and recovery game days;
+- real operator/analyst exercises and cluster beta pentest.
+
+Exit criteria: cluster beta operation exposes no untracked release blocker.
+`v0.680.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.690.0 — Multi-Region And Air-Gap Public Beta
+
+Status: planned
+
+Goal: beta sovereign multi-region and disconnected operation as distinct modes.
+
+Deliverables:
+
+- multi-region placement/failover/residency beta deployments;
+- air-gap install, trust, update, content, backup and transfer workflows;
+- mode-specific support, evidence exchange and limitation documentation.
+
+Verification:
+
+- region loss/return, sovereignty denial, partition and stale control state;
+- disconnected expiry/revocation, bundle replay/tamper and offline recovery;
+- independent multi-region and air-gap operator exercises/pentest.
+
+Exit criteria: both modes work within explicit availability, freshness and trust
+limits. `v0.690.0 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.700.0 — Upgrade Migration And Rollback Beta
+
+Status: planned
+
+Goal: beta lifecycle transitions separately from steady-state deployment modes.
+
+Deliverables:
+
+- clean install, import, migration, rolling upgrade and supported rollback paths;
+- mixed-version feature gates, drain/handoff and irreversible-step approvals;
+- compatibility issue triage and release-blocking boundary ownership.
+
+Verification:
+
+- every supported source version/topology and staged interruption point;
+- partial migration, stale artifact, failed drain and rollback limit;
+- operator game days and upgrade/migration pentest.
+
+Exit criteria: supported lifecycle transitions are reproducible and fail before
+unsafe mutation. `v0.700.0 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.710.0 — Documentation Support And Operational Readiness
+
+Status: planned
+
+Goal: finish production documentation and support operations before scope freeze.
+
+Deliverables:
+
+- operator, security, developer, SDK, detector and incident-response manuals;
+- installation, capacity, backup/recovery, upgrade/rollback and failure runbooks;
+- security response, support escalation, maintenance and compatibility policies.
+
+Verification:
+
+- clean-room documentation exercises by each intended role;
+- broken-link/example/command/version drift and accessibility review;
+- on-call, incident, disclosure and recovery tabletop exercises.
+
+Exit criteria: intended users can operate and recover supported deployments from
+versioned documentation alone. `v0.710.0 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.720.0 — Beta Finding Remediation And Regression
+
+Status: planned
+
+Goal: resolve beta findings before any compatibility or artifact freeze.
+
+Deliverables:
+
+- triaged fixes and regression tests across every beta topology;
+- performance, security, usability, documentation and support finding closure;
+- updated risk register and release-blocker evidence.
+
+Verification:
+
+- reproduce then close each blocker on exact commits;
+- cross-topology variants and complete affected campaign reruns;
+- no critical/high security finding or unresolved release blocker.
+
+Exit criteria: all beta blockers are closed with regression evidence; material
+fixes receive their own stop when this pass grows too broad. `v0.720.0
+implementation stop reached. Run pentest for this exact commit.`
+
+### v0.730.0 — Pre-1.0 Option Closure Audit
+
+Status: planned
+
+Goal: prove every optional 1.0 capability is implemented or an explicit non-goal.
+
+Deliverables:
+
+- signed audit of every Pre-1.0 Option Decision Register row and closure commit;
+- support-claim inventory across code, configuration, APIs and documentation;
+- rejection/disable evidence for every non-goal and implementation evidence for
+  every admitted option.
+
+Verification:
+
 - reject any conditional/TBD option, missing closure, unimplemented support
   decision or undocumented non-goal;
-- full independent candidate pentest.
+- scan APIs/configuration/UI/docs for implied or orphaned support claims;
+- independent scope-closure and product-claim pentest.
 
-Exit criteria: every option is closed and any material fix creates a new
-candidate cycle.
-`v0.499.0 implementation stop reached. Run pentest for this exact commit.`
+Exit criteria: every option is closed before compatibility freeze begins.
+`v0.730.0 implementation stop reached. Run pentest for this exact commit.`
 
-### v0.500.0 — Feature-Complete Stable Candidate
+### v0.740.0 — Public API Wire And Format Freeze
 
 Status: planned
 
-Goal: demonstrate every 1.0 capability and gate before exact RC versioning.
+Goal: freeze externally observable compatibility surfaces after scope is closed.
 
 Deliverables:
 
-- complete product, platform, SDK, UI, cluster, operations and documentation;
-- signed reproducible artifacts, SBOM/provenance and all audit evidence;
-- final 1.0 acceptance checklist with no missing foundational capability.
+- public API, CLI, wire, storage, rule, schema and admitted SDK baselines;
+- compatibility manifests, migration guarantees and explicit unstable exclusions;
+- change-control rule allowing only security/correctness/release-blocking fixes.
 
 Verification:
 
-- full release/performance/verification/security campaigns on exact commit;
-- installation, upgrade, rollback, recovery and disaster exercises;
-- final independent full-product pentest and remediation.
+- previous-version clients/data/rules/configurations and mixed-version operation;
+- undocumented surface, accidental export and incompatible-change scans;
+- independent compatibility and downgrade-boundary pentest.
 
-Exit criteria: all 1.0 gates pass with no critical/high finding.
-`v0.500.0 implementation stop reached. Run pentest for this exact commit.`
+Exit criteria: every supported external surface has an approved frozen baseline;
+material change creates a new pre-1.0 stop. `v0.740.0 implementation stop
+reached. Run pentest for this exact commit.`
+
+### v0.750.0 — Packaging And Artifact Freeze
+
+Status: planned
+
+Goal: freeze build inputs and distributable artifacts separately from APIs.
+
+Deliverables:
+
+- final toolchain/dependency/unsafe/action inventory and locked build inputs;
+- packages, archives, SBOM, provenance, checksums and signing procedures;
+- installation metadata and publication prohibition for every internal crate.
+
+Verification:
+
+- clean-room byte/checksum reproduction on supported builders;
+- archive/package secret, internal-file, license and provenance audit;
+- install/uninstall/upgrade packaging matrix and supply-chain pentest.
+
+Exit criteria: candidate artifacts are reproducible and contain only approved
+contents; material input change creates a new stop. `v0.750.0 implementation
+stop reached. Run pentest for this exact commit.`
+
+### v0.760.0 — Full Candidate Qualification
+
+Status: planned
+
+Goal: run every 1.0 gate against one feature- and artifact-frozen commit.
+
+Deliverables:
+
+- complete acceptance-checklist evidence and release notes;
+- consolidated performance, verification, assessment, beta and operations proof;
+- exact candidate topology, artifacts and residual-risk record.
+
+Verification:
+
+- complete clean rebuild and all repository/release campaigns;
+- install, upgrade, rollback, recovery, disaster and support exercises;
+- final independent full-product pentest with no critical/high finding.
+
+Exit criteria: every 1.0 gate passes on one exact commit; any change requires a
+new qualification stop. `v0.760.0 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.770.0 — Feature-Complete Stable Candidate Evidence
+
+Status: planned
+
+Goal: approve the qualified commit for exact release-candidate versioning.
+
+Deliverables:
+
+- maintainer approval of the complete product and all acceptance evidence;
+- signed reproducible artifacts, SBOM/provenance and final audit index;
+- final confirmation that no foundational capability is deferred to 1.x.
+
+Verification:
+
+- qualification commit/artifact/evidence cryptographic identity;
+- independent audit of gate completeness and assessment ancestry;
+- no code, manifest, lockfile or generated-evidence change since qualification.
+
+Exit criteria: the exact approved commit may become `v1.0.0-rc.1`; otherwise add
+another `v0.N.0` or `v0.N.P` stop, including beyond `v0.1000.0` when useful.
+`v0.770.0 implementation stop reached. Run pentest for this exact commit.`
 
 ### v1.0.0-rc.1 — Exact Production Candidate
 

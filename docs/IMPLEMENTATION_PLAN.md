@@ -29,9 +29,11 @@ major product plane.
 ## 2. Audit Integration Decisions
 
 The July 2026 completeness audits are incorporated as strengthening passes, not
-as roadmap replacements. The existing release numbering through `v0.500.0`
-remains authoritative. New patch and intermediate milestones close specific
-gaps before dependent product layers may proceed.
+as roadmap replacements. Version numbers are an unbounded sequence of security
+review stops, not a countdown or a ceiling: the plan may continue through
+`v0.1000.0` and beyond before 1.0 if safe decomposition requires it. New minor,
+patch, and intermediate milestones close specific gaps before dependent product
+layers may proceed.
 
 ### Evidence semantics
 
@@ -80,7 +82,8 @@ capacity and stable-media contract before format implementation. Intermediate
 milestones add hot staging, shard ownership, generation snapshots, workload
 isolation, cache quotas, rollups, migration, scrubbing, and disaster reindexing.
 `v0.58.0` is an early multi-terabyte/day scale and long-duration fault gate;
-late `v0.492.0` performance work remains the final system-wide confirmation.
+late `v0.540.0` through `v0.570.0` performance stops provide separate endpoint,
+ingest/storage, query/detection/analyst, and cluster/recovery confirmation.
 
 ### Capability honesty
 
@@ -209,7 +212,7 @@ message-stream ingestion. Each has a reserved later scope-closure version that
 either implements admitted support with full evidence or enforces and documents
 the non-goal. AI, regulated cryptographic mode, SDK publication, named providers,
 optional drivers, and future Aesynx support retain their own decision gates. No
-conditional or “TBD” capability may survive `v0.499.0`.
+conditional or “TBD” capability may survive the `v0.730.0` closure audit.
 
 ## 3. Engineering Sequence
 
@@ -416,11 +419,16 @@ or key-domain reuse.
 
 ### Stage L: product completion
 
-Add optional audited AI assistance, privacy and compliance enforcement,
-approved-cryptographic-mode admission without unsupported validation claims,
-published reference performance evidence, full verification and chaos
-campaigns, independent assessment and remediation, production-like beta, API
-and format freezes, an exact release candidate, and unchanged 1.0 promotion.
+Add optional audited AI assistance; then implement privacy policy, field/purpose,
+residency, retention/deletion and compliance workflow passes separately. Split
+performance by endpoint, ingest/storage, query/detection/analyst and cluster;
+split verification by fuzz/conformance, formal/concurrency/memory, chaos and
+compatibility/reproducibility. Independent assessment preparation, execution,
+remediation and retest remain separate stops, as do each beta topology,
+operational readiness, option closure, compatibility freeze, artifact freeze,
+candidate qualification, the exact release candidate, and unchanged 1.0
+promotion. The currently named final stop is not a ceiling; new `v0.N.P` or
+`v0.N.0` stops are inserted whenever one pass becomes too broad.
 
 ## 4. Planned Workspace Families
 

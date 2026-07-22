@@ -25,7 +25,7 @@ for count in "$goals" "$deliverables" "$verification" "$exits"; do
 done
 
 grep -q '^### v0.1.0 ' "$plan"
-grep -q '^### v0.500.0 ' "$plan"
+grep -q '^### v0.770.0 ' "$plan"
 grep -q '^### v1.0.0-rc.1 ' "$plan"
 grep -q '^### v1.0.0 ' "$plan"
 grep -q 'Run pentest for this exact commit' "$plan"

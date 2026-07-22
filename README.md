@@ -129,6 +129,10 @@ verification, and exit criteria. When implementation and clean retesting are
 complete, work stops for an exact-commit pentest. Findings are fixed before a
 permanent passing report and tag are allowed.
 
+Pre-1.0 numbering has no ceiling. The roadmap may use `v0.1000.0` or higher,
+and any milestone is split whenever it no longer fits one safe review pass;
+`v1.0.0` signals production readiness, not exhaustion of version numbers.
+
 Tags, registry publication, releases, and external deployment are never
 performed automatically by this repository.
 

@@ -1,0 +1,85 @@
+name: Rust CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  portable:
+    name: Test ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install pinned Rust toolchain
+        run: rustup show
+      - name: Build workspace
+        run: cargo build --workspace --all-features --locked
+      - name: Test workspace
+        run: cargo test --workspace --all-features --locked
+
+  security:
+    name: Format, lint, policy, audit, and SBOM
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install pinned Rust toolchain
+        run: rustup show
+      - name: Install security tools
+        run: |
+          cargo install --locked cargo-deny --version 0.20.2
+          cargo install --locked cargo-audit --version 0.22.2
+          cargo install --locked cargo-sbom --version 0.10.0
+      - name: Run local gate
+        run: scripts/checks.sh
+      - name: Check dependency policy
+        run: cargo deny check
+      - name: Check RustSec advisories
+        run: cargo audit
+      - name: Verify committed SBOM
+        run: scripts/generate-sbom.sh --check
+
+  cross-target:
+    name: Portable no_std targets
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install targets
+        run: rustup target add x86_64-unknown-freebsd aarch64-linux-android x86_64-linux-android
+      - name: Check FreeBSD core
+        run: cargo check --workspace --target x86_64-unknown-freebsd --locked
+      - name: Check Android AArch64 core
+        run: cargo check --workspace --target aarch64-linux-android --locked
+      - name: Check Android x86_64 core
+        run: cargo check --workspace --target x86_64-linux-android --locked
+
+  ios-target:
+    name: Portable iOS target
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install target
+        run: rustup target add aarch64-apple-ios
+      - name: Check iOS core
+        run: cargo check --workspace --target aarch64-apple-ios --locked

@@ -1,0 +1,131 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "creationInfo": {
+    "created": "2026-07-22T11:41:44Z",
+    "creators": [
+      "Tool: cargo-sbom-v0.10.0"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://spdx.org/spdxdocs/vakaheim-a25e5157-0a69-4d95-924c-cbb32a9cc2f1",
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-vakaheim",
+      "checksums": [
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "1a534709cbd681d8eef277a184580e6a526f94e3"
+        }
+      ],
+      "fileName": "./Cargo.lock",
+      "fileTypes": [
+        "SOURCE",
+        "TEXT"
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-File-vakaheim_bytes",
+      "checksums": [
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "1a534709cbd681d8eef277a184580e6a526f94e3"
+        }
+      ],
+      "fileName": "./Cargo.lock",
+      "fileTypes": [
+        "SOURCE",
+        "TEXT"
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-File-vakaheim_core",
+      "checksums": [
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "1a534709cbd681d8eef277a184580e6a526f94e3"
+        }
+      ],
+      "fileName": "./Cargo.lock",
+      "fileTypes": [
+        "SOURCE",
+        "TEXT"
+      ]
+    }
+  ],
+  "name": "vakaheim",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Package-vakaheim-bytes-0.1.0",
+      "description": "Checked byte-boundary crate for Vakaheim.",
+      "downloadLocation": "NONE",
+      "homepage": "https://github.com/valkyoth/vakaheim",
+      "licenseConcluded": "EUPL-1.2",
+      "licenseDeclared": "EUPL-1.2",
+      "name": "vakaheim-bytes",
+      "versionInfo": "0.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-vakaheim-core-0.1.0",
+      "description": "Dependency-free foundational contracts for Vakaheim.",
+      "downloadLocation": "NONE",
+      "homepage": "https://github.com/valkyoth/vakaheim",
+      "licenseConcluded": "EUPL-1.2",
+      "licenseDeclared": "EUPL-1.2",
+      "name": "vakaheim-core",
+      "versionInfo": "0.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-vakaheim-0.1.0",
+      "description": "Security-first facade for the Vakaheim security evidence platform.",
+      "downloadLocation": "NONE",
+      "homepage": "https://github.com/valkyoth/vakaheim",
+      "licenseConcluded": "EUPL-1.2",
+      "licenseDeclared": "EUPL-1.2",
+      "name": "vakaheim",
+      "versionInfo": "0.1.0"
+    }
+  ],
+  "relationships": [
+    {
+      "relatedSpdxElement": "SPDXRef-Package-vakaheim-core-0.1.0",
+      "relationshipType": "GENERATED_FROM",
+      "spdxElementId": "SPDXRef-File-vakaheim_core"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-vakaheim-bytes-0.1.0",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-vakaheim-0.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-vakaheim-core-0.1.0",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-vakaheim-0.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-File-vakaheim_bytes",
+      "relationshipType": "DESCRIBES",
+      "spdxElementId": "SPDXRef-DOCUMENT"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-vakaheim-bytes-0.1.0",
+      "relationshipType": "GENERATED_FROM",
+      "spdxElementId": "SPDXRef-File-vakaheim_bytes"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-File-vakaheim",
+      "relationshipType": "DESCRIBES",
+      "spdxElementId": "SPDXRef-DOCUMENT"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-File-vakaheim_core",
+      "relationshipType": "DESCRIBES",
+      "spdxElementId": "SPDXRef-DOCUMENT"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-vakaheim-0.1.0",
+      "relationshipType": "GENERATED_FROM",
+      "spdxElementId": "SPDXRef-File-vakaheim"
+    }
+  ],
+  "spdxVersion": "SPDX-2.3"
+}

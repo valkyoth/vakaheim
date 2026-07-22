@@ -1,0 +1,6 @@
+[build]
+incremental = false
+
+[alias]
+vakaheim-check = "check --workspace --all-targets --all-features --locked"
+vakaheim-test = "test --workspace --all-features --locked"

@@ -1,0 +1,18 @@
+[package]
+name = "vakaheim"
+description = "Security-first facade for the Vakaheim security evidence platform."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+homepage.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+vakaheim-bytes.workspace = true
+vakaheim-core.workspace = true
+
+[lints]
+workspace = true

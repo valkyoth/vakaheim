@@ -193,6 +193,10 @@ Acknowledgement evidence distinguishes fact, raw-capsule, mapping/provenance,
 index and detection progress. `DurableQuorum` never implies raw reconstruction
 unless referenced chunks and manifests meet the same quorum failure claim.
 Cluster publication preserves the local atomic fact/reference/object invariant.
+Each ingestion acknowledgement has a canonical request/payload digest,
+durability vector/class, placement/quorum epoch, signer/key epoch and node-
+assurance evidence digest; authentication binds the claim but does not make a
+compromised backend truthful.
 
 ### Durable work has one scheduler contract
 
@@ -212,10 +216,14 @@ Every consumer declares job identity, checkpoint, cancellation, misfire,
 idempotency, recovery and uncertain-time behavior. Effectful work leaves the
 generic scheduler through a durable outbox/UnknownOutcome protocol; blind retry
 of external effects is forbidden. Handoff is logically atomic: the job cannot be
-`HandedOff` before its unique outbox/effect record is durable, recovery cannot
-create a second record, and post-handoff cancellation cannot erase uncertainty.
-Mixed-version journal/outbox compatibility is a separate gate. Stage K adds a
-fenced HA adapter over the operational-state engine.
+`HandedOff` before a durable receipt validates its unique outbox/effect record.
+The mechanism is a durable `HandoffIntent` with job/effect IDs, canonical request
+digest and schema version; linearizable outbox `put_if_absent`; and a record/
+digest/commit-epoch receipt. A conflicting digest is an integrity incident.
+Cancellation wins before intent, becomes a request after intent, and cannot erase
+uncertainty after outbox commit. Local and HA paths use intent/receipt recovery
+across separate stores, not an assumed shared transaction. Mixed-version
+journal/outbox compatibility is a separate gate.
 
 ### Optional scope closes before implementation freeze
 
@@ -230,7 +238,10 @@ named providers, optional drivers and future Aesynx support retain their own
 decision gates. Privileged OS runtime measurement and hardware remote attestation
 are decided at `v0.456.0`, conditionally implemented through `v0.456.4`, and
 closed at `v0.456.5`. Rejected attestation cannot be replaced by a healthy self-
-report. No conditional or “TBD” capability may survive `v0.730.0`.
+report. Post-destruction audit re-identification is permitted or forbidden at
+`v0.457.2` and closed at `v0.457.5`. `v0.462.0` closes Byzantine/compromised-
+backend truth guarantees as a 1.0 non-goal. No conditional or “TBD” capability
+may survive `v0.730.0`.
 
 ## 3. Engineering Sequence
 
@@ -428,6 +439,11 @@ Active-write replication owns practical quorum acknowledgements. Distributed
 physical query execution owns authenticated fragments, exchanges, shuffle,
 partial aggregation, distributed joins/graphs, snapshot coordination,
 backpressure, retry, stragglers, worker loss and coordinator/tenant bounds.
+Canonical result/coverage manifests bind query/plan, tenant/auth/policy/snapshot,
+expected shard/partition/segment commitments, every fragment terminal status,
+result/aggregate/checkpoint digests, signer/key and node-assurance evidence.
+`Complete` requires reconciliation of every expected element; other outcomes are
+explicitly `Partial`, `Unavailable`, `Truncated` or `PolicyLimited`.
 Raw chunks/manifests participate in quorum durability and atomic publication.
 Independent audit HA uses a separately deployed administrative/storage/scheduler
 failure domain, not only different keys in the operational cluster.
@@ -453,7 +469,11 @@ Tenant lifecycle has local and distributed state machines from proposal through
 hold/offboarding/destruction, including suspension propagation and no identifier
 or key-domain reuse. Independently retained audit evidence and external receipts
 use separate keys, minimized/pseudonymized identity and statutory/hold policy;
-they can never reactivate tenant authority.
+they can never reactivate tenant authority. Opaque internal IDs remain permanent
+non-reusable tombstones without identifying fields. Human/external identifiers
+may be reassigned only by explicit policy to a new internal/key domain, while
+pseudonym stability, linkage-key expiry and any re-identification authority are
+closed before all-plane lifecycle testing.
 
 ### Stage L: product completion
 
@@ -478,15 +498,15 @@ not permission to create empty crates prematurely.
 | Facade | `vakaheim` | `no_std` by default |
 | Foundation | `vakaheim-core`, `-bytes`, `-id`, `-time`, `-time-trust`, `-value`, `-policy`, `-crypto-api`, `-crypto-provider`, `-text`, `-asn1` | `no_std`; optional `alloc` |
 | Facts | `-event`, `-entity`, `-provenance`, `-integrity`, `-source-capsule` | `no_std`; optional `alloc` |
-| Ingestion | `-ingest-core`, `-parser-sdk`, `-syslog`, `-json`, `-protobuf`, `-otlp`, `-ocsf` | core portable; runtimes `std` |
+| Ingestion | `-ingest-core`, `-ack-manifest`, `-parser-sdk`, `-syslog`, `-json`, `-protobuf`, `-otlp`, `-ocsf` | core/manifest portable; runtimes `std` |
 | Platform | `-linux`, `-windows`, `-macos`, `-bsd`, `-android`, `-ios`, `-kubernetes` | isolated `std`/FFI |
 | Runtime | `-runtime-core`, `-time-host`, `-scheduler-core`, `-scheduler-store`, `-scheduler-worker`, OS reactors, channels, HTTP/TLS/PKI/protocol transports, enrollment | core `no_std`; hosted layers explicit `std` |
 | Storage | `-storage-format`, `-wal`, `-segment`, `-raw-store`, `-index`, `-retention`, `-backup`, `-work-scheduler` | format `no_std`; engine `std` |
-| Query | `-query-syntax`, `-ast`, `-ir`, `-typecheck`, `-plan`, `-exec`, `-query-distributed`, `-graph` | front-end `no_std + alloc`; exec `std` |
+| Query | `-query-syntax`, `-ast`, `-ir`, `-typecheck`, `-plan`, `-exec`, `-query-coverage`, `-query-distributed`, `-graph` | front-end/manifests `no_std + alloc`; exec `std` |
 | Detection | `-rule-model`, `-rule-compiler`, `-detect-core`, `-detect-state`, `-behavior`, `-risk-ledger`, `-intel-match` | core `no_std + alloc`; workers `std` |
 | Response | `-wasm-core`, `-wasm-abi`, `-wasm-validate`, `-wasm-host`, `-soar-core`, `-action-ledger`, `-approval` | ABI/core portable; host isolated `std` |
 | Identity | `-cbor`, `-cose`, `-jose`, `-oauth`, `-xml`, `-scim`, `-webauthn`, `-identity-federation` | codecs portable; services `std` |
-| Control | `-control`, `-auth`, `-authorization`, `-audit`, `-pki`, `-credential-vault`, `-node-integrity`, `-attestation`, `-opstate`, `-cluster`, `-federation` | explicit `std` services |
+| Control | `-control`, `-auth`, `-authorization`, `-audit`, `-tenant-id`, `-audit-pseudonym`, `-pki`, `-credential-vault`, `-node-integrity`, `-attestation`, `-opstate`, `-cluster`, `-federation` | portable identity/policy; explicit `std` services |
 | Analyst | `-finding`, `-incident`, `-case`, `-dashboard`, `-report`, `-scheduled-report`, `-api-model`, `-api-host`, `-sdk`, `-ui-model` | mixed |
 | Verification | `-testkit`, fixtures, attack scenarios, fuzz, Kani, Loom, conformance, bench | never product dependencies |
 
@@ -597,4 +617,6 @@ an admitted control epoch; evidence states its exact assurance level, unavailabl
 or untrusted measurement is `Unverifiable`, and optional attestation is either
 implemented within admitted bounds or an explicit tested non-goal. Tenant
 destruction leaves only policy-permitted independently keyed audit/remnant
-evidence with no authority, and proxy/backend trust termini are protocol-explicit.
+evidence with no authority; internal/external/pseudonym linkage semantics are
+closed; canonical acknowledgement/query coverage manifests exist; and proxy/
+backend trust termini are protocol-explicit without a Byzantine-truth claim.

@@ -69,12 +69,12 @@ replace or renumber it.
 | Crypto provider, split time, certificate codecs, host/OS adapters/TLS, device keys, PKI and operator authority | `v0.4.1`–`v0.4.5`, `v0.10.1`–`v0.10.4`, `v0.20.2`–`v0.20.9`, `v0.30.2` |
 | Fact conflicts, schema ownership, extension governance, and mapping loss | `v0.11.0`, `v0.15.0`, `v0.16.0`, `v0.20.1` |
 | Deterministic identity resolution, asset inventory, ownership, exposure, and retirement | `v0.13.0`, `v0.298.0` |
-| Local identities/control/authorization plus complete tenant lifecycle before consumers | `v0.17.0`, `v0.17.1`, `v0.19.0`; audit/remnant policy at `v0.457.1`; all-plane single-node gate at `v0.458.0`; independent audit at `v0.467.3`; distributed closure at `v0.474.1` |
-| Conservation, acknowledgement truth, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`, `v0.39.0`, `v0.40.0` |
+| Local identities/control/authorization plus complete tenant lifecycle before consumers | `v0.17.0`, `v0.17.1`, `v0.19.0`; audit/remnant/identifier policy at `v0.457.1`–`v0.457.5`; all-plane single-node gate at `v0.458.0`; independent audit at `v0.467.3`; distributed closure at `v0.474.1` |
+| Conservation, acknowledgement truth/manifests, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`, `v0.39.0`, `v0.40.0`, `v0.471.1` |
 | Exact external protocol and identity-codec profiles | `v0.20.1`, `v0.26.0`–`v0.30.2`, `v0.306.0`, `v0.392.0`–`v0.395.0`, `v0.407.0`–`v0.410.0` |
 | Database capacity, raw evidence, integrity/encryption/keys, local backup/restore, migration, and scoped early scale | `v0.41.0` through `v0.60.0`, especially `v0.53.0`–`v0.58.0` |
 | Layered durable local and HA jobs/timers with atomic effect handoff, upgrade compatibility, consumer admission, declared time, retry, fencing and idempotency | `v0.44.1`–`v0.44.7`, consumer matrix, `v0.459.0`, `v0.467.4` |
-| Query authority/planning/operators, cold rehydration, side channels, federation and distributed execution | `v0.72.0`–`v0.100.0`, `v0.475.0`, `v0.476.0` |
+| Query authority/planning/operators, cold rehydration, side channels, federation, distributed execution and coverage reconciliation | `v0.72.0`–`v0.100.0`, `v0.475.0`–`v0.476.2` |
 | Detection identity/state/placement, split behavior families, entity risk, intelligence lifecycle/matching, ATT&CK | `v0.115.0`–`v0.200.0`, especially `v0.170.0`–`v0.179.0` |
 | Common agent/helper boundary, signed software integrity/self-protection and platform continuity | `v0.205.0` through `v0.267.5`, especially `v0.206.0` |
 | Base API before client, later case/response extensions, credential vault, connector isolation and split provider profiles | `v0.270.0`–`v0.342.0`, `v0.376.0`, `v0.450.1` |
@@ -150,6 +150,8 @@ may be deferred to 1.0.
 | Optional Wasm extensions and proposal-only AI | `v0.420.0` and `v0.485.0` prove complete disable paths |
 | Privileged/OS-backed runtime measurement | Decide at `v0.456.0`; if admitted implement `v0.456.2`; close at `v0.456.5` |
 | Hardware measured boot and remote attestation | Decide at `v0.456.0`; if admitted implement `v0.456.3`–`v0.456.4`; close at `v0.456.5` |
+| Post-destruction audit-pseudonym re-identification | Permit or forbid at `v0.457.2`; implement the selected path at `v0.457.4`; close at `v0.457.5` |
+| Byzantine/compromised-backend truth guarantees | `v0.462.0` closes as a 1.0 non-goal; manifests authenticate claims but do not prove backend honesty |
 | Regulated cryptographic operating mode | Admit or reject at `v0.530.0` |
 | Public SDK publication | Admit or reject at `v0.660.0`; all other crates remain private |
 
@@ -864,7 +866,7 @@ Deliverables:
 - hold/export/offboarding precedence, crypto-shred/deletion proof and recovery
   rules that cannot revive suspended or destroyed authority;
 - destruction distinguishes tenant authority/data from independently retained
-  security-audit evidence; exact residue policy is integrated at `v0.457.1`.
+  security-audit evidence; exact residue/identifier policy closes at `v0.457.5`.
 
 Verification:
 
@@ -1785,20 +1787,27 @@ Exit criteria: hosted scheduling cannot deadlock or starve durable storage.
 
 Status: planned
 
-Goal: prevent generic retries from duplicating externally visible effects.
+Goal: implement an exact recoverable handoff across separate scheduler/outbox
+transaction domains without duplicating externally visible effects.
 
 Deliverables:
 
-- stable `(job identity, effect identity)` and an atomic logical handoff protocol
-  to a durable outbox/action ledger;
-- job remains `HandoffPending` until the uniquely keyed outbox/action record is
-  durable; only then may it become `HandedOff`;
+- durable `HandoffIntent` containing job ID, effect ID, canonical request digest
+  and schema version in the scheduler journal;
+- outbox `put_if_absent(effect_id, request_digest)` with linearizable uniqueness;
+  the same effect ID plus another digest emits an integrity incident and stops;
+- durable outbox receipt containing record ID, request digest and commit epoch;
+- job remains `HandoffPending` until that receipt is read back and validated;
+  only then may it become `HandedOff`;
 - prepared/dispatched/unknown-outcome/reconciled/terminal protocol compatible
   with later SOAR effect semantics;
 - recovery idempotently completes one handoff and cannot create two outbox
   records for one effect identity;
-- cancellation after handoff cannot delete, reinterpret or hide an uncertain
-  effect; retry ownership, reconciliation and impairment remain explicit;
+- cancellation wins only before `HandoffIntent` commitment; after intent it is a
+  cancellation request, and after outbox commit it cannot delete, suppress,
+  reinterpret or hide an uncertain effect;
+- local handoff explicitly uses this intent/receipt recovery protocol across
+  separate stores rather than claiming a shared transaction domain;
 - no production effect adapter activates until its owning durable outbox/action
   ledger milestone passes.
 
@@ -1807,12 +1816,14 @@ Verification:
 - crash before/after handoff/send/ack, timeout, duplicate and ambiguous response;
 - crash at every scheduler-intent/outbox-durable/HandedOff boundary and concurrent
   cancellation/recovery;
+- same effect/different digest, forged/stale/mismatched receipt and commit epoch;
 - non-idempotent destination and unavailable reconciler scenarios;
 - uniqueness/property proof for one durable outbox record per effect identity;
 - prove generic scheduler retry cannot directly repeat an external side effect.
 
-Exit criteria: effectful work leaves the scheduler through a durable protocol
-with explicit unknown outcomes. `v0.44.4 implementation stop reached. Run
+Exit criteria: effectful work leaves through a concrete intent/put-if-absent/
+receipt protocol with canonical identity and explicit unknown outcomes. `v0.44.4
+implementation stop reached. Run
 pentest for this exact commit.`
 
 ### v0.44.5 — Scheduler Consumer Admission Contract
@@ -1869,7 +1880,8 @@ Goal: preserve atomic handoff while scheduler and outbox schemas are mixed-versi
 
 Deliverables:
 
-- current/previous scheduler-journal, handoff-intent and outbox record matrix;
+- current/previous scheduler-journal, handoff-intent, outbox record and receipt
+  schema matrix;
 - upgrade/migration order, dual-read/write limits and irreversible boundaries;
 - old/new worker fencing and stable job/effect identity across schema changes.
 
@@ -5801,6 +5813,8 @@ Deliverables:
 
 - policy for retained, minimized or pseudonymized audit tenant identity and
   statutory/compliance retention;
+- identifier/pseudonym/re-identification specifics delegated to the binding
+  `v0.457.2`–`v0.457.5` series;
 - separate audit key domains, crypto-shred/rotation behavior and legal-hold/
   statutory-retention precedence;
 - credential-vault remnant, notification-delivery record and external-action
@@ -5819,6 +5833,105 @@ Exit criteria: every permitted post-destruction residue is minimal, separately
 keyed, purpose-bound and cryptographically incapable of restoring authority.
 `v0.457.1 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.457.2 — Tenant Identifier And Pseudonym Policy Decision
+
+Status: planned
+
+Goal: bind post-destruction identity semantics before tombstone implementation.
+
+Deliverables:
+
+- permanently non-reusable opaque internal tenant-ID policy;
+- class-specific reuse/cooldown/approval policy for human/external domains,
+  organization names, account handles and other reassigned identifiers;
+- signed stable/rotating/purpose-specific audit-pseudonym decision;
+- binding decision permitting narrowly separated re-identification authority or
+  forbidding it entirely, including linkage behavior after key expiry/shred.
+
+Verification:
+
+- privacy/security/legal analysis for linkage, collision and reassignment;
+- reject policy that requires permanent unnecessary external identifying data;
+- reject any reuse path that can revive the destroyed internal ID/key domain.
+
+Exit criteria: internal reuse, external reassignment, pseudonym stability and
+re-identification each have one approved pre-1.0 decision. `v0.457.2
+implementation stop reached. Run pentest for this exact commit.`
+
+### v0.457.3 — Permanent Tenant Tombstone And External-ID Reassignment
+
+Status: planned
+
+Goal: prevent internal identity resurrection while allowing only approved
+external-identifier reassignment.
+
+Deliverables:
+
+- minimal permanent tombstone containing opaque internal ID, destruction epoch
+  and non-reusable key-domain identity without names/domains/account handles;
+- collision/reuse registry and restore/import checks across backups and regions;
+- external-identifier quarantine/cooldown/approval records that expire according
+  to `v0.457.2`; reassignment always creates a new opaque internal ID/key domain;
+- historical display/disambiguation that cannot merge old/new tenant evidence.
+
+Verification:
+
+- internal ID/key-domain collision, forced import, stale backup and concurrent
+  reassignment;
+- external domain/org/account reuse before/after policy expiry;
+- prove permanent prevention retains no unnecessary external identifying value.
+
+Exit criteria: opaque internal identities never repeat, while permitted human
+identifier reuse cannot join old and new authority. `v0.457.3 implementation
+stop reached. Run pentest for this exact commit.`
+
+### v0.457.4 — Audit Pseudonym And Re-Identification Lifecycle
+
+Status: planned
+
+Goal: implement the selected audit pseudonym stability and linkage policy.
+
+Deliverables:
+
+- stable/rotating/purpose-specific pseudonym derivation selected at `v0.457.2`;
+- separate pseudonym/linkage keys, rotation, expiry, crypto-shred and retained-
+  record behavior after linkage becomes unavailable;
+- if permitted: independently authorized re-identification vault, purpose,
+  approval, expiry and immutable audit; if forbidden: no linkage/API/key path;
+- pseudonyms remain data labels only and cannot address, authenticate or authorize.
+
+Verification:
+
+- cross-purpose correlation, rotation boundary, key expiry/loss/shred and restore;
+- unauthorized re-identification, linkage-vault compromise and inference attacks;
+- forbidden-path API/config rejection or permitted-path separation/pentest.
+
+Exit criteria: audit linkage matches the approved policy, and loss or use of
+linkage authority cannot restore tenant authority. `v0.457.4 implementation stop
+reached. Run pentest for this exact commit.`
+
+### v0.457.5 — Post-Destruction Identifier Semantics Closure
+
+Status: planned
+
+Goal: close identifier reuse and audit-linkage decisions before all-plane testing.
+
+Deliverables:
+
+- integrated `v0.457.1`–`v0.457.4` retention, tombstone and pseudonym contract;
+- support/non-goal documentation for re-identification and each external-ID class;
+- migration/upgrade/backup representation and SDK/API/audit semantics.
+
+Verification:
+
+- policy/implementation/claim trace, malformed legacy identity and downgrade;
+- destroyed-to-reassigned identifier end-to-end trace with no authority merge;
+- independent privacy, audit, identity and resurrection pentest.
+
+Exit criteria: every post-destruction identifier is permanently forbidden,
+policy-reassignable or policy-pseudonymized with no undecided behavior. `v0.457.5
+implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.458.0 — Single-Node Tenant Lifecycle Integration Gate
 
 Status: planned
@@ -5832,7 +5945,7 @@ Deliverables:
   actions, caches, exports, keys and backups;
 - all-plane lifecycle conformance harness and transition/denial evidence;
 - restore/resurrection, tenant-ID/key-domain tombstone and deletion-proof audit;
-- `v0.457.1` disposition across local audit, vault remnants, notification
+- `v0.457.5` disposition across local audit, vault remnants, notification
   delivery and action receipts with retained evidence unable to restore authority.
 
 Verification:
@@ -5841,6 +5954,8 @@ Verification:
 - stale tokens/agents/jobs/actions/caches, concurrent hold/offboard/destroy and
   restore from every local backup/cold/spill class;
 - retained/pseudonymized audit access, expiry and non-reactivation tests;
+- external identifier reassignment, pseudonym rotation/shred and any admitted
+  re-identification authority under `v0.457.2` decisions;
 - cross-plane single-node pentest and independent deletion-proof review.
 
 Exit criteria: no completed local plane can outlive or bypass the tenant lifecycle;
@@ -5926,17 +6041,20 @@ Deliverables:
 
 - authenticated crash-fault-tolerant model, quorum and network assumptions;
 - explicit statement that a compromised voting quorum is outside safety claims;
+- explicit 1.0 non-goal for Byzantine or cryptographically proven truth from a
+  compromised query/ingest/data-plane backend; signatures authenticate claims;
 - containment, key rotation, membership recovery and operator trust boundaries.
 
 Verification:
 
 - architecture review against partitions, crash, disk, clock and key compromise;
+- claim audit for malicious backend results/acknowledgements and assurance limits;
 - CFT/BFT claim audit and misuse/operational tabletop;
 - decision record approved before implementation.
 
-Exit criteria: no documentation or API implies Byzantine safety from an
-authenticated CFT design. `v0.462.0 implementation stop reached. Run pentest for
-this exact commit.`
+Exit criteria: no documentation or API implies Byzantine safety or backend truth
+from authenticated CFT, signatures or node-attestation evidence. `v0.462.0
+implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.463.0 — Formal Metadata Consensus Model
 
@@ -6144,7 +6262,7 @@ Deliverables:
 
 - backfill/reprocessing and forensic-acquisition job adapters over `v0.465.3`;
 - notification outbox/delivery and API idempotency ledgers;
-- `v0.457.1` tenant-destruction disposition for delivery records and external
+- `v0.457.5` tenant-destruction disposition for delivery records and external
   action receipts, retaining no routable tenant authority;
 - fenced ownership, progress/custody checkpoints, retry/unknown-outcome and
   per-class RPO/RTO.
@@ -6174,7 +6292,7 @@ Deliverables:
   scheduler, storage and failure domains from operational state;
 - append sequencing, remote placement, acknowledgement, gap and retention RPO/
   RTO while preserving independent writer/reader roles;
-- `v0.457.1` retained/pseudonymized tenant identity, separate audit key domains,
+- `v0.457.5` retained/pseudonymized tenant identity, separate audit key domains,
   legal/statutory hold precedence and post-destruction access/expiry policy;
 - independent audit replicas participate explicitly in retention, crypto-shred
   and deletion proofs without joining tenant authority;
@@ -6211,7 +6329,10 @@ Deliverables:
 - preservation of monotonic-versus-wall schedule, misfire/catch-up/skip,
   cancellation, dependency and idempotency semantics;
 - HA `HandoffPending`/outbox durability protocol with stable effect identity and
-  one `v0.467.2` outbox record across owner/leader failover;
+  linearizable `put_if_absent`, validated commit-epoch receipt and one `v0.467.2`
+  outbox record across owner/leader failover;
+- same effect/different digest integrity incident and the `v0.44.4` cancellation
+  precedence preserved across separate replicated state groups;
 - per-job-class RPO/RTO and rebuild-from-immutable-evidence option where declared.
 
 Verification:
@@ -6219,6 +6340,8 @@ Verification:
 - owner loss/partition/clock change at every claim/checkpoint/complete boundary;
 - failover at each scheduler-intent/outbox-durable/HandedOff boundary and
   cancellation after handoff;
+- leader change between put-if-absent and receipt validation, receipt replay and
+  conflicting digest;
 - stale worker, duplicate dispatch, lease expiry, dependency storm, restore and
   tenant/noisy-neighbor failures;
 - local/HA scheduler state-machine equivalence and canonical idempotent outcomes.
@@ -6333,6 +6456,31 @@ and recovery prove every promised durability-vector component; raw
 reconstructability is never implied without quorum-durable chunks/manifests.
 `v0.471.0 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.471.1 — Canonical Ingestion Acknowledgement Manifest
+
+Status: planned
+
+Goal: bind each acknowledgement to the exact accepted request and durability claim.
+
+Deliverables:
+
+- canonical payload/request digest, source/session/sequence identity and receipt ID;
+- durability class/vector, write-shard/placement/quorum epoch and commit index;
+- fact/raw/provenance component status plus backend signer/key epoch and
+  `v0.456.1` node-assurance evidence digest;
+- bounded signed encoding with replay, expiry and unsupported-field semantics.
+
+Verification:
+
+- payload/request substitution, ack replay, source/session swap and digest conflict;
+- stale/wrong placement/quorum epoch, signer rotation and assurance downgrade;
+- crash before/after commit/manifest emission and proxy-forwarding conformance;
+- claim audit: authentication does not prove a compromised backend truthful.
+
+Exit criteria: every durability acknowledgement identifies exactly what was
+accepted, under which placement/quorum state, and who made the bounded claim.
+`v0.471.1 implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.472.0 — Placement, Repair, Rebalancing And Disk Evacuation
 
 Status: planned
@@ -6392,9 +6540,9 @@ Deliverables:
   tenant-ID/key-domain tombstone;
 - recovery/failover rules that cannot revive suspended/offboarding/destroyed
   authority from stale replicas or backups;
-- `v0.457.1` disposition for credential-vault remnants, notification records,
+- `v0.457.5` disposition for credential-vault remnants, notification records,
   external action receipts and separately keyed independent audit replicas;
-- legal-hold/statutory-retention precedence and pseudonymized permanent
+- legal-hold/statutory-retention precedence and opaque permanent
   non-authority tombstones across regions;
 - shared conformance suite proving local and distributed lifecycle outcomes do
   not diverge.
@@ -6407,6 +6555,8 @@ Verification:
   state plus independent audit replicas and tenant-ID/key reuse attacks;
 - retained audit/remnant access cannot mint credentials, address notifications,
   invoke actions or restore tenant/session identity;
+- external identifier reassignment always creates a new internal tenant/key
+  domain and obeys pseudonym/re-identification policy across regions;
 - single-node/distributed trace equivalence for every lifecycle transition.
 
 Exit criteria: tenant lifecycle state and denial propagate within declared bounds,
@@ -6459,6 +6609,62 @@ Verification:
 Exit criteria: distributed execution cannot exceed coordinator/tenant authority
 or present partial worker results as complete. `v0.476.0 implementation stop
 reached. Run pentest for this exact commit.`
+
+### v0.476.1 — Canonical Query Result And Coverage Manifest
+
+Status: planned
+
+Goal: define an authenticated coverage statement rather than a bare completeness
+boolean.
+
+Deliverables:
+
+- query digest, physical-plan digest, tenant, authorization, policy and snapshot
+  epochs;
+- expected shard/partition/segment set as a bounded canonical list or commitment;
+- every fragment identity, assigned backend and terminal status;
+- result digest plus aggregate/checkpoint digests and explicit `Complete`,
+  `Partial`, `Unavailable`, `Truncated` and `PolicyLimited` states;
+- backend/coordinator signer and key epochs plus `v0.456.1` assurance evidence
+  digests, all in a versioned signed encoding.
+
+Verification:
+
+- canonicalization, omission, duplicate fragment, set-commitment and digest attacks;
+- stale tenant/policy/snapshot/plan/signer/assurance epochs;
+- round-trip, malformed, fuzz, scale and mixed-version manifest tests.
+
+Exit criteria: each result package states exact expected/observed coverage and
+the identities making that statement. `v0.476.1 implementation stop reached.
+Run pentest for this exact commit.`
+
+### v0.476.2 — Distributed Coverage Reconciliation
+
+Status: planned
+
+Goal: derive terminal query state by reconciling the expected coverage manifest.
+
+Deliverables:
+
+- coordinator derivation of expected coverage from authorized plan, snapshot,
+  placement and cold-catalog epochs;
+- terminal fragment ledger and digest/aggregate/checkpoint reconciliation;
+- `Complete` only after every expected element has one compatible terminal
+  success; all absence, denial, truncation or unavailability selects its explicit
+  non-complete state;
+- threat-limit statement: manifests stop proxy forgery but signatures/attestation
+  do not make a compromised backend truthful under the 1.0 CFT model.
+
+Verification:
+
+- missing/duplicate/replayed fragment, worker loss, retry and topology change;
+- false-success worker, conflicting digest, stale snapshot/policy and truncated
+  stream/aggregate;
+- local/distributed result-state equivalence and adversarial coordinator pentest.
+
+Exit criteria: no coordinator or proxy can label unreconciled expected coverage
+`Complete`; the remaining compromised-backend limit is explicit. `v0.476.2
+implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.478.0 — SRE Operations And Supportability
 
@@ -6526,19 +6732,23 @@ Goal: define exactly what routing proxies can attest, terminate and forward.
 Deliverables:
 
 - per-protocol trust profile for native ingest, OTLP, API/query, browser and relay;
-- native end-to-end backend binding for durability acknowledgements, source/
-  session/sequence identity, query snapshot/policy epochs, response completeness
-  and backend service/build identity plus its `v0.456.1` assurance state;
+- native end-to-end binding of `v0.471.1` acknowledgement manifests and
+  `v0.476.1`/`v0.476.2` query result/coverage manifests, including source/session/
+  sequence, snapshot/policy, backend service/build and assurance identity;
 - proxy capabilities that cannot forge `DurableQuorum`, widen authority,
   substitute tenant/source, or convert backend failure/partial results to success;
 - where OTLP/browser standards terminate at the proxy, explicit proxy membership
   in that protocol's TCB, narrow service identity, authenticated backend hop,
-  audit and disclosed claim limits.
+  audit and disclosed claim limits;
+- threat-model statement that binding prevents proxy forgery but does not make a
+  compromised backend truthful under `v0.462.0` CFT/non-Byzantine limits.
 
 Verification:
 
 - compromised proxy forges ack/completeness/backend identity or swaps tenant;
 - replay/substitution across backend, route, session, snapshot and policy epochs;
+- acknowledgement/coverage manifest omission, replacement and terminal-state
+  laundering;
 - terminating-proxy confused-deputy, capability widening and failure laundering;
 - end-to-end cryptographic/protocol binding and routing-proxy pentest.
 
@@ -7490,13 +7700,17 @@ explicit maintainer authorization and never publishes internal crates.
 - Durable local and HA jobs/timers prove declared time bases, misfire policy,
   fencing, idempotency, cancellation, dependency and checkpoint semantics;
   storage durability/recovery remains available without scheduler workers/state,
-  and mixed-version effect handoff creates one canonical durable outbox record
-  per effect identity.
+  and mixed-version effect handoff uses a durable intent, canonical digest,
+  linearizable put-if-absent and validated receipt to create one outbox record
+  per effect identity with explicit cancellation precedence.
 - Storage survives crash, corruption, node/rack/region loss and rolling upgrade.
 - Historical hot/cold, live, temporal, graph, federated and distributed-physical
-  VQL queries work safely with honest partial/cost/cancellation behavior.
+  VQL queries work safely with canonical coverage manifests and honest
+  complete/partial/unavailable/truncated/policy-limited behavior.
 - `DurableQuorum` evidence proves fact, raw-capsule and mapping/provenance
-  durability independently; raw reconstruction is never implied without it.
+  durability independently; its acknowledgement manifest binds request digest,
+  durability class and placement/quorum epoch, and raw reconstruction is never
+  implied without quorum-durable chunks/manifests.
 - Predicate, temporal, stateful, graph, behavioral and integrity detection work.
 - Threat-intelligence live/retro matching and entity-risk threshold findings
   are deterministic, evidence-backed and poisoning-resistant.
@@ -7514,12 +7728,16 @@ explicit maintainer authorization and never publishes internal crates.
   offboarding and cryptographic destruction propagate across every product plane;
   tenant identifiers and key domains cannot be reused or resurrected, while any
   lawfully retained independent audit/remnant evidence conveys no authority.
+- Opaque internal tenant IDs are permanently non-reusable; human/external
+  identifiers, audit pseudonyms, linkage-key expiry and any re-identification
+  authority follow the closed `v0.457.2` policy without retaining excess identity.
 - Single-node, cluster, sovereign multi-region and air-gap operation are tested.
 - Cluster discovery and authenticated data-plane routing preserve loop,
   backpressure, sequence, retry and acknowledgement truth through drain,
   leader movement, partition and stale-route failure; cross-region routing occurs
   only after committed failover authority, and proxy trust termini/backend
-  bindings are explicit per protocol.
+  bindings are explicit per protocol; bindings authenticate backend claims but
+  do not imply Byzantine truth from a compromised backend.
 - Backup, restore, repair, reindex, migration, upgrade and rollback are complete.
 - The SDK publication decision is explicit; internal crates remain unpublished.
 - Dashboards, scheduled analytics reports, analyst and administration interfaces,

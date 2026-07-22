@@ -29,8 +29,8 @@ The sequence remains:
 | `v0.205.0`–`v0.268.0` | agent integrity, native platforms, conditional WEF and per-format executable implementation/integration, Kubernetes, and future Aesynx portability |
 | `v0.270.0`–`v0.342.0` | API, compartmented platform vault, isolated connector host, provider contracts, conditional cloud archive/stream and PCAP implementation series, integrity content, and notification substrate |
 | `v0.345.0`–`v0.405.0` | transactional alert notifications, analyst workflow, identity/auth, live forensics, dashboards/scheduled reports, authorization/audit, and local UIs |
-| `v0.407.0`–`v0.458.0` | Wasm/response, action recovery, node measurement/attestation decisions, server integrity, tenant audit-residue policy, and all-plane single-node tenant lifecycle conformance |
-| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, scheduler/state HA, raw quorum, tenant/audit propagation, distributed query/routing with proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
+| `v0.407.0`–`v0.458.0` | Wasm/response, action recovery, node measurement/attestation decisions, server integrity, tenant audit/identifier/pseudonym policy, and all-plane single-node tenant lifecycle conformance |
+| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, scheduler/state HA, canonical quorum acknowledgements, tenant/audit propagation, distributed query coverage/routing/proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
 | `v0.485.0`–`v0.520.0` | optional proposal-only AI plus separate privacy-policy, field/purpose, residency, retention/deletion, and compliance-workflow stops |
 | `v0.530.0` | approved-cryptographic-mode admission or explicit rejection |
 | `v0.540.0`–`v0.570.0` | separate endpoint, ingest/storage, query/detection/analyst, and cluster/recovery performance campaigns |
@@ -67,7 +67,8 @@ architecture:
 - portable scheduler state, journal persistence, hosted dispatch, effect handoff,
   consumer admission and storage CPU/IO scheduling are separate layers; storage
   durability never depends on ordinary scheduler availability, and atomic
-  scheduler/outbox handoff remains unique across recovery and mixed versions;
+  scheduler/outbox handoff uses durable intent, canonical digest, linearizable
+  put-if-absent and validated receipt across recovery and mixed versions;
 - storage and query admission are designed for worst-case work and multi-tenant
   isolation before large-scale deployment;
 - early storage scale claims are local; cluster node, quorum, evacuation and
@@ -92,7 +93,8 @@ architecture:
 - static control dissemination precedes consensus, but distributed activation
   and `DurableQuorum` claims wait for consensus and active-write replication;
 - quorum acknowledgement carries separate fact, raw, provenance, index and
-  detection progress claims, preserving atomic fact/raw publication;
+  detection progress claims plus request digest and placement/quorum epoch,
+  preserving atomic fact/raw publication;
 - family connector milestones do not claim vendors; each named provider needs
   its own patch/intermediate interoperability release;
 - tenant lifecycle and suspension/destruction propagate across every local and
@@ -100,16 +102,23 @@ architecture:
 - retained/pseudonymized independent audit evidence, vault remnants,
   notifications and action receipts have separate keys/retention and cannot
   reactivate destroyed tenant authority;
+- opaque internal tenant IDs are permanently non-reusable without retaining
+  external names; external identifiers, pseudonym rotation/linkage and any
+  re-identification authority follow explicit closed policy;
 - signed-build, startup, privileged OS and hardware-attested node evidence are
   distinct assurance levels; optional levels close before 1.0 and self-report
   cannot become remote attestation;
 - epoch-bound cluster admission, anti-rollback and runtime drain/quarantine
   extend software integrity beyond endpoint agents;
-- native routing binds backend acknowledgements/epochs/identity end to end,
-  while terminating standard-protocol proxies are explicit narrowly scoped TCB;
+- canonical query coverage manifests reconcile expected shards/partitions/
+  segments and fragments before `Complete` is emitted;
+- native routing binds acknowledgement/coverage manifests end to end, while
+  terminating standard-protocol proxies are explicit narrowly scoped TCB;
 - cluster safety is authenticated crash-fault tolerance. A compromised voting
   quorum is outside the safety claim and is handled through explicit containment
-  and recovery controls, not mislabeled Byzantine tolerance.
+  and recovery controls, not mislabeled Byzantine tolerance; signatures and
+  manifests authenticate a backend claim but do not prove a compromised backend
+  truthful.
 
 ## Pre-1.0 Decision Closure
 
@@ -126,8 +135,10 @@ privileged OS runtime measurement, hardware remote attestation, regulated
 cryptographic mode and SDK publication close through their owning milestones in
 [RELEASE_PLAN.md](RELEASE_PLAN.md). Node assurance is decided at `v0.456.0`,
 conditionally implemented through `v0.456.4`, and closed at `v0.456.5`.
-`v0.730.0` rejects every
-remaining conditional/TBD decision or missing closure.
+Post-destruction pseudonym re-identification is permitted or forbidden at
+`v0.457.2` and closed at `v0.457.5`; `v0.462.0` closes Byzantine/compromised-
+backend truth guarantees as a 1.0 non-goal. `v0.730.0` rejects every remaining
+conditional/TBD decision or missing closure.
 
 ## Non-Negotiable Boundaries
 

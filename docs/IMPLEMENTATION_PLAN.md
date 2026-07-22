@@ -17,7 +17,8 @@ Build Vakaheim into a self-contained security evidence platform that can:
 - store and query facts without a mandatory external database;
 - run explainable deterministic and behavioral detection;
 - manage findings, incidents, cases, reports, and chain of custody;
-- execute capability-limited, approved, reversible response actions;
+- execute capability-limited, approved response actions whose effects are
+  classified as reversible, compensatable, or irreversible;
 - operate as a single node, cluster, sovereign federation, air-gapped system,
   endpoint collector, or embedded portable core;
 - expose a deliberately scoped SDK before production 1.0.
@@ -25,7 +26,70 @@ Build Vakaheim into a self-contained security evidence platform that can:
 Version 1.0.0 is the first serious production release. It may not defer a
 major product plane.
 
-## 2. Engineering Sequence
+## 2. Audit Integration Decisions
+
+The July 2026 completeness audit is incorporated as a strengthening pass, not
+as a roadmap replacement. The existing release numbering through `v0.500.0`
+remains authoritative. New patch and intermediate milestones close specific
+gaps before dependent product layers may proceed.
+
+### Evidence semantics
+
+Evidence integrity, authenticity, availability, reconstruction capability, and
+evidentiary truth are separate claims. A digest can prove that supplied bytes
+match a prior digest; it cannot prove that bytes still exist, that a source was
+truthful, or that an interpretation was complete. `v0.6.1` owns a canonical
+mapping-outcome and reconstruction-availability contract. `v0.11.0` owns fact
+conflict and extension semantics.
+
+### Dependency constraint
+
+The audit recommended relaxing the zero-third-party rule at host boundaries.
+That recommendation conflicts with Vakaheim's owner constraint and is not
+adopted. Product, build, and development manifests remain workspace-only.
+Security-critical functionality must use a reviewed first-party implementation,
+a narrow operating-system service/ABI boundary, or remain unavailable and fail
+closed. `v0.10.1` must demonstrate the `core`/`alloc`/`std`, dependency
+direction, host adapter, allocator-failure, and future unsafe allowlist model
+before host crates appear. Later protocol, cryptography, Unicode, compression,
+Wasm, and OS milestones each include an explicit no-third-party feasibility
+gate; inability to meet it splits or blocks the milestone rather than silently
+admitting a crate.
+
+### Release assessment authenticity
+
+Plain text is insufficient evidence of tester identity. `v0.1.0` now requires
+the exact-commit assessment to carry a verifiable trusted-tester signature or
+attestation in addition to commit ancestry and report fields. Trust-root,
+revocation, offline verification, and key-rotation procedures are part of that
+gate.
+
+### Consensus claim
+
+Vakaheim will not imply Byzantine tolerance while implementing a crash-fault
+tolerant protocol. `v0.462.0` fixes the adversary and fault model before
+`v0.463.0` models the protocol and `v0.465.0` implements it. The baseline is
+authenticated CFT: a quorum of compromised voting members is outside the
+safety model. Compromise detection, key revocation, member quarantine, audit,
+restore, and reconfiguration are containment controls, not BFT claims.
+
+### Storage risk and early scale evidence
+
+The embedded database is the largest technical risk. `v0.41.0` defines its
+capacity and stable-media contract before format implementation. Intermediate
+milestones add hot staging, shard ownership, generation snapshots, workload
+isolation, cache quotas, rollups, migration, scrubbing, and disaster reindexing.
+`v0.58.0` is an early multi-terabyte/day scale and long-duration fault gate;
+late `v0.492.0` performance work remains the final system-wide confirmation.
+
+### Capability honesty
+
+Cross-compilation proves portability, not operational platform support. Every
+sensor, connector, protocol, storage, query, detection, UI, and response claim
+requires real or representative interoperability, impairment, upgrade,
+rollback, resource, and security evidence at its named milestone.
+
+## 3. Engineering Sequence
 
 ### Stage A: constitution and portable foundations
 
@@ -37,71 +101,101 @@ free and `no_std`, with `alloc` admitted only where a milestone requires it.
 
 ### Stage B: facts and interoperability
 
-Build the entity, relationship, uncertainty, schema, source-capsule, and
-compatibility-mapping model. OCSF and OpenTelemetry are boundaries, not the
-internal source of truth. Every lossy mapping reports its loss.
+Build the canonical fact, entity, relationship, identity-resolution, asset,
+exposure, uncertainty, schema, source-capsule, and compatibility-mapping model.
+OCSF and OpenTelemetry are boundaries, not the internal source of truth. Every
+transformation emits a bounded canonical mapping outcome with exact loss,
+policy redaction, reconstruction availability, parser/mapping identity, source
+ranges, parent/output digests, and replay requirements.
 
 ### Stage C: ingestion and transport
 
-Add bounded local ingestion, file tailing, syslog, JSON, authenticated OTLP and
-OCSF endpoints, encrypted spooling, batch acknowledgement, enrollment, secure
-transport, and relays. Overload produces explicit telemetry-gap evidence.
+Add bounded local ingestion, file tailing, explicitly profiled syslog, RFC 8259
+JSON, authenticated OTLP and OCSF endpoints, a native durable transport,
+encrypted spooling, batch acknowledgement, enrollment, secure transport, and
+relays. Conservation, acknowledgement truth, source continuity, bounded
+overload, and a reserved durable telemetry-gap lane are executable invariants.
+UDP and sequence-free sources make explicitly limited continuity claims.
 
 ### Stage D: storage
 
-Implement an immutable security segment format, crash-safe WAL, deterministic
-column pages, security indexes, encryption/integrity, retention, compaction,
-repair, backup, and cold export. No external storage service is required.
+Implement a capacity model; per-shard hot staging and WAL; exact group-commit
+and fsync semantics; immutable generation manifests and snapshot pins;
+deterministic pages; primary, security, text, IP and graph indexes; tenant-owned
+caches and materialized views; workload scheduling; encryption/integrity;
+retention-aware partitioning and compaction; online migration, scrubbing,
+repair, disaster reindex, backup, and cold export. No external storage service
+is required. Scale gates begin in the storage phase, not only near 1.0.
 
 ### Stage E: VQL query and reasoning
 
 The working query-language name is VQL (Vakaheim Query Language). Build a
-bounded lexer/parser, typed AST, normalized IR, authorization/residency
-rewrites, logical and physical planning, cost controls, single-node execution,
-temporal and graph operations, live subscriptions, historical perspective,
-and completeness explanations.
+bounded lexer/parser, typed AST, normalized IR, authenticated plan capability,
+authorization/residency rewrites, non-reorderable security barriers, logical
+and physical planning, worst-case admission controls, isolated CPU/I/O pools,
+encrypted tenant-scoped spill, single-node execution, bounded joins, temporal
+and graph operations, leased live subscriptions, historical perspective, and
+authorization-safe completeness explanations.
 
 ### Stage F: detection
 
-Build signed rule packages, bounded deterministic IR, stateless predicates,
-temporal automata, durable state, immutable findings, graph and behavioral
-detection, content import, simulation, shadow deployment, canary rollout, and
-automatic fail-closed rollback thresholds.
+Build signed rule packages, a canonical execution identity, deterministic
+fixed-point semantics, bounded IR, stateless and aggregate predicates,
+temporal automata, durable quota-controlled state, detection-impairment facts,
+immutable findings, placement equivalence, graph and behavioral detection,
+threat-intelligence lifecycle, ATT&CK coverage graph, decomposable risk
+projection, content import, simulation, shadow deployment, canary rollout, and
+automatic quarantine/rollback thresholds.
 
 ### Stage G: native sensors
 
-Introduce Linux, Windows, macOS, BSD, Kubernetes, Android, and iOS collection
-only after the common fact/spool/transport contracts stabilize. Privileged
-helpers are small and separate. Every sensor reports missing privileges,
-detachments, sequence gaps, clock problems, backpressure, and health loss.
+Introduce a common unprivileged agent and authenticated bounded IPC before
+Linux, Windows, macOS, BSD, Kubernetes, Android, and iOS collection. Collection
+and response helpers are small, separate, and never expose a generic command
+surface. Parsing, mapping, policy, spool, and networking remain unprivileged.
+Every sensor reports bookmarks/cursors, boot/session identity, missing
+privileges, provider changes, detachments, kernel/API drop counters, sequence
+gaps, clock problems, backpressure, unsupported telemetry, and health loss.
 
 ### Stage H: SDK and connectors
 
-Build a private in-workspace SDK first, then connector contracts, cloud,
-identity, SaaS, flow, DNS, DHCP, VPN, firewall, proxy, email, and IDS inputs.
-Adaptive collection remains bounded, signed, visible, and self-reverting.
+Build a private in-workspace SDK first, then an isolated connector host and
+contracts for cloud, identity, SaaS, asset/CMDB/vulnerability, TAXII threat
+intelligence, flow, DNS, DHCP, VPN, firewall, proxy, email, and IDS inputs.
+Connectors retain feed freshness, markings, expiry/revocation, confidence,
+source trust, checkpoints, and partial-permission completeness. Adaptive
+collection remains bounded, signed, visible, and self-reverting.
 
 The SDK stays unpublished until a dedicated admission milestone. If publication
 is later approved, only the SDK uses `MIT OR Apache-2.0`.
 
 ### Stage I: analyst product
 
-Build routing, incident graphs, case management, evidence views, reports,
-source assurance, rule studio, analyst UI, and administration UI. Mutable case
-state never rewrites immutable evidence.
+Build routing, decomposable risk, incident graphs, confidential case
+compartments, evidence-access revocation, legal/discovery/export holds,
+automated volatile-data acquisition, evidence-vault sealing, reports,
+authentication and session federation, RBAC+ABAC, an independently keyed and
+replicated audit stream, source assurance, rule studio, analyst UI, and
+administration UI. Mutable case state never rewrites immutable evidence.
 
 ### Stage J: extension and response
 
-Build WIT capability worlds, validation, signatures, an OS-isolated Wasm host,
-typed playbook state, secret handles, network allowlists, approvals,
-verification, compensation, dry-run, and canary response.
+Build WIT capability worlds, complete component validation, signed transparent
+component registry and revocation, an OS-isolated Wasm host, cryptographically
+bound action envelopes, typed playbook state, dry-run/simulation, secret and
+egress brokers, exact-digest step-up/two-person approvals, forensic pre-capture,
+verification, reversible/compensatable/irreversible classification,
+compensation, recovery, kill switches, and bounded canary response.
 
 ### Stage K: cluster and federation
 
-Build immutable signed configuration epochs, fleet management, a formally
-modeled metadata consensus path, data replication, quorum acknowledgement,
-repair, rebalancing, tenant isolation, federated query, sovereignty, backup,
-restore, air-gap bundles, rolling upgrades, and disaster recovery.
+Build immutable signed configuration epochs, fleet management, an explicit CFT
+adversary model, formally modeled metadata consensus, data replication, quorum
+acknowledgement, repair, rebalancing, disk evacuation, tenant workload/key/
+cache/index isolation, federated query, sovereignty, capacity forecasting,
+admission and maintenance modes, certificate/key-loss drills, diagnostic
+bundles, backup, restore, air-gap bundles, rolling upgrades, and disaster
+recovery.
 
 ### Stage L: product completion
 
@@ -110,7 +204,7 @@ published reference performance evidence, full verification and chaos
 campaigns, independent assessment and remediation, production-like beta, API
 and format freezes, an exact release candidate, and unchanged 1.0 promotion.
 
-## 3. Planned Workspace Families
+## 4. Planned Workspace Families
 
 Crates are created just in time. The names below are architectural ownership,
 not permission to create empty crates prematurely.
@@ -131,7 +225,7 @@ not permission to create empty crates prematurely.
 | Analyst | `-finding`, `-incident`, `-case`, `-report`, `-api`, `-sdk`, `-ui-model` | mixed |
 | Verification | `-testkit`, fixtures, attack scenarios, fuzz, Kani, Loom, conformance, bench | never product dependencies |
 
-## 4. Product Roles
+## 5. Product Roles
 
 A deployment may combine or separate these roles:
 
@@ -147,7 +241,7 @@ A deployment may combine or separate these roles:
 - control node: trust, configuration, policy, schemas, rules, fleet, cluster;
 - API/UI node: authorized analyst, administration, and SDK boundaries.
 
-## 5. Test Strategy
+## 6. Test Strategy
 
 Testing is designed with each API, not added after it:
 
@@ -155,6 +249,9 @@ Testing is designed with each API, not added after it:
 - compile checks for `no_std` and supported target families;
 - table, property, round-trip, metamorphic, and differential tests;
 - negative and adversarial corpora for every untrusted parser;
+- checked-in normative protocol fixtures with source version, digest, license,
+  positive interoperability, negative conformance, downgrade, malformed, and
+  old/new-version cases;
 - fuzzing for codecs, planners, protocols, formats, and recovery paths;
 - Miri for low-level invariants and any admitted unsafe boundary;
 - Kani for bounded parsers, state machines, authorization, and arithmetic;
@@ -165,11 +262,13 @@ Testing is designed with each API, not added after it:
 - upgrade, rollback, backup, restore, repair, and migration tests;
 - performance regression with hardware, dataset, configuration, and commit;
 - independent pentest for every exact release implementation.
+- trusted-tester cryptographic attestation and offline verification for every
+  permanent passing assessment.
 
 Tests must avoid production dependencies. Test-only utilities are internal
 workspace crates or repository scripts.
 
-## 6. Security Workstream
+## 7. Security Workstream
 
 Every implementation milestone updates:
 
@@ -186,7 +285,7 @@ Every implementation milestone updates:
 Security fixes may interrupt the roadmap. A broad milestone is split before it
 is allowed to weaken review quality.
 
-## 7. Platform Strategy
+## 8. Platform Strategy
 
 Representative core compile targets are checked early. Native collectors are
 then admitted separately:
@@ -203,7 +302,7 @@ then admitted separately:
 Support claims require tested functionality on real or representative systems;
 cross-compilation alone is only a portability check.
 
-## 8. Operational Acceptance
+## 9. Operational Acceptance
 
 The 1.0 acceptance contract includes zero silent loss, bounded overload,
 published reference throughput/latency/agent overhead, committed-record
@@ -213,7 +312,12 @@ and honest partial-result/completeness reporting.
 
 Targets are gates supported by reproducible evidence, never marketing claims.
 
-## 9. Definition Of Production 1.0
+For sources that cannot prove continuity, “zero silent loss” means every loss
+observable to Vakaheim becomes durable impairment evidence; it is not a false
+claim that UDP, a sequence-free source, or a compromised source cannot lose or
+misstate events.
+
+## 10. Definition Of Production 1.0
 
 Version 1.0.0 requires all product planes, all supported platform collectors,
 storage/query/detection/case/response/cluster/SDK/UI operation, format and API

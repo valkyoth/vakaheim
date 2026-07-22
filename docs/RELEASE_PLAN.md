@@ -70,10 +70,10 @@ replace or renumber it.
 | Fact conflicts, schema ownership, extension governance, and mapping loss | `v0.11.0`, `v0.15.0`, `v0.16.0`, `v0.20.1` |
 | Deterministic identity resolution, asset inventory, ownership, exposure, and retirement | `v0.13.0`, `v0.298.0` |
 | Local identities/control/authorization plus complete tenant lifecycle before consumers | `v0.17.0`, `v0.17.1`, `v0.19.0`; audit/remnant/identifier policy at `v0.457.1`–`v0.457.5`; all-plane single-node gate at `v0.458.0`; independent audit at `v0.467.3`; distributed closure at `v0.474.1` |
-| Conservation, acknowledgement truth/manifests/activation, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`–`v0.31.3`, component owners through `v0.140.1`, `v0.39.0`, `v0.40.0`, `v0.470.1`, `v0.471.0` |
+| Conservation, acknowledgement truth/manifests/runtime permits, exact asynchronous coverage, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`–`v0.31.4`, `v0.39.0`, `v0.40.0`, `v0.44.0`, `v0.48.1`, `v0.50.0`, `v0.54.0`, `v0.140.1`–`v0.140.2`, `v0.470.1`, `v0.471.0` |
 | Exact external protocol and identity-codec profiles | `v0.20.1`, `v0.26.0`–`v0.30.2`, `v0.306.0`, `v0.392.0`–`v0.395.0`, `v0.407.0`–`v0.410.0` |
 | Database capacity, raw evidence, integrity/encryption/keys, local backup/restore, migration, and scoped early scale | `v0.41.0` through `v0.60.0`, especially `v0.53.0`–`v0.58.0` |
-| Layered durable local and HA jobs/timers with atomic effect handoff, ledger-migration authority, upgrade compatibility, consumer admission, declared time, retry, fencing and idempotency | `v0.44.1`–`v0.44.8`, consumer matrix, `v0.459.0`, `v0.467.4` |
+| Layered durable local and HA jobs/timers with atomic effect handoff, ledger migration, post-retention replay fencing, upgrade compatibility, consumer admission, declared time, retry, fencing and idempotency | `v0.44.1`–`v0.44.9`, consumer matrix, `v0.459.0`, `v0.467.4` |
 | Query authority/planning/operators, local coverage/committed sets, cold rehydration, side channels, federation, distributed execution and coverage reconciliation | `v0.72.0`–`v0.100.0`, especially `v0.79.1`–`v0.79.2`; distributed extension at `v0.475.1`–`v0.476.1` |
 | Detection identity/state/placement, split behavior families, entity risk, intelligence lifecycle/matching, ATT&CK | `v0.115.0`–`v0.200.0`, especially `v0.170.0`–`v0.179.0` |
 | Common agent/helper boundary, signed software integrity/self-protection and platform continuity | `v0.205.0` through `v0.267.5`, especially `v0.206.0` |
@@ -112,8 +112,9 @@ authority.
 `v0.44.5` requires every persistent timer/job consumer to declare job identity,
 checkpoint, cancellation, misfire/catch-up/skip, idempotency, recovery and
 uncertain-time behavior. Externally visible effects additionally use `v0.44.4`
-and its `v0.44.7` compatibility gate; any migrating ledger also passes
-`v0.44.8`. The generic scheduler never owns blind effect retries.
+and its `v0.44.7` compatibility gate; every ledger passes `v0.44.9`, and any
+migrating ledger also passes `v0.44.8`. The generic scheduler never owns blind
+effect retries.
 
 | Consumer | Integration owner |
 | --- | --- |
@@ -133,28 +134,32 @@ its conformance profile.
 ## Acknowledgement Claim Activation Matrix
 
 `v0.31.1` makes every claim tag parseable; it does not authorize every tag to be
-emitted. `v0.31.3` implements a fail-closed registry whose entries name the exact
-prerequisite versions and component state below. A claim remains disabled when
-an entry, prerequisite, requested component or mixed-version capability is
-absent. Later releases may strengthen an entry but cannot activate it by schema
-support alone.
+emitted. Version numbers in this table assign planning, implementation and test
+ownership only: they are never serialized as runtime authority, compared by an
+encoder or accepted as security evidence. `v0.31.3` defines the fail-closed
+registry contract, and `v0.31.4` makes the encoder require an opaque scoped
+`ClaimPermit<Component>` from the owning durable-state verifier. A claim remains
+disabled when its permit, prerequisite, requested component, coverage or mixed-
+version capability is absent.
 
 | Claim | Earliest activation owner and required state |
 | --- | --- |
-| `Received` | `v0.31.3`, only after the owning intake has authenticated the source, admitted bounded bytes and entered them into the `v0.22.0` conservation ledger; it implies no validation or durability |
-| `Validated` | `v0.31.3` registry entry for the exact protocol/schema/mapping/policy versions, only after their parser and terminal policy outcome pass; one format cannot activate another |
-| `DurableLocal.fact` | `v0.44.0` WAL commit and documented stable-media state for the fact component |
-| `DurableLocal.mapping_provenance` | `v0.44.0` atomic WAL commit for the exact mapping and provenance records; a fact-only commit cannot activate it |
-| `DurableLocal.raw` | `v0.20.9` encrypted raw persistence plus `v0.54.0` atomic fact/reference/object publication; a fact-only commit cannot activate it |
-| `Indexed.primary` | `v0.48.0` committed primary-index generation for the requested index identity |
-| `Indexed.security` | `v0.50.0` committed security-index generation for the requested index identity; neither index class implies the other |
-| `DetectionProcessed` | `v0.140.1` durable detection progress checkpoint bound to input range and the complete `v0.115.0` rule/configuration execution identity |
-| `DurableQuorum` | `v0.470.1` cluster envelope plus successful `v0.471.0` active-write quorum commit for every claimed vector component |
+| `Received` | `v0.31.4` intake-verifier permit scoped to authenticated tenant/source, bounded covered bytes and their `v0.22.0` conservation entry; it implies no validation or durability |
+| `Validated` | `v0.31.4` parser/policy-verifier permit for the exact protocol/schema/mapping/policy epochs and covered input; one format cannot activate another |
+| `DurableLocal.fact` | `v0.44.0` WAL verifier permit for the exact fact input/generation and documented stable-media state |
+| `DurableLocal.mapping_provenance` | `v0.44.0` WAL verifier permit for the exact mapping/provenance records; a fact permit cannot activate it |
+| `DurableLocal.raw` | `v0.20.9` encrypted raw persistence plus a `v0.54.0` raw-store verifier permit for exact atomic fact/reference/object publication |
+| `Indexed.primary` | `v0.48.0` primary index plus `v0.48.1` coverage-verifier permit for the exact fact generation/range, index definition/version and terminal index generation |
+| `Indexed.security` | `v0.50.0` security index using the `v0.48.1` coverage-verifier permit; neither index class nor one index definition implies another |
+| `DetectionProcessed` | `v0.140.2` progress-verifier permit over the authoritative `v0.140.1` active-rule-set/cohort commitment, exact input range and complete `v0.115.0` execution identity |
+| `DurableQuorum` | `v0.470.1` cluster envelope plus a `v0.471.0` quorum-verifier permit for every exact claimed vector component and covered commit range |
 
-Every activation owner inherits substitution, component-independence,
+Every runtime permit binds tenant/source scope, protocol/schema/mapping/policy
+epochs, covered input or generation, verifier identity and activation
+generation. Every owner inherits substitution, component-independence,
 downgrade, unknown-tag and current/previous mixed-version tests. Negotiation
-must reject a disabled claim; it may never approximate it with a weaker or
-different component.
+must reject a missing/invalid permit; it may never approximate it with a weaker
+or different component.
 
 ## Pre-1.0 Option Decision Register
 
@@ -163,10 +168,10 @@ implementation, tests, documentation and pentest before `v0.730.0`; “non-goal�
 requires an explicit boundary, rejection behavior and documentation. No decision
 may be deferred to 1.0.
 
-The acknowledgement activation registry, pre-execution coverage contract and
-ledger-migration uniqueness authority are mandatory correctness prerequisites,
-not optional capabilities; they cannot be disabled or converted into 1.0
-non-goals through this register.
+Runtime claim permits, exact asynchronous/pre-execution coverage contracts,
+ledger-migration uniqueness and post-retention handoff replay fencing are
+mandatory correctness prerequisites, not optional capabilities; they cannot be
+disabled or converted into 1.0 non-goals through this register.
 
 | Option | Binding decision/closure |
 | --- | --- |
@@ -1522,14 +1527,16 @@ Deliverables:
   unsupported-field handling and domain-separated signature context;
 - capability negotiation that rejects unsupported classes and keeps
   `DurableQuorum` unavailable pending `v0.470.1` and `v0.471.0`; every claim tag
-  is parseable here, while emission authority belongs only to `v0.31.3`.
+  is parseable here, while emission authority requires the `v0.31.3` registry
+  and a matching `v0.31.4` runtime permit.
 
 Verification:
 
 - canonical round-trip/golden vectors, malformed/bounds/fuzz and mixed-version;
 - payload/request/source/session/sequence/receipt substitution and digest conflict;
-- crash before/after durable commit and envelope emission, duplicate/replay and
-  unsupported-class downgrade tests;
+- abstract-verifier allow/deny around envelope emission, duplicate/replay and
+  unsupported-class downgrade tests; real stable-state crash proof is deferred
+  to each WAL/raw/index/detection/quorum activation owner;
 - claim audit proving a signature authenticates the claimant but cannot prove a
   compromised storage backend truthful.
 
@@ -1573,18 +1580,20 @@ evidentiary validity, and historical verification grants no live authority.
 Status: planned
 
 Goal: make acknowledgement schema support independent from authority to emit a
-claim whose implementation and component prerequisites have actually passed.
+claim whose implementation and component prerequisites have actually passed,
+without treating a roadmap version label as runtime authority.
 
 Deliverables:
 
-- dependency-free fail-closed registry implementing the repository
-  Acknowledgement Claim Activation Matrix by claim, component, protocol/schema/
-  mapping/policy version and required implementation milestone;
-- immutable activation evidence binding exact build/configuration epochs and the
-  prerequisite state verifier; unknown, absent, stale or partially upgraded
-  entries remain disabled;
-- initial `Received` and per-profile `Validated` activation paths; later owners
-  activate fact/raw/index/detection/quorum entries without changing the envelope;
+- dependency-free fail-closed registry contract implementing the repository
+  Acknowledgement Claim Activation Matrix by claim, component and protocol/
+  schema/mapping/policy epoch, with roadmap versions retained only in docs/tests;
+- verifier-class and permit-requirement registry binding exact build/
+  configuration epochs; unknown, absent, stale or partially upgraded entries
+  remain disabled;
+- initial `Received` and per-profile `Validated` verifier requirements; later
+  owners register fact/raw/index/detection/quorum verifier adapters without
+  changing the envelope;
 - negotiation exposes parseable-but-disabled claims as unsupported and never
   aliases a requested claim or component to a weaker one.
 
@@ -1596,12 +1605,51 @@ Verification:
   quorum or detection;
 - missing/stale/forged activation evidence, version downgrade, unknown tags and
   current/previous mixed-version peers;
+- prove roadmap/milestone version strings are absent from runtime permits,
+  encodings and authorization decisions;
 - failover/restart/config rollback preserves disabled state unless the complete
   prerequisite evidence is still valid.
 
-Exit criteria: an acknowledgement tag is impossible to emit until its exact
-claim/component activation entry and all named prerequisites verify. `v0.31.3
-implementation stop reached. Run pentest for this exact commit.`
+Exit criteria: registry/schema presence conveys no runtime authority, and every
+component has one fail-closed verifier requirement for `v0.31.4` to enforce.
+`v0.31.3 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.31.4 — Runtime Claim Permit And Encoder Authority
+
+Status: planned
+
+Goal: make an active acknowledgement component unencodable without an opaque
+permit issued by the durable-state verifier that actually proved it.
+
+Deliverables:
+
+- dependency-free sealed `ClaimPermit<Component>` contract with private
+  construction and authenticated cross-process representation where required;
+- mandatory tenant/source scope, protocol/schema/mapping/policy epochs, covered
+  input range or generation, verifier identity, activation generation, component
+  identity and terminal coverage status;
+- encoder API that requires a matching permit for every active component and
+  rejects booleans, caller assertions, roadmap versions and unrelated permits;
+- separate complete versus explicit non-complete progress permits; `Partial`,
+  `Unavailable`, `Stale`, `Rebuilding` or policy-limited evidence cannot be
+  encoded as the active/complete claim;
+- narrow verifier-adapter interface used later by WAL, raw, index, detection and
+  quorum owners without moving their durability logic into `ack-manifest`.
+
+Verification:
+
+- compile-fail/API tests prove callers cannot construct, widen, retarget or
+  substitute permits;
+- codec/golden/fuzz tests use abstract verifier fixtures and never claim real
+  stable-media, index, detection or quorum proof at this milestone;
+- cross-tenant/source/component/range/epoch/verifier substitution, replay,
+  activation-generation rollback and mixed-version downgrade;
+- prove the encoder cannot consult milestone labels and cannot emit an active
+  component from schema/registry presence alone.
+
+Exit criteria: every active claim component requires a matching scoped runtime
+permit, while actual state proof remains solely with its later activation owner.
+`v0.31.4 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.32.0 — Agent Spool
 
@@ -1635,7 +1683,7 @@ Deliverables:
 - batch IDs, source sequences, resumable transfer and persistent checkpoints;
 - idempotent writes, deduplication windows and acknowledgement levels carried
   only in the `v0.31.1` envelope under the `v0.31.2` evidence lifecycle and
-  enabled by the `v0.31.3` activation registry;
+  enabled by the `v0.31.3` registry plus a matching `v0.31.4` runtime permit;
 - Received/Validated/DurableLocal/DurableQuorum/Indexed/DetectionProcessed tags
   remain parseable but impossible to emit until their matrix owner passes;
 - acknowledgement carries a durability vector for fact, raw-capsule or
@@ -1837,14 +1885,16 @@ Deliverables:
   media state tied to every acknowledgement level;
 - replay, torn-write detection, idempotent recovery, truncation/repair policy;
 - fsync/durability adapter contract for supported hosted systems;
-- activate `v0.31.3` `DurableLocal.fact` and
-  `DurableLocal.mapping_provenance` independently only when each exact component
-  reaches its documented stable-media state; fact cannot imply mapping/
+- WAL durable-state verifier issues separate scoped `v0.31.4` permits for
+  `DurableLocal.fact` and `DurableLocal.mapping_provenance` only when each exact
+  covered component reaches documented stable media; fact cannot imply mapping/
   provenance, and raw/index/detection entries remain disabled.
 
 Verification:
 
 - power loss at every write and sync point, disk-full and partial-sector tests;
+- crash before/after stable-state verification and permit issuance; no permit may
+  precede the covered component's stable-media transition;
 - duplicate/reordered/corrupt/stale WAL and replay determinism;
 - recovery model/property tests and real-filesystem smoke.
 
@@ -1939,7 +1989,8 @@ Deliverables:
   registry-issued/purpose-scoped/non-reusable, and the admitted scheduler/
   consumer contract rejects fake tenant or arbitrary unscoped caller IDs;
 - durable `HandoffIntent` binding the complete handoff key, canonical request
-  digest and schema version in the scheduler journal;
+  digest, schema version and scheduler/consumer anti-replay epoch in the
+  scheduler journal; the epoch is fenced state, not part of uniqueness identity;
 - outbox `put_if_absent(handoff_key, request_digest)` with linearizable uniqueness;
   the same complete key plus another digest emits an integrity incident and stops;
 - durable outbox receipt binding the complete handoff key, record ID, request
@@ -1957,7 +2008,8 @@ Deliverables:
 - local handoff explicitly uses this intent/receipt recovery protocol across
   separate stores rather than claiming a shared transaction domain;
 - no production effect adapter activates until its owning durable outbox/action
-  ledger milestone passes.
+  ledger milestone plus `v0.44.8` migration and `v0.44.9` post-retention replay
+  gates pass.
 
 Verification:
 
@@ -2043,7 +2095,7 @@ Deliverables:
 - upgrade/migration order, dual-read/write limits and irreversible boundaries;
 - old/new worker fencing and stable canonical `HandoffKey` identity across schema
   changes, including authority-domain and routing-epoch fields required by
-  `v0.44.8`.
+  `v0.44.8` plus anti-replay epoch/tombstone fields required by `v0.44.9`.
 
 Verification:
 
@@ -2071,7 +2123,7 @@ Deliverables:
 - linearizable authority record permitting exactly one generation to accept new
   handoff keys, with old-generation write fencing confirmed before cutover;
 - transferred deduplication/key index or an authoritative lookup spanning old
-  and new generations for the complete handoff/retention lifetime;
+  and new generations through the `v0.44.9` replay horizon;
 - recovery state machine for overlap among intent creation, authority cutover,
   dedup-index transfer/lookup and outbox insertion;
 - split/merge rules that preserve the logical ledger identity for an existing
@@ -2095,6 +2147,51 @@ Verification:
 Exit criteria: ledger topology can change without making an existing effect key
 new again or authorizing concurrent generations. `v0.44.8 implementation stop
 reached. Run pentest for this exact commit.`
+
+### v0.44.9 — Spent Handoff Tombstone And Replay-Horizon Fence
+
+Status: planned
+
+Goal: preserve handoff uniqueness after payload, outbox record and ordinary
+deduplication retention expire, including restore of older state.
+
+Deliverables:
+
+- compact terminal `SpentHandoffKey` containing domain-separated keyed
+  commitments to the complete logical `HandoffKey` and canonical request digest,
+  terminal disposition and anti-replay epoch, but no payload or external identity;
+- tombstone retention covering the maximum scheduler-journal, outbox-replica,
+  delayed-delivery, backup, restore and disaster-recovery replay horizon;
+- irreversible scheduler/consumer minimum-accepted anti-replay epoch fence for
+  intents older than retained tombstones, persisted outside rollback-prone
+  workload snapshots;
+- coordinated GC proof across scheduler journals, outbox generations/replicas,
+  backup catalogs and disaster-recovery copies before payload/dedup/tombstone
+  removal or replay-fence advancement;
+- restore admission that can recover historical data while refusing activation
+  of an intent below the committed minimum epoch;
+- separate anti-replay commitment-key lifecycle: tenant crypto-shred removes
+  identifying/payload keys while non-identifying replay commitments remain only
+  as long as required, with rotation and destruction governed/audited.
+
+Verification:
+
+- restore from every snapshot boundary before/after outbox, dedup-index, payload
+  and tombstone cleanup;
+- delayed message or old scheduler journal returns after ordinary record expiry;
+- same key/same digest remains spent and same key/different digest raises an
+  integrity incident after the original payload is gone;
+- GC omission/race across journal, replica, backup and DR copy, plus rollback of
+  the minimum accepted epoch;
+- tombstone correlation/dictionary/privacy attacks, tenant destruction,
+  anti-replay key rotation/loss and crypto-shred conformance;
+- model proof that either a live key record, spent tombstone or irreversible
+  epoch fence rejects every replayable historical intent.
+
+Exit criteria: no retained or restorable historical artifact can make a spent
+handoff key usable again, while replay protection retains no unnecessary tenant
+identity or payload. `v0.44.9 implementation stop reached. Run pentest for this
+exact commit.`
 
 ### v0.45.0 — Storage Workload Scheduler
 
@@ -2179,17 +2276,54 @@ Deliverables:
 - time, tenant, partition, class, source, numeric range, dictionary, bitmap;
 - versioned index metadata, selectivity statistics and rebuild paths;
 - safe fallback to segment scan on absence or invalidity;
-- activate `Indexed.primary` only per committed requested index generation in
-  the `v0.31.3` registry, never for a pending/stale/rebuilding index.
+- durable generation/commit state exposed to the `v0.48.1` coverage verifier;
+  this implementation alone cannot emit `Indexed.primary`.
 
 Verification:
 
 - result equivalence with full scans and corrupted/missing/stale index tests;
 - boundary/range/cardinality and adversarial selectivity cases;
+- crash before/after index-generation construction and commit publication;
 - build/query resource and performance budgets.
 
 Exit criteria: index use never changes query truth or bypasses policy.
 `v0.48.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.48.1 — Exact Index Coverage And Progress Claim
+
+Status: planned
+
+Goal: prove that an index generation covers the exact acknowledged facts and
+definition rather than merely proving that some index generation committed.
+
+Deliverables:
+
+- canonical coverage identity binding tenant/source, fact generation or bounded
+  input range, index class, definition/digest/version, index generation and
+  source snapshot/catalog generation;
+- terminal `Complete`, `Partial`, `Missing`, `Unavailable`, `Stale` and
+  `Rebuilding` coverage states with deterministic precedence;
+- index coverage verifier that reconciles every expected fact/page/partition and
+  alone issues the matching `v0.31.4` `ClaimPermit<Indexed>`;
+- range-splitting rule for definition/policy/snapshot changes during indexing;
+  one permit cannot cross a changed epoch;
+- primary-index activation adapter here and reusable security-index adapter for
+  `v0.50.0`; one class/definition/range never implies another.
+
+Verification:
+
+- omitted/duplicate/extra fact, page or partition and wrong range/generation;
+- index definition/version/class substitution, stale snapshot, mid-range change,
+  rebuild and partial publication;
+- crash before/after coverage reconciliation, index commit and permit issuance;
+- missing/disabled index produces explicit non-complete progress and cannot issue
+  a complete permit;
+- abstract caller, another index or committed-but-uncovered generation cannot
+  cause the encoder to emit `Indexed`.
+
+Exit criteria: `Indexed` identifies the exact covered fact set and index
+definition, and every incomplete condition remains explicit. `v0.48.1
+implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.50.0 — Security Indexes
 
@@ -2202,13 +2336,16 @@ Deliverables:
 - exact/token/prefix/suffix text, IP prefix, port/protocol, hash/identifier;
 - entity adjacency, relationship type and finding/incident references;
 - sensitive-index policy, encryption/transform hooks and collision semantics;
-- activate `Indexed.security` only per committed requested security-index
-  generation; a primary-index entry cannot satisfy this claim.
+- `v0.48.1` coverage adapter for each exact security-index definition/range;
+  only its complete verifier permit activates `Indexed.security`, and a primary-
+  index permit cannot satisfy this claim.
 
 Verification:
 
 - Unicode/token, IP family/prefix, hash collision, high-degree graph tests;
 - scan equivalence, leakage analysis and authorization filtering;
+- missing/disabled/partial security index, mid-range definition change and crash
+  before/after coverage permit issuance;
 - fuzzed index readers and hostile query-cost cases.
 
 Exit criteria: security indexes are correct, bounded and policy-aware.
@@ -2274,13 +2411,14 @@ Deliverables:
 - atomic fact/reference/object publication, quarantine promotion, retention,
   encryption hooks and access audit;
 - orphan/dangling-reference scan, repair, reprocess and secure expiry;
-- activate `DurableLocal.raw` only when `v0.20.9` encrypted persistence and this
-  atomic publication both verify for every referenced raw component.
+- raw-store verifier issues the scoped `v0.31.4` `DurableLocal.raw` permit only
+  when `v0.20.9` encrypted persistence and this atomic publication both verify
+  for every exact referenced raw component/input range.
 
 Verification:
 
 - crash at every object/fact commit point, duplicate/collision, partial object,
-  missing chunk and disk-full;
+  missing chunk and disk-full, including before/after permit issuance;
 - cross-tenant dedup/reference probes, unauthorized read, hold and expiry races;
 - orphan repair and source-capsule reconstruction at scale.
 
@@ -3060,37 +3198,80 @@ Exit criteria: state loss or eviction is visible and never silently alters a
 finding. `v0.140.0 implementation stop reached. Run pentest for this exact
 commit.`
 
-### v0.140.1 — Detection Progress Acknowledgement Activation
+### v0.140.1 — Authoritative Active Rule-Set And Cohort Commitment
+
+Status: planned
+
+Goal: define the complete rule population applicable to an input range and
+rollout cohort before a worker may claim detection processing.
+
+Deliverables:
+
+- canonical expected-rule-set commitment issued by control/rule-rollout
+  authority, binding tenant/source scope, policy epoch, rollout cohort, input/
+  fact range and rule-package/execution identities;
+- explicit disposition for every applicable rule: required active, disabled by
+  policy, shadow, canary or unavailable, with no worker-selected omission;
+- commitment element count, canonical ordering, duplicate rejection, authority/
+  signer identity and activation generation;
+- baseline static/default-cohort authority adapter; staged shadow/canary/rollout
+  assignment remains unavailable until its `v0.190.0` adapter passes;
+- range-splitting and checkpoint rules for rule, rollout, cohort or policy change
+  during processing; one commitment cannot cross an applicability boundary;
+- lookup/opening verification or a narrowly identified trusted expander using
+  the same expected-set security contract as `v0.79.2`.
+
+Verification:
+
+- omitted/extra/duplicate/substituted rule, wrong tenant/source/cohort/range and
+  forged/stale commitment;
+- disabled, shadow and canary rule handling cannot silently shrink the required
+  active set or become a successful active-rule outcome;
+- mid-range rule enable/disable, rollout promotion/rollback and policy change;
+- authority/worker confusion, compromised/unavailable expander and mixed-version
+  commitment canonicalization.
+
+Exit criteria: the expected active rule population comes from authoritative
+policy/rollout state and cannot be selected by a detection worker. `v0.140.1
+implementation stop reached. Run pentest for this exact commit.`
+
+### v0.140.2 — Detection Progress Acknowledgement Activation
 
 Status: planned
 
 Goal: activate `DetectionProcessed` only from durable, attributable detection
-progress rather than successful dispatch or an in-memory rule run.
+progress over the authoritative expected rule set rather than successful
+dispatch, a worker-selected subset or an in-memory rule run.
 
 Deliverables:
 
 - durable progress checkpoint/cursor binding tenant, source/session/input range,
   fact generation and terminal per-rule outcome set;
+- exact `v0.140.1` expected-rule-set commitment, rollout cohort, policy epoch and
+  one terminal outcome for every required active rule;
 - complete `v0.115.0` rule/schema/mapping/policy/content/engine/configuration
   execution identity plus detection-state generation and worker identity;
-- activation adapter for the `v0.31.3` registry that verifies the checkpoint and
-  explicitly states whether the claim covers one rule set or an admitted set;
-- impairment/unavailable outcome when a rule, state partition or required input
-  is missing; dispatch, queue acceptance and partial rule execution cannot emit
-  `DetectionProcessed`.
+- progress verifier issuing the scoped `v0.31.4`
+  `ClaimPermit<DetectionProcessed>` only after expected/observed reconciliation;
+- explicit `Partial`, `Unavailable`, `PolicyLimited` and `Changed` progress when
+  a required rule/index/input/state partition is missing or an applicability
+  epoch changes; these cannot emit complete `DetectionProcessed`.
 
 Verification:
 
 - crash before/after execution, checkpoint persistence and acknowledgement;
-- omitted/duplicate rule, stale cursor, input-range gap, configuration/rule swap,
-  state rollback, eviction and replay;
+- omitted/duplicate rule, smaller worker-chosen set, stale cursor, input-range
+  gap, configuration/rule/cohort/policy swap, state rollback, eviction and replay;
+- missing index, disabled rule, shadow/canary disposition and mid-range rule-set
+  change remain explicit non-complete progress states;
 - `DurableLocal.fact`, `Indexed` or successful finding emission cannot imply
   detection progress, and one rule-set claim cannot imply another;
 - current/previous mixed-version, downgrade and checkpoint-recovery properties.
 
 Exit criteria: `DetectionProcessed` proves a durable terminal outcome for the
-exact admitted inputs and execution identity, including explicit impairment.
-`v0.140.1 implementation stop reached. Run pentest for this exact commit.`
+exact authoritative active rule set, covered inputs and execution identity;
+every incomplete condition remains explicit. `v0.140.2 implementation stop
+reached. Run pentest for this exact commit.`
 
 ### v0.145.0 — Detection State Admission And Impairment
 
@@ -3509,14 +3690,18 @@ Deliverables:
 
 - unit/adversarial tests, historical simulation and comparison reports;
 - draft/validated/tested/shadow/canary/active/quarantined lifecycle;
-- tenant/region/group/source/percentage/time rollout and rollback thresholds.
+- tenant/region/group/source/percentage/time rollout and rollback thresholds;
 - `v0.44.5` timed rollout profile with policy/rule identity, cancellation,
-  misfire/catch-up/skip and rollback checkpoint behavior.
+  misfire/catch-up/skip and rollback checkpoint behavior;
+- authoritative `v0.140.1` cohort/rule-set commitment adapter for every rollout
+  assignment/change, forcing `v0.140.2` progress ranges to split at boundaries.
 
 Verification:
 
 - old/new deterministic comparisons and canary fault/noise/load scenarios;
 - unauthorized activation, stale signature, rollback and configuration drift;
+- worker-selected cohort, omitted shadow/canary disposition and progress permit
+  spanning a rollout/rollback boundary;
 - operational rehearsal with audit evidence.
 
 Exit criteria: no rule can move from proposal to active without review and
@@ -6634,7 +6819,7 @@ Run pentest for this exact commit.`
 
 Status: planned
 
-Goal: fail over `v0.44.1`–`v0.44.8` scheduler state/dispatch semantics through
+Goal: fail over `v0.44.1`–`v0.44.9` scheduler state/dispatch semantics through
 the replicated operational-state engine without duplicate authority.
 
 Deliverables:
@@ -6650,6 +6835,8 @@ Deliverables:
   with linearizable `put_if_absent`, `v0.44.8` single-writer generation fencing,
   validated routing/commit-epoch receipt and one `v0.467.2` outbox record across
   owner/leader or ledger-generation failover;
+- replicated `v0.44.9` spent-key commitments, coordinated replay-horizon GC and
+  monotonic minimum-accepted anti-replay epoch outside rollback-prone snapshots;
 - same handoff key/different digest integrity incident and the `v0.44.4`
   cancellation precedence preserved across separate replicated state groups;
 - per-job-class RPO/RTO and rebuild-from-immutable-evidence option where declared.
@@ -6664,6 +6851,8 @@ Verification:
 - cross-authority-domain/consumer/logical-ledger collision, tenant destruction/
   ID reassignment, system-domain isolation and destination-ledger migration/split
   during owner or leader failover;
+- restore an operational-state snapshot older than outbox/dedup/tombstone cleanup
+  and prove the replicated replay fence still rejects its intents;
 - stale worker, duplicate dispatch, lease expiry, dependency storm, restore and
   tenant/noisy-neighbor failures;
 - local/HA scheduler state-machine equivalence and canonical idempotent outcomes.
@@ -6761,7 +6950,7 @@ Deliverables:
 - backend signer/key epoch and `v0.456.1` node-assurance evidence digest, under
   the `v0.31.2` replay/retention/historical-verification lifecycle;
 - capability/state rule that the extension is parseable and testable here but
-  leaves the `v0.31.3` `DurableQuorum` entry disabled until `v0.471.0` active
+  leaves the `DurableQuorum` permit unavailable until `v0.471.0` active
   replication proves it.
 
 Verification:
@@ -6793,14 +6982,17 @@ Deliverables:
   batch, preserving atomic fact/reference/object publication;
 - source/session/sequence deduplication, quorum commit index and stable-media
   acknowledgement mapping into the `v0.470.1` cluster envelope;
-- `v0.31.3` activation adapter that enables `DurableQuorum` only per vector
-  component whose exact quorum commit and documented failure envelope verify;
+- quorum durable-state verifier that issues a `v0.31.4` `DurableQuorum` permit
+  only per vector component whose exact covered commit range and documented
+  failure envelope verify;
 - crash/re-election recovery, divergent-tail truncation and handoff to immutable
   segment replication.
 
 Verification:
 
 - leader crash/partition before and after local/remote write/fsync/ack;
+- crash before/after quorum-state verification and permit issuance for every
+  independently claimed vector component/range;
 - stale writer, duplicate source sequence, divergent log, quorum loss, full disk
   and seal race;
 - model/property proof that every `DurableQuorum` acknowledgement survives the
@@ -7190,8 +7382,9 @@ Deliverables:
 
 - compatibility matrix, staged/canary order, drain/handoff and feature gates;
 - signed server update manifests, allowed-build epoch transitions and anti-rollback;
-- `v0.44.7` scheduler-journal/outbox schema compatibility plus `v0.44.8` ledger-
-  generation fencing, deduplication preservation and migration order;
+- `v0.44.7` scheduler-journal/outbox schema compatibility, `v0.44.8` ledger-
+  generation fencing/deduplication preservation and `v0.44.9` tombstone/replay-
+  fence compatibility and GC order;
 - schema/format/protocol/state migration and downgrade boundaries;
 - automatic abort, deterministic rollback and irreversible-step approval.
 
@@ -8046,8 +8239,13 @@ explicit maintainer authorization and never publishes internal crates.
 - Trusted-time bootstrap/refinement and PKI issuance, renewal, revocation and
   compromise recovery pass their cross-platform and ceremony exercises.
 - Every acknowledgement claim/component is emitted only through its verified
-  `v0.31.3` activation entry; schema presence, another component and a weaker
-  state cannot activate it across downgrade, failover or mixed versions.
+  `v0.31.3` registry entry and matching scoped `v0.31.4` state-verifier permit;
+  schema/version labels, another component and a weaker state cannot activate it
+  across downgrade, failover or mixed versions.
+- `Indexed` binds the exact covered fact range and index definition/generation;
+  `DetectionProcessed` binds the authoritative active-rule-set commitment,
+  rollout cohort, policy epoch and input range, with every incomplete state
+  explicit.
 - Durable local and HA jobs/timers prove declared time bases, misfire policy,
   fencing, idempotency, cancellation, dependency and checkpoint semantics;
   storage durability/recovery remains available without scheduler workers/state,
@@ -8055,7 +8253,9 @@ explicit maintainer authorization and never publishes internal crates.
   system authority domain, canonical consumer/job/ordinal/logical-ledger key and
   digest, linearizable put-if-absent and validated receipt to create one outbox
   record per handoff key; ledger migration fences generations and preserves the
-  deduplication index without placing the routing epoch in that key.
+  deduplication index without placing the routing epoch in that key, while
+  non-identifying spent-key commitments and an irreversible anti-replay epoch
+  reject old journals/messages/restores after ordinary record retention.
 - Storage survives crash, corruption, node/rack/region loss and rolling upgrade.
 - Historical hot/cold, live, temporal, graph, federated and distributed-physical
   VQL queries work safely with canonical coverage manifests, verifiable

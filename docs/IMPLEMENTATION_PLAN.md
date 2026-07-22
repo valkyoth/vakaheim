@@ -202,13 +202,21 @@ quorum epoch, commit index and node-assurance evidence before `v0.471.0` may
 advertise `DurableQuorum`; authentication binds the claim but does not make a
 compromised backend truthful.
 
-Schema support is not claim activation. `v0.31.3` owns a fail-closed activation
-registry: `Received`, `Validated`, fact/raw local durability, primary/security
-indexing, detection progress and quorum durability each name an exact component
-and prerequisite owner. Until that owner passes, the tag remains parseable but
-impossible to emit. `v0.44.0`, `v0.54.0`, `v0.48.0`/`v0.50.0`, `v0.140.1` and
-`v0.471.0` activate their respective entries; no claim or component implies
-another.
+Schema support is not claim activation, and roadmap versions are planning/test
+ownership only—not runtime trust inputs. `v0.31.3` owns the fail-closed verifier
+registry contract; `v0.31.4` makes every active component require an opaque
+`ClaimPermit<Component>` scoped to tenant/source, semantic epochs, covered input,
+verifier identity and activation generation. `v0.44.0`, `v0.54.0`,
+`v0.48.1`/`v0.50.0`, `v0.140.2` and `v0.471.0` own actual state proof and permit
+issuance. The encoder cannot consult milestone labels, accept caller assertions
+or let one claim/component imply another.
+
+Asynchronous progress is coverage-bound. `v0.48.1` binds index progress to the
+exact fact generation/range, index definition/version/generation and terminal
+coverage state. `v0.140.1` commits the authoritative active rule set, policy
+epoch and rollout cohort for an input range; `v0.140.2` reconciles one terminal
+outcome per required rule. Workers cannot choose a smaller set, and missing,
+disabled, shadow/canary or mid-range-changed work stays explicitly non-complete.
 
 Transport replay acceptance and evidentiary validity are separate lifecycles.
 `v0.31.2` binds the replay deadline, manifest retention, signed time and
@@ -224,8 +232,8 @@ executor, joins, set operators and cold tiers consume them. `v0.79.2` defines
 versioned expected-set commitments with canonical ordering, duplicate rejection,
 element count, catalog generation/root, snapshot, retention and cold-catalog
 watermarks, plus membership/opening verification or a narrowly named trusted
-expander. Catalog
-movement during execution cannot silently change the committed expected set.
+expander. Catalog movement during execution cannot silently change the committed
+expected set.
 `v0.475.1` extends that proven model to distributed fragments before `v0.476.0`
 executes them; `v0.476.1` alone may derive `Complete` after reconciliation.
 
@@ -265,6 +273,13 @@ fences old writes before cutover, preserves or authoritatively consults the
 deduplication index, and validates receipts against the committed routing epoch.
 Intent creation, migration and insertion races recover without letting old and
 new generations both accept the same logical handoff key.
+Ordinary record retention cannot reset uniqueness. `v0.44.9` replaces deleted
+payload/outbox state with a non-identifying spent-key/request commitment for the
+maximum journal/backup/restore/delayed-delivery horizon, coordinates GC across
+all copies, and maintains an irreversible minimum accepted anti-replay epoch
+after tombstone expiry. Restoring older data cannot reactivate older intents;
+tenant crypto-shred removes identifying/payload keys without erasing the minimal
+replay fence.
 Cancellation wins before intent, becomes a request after intent, and cannot erase
 uncertainty after outbox commit. Local and HA paths use intent/receipt recovery
 across separate stores, not an assumed shared transaction. Mixed-version
@@ -288,9 +303,10 @@ report. Post-destruction audit re-identification is permitted or forbidden at
 backend truth guarantees as a 1.0 non-goal. No conditional or “TBD” capability
 may survive `v0.730.0`.
 
-Acknowledgement claim activation, pre-execution coverage/expected-set contracts
-and ledger-migration uniqueness are mandatory correctness work, not optional
-scope. They cannot be rejected, disabled or deferred through an option decision.
+Runtime claim permits, exact asynchronous and pre-execution coverage/expected-
+set contracts, ledger-migration uniqueness and post-retention handoff replay
+fencing are mandatory correctness work, not optional scope. They cannot be
+rejected, disabled or deferred through an option decision.
 
 ## 3. Engineering Sequence
 
@@ -553,7 +569,7 @@ not permission to create empty crates prematurely.
 | Facade | `vakaheim` | `no_std` by default |
 | Foundation | `vakaheim-core`, `-bytes`, `-id`, `-time`, `-time-trust`, `-value`, `-policy`, `-crypto-api`, `-crypto-provider`, `-text`, `-asn1` | `no_std`; optional `alloc` |
 | Facts | `-event`, `-entity`, `-provenance`, `-integrity`, `-source-capsule` | `no_std`; optional `alloc` |
-| Ingestion | `-ingest-core`, `-ack-manifest`, `-parser-sdk`, `-syslog`, `-json`, `-protobuf`, `-otlp`, `-ocsf` | core/manifest/claim registry portable; runtimes `std` |
+| Ingestion | `-ingest-core`, `-ack-manifest`, `-parser-sdk`, `-syslog`, `-json`, `-protobuf`, `-otlp`, `-ocsf` | core/manifest/claim registry and permits portable; runtimes `std` |
 | Platform | `-linux`, `-windows`, `-macos`, `-bsd`, `-android`, `-ios`, `-kubernetes` | isolated `std`/FFI |
 | Runtime | `-runtime-core`, `-time-host`, `-scheduler-core`, `-scheduler-store`, `-scheduler-worker`, `-handoff-core`, OS reactors, channels, HTTP/TLS/PKI/protocol transports, enrollment | core/handoff identity `no_std`; hosted stores/workers explicit `std` |
 | Storage | `-storage-format`, `-wal`, `-segment`, `-raw-store`, `-index`, `-retention`, `-backup`, `-work-scheduler` | format `no_std`; engine `std` |

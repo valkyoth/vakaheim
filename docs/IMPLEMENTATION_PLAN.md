@@ -124,6 +124,36 @@ Those capabilities receive their distributed fault and scale campaign only
 after Stage K implements them. The same sequencing law applies to SDK clients,
 forensic acquisition, UI, authentication, Wasm, SOAR, and disaster recovery.
 
+### Contracts are not usable providers
+
+An interface milestone cannot satisfy a consumer dependency by itself.
+`v0.4.3` implements the mandatory baseline cryptographic provider before source
+digests or signatures. `v0.4.4` then provides measured trusted-time uncertainty.
+Device keystore/spool keys and local PKI precede enrollment and agent spooling;
+the connector credential vault precedes the connector host. A provider that
+cannot meet the zero-third-party security gate blocks its consumers.
+
+### Activation follows authority and durability
+
+Static control schemas and signed dissemination may precede consensus, but
+distributed activation may not. `v0.465.1` activates the distributed control
+plane only after the formal model and consensus implementation pass. Likewise,
+`DurableQuorum` remains an unadvertised capability until active WAL/hot-batch
+replication at `v0.471.0` proves quorum acknowledgement recovery.
+
+Live forensic acquisition begins only after human authentication,
+authorization/elevation, and independent audit exist. Earlier forensic work is
+limited to protocol, simulator and passive evidence-vault behavior.
+
+### Shared machinery before state-specific HA
+
+The state durability matrix is followed by one replicated operational-state
+substrate for conditional writes, journals, fencing, leases, snapshots,
+compaction, watches and idempotency. Detection, connector/query, analyst and
+action-state HA consume that substrate rather than inventing replication four
+times. The matrix includes identity/session, notification, acquisition,
+backfill, API-idempotency and audit state as well as the original classes.
+
 ## 3. Engineering Sequence
 
 ### Stage A: constitution and portable foundations
@@ -134,6 +164,9 @@ Then build checked byte access, identity, time, parser, event, provenance,
 cryptographic provider/trust contracts, text/Unicode/IDNA profiles, codec,
 policy, and bounded-memory primitives. These crates remain dependency free and
 `no_std`, with `alloc` admitted only where a milestone requires it.
+
+The mandatory crypto implementation and trusted-time provider must pass before
+any digest, signature, certificate or authenticated capability consumer.
 
 ### Stage B: facts and interoperability
 
@@ -159,6 +192,8 @@ UDP and sequence-free sources make explicitly limited continuity claims.
 
 Hosted runtime, TLS/certificate, Protobuf/compression, HTTP/2/gRPC, bounded raw
 quarantine, and self-observability substrates land as separate prerequisites.
+Device keystore/spool-keying, local PKI and a system-wide deployment/resource/
+latency/RPO/RTO contract also land before operational ingestion.
 Historical backfill and quarantine reprocessing preserve original, ingest, and
 backfill/reprocess time plus parser/mapping identity.
 
@@ -174,6 +209,9 @@ is required. Scale gates begin in the storage phase, not only near 1.0.
 
 Raw evidence uses a content-addressed store with atomic fact/reference publish,
 explicit deduplication, quarantine lifecycle, retention, and orphan repair.
+Single-node backup/restore is implemented before the early storage campaign.
+Cold export has catalog, authorization, planning, rehydration, cancellation,
+snapshot and partial-availability semantics before VQL claims historical reach.
 
 ### Stage E: VQL query and reasoning
 
@@ -200,6 +238,10 @@ threat-intelligence lifecycle, ATT&CK coverage graph, decomposable risk
 projection, content import, simulation, shadow deployment, canary rollout, and
 automatic quarantine/rollback thresholds.
 
+Behavioral families are separate releases. Entity-risk accumulation and actual
+threat-intelligence streaming/retro-hunt matching are explicit stateful engines,
+not implied by scoring or intelligence lifecycle governance.
+
 ### Stage G: native sensors
 
 Introduce a common unprivileged agent and authenticated bounded IPC before
@@ -225,6 +267,12 @@ lifecycle, upgrade, crash-containment, and revocation ownership. A durable
 notification outbox and integrity/source-assurance detection content are
 delivered before analyst workflow depends on them.
 
+The initial API covers only already-designed base, query, evidence, finding and
+rule surfaces. Case and response extensions ship beside their state machines.
+Connector credentials come from a dedicated vault/broker. Productivity,
+source-control, ticketing, flow, DNS/DHCP, network-control, email, IDS and
+CEF/LEEF providers each receive independent acceptance milestones.
+
 The SDK stays unpublished until a dedicated admission milestone. If publication
 is later approved, only the SDK uses `MIT OR Apache-2.0`.
 
@@ -239,6 +287,8 @@ administration UI. Mutable case state never rewrites immutable evidence.
 
 Forensic acquisition has its own narrow capability, approval, target fencing,
 and privileged-agent protocol; it never inherits ordinary collector authority.
+The early milestone validates those contracts without live privileged effects;
+live activation follows authentication, elevation and independent audit.
 
 ### Stage J: extension and response
 
@@ -254,6 +304,11 @@ External actions use a transactional outbox/inbox, fenced workers, provider
 idempotency ledgers, verification-before-retry, and an explicit unknown-outcome
 reconciliation state.
 
+Trigger admission, recursion/cooldown/concurrency controls, per-target
+serialization, and global/tenant/provider/playbook/action-class kill switches
+precede dispatch. Response providers are split by endpoint, identity, network,
+cloud, credential, evidence and ticket/notification family.
+
 ### Stage K: cluster and federation
 
 Build immutable signed configuration epochs, fleet management, an explicit CFT
@@ -267,6 +322,10 @@ recovery.
 Operational-state HA is implemented by state class, and the distributed
 scale/failover campaign occurs only after replication, evacuation, tenancy,
 federation, SRE, and disaster mechanisms exist.
+Active-write replication owns practical quorum acknowledgements. Distributed
+physical query execution owns authenticated fragments, exchanges, shuffle,
+partial aggregation, distributed joins/graphs, snapshot coordination,
+backpressure, retry, stragglers, worker loss and coordinator/tenant bounds.
 
 ### Stage L: product completion
 

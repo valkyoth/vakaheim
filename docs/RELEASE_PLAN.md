@@ -61,20 +61,20 @@ replace or renumber it.
 | Gap | Owning versions |
 | --- | --- |
 | Evidence integrity versus authenticity, availability, reconstruction, and source truth | `v0.6.1`, `v0.11.0`, `v0.150.0` |
-| Cryptographic ownership, text identity, hosted runtime, TLS, and zero-third-party feasibility | `v0.4.1`, `v0.4.2`, `v0.10.1`, `v0.20.2`, `v0.20.3` plus every host/protocol/crypto/Wasm milestone |
+| Usable cryptographic provider, trusted time, text identity, hosted runtime, TLS, device keys, PKI, and feasibility | `v0.4.1`–`v0.4.4`, `v0.10.1`, `v0.20.2`–`v0.20.8` plus every host/protocol/crypto/Wasm milestone |
 | Fact conflicts, schema ownership, extension governance, and mapping loss | `v0.11.0`, `v0.15.0`, `v0.16.0`, `v0.20.1` |
 | Deterministic identity resolution, asset inventory, ownership, exposure, and retirement | `v0.13.0`, `v0.298.0` |
-| Local identities, trust/configuration/registries, authorization, capabilities, and audit schema before consumers | `v0.17.0`, `v0.19.0`, replicated at `v0.460.0` |
+| Local identities, trust/configuration/registries, authorization, capabilities, and audit before consumers | `v0.17.0`, `v0.19.0`; staged at `v0.460.0`, consensus-activated at `v0.465.1` |
 | Conservation, acknowledgement truth, raw quarantine, continuity, overload, backfill/reprocessing, and impairment lane | `v0.20.4`, `v0.22.0`, `v0.31.0`, `v0.39.0`, `v0.40.0` |
 | Exact syslog, JSON, Protobuf/compression, HTTP/gRPC/browser, OTLP, OCSF, STIX/TAXII, and Wasm profiles | `v0.20.1`, `v0.26.0`, `v0.28.0`, `v0.29.0`–`v0.30.1`, `v0.306.0`, `v0.407.0`–`v0.410.0` |
-| Database capacity, stable media, raw evidence, integrity, encryption, keys, migration, and correctly scoped early scale | `v0.41.0` through `v0.60.0`, especially `v0.53.0`–`v0.58.0` |
-| Query authority, physical planning, worst-case admission, spill, joins, ordering, statistics/text, and side channels | `v0.72.0`, `v0.76.0`–`v0.84.0`, `v0.96.0` |
-| Detection execution identity, fixed-point semantics, impairment, placement, threat intelligence, ATT&CK, and risk | `v0.115.0`, `v0.145.0`, `v0.165.0`, `v0.175.0`, `v0.178.0` |
+| Database capacity, raw evidence, integrity/encryption/keys, local backup/restore, migration, and scoped early scale | `v0.41.0` through `v0.60.0`, especially `v0.53.0`–`v0.58.0` |
+| Query authority/planning/operators, cold rehydration, side channels, federation and distributed execution | `v0.72.0`–`v0.100.0`, `v0.475.0`, `v0.476.0` |
+| Detection identity/state/placement, split behavior families, entity risk, intelligence lifecycle/matching, ATT&CK | `v0.115.0`–`v0.200.0`, especially `v0.170.0`–`v0.179.0` |
 | Common agent/helper boundary and platform-specific continuity evidence | `v0.205.0` through `v0.267.0` |
-| API contract/service/client sequencing, connector isolation, provider profiles, integrity content, and notification outbox | `v0.270.0`–`v0.342.0` |
-| Scoped forensic acquisition, confidential cases, split authentication, authorization, audit, and split UIs | `v0.382.0` through `v0.405.0` |
-| Wasm core/Canonical ABI, component registry/host, bound actions, unknown outcomes, provider actions, and recovery | `v0.407.0` through `v0.455.0` |
-| Operational-state matrix/HA, consensus, immutable replication, tenancy, federation, SRE, split DR, and distributed scale | `v0.459.0` through `v0.484.0` |
+| Base API before client, later case/response extensions, credential vault, connector isolation and split provider profiles | `v0.270.0`–`v0.342.0`, `v0.376.0`, `v0.450.1` |
+| Simulated then authenticated live forensics, confidential cases, split auth, audit, and split UIs | `v0.382.0`–`v0.405.0`, especially `v0.400.0` |
+| Wasm, bound actions, storm/kill controls, unknown outcomes, split providers, and recovery | `v0.407.0` through `v0.455.0`, especially `v0.446.0`–`v0.453.2` |
+| State matrix/shared replication, consensus activation, state HA, active-write quorum durability, SRE/DR/scale | `v0.459.0` through `v0.484.0`, especially `v0.465.1`–`v0.476.0` |
 
 ## Phase A — Constitutional Foundation
 
@@ -227,6 +227,59 @@ Verification:
 Exit criteria: text equality and network-name interpretation are versioned,
 bounded and consistent across product planes. `v0.4.2 implementation stop
 reached. Run pentest for this exact commit.`
+
+### v0.4.3 — Mandatory Baseline Cryptographic Provider
+
+Status: planned
+
+Goal: deliver a usable mandatory provider before any digest, signature or
+authenticated configuration consumer.
+
+Deliverables:
+
+- pinned baseline hash, MAC, signature, AEAD, KDF and CSPRNG implementations;
+- opaque key objects, import/generation/use/destruction policy, domain separation,
+  constant-time handling and documented zeroization limits;
+- approved first-party or narrow OS-backed implementation with identical
+  provider semantics and a blocking zero-third-party feasibility decision.
+
+Verification:
+
+- official known-answer/Monte Carlo where applicable, negative and misuse tests;
+- cross-provider/cross-platform equivalence, invalid keys/nonces, entropy failure,
+  downgrade and algorithm-confusion attacks;
+- timing-oriented review, secret debug/clone/serialization rejection and forced
+  provider-unavailable behavior.
+
+Exit criteria: every early cryptographic consumer can use one tested mandatory
+profile, or the roadmap stops before that consumer. `v0.4.3 implementation stop
+reached. Run pentest for this exact commit.`
+
+### v0.4.4 — Trusted Time Providers And Uncertainty
+
+Status: planned
+
+Goal: measure and propagate time trust before certificates, leases, ordering and
+retention depend on wall-clock assumptions.
+
+Deliverables:
+
+- narrow OS monotonic/wall-clock adapters and authenticated server-time
+  comparison using the mandatory cryptographic provider;
+- offset, drift, rollback, leap, synchronization-source and uncertainty evidence;
+- monotonic/wall mapping epochs and certificate/token/lease behavior when time
+  is uncertain or unavailable.
+
+Verification:
+
+- wall rollback/jump, leap, suspend/resume, monotonic discontinuity, server
+  disagreement, spoof/delay and prolonged offline operation;
+- cross-platform provider conformance and uncertainty-bound arithmetic;
+- certificate, capability, retention and ordering consumers fail safely at each
+  trust state.
+
+Exit criteria: no security decision treats an unmeasured wall clock as trusted.
+`v0.4.4 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.5.0 — Event Envelope
 
@@ -779,6 +832,82 @@ Exit criteria: later services cannot introduce health semantics ad hoc, and
 failure to observe health is itself visible. `v0.20.5 implementation stop
 reached. Run pentest for this exact commit.`
 
+### v0.20.6 — Device Keystore And Spool Keying
+
+Status: planned
+
+Goal: protect device identity and local spool keys before agents persist or
+authenticate telemetry.
+
+Deliverables:
+
+- platform keystore adapter plus encrypted-file fallback with explicit assurance;
+- device identity, spool master/data key derivation, rotation, recovery and
+  destruction lifecycle;
+- anti-rollback binding, least-privilege access and unattended-boot policy.
+
+Verification:
+
+- key theft/substitution/rollback, permission loss, corrupt keystore, rotation
+  interruption, reinstall/clone and hardware-provider outage;
+- platform matrix and no-third-party feasibility review;
+- spool data cannot be decrypted or silently reinitialized under the wrong
+  device identity.
+
+Exit criteria: agent spooling and enrollment have a concrete bounded key owner.
+`v0.20.6 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.20.7 — Local PKI And Certificate Lifecycle
+
+Status: planned
+
+Goal: issue and recover Vakaheim service/device trust without depending on an
+undefined external CA.
+
+Deliverables:
+
+- offline root, bounded issuing hierarchy and service/device certificate
+  profiles;
+- authenticated issuance, renewal, revocation distribution, rollover and
+  compromise-recovery ceremonies;
+- protected key custody, serial/identity binding, audit and air-gap procedures.
+
+Verification:
+
+- unauthorized issuance, duplicate identity/serial, stale revocation, root/
+  issuer compromise, rollover interruption and uncertain-time behavior;
+- TLS/enrollment interoperability and offline-root recovery rehearsal;
+- independent PKI design and implementation pentest.
+
+Exit criteria: every Vakaheim certificate has an owned issuance, renewal,
+revocation and compromise-recovery path. `v0.20.7 implementation stop reached.
+Run pentest for this exact commit.`
+
+### v0.20.8 — System-Wide Non-Functional Contract
+
+Status: planned
+
+Goal: constrain every product plane with shared scale and service objectives
+before operational implementation expands.
+
+Deliverables:
+
+- supported single-node, relay, sensor and initial cluster deployment profiles;
+- event-size/burst/source/tenant/entity/rule/retention/graph-shape envelopes;
+- ingest/query/detection/control latency, resource, availability and initial
+  per-state-class RPO/RTO targets.
+
+Verification:
+
+- arithmetic consistency with storage capacity and bounded-memory contracts;
+- worst-case profile combinations, overload priorities and unsupported-profile
+  rejection;
+- each later milestone names the profile and objectives it verifies or revises.
+
+Exit criteria: no subsystem optimizes against an unstated workload or service
+objective. `v0.20.8 implementation stop reached. Run pentest for this exact
+commit.`
+
 ## Phase C — Ingestion And Transport
 
 ### v0.22.0 — Local Ingestion Pipeline
@@ -1063,6 +1192,8 @@ Deliverables:
 - batch IDs, source sequences, resumable transfer and persistent checkpoints;
 - idempotent writes, deduplication windows and acknowledgement levels;
 - Received/Validated/DurableLocal/DurableQuorum/Indexed/DetectionProcessed.
+- capability negotiation keeps `DurableQuorum` unavailable until `v0.471.0`;
+  unsupported levels are rejected rather than approximated by local durability.
 
 Verification:
 
@@ -1071,8 +1202,9 @@ Verification:
 - end-to-end invariant that acknowledged levels match durable state.
 
 Exit criteria: no exactly-once fiction; retries are safe and progress is
-honest. `v0.34.0 implementation stop reached. Run pentest for this exact
-commit.`
+honest, and quorum durability cannot be advertised before active-write
+replication exists. `v0.34.0 implementation stop reached. Run pentest for this
+exact commit.`
 
 ### v0.36.0 — Enrollment And Secure Transport
 
@@ -1520,6 +1652,32 @@ Exit criteria: format evolution and lost authority cannot silently corrupt or
 resurrect evidence. `v0.57.0 implementation stop reached. Run pentest for this
 exact commit.`
 
+### v0.57.1 — Single-Node Backup And Restore
+
+Status: planned
+
+Goal: implement locally consistent recovery before backup appears in the early
+storage campaign.
+
+Deliverables:
+
+- consistency-point manifest over segments, raw objects, WAL boundary, local
+  control/audit state and key references;
+- incremental/full backup, retention, verification and encrypted destination
+  adapter;
+- clean-directory restore, dependency ordering, reindex and post-restore proof.
+
+Verification:
+
+- backup concurrent with ingest/compaction, crash, missing/corrupt object,
+  stale manifest, wrong/lost key and disk-full;
+- restore to empty host, point-in-time boundary and authorization/audit checks;
+- independent reconstruction and source/reference integrity comparison.
+
+Exit criteria: `v0.58.0` can test an implemented backup/restore path with a
+verified local consistency point. `v0.57.1 implementation stop reached. Run
+pentest for this exact commit.`
+
 ### v0.58.0 — Early Storage Scale And Fault Campaign
 
 Status: planned
@@ -1848,6 +2006,33 @@ Verification:
 Exit criteria: temporal results state ordering confidence and late-data impact.
 `v0.85.0 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.86.0 — Cold-Tier Catalog And Rehydration
+
+Status: planned
+
+Goal: query exported cold evidence without hiding retrieval cost, policy or
+availability.
+
+Deliverables:
+
+- authorized cold-object catalog with tenant, snapshot/generation, time,
+  retention/hold, key and integrity identity;
+- physical-plan retrieval/rehydration, cache lifetime, cost/admission,
+  cancellation and cleanup;
+- missing/revoked key, unavailable object, partial snapshot and completeness
+  semantics.
+
+Verification:
+
+- stale/tampered catalog, missing object/key, hold/retention conflict, retrieval
+  timeout, cancellation, duplicate fetch and cache leakage;
+- hot/cold result and snapshot equivalence where complete;
+- large retrieval cost, tenant fairness and partial-result explanations.
+
+Exit criteria: historical queries catalog and authorize cold evidence explicitly
+and never present unavailable cold ranges as complete. `v0.86.0 implementation
+stop reached. Run pentest for this exact commit.`
+
 ### v0.90.0 — Graph Operations
 
 Status: planned
@@ -2142,26 +2327,107 @@ Exit criteria: placement affects latency and availability only through recorded
 impairments, never rule meaning. `v0.165.0 implementation stop reached. Run
 pentest for this exact commit.`
 
-### v0.170.0 — Behavioral Engine
+### v0.170.0 — Behavioral Model Framework
 
 Status: planned
 
-Goal: add transparent replayable behavioral analytics.
+Goal: establish transparent replayable model state before adding behavioral
+families.
 
 Deliverables:
 
-- rarity, robust baseline, seasonality, peer groups, change points, sketches;
-- transition/graph novelty, identity geography, drift and health evidence;
-- tenant-local versioned models with explicit bounds and explanations.
+- tenant-local versioned model inputs, state, checkpoint and execution identity;
+- bounded feature/window/sketch interfaces, drift/health and explanation schema;
+- poisoning quarantine, rollout/rollback and resource admission.
 
 Verification:
 
-- fixed datasets with hand-calculated results and replay stability;
-- poisoning, sparse/cold-start, drift, clock, peer manipulation and overflow;
-- false-positive/negative and resource-budget evaluation.
+- model-state replay/checkpoint/upgrade and cross-target stability;
+- poisoning, sparse/cold-start, drift, clock and overflow framework tests;
+- false-positive/negative evaluation and resource-budget harness.
 
 Exit criteria: no opaque model output is treated as authoritative evidence.
 `v0.170.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.171.0 — Rarity And Bounded Sketches
+
+Status: planned
+
+Goal: detect rare values and cardinality changes with explicit approximation.
+
+Deliverables:
+
+exact bounded counts plus pinned sketches, merge/decay semantics,
+error bounds, explanations and source-completeness requirements.
+
+Verification:
+
+hand-calculated datasets, merge order, overflow, adversarial hash/
+cardinality, poisoning and approximation-bound tests.
+
+Exit criteria: rarity states its population, window, completeness and exact or
+bounded approximate error. `v0.171.0 implementation stop reached. Run pentest
+for this exact commit.`
+
+### v0.172.0 — Baselines, Seasonality And Peer Groups
+
+Status: planned
+
+Goal: implement robust temporal and peer comparison separately from rarity.
+
+Deliverables:
+
+robust baseline/seasonal profiles, explicit peer membership,
+cold-start/minimum-data rules, drift and decomposable deviation evidence.
+
+Verification:
+
+fixed seasonal/peer datasets, sparse data, clock uncertainty,
+peer churn/manipulation, poisoned baseline and replay stability.
+
+Exit criteria: every deviation names its baseline/peer version and cannot hide
+cold-start or incomplete telemetry. `v0.172.0 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.173.0 — Change Points And Identity Geography
+
+Status: planned
+
+Goal: detect bounded behavioral shifts and geographic identity anomalies.
+
+Deliverables:
+
+versioned change-point profile, location/source confidence,
+travel/velocity uncertainty, network-proxy/VPN context and explanations.
+
+Verification:
+
+hand-calculated shifts, location conflict, VPN/proxy, clock skew,
+impossible-travel boundaries, poisoning and resource caps.
+
+Exit criteria: geography and change findings remain uncertainty-aware evidence-
+backed projections. `v0.173.0 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.174.0 — Transition And Graph Novelty
+
+Status: planned
+
+Goal: identify unusual bounded sequences and relationship changes.
+
+Deliverables:
+
+versioned transition/edge/path novelty state, entity-resolution
+binding, bounded graph/window state and supporting path evidence.
+
+Verification:
+
+known transition/graph fixtures, identity merge/split, high
+fan-out, cyclic paths, poisoning, eviction and deterministic replay.
+
+Exit criteria: novelty findings include the exact prior state and source-backed
+relationship evidence. `v0.174.0 implementation stop reached. Run pentest for
+this exact commit.`
 
 ### v0.175.0 — Decomposable Risk Projection
 
@@ -2186,6 +2452,32 @@ Exit criteria: every score decomposes into recorded inputs and remains a
 projection rather than evidence. `v0.175.0 implementation stop reached. Run
 pentest for this exact commit.`
 
+### v0.176.0 — Stateful Entity Risk Ledger
+
+Status: planned
+
+Goal: accumulate risk events by entity without converting a finding score into
+an opaque alert.
+
+Deliverables:
+
+- user/device/workload risk events, deduplication, decay, thresholds,
+  suppression and promotion to alerts;
+- deterministic recomputation for late identity, asset, vulnerability and
+  exposure changes;
+- bounded hot-entity state, poisoning controls and complete contribution ledger.
+
+Verification:
+
+- duplicate/late/retracted findings, merge/split identity, threshold boundaries,
+  decay/recompute and hot-entity overload;
+- risk inflation, poisoned enrichment, suppression bypass and tenant isolation;
+- hand-calculated ledger and replay equivalence.
+
+Exit criteria: every entity-risk alert decomposes into immutable risk events and
+versioned enrichment. `v0.176.0 implementation stop reached. Run pentest for
+this exact commit.`
+
 ### v0.178.0 — Threat Intelligence Lifecycle And ATT&CK Coverage
 
 Status: planned
@@ -2209,6 +2501,31 @@ Verification:
 Exit criteria: intelligence cannot silently remain authoritative after expiry
 or revocation. `v0.178.0 implementation stop reached. Run pentest for this exact
 commit.`
+
+### v0.179.0 — Threat-Intelligence Matching Engine
+
+Status: planned
+
+Goal: match governed intelligence against live and historical evidence with
+exact provenance.
+
+Deliverables:
+
+- canonical IP/CIDR, domain, URL, hash, certificate, email and file observables;
+- bounded STIX-pattern subset with validity, revocation, markings, confidence,
+  allowlists and exceptions;
+- streaming match and retro-hunt paths whose evidence binds intelligence object/
+  version, matched source field, normalization and time.
+
+Verification:
+
+- canonicalization/IDNA/IP/URL edge cases, expired/revoked/conflicting objects,
+  allowlist precedence and poisoned feeds;
+- streaming/retro-hunt equivalence, late intelligence and high-cardinality load;
+- unsupported STIX patterns fail explicitly and matching remains tenant-safe.
+
+Exit criteria: every match proves the exact intelligence and source values used.
+`v0.179.0 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.180.0 — Detection Content Interoperability
 
@@ -2511,7 +2828,7 @@ Goal: stabilize an in-workspace SDK without publishing it.
 
 Deliverables:
 
-- `no_std` types/events and `alloc` query/rule/playbook surfaces;
+- `no_std` types/events and `alloc` query/rule/evidence/finding surfaces;
 - stable internal traits, errors, IDs and conversion/validation contracts;
 - compile-time capability/version markers without a network client.
 
@@ -2536,7 +2853,7 @@ Deliverables:
 - version/capability negotiation, stable errors and authentication context;
 - snapshot pagination tokens, streaming/resume/cancellation, rate limits,
   idempotency and audit metadata;
-- query, finding, case, rule, evidence and action endpoint schemas plus
+- base envelope, query, finding, rule and evidence endpoint schemas plus
   compatibility/deprecation rules.
 
 Verification:
@@ -2613,6 +2930,30 @@ Verification:
 
 Exit criteria: connectors cannot obtain ambient secrets or network authority.
 `v0.280.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.281.0 — Connector Credential Vault And Broker
+
+Status: planned
+
+Goal: own connector credentials before isolated workers request them.
+
+Deliverables:
+
+- tenant/provider/purpose-scoped encrypted credential objects and metadata;
+- create/import/rotate/revoke/expire/recover lifecycle with dual-control policy;
+- broker operations for request signing, short-token minting and authenticated
+  calls without exposing long-lived secret bytes.
+
+Verification:
+
+- cross-tenant/provider/purpose confusion, stale/revoked credential, rotation
+  race, backup/restore and vault outage;
+- worker/broker confused-deputy, response leakage and audit omission attacks;
+- platform key-provider integration and independent vault pentest.
+
+Exit criteria: connector workers never receive ambient or unnecessary long-
+lived credential material. `v0.281.0 implementation stop reached. Run pentest
+for this exact commit.`
 
 ### v0.282.0 — Isolated Connector Host
 
@@ -2784,24 +3125,65 @@ replay, paging and least-privilege coverage tests.
 Exit criteria: identity reuse and ambiguity are represented, never guessed away.
 `v0.302.0 implementation stop reached. Run pentest for this exact commit.`
 
-### v0.304.0 — SaaS, Source-Control And Ticketing Profiles
+### v0.304.0 — Productivity SaaS Profiles
 
 Status: planned
 
-Goal: ingest collaboration evidence while preserving provider boundaries.
+Goal: ingest productivity and collaboration audit evidence.
 
 Deliverables:
 
-source-control, productivity and ticketing profiles with webhook
-verification, audit cursor, user mapping and permission health.
+mail, file-sharing, collaboration and administration profiles with webhook
+verification, audit cursor, schema version, user mapping and permission health.
 
 Verification:
 
-spoof/replay, deleted resources, renamed users, paging, throttle,
-secret rotation and provider-specific retention tests.
+independent provider fixtures for cursor/paging, permission change, schema drift,
+rate limit, outage, webhook spoof/replay and live interoperability.
 
 Exit criteria: provider limitations and missing audit scopes remain visible.
 `v0.304.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.305.0 — Source-Control Provider Profiles
+
+Status: planned
+
+Goal: ingest repository, identity, workflow and administration audit evidence.
+
+Deliverables:
+
+independent provider profiles with cursor/webhook, repository/org,
+actor/token, workflow and permission semantics plus source-native capsules.
+
+Verification:
+
+per-provider cursor, permission, schema-drift, rate-limit, outage,
+rename/delete, webhook spoof/replay and live interoperability acceptance.
+
+Exit criteria: each claimed source-control provider has independent completeness
+and interoperability evidence. `v0.305.0 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.305.1 — Ticketing Provider Profiles
+
+Status: planned
+
+Goal: ingest and correlate ticket/case workflow evidence without conflating it
+with productivity or source-control semantics.
+
+Deliverables:
+
+independent provider profiles with cursor/webhook, project/issue,
+actor/status/comment/attachment and permission/retention semantics.
+
+Verification:
+
+per-provider cursor, permission, schema-drift, rate-limit, outage,
+rename/delete, webhook spoof/replay and live interoperability acceptance.
+
+Exit criteria: each claimed ticketing provider has independent completeness and
+interoperability evidence. `v0.305.1 implementation stop reached. Run pentest
+for this exact commit.`
 
 ### v0.306.0 — TAXII Threat-Intelligence Connector
 
@@ -2823,24 +3205,124 @@ version skew, oversized bundles and poisoning scenarios.
 Exit criteria: transport success never implies intelligence trust or validity.
 `v0.306.0 implementation stop reached. Run pentest for this exact commit.`
 
-### v0.315.0 — Network-Security Ingestion
+### v0.310.0 — Network Flow Profiles
 
 Status: planned
 
-Goal: ingest common network and security-device telemetry.
+Goal: ingest flow/IPFIX-style telemetry with explicit exporter and sampling
+semantics.
 
 Deliverables:
 
-- flow, DNS, DHCP, VPN, firewall, proxy, email-security, IDS, CEF and LEEF
-  profiles;
-- bounded high-volume parsing, identity correlation and source health;
-- timestamps, sampling, truncation and sensor-loss semantics.
+pinned flow templates/records, exporter identity, template cache,
+sampling, counters, time and loss/completeness evidence.
+
+Verification:
+
+template churn/reuse, sequence gap, sampling, counter wrap,
+fragmentation, clock, rate/overload and independent exporter interoperability.
+
+Exit criteria: sampled or template-incomplete flow data cannot appear complete.
+`v0.310.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.311.0 — DNS And DHCP Profiles
+
+Status: planned
+
+Goal: ingest name-resolution and address-assignment evidence with lifecycle
+identity.
+
+Deliverables:
+
+pinned DNS/DHCP record profiles, lease/query/response identity,
+resolver/server/source health, truncation and privacy policy.
+
+Verification:
+
+compression/fragmentation, malformed names, lease/address reuse,
+cache/negative answers, loss/rate/outage and independent interoperability.
+
+Exit criteria: DNS and DHCP identity/time ambiguity remains explicit.
+`v0.311.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.312.0 — VPN, Firewall And Proxy Profiles
+
+Status: planned
+
+Goal: ingest access and network-control evidence per provider family.
+
+Deliverables:
+
+session, rule/action, NAT, URL/request and policy-version profiles
+with cursor, permission, sampling/truncation and source health.
+
+Verification:
+
+per-provider schema drift, cursor, permission, rate, outage, NAT/
+address reuse, spoof/truncation and live interoperability acceptance.
+
+Exit criteria: each claimed VPN/firewall/proxy provider has independent coverage
+and interoperability evidence. `v0.312.0 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.313.0 — Email-Security Profiles
+
+Status: planned
+
+Goal: ingest message, authentication, delivery and security-control evidence.
+
+Deliverables:
+
+message/recipient/attachment/link, SPF/DKIM/DMARC and verdict/
+quarantine profiles with privacy, cursor and permission health.
+
+Verification:
+
+per-provider schema drift, cursor, permission, rate, outage,
+malformed identity, redaction and live interoperability acceptance.
+
+Exit criteria: each claimed email-security provider has independent coverage and
+privacy evidence. `v0.313.0 implementation stop reached. Run pentest for this
+exact commit.`
+
+### v0.314.0 — IDS And Detection-Appliance Profiles
+
+Status: planned
+
+Goal: ingest external detections without treating their verdicts as Vakaheim
+truth.
+
+Deliverables:
+
+alert/signature/rule, flow/context, severity/confidence and sensor-
+health profiles with source-native preservation.
+
+Verification:
+
+per-provider schema drift, cursor, permission, rate, outage,
+duplicate/retracted alerts and live interoperability acceptance.
+
+Exit criteria: each external detection retains exact appliance/rule provenance
+and assurance limits. `v0.314.0 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.315.0 — CEF And LEEF Device Profiles
+
+Status: planned
+
+Goal: support bounded enterprise device compatibility formats.
+
+Deliverables:
+
+- pinned CEF and LEEF framing/escaping/extension profiles;
+- bounded vendor/product-specific mapping registry and source-native capsules;
+- timestamps, truncation, mapping loss and device/source health.
 
 Verification:
 
 - format corpus/fuzzing, spoofed/truncated/fragmented and volume attacks;
-- sampling/completeness, address reuse/NAT and clock/order scenarios;
-- throughput benchmarks and parser pentest.
+- vendor schema drift, mapping conflict, clock/order and completeness;
+- independent device/provider fixtures, throughput and parser pentest.
 
 Exit criteria: sampled or incomplete network evidence is never presented as
 complete. `v0.315.0 implementation stop reached. Run pentest for this exact
@@ -2985,19 +3467,43 @@ Exit criteria: case history is complete while source evidence remains
 immutable. `v0.375.0 implementation stop reached. Run pentest for this exact
 commit.`
 
+### v0.376.0 — Case API Extension
+
+Status: planned
+
+Goal: add case wire/API semantics only after the case state machine exists.
+
+Deliverables:
+
+- versioned case/task/comment/evidence/hold/approval schemas and transitions;
+- optimistic version, compartment, pagination, idempotency and audit binding;
+- compatibility/deprecation rules independent of base API evolution.
+
+Verification:
+
+- invalid/stale/concurrent transition, compartment/hold change, duplicate retry,
+  pagination snapshot and old/new client cases;
+- server-side authorization and immutable-evidence reference checks;
+- client/service/state-machine conformance and API pentest.
+
+Exit criteria: the case API reflects the implemented state machine rather than
+freezing it early. `v0.376.0 implementation stop reached. Run pentest for this
+exact commit.`
+
 ### v0.382.0 — Automated Forensic Acquisition And Evidence Vault
 
 Status: planned
 
-Goal: acquire volatile and durable forensic material before response changes the
-target, while maintaining custody and bounded authority.
+Goal: validate forensic acquisition protocol, capability and vault behavior
+without enabling live privileged acquisition before human authority exists.
 
 Deliverables:
 
-- approved acquisition profiles for memory, process, file and platform evidence;
+- proposed acquisition profiles for memory, process, file and platform evidence;
 - dedicated acquisition capability, explicit approval, target/precondition
   fencing and separately authenticated privileged-agent protocol;
-- pre-response capture dependency, source metadata and custody receipts;
+- deterministic simulator, pre-response dependency, source metadata and custody
+  receipts;
 - encrypted evidence vault, integrity verification, retention and legal hold.
 
 Verification:
@@ -3005,11 +3511,12 @@ Verification:
 - partial capture, target race, oversized evidence, interruption and retry;
 - unauthorized acquisition/export, key loss, hold conflict and tamper cases;
 - prove ordinary collection-helper authority cannot invoke acquisition;
+- prove no live privileged acquisition path is enabled;
 - independent offline custody verification.
 
 Exit criteria: acquisition scope, failure and every custody transition are
-verifiable. `v0.382.0 implementation stop reached. Run pentest for this exact
-commit.`
+verifiable in simulation and the live capability remains disabled. `v0.382.0
+implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.390.0 — Forensic Reporting
 
@@ -3145,6 +3652,33 @@ outage, clock change and storage exhaustion.
 Exit criteria: an administrator cannot alter an action and its audit record
 through the same authority. `v0.399.0 implementation stop reached. Run pentest
 for this exact commit.`
+
+### v0.400.0 — Live Forensic Acquisition Activation
+
+Status: planned
+
+Goal: enable tightly scoped live acquisition only after authentication,
+authorization/elevation and independent audit are operational.
+
+Deliverables:
+
+- authenticated human approval bound to target, acquisition profile,
+  preconditions, blast radius, expiry and evidence destination;
+- separately authenticated/fenced privileged-agent acquisition worker;
+- live progress, cancellation, custody transitions, failure/unknown-outcome and
+  automatic capability revocation.
+
+Verification:
+
+- auth/session/elevation expiry, approval substitution, wrong/reused target,
+  worker replay, partial acquisition, disconnect and cancellation;
+- ordinary collector cannot invoke acquisition and audit destination failure
+  blocks or safely records activation;
+- representative platform acquisition and independent privileged-path pentest.
+
+Exit criteria: every live acquisition is authenticated, approved, fenced,
+audited and custody-bound. `v0.400.0 implementation stop reached. Run pentest for
+this exact commit.`
 
 ### v0.401.0 — Confidential Cases And Evidence Access Lifecycle
 
@@ -3459,6 +3993,33 @@ Exit criteria: approvals cannot be reused for a changed plan, target, policy or
 component. `v0.445.0 implementation stop reached. Run pentest for this exact
 commit.`
 
+### v0.446.0 — Trigger Admission, Storm Controls And Kill Switches
+
+Status: planned
+
+Goal: prevent findings, incidents or recursive automation from creating an
+unbounded response storm.
+
+Deliverables:
+
+- signed finding/incident-to-playbook trigger binding and admission identity;
+- deduplication, cooldown, maximum concurrent runs, recursion/depth prevention
+  and per-target serialization;
+- global, tenant, provider, playbook and action-class kill switches with defined
+  in-flight and `UnknownOutcome` behavior.
+
+Verification:
+
+- duplicate/cyclic findings, incident regrouping, trigger replay, hot target,
+  tenant/provider floods and admission races;
+- kill activation before/during dispatch, stale worker, partial propagation and
+  recovery/re-enable;
+- prove unknown external effects remain reconciled while new dispatch stops.
+
+Exit criteria: automation load is bounded and every kill-switch scope has
+tested fail-safe in-flight semantics. `v0.446.0 implementation stop reached. Run
+pentest for this exact commit.`
+
 ### v0.447.0 — Durable Action Dispatch And Unknown Outcomes
 
 Status: planned
@@ -3510,72 +4071,173 @@ Exit criteria: arbitrary command execution remains prohibited and every side
 effect is scoped and verified. `v0.450.0 implementation stop reached. Run
 pentest for this exact commit.`
 
-### v0.451.0 — Endpoint And Identity Actions
+### v0.450.1 — Response API Extension
 
 Status: planned
 
-Goal: implement narrow endpoint and identity response profiles.
+Goal: add action/playbook wire semantics only after their state machines,
+envelopes and dispatch controls exist.
+
+Deliverables:
+
+- versioned proposal/plan/approval/run/action/outcome/reconciliation schemas;
+- exact digest, idempotency, kill-switch, pagination/watch and audit binding;
+- compatibility/deprecation rules independent of the base API.
+
+Verification:
+
+- stale plan/approval, digest substitution, duplicate request, unknown outcome,
+  kill activation and old/new client cases;
+- server-side authorization and no arbitrary-action construction;
+- client/service/playbook/action-framework conformance and API pentest.
+
+Exit criteria: the response API exposes only already-implemented safe state
+transitions. `v0.450.1 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.451.0 — Endpoint Actions
+
+Status: planned
+
+Goal: implement narrow endpoint response profiles.
 
 Deliverables:
 
 - isolate/release endpoint and bounded process/file acquisition or containment;
-- disable/re-enable account, revoke session/token and force credential reset;
 - action-specific preconditions, verification, compensation and effect classes.
 
 Verification:
 
-- wrong/reused target identity, stale inventory, partial endpoint/IdP outcome;
+- wrong/reused target identity, stale inventory and partial endpoint outcome;
 - duplicate/unknown outcome, lockout, compensation and privilege attacks;
 - representative platform/provider interoperability and pentest.
 
-Exit criteria: endpoint and identity actions expose no generic command or
-unscoped administration surface. `v0.451.0 implementation stop reached. Run
-pentest for this exact commit.`
+Exit criteria: endpoint actions expose no generic command surface, and each
+claimed platform has independent target, outage and interoperability evidence.
+`v0.451.0 implementation stop reached. Run pentest for this exact commit.`
 
-### v0.452.0 — Network And Cloud Actions
+### v0.451.1 — Identity Actions
 
 Status: planned
 
-Goal: implement narrow network and cloud containment profiles.
+Goal: implement narrow identity-provider response profiles.
+
+Deliverables:
+
+disable/re-enable account, revoke session/token and force bounded
+credential reset with provider-specific preconditions and verification.
+
+Verification:
+
+per-provider target reuse, permission drift, rate limit, outage,
+eventual consistency, duplicate/unknown outcome and live interoperability.
+
+Exit criteria: each claimed identity provider has independent authority,
+failure and interoperability evidence. `v0.451.1 implementation stop reached.
+Run pentest for this exact commit.`
+
+### v0.452.0 — Network Actions
+
+Status: planned
+
+Goal: implement narrow network containment profiles.
 
 Deliverables:
 
 - block/unblock indicators or flows through bounded device APIs;
-- cloud quarantine/tag/policy actions with account/region/resource fencing;
 - propagation-aware verification, compensation and blast-radius estimates.
 
 Verification:
 
-- NAT/address/resource reuse, rule shadowing, region/account confusion and
-  eventual consistency;
+- NAT/address reuse, rule shadowing and eventual consistency;
 - duplicate/unknown outcome, excessive target expansion and rollback failure;
 - representative network/cloud interoperability and pentest.
 
-Exit criteria: network/cloud actions remain target-, region- and policy-bound.
+Exit criteria: each claimed network provider has independent target, permission,
+outage and interoperability evidence.
 `v0.452.0 implementation stop reached. Run pentest for this exact commit.`
 
-### v0.453.0 — Credential, Evidence And Ticket Actions
+### v0.452.1 — Cloud Actions
 
 Status: planned
 
-Goal: implement remaining governed response and workflow side effects.
+Goal: implement narrow cloud containment profiles.
+
+Deliverables:
+
+cloud quarantine/tag/policy actions with account, region, resource,
+policy-version, propagation and compensation semantics.
+
+Verification:
+
+per-provider account/region/resource confusion, permission drift,
+rate limit, outage, eventual consistency, unknown outcome and interoperability.
+
+Exit criteria: each claimed cloud provider has independent authority, blast-
+radius, failure and interoperability evidence. `v0.452.1 implementation stop
+reached. Run pentest for this exact commit.`
+
+### v0.453.0 — Credential Actions
+
+Status: planned
+
+Goal: rotate or revoke credentials without exposing secret material.
 
 Deliverables:
 
 - rotate/revoke bounded credential handles without exposing secret material;
-- acquire/seal/export specifically approved evidence packages;
-- create/update ticketing records and notifications with redaction policy.
+- provider-specific preconditions, verification, compensation and effect class.
 
 Verification:
 
-- secret exfiltration, wrong credential/evidence/case, unauthorized export and
-  ticket data leakage;
+- secret exfiltration, wrong/reused credential and permission drift;
 - duplicate/unknown outcome, provider timeout and compensation limitations;
 - custody, privacy and connector-host pentest.
 
-Exit criteria: secret, evidence and ticket actions preserve authority, custody
-and disclosure boundaries. `v0.453.0 implementation stop reached. Run pentest
-for this exact commit.`
+Exit criteria: each claimed credential provider has independent secret, failure
+and interoperability evidence. `v0.453.0 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.453.1 — Evidence Actions
+
+Status: planned
+
+Goal: acquire, seal or export only specifically approved evidence packages.
+
+Deliverables:
+
+custody-bound acquisition/seal/export profiles with case, target,
+scope, redaction, hold, destination and verification semantics.
+
+Verification:
+
+wrong evidence/case/target, unauthorized export, custody break,
+partial/unknown outcome, destination outage and platform interoperability.
+
+Exit criteria: each evidence action preserves authority, custody and disclosure
+boundaries. `v0.453.1 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.453.2 — Ticket And Notification Actions
+
+Status: planned
+
+Goal: update external workflow systems without leaking or duplicating incident
+data.
+
+Deliverables:
+
+create/update/comment/notify profiles with redaction, idempotency,
+external identity, link-back and delivery verification.
+
+Verification:
+
+per-provider permission/schema drift, rate/outage, data leakage,
+duplicate/unknown outcome and live interoperability acceptance.
+
+Exit criteria: each claimed workflow provider has independent disclosure,
+failure and interoperability evidence. `v0.453.2 implementation stop reached.
+Run pentest for this exact commit.`
 
 ### v0.455.0 — Verification, Compensation And Irreversible Recovery
 
@@ -3610,7 +4272,10 @@ Goal: assign consistency and recovery ownership before clustering mutable state.
 Deliverables:
 
 - matrix for detection state, connector checkpoints, alerts/incidents/cases,
-  playbooks/actions/approvals, live-query leases, saved queries and audit cursors;
+  playbooks/actions/approvals, live-query leases and saved queries;
+- human sessions/WebAuthn credentials/revocations/elevation, notification
+  outbox/delivery, acquisition/custody, backfill/reprocessing, API idempotency,
+  audit records and audit cursors;
 - authority, partition key, consistency, fencing, replication, RPO, RTO,
   backup/restore, migration and loss/impairment semantics per class;
 - explicit routing decision separating control metadata, immutable evidence and
@@ -3627,30 +4292,32 @@ Exit criteria: no mutable state class enters cluster implementation without a
 named durability and failover contract. `v0.459.0 implementation stop reached.
 Run pentest for this exact commit.`
 
-### v0.460.0 — Distributed Control Plane
+### v0.460.0 — Static Control Schema And Dissemination
 
 Status: planned
 
-Goal: distribute the proven `v0.17.0` local authority model as immutable signed
-configuration epochs.
+Goal: define and disseminate signed candidate configuration without claiming
+consensus-backed distributed activation.
 
 Deliverables:
 
 - node/fleet identity, trust roots, config, schema, parser, rule and component
   registries, policy, tenant, storage and upgrade metadata;
-- current/previous epoch, validation, activation, rollback, drift and audit;
+- current/previous candidate epoch, validation, staging, rollback, drift and
+  audit; local nodes retain `v0.17.0` activation authority;
 - bootstrap, break-glass and least-privilege administration.
 - compatibility and semantic-equivalence proof with local authorization,
   registry, trust-root and audit contracts.
 
 Verification:
 
-- unauthorized/stale/tampered/partial epoch and split configuration;
+- unauthorized/stale/tampered/partial candidate epoch and split dissemination;
 - rollover, rollback, drift, break-glass and compromised admin scenarios;
 - control-plane API/UI pentest.
 
-Exit criteria: nodes cannot activate unauthenticated or invalid configuration.
-`v0.460.0 implementation stop reached. Run pentest for this exact commit.`
+Exit criteria: nodes cannot stage unauthenticated or invalid configuration, and
+no distributed activation or consistency claim is made. `v0.460.0 implementation
+stop reached. Run pentest for this exact commit.`
 
 ### v0.462.0 — Consensus Adversary And Fault Model
 
@@ -3718,6 +4385,55 @@ Verification:
 Exit criteria: safety properties hold for the documented fault assumptions.
 `v0.465.0 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.465.1 — Consensus-Backed Control Activation
+
+Status: planned
+
+Goal: activate distributed control epochs only through the implemented metadata
+consensus path.
+
+Deliverables:
+
+- committed candidate-to-active transition, quorum proof and activation epoch;
+- node compatibility/readiness, staged rollout, fencing, rollback and drift;
+- semantic equivalence with local control, authorization, registry, trust-root
+  and audit behavior.
+
+Verification:
+
+- partition/leader change/crash before and after commit/activation;
+- stale/incompatible node, partial rollout, rollback, trust change and audit
+  destination failure;
+- no node activates an uncommitted or invalid epoch.
+
+Exit criteria: distributed configuration becomes authoritative only after a
+valid consensus commit and local validation. `v0.465.1 implementation stop
+reached. Run pentest for this exact commit.`
+
+### v0.465.2 — Replicated Operational-State Substrate
+
+Status: planned
+
+Goal: provide shared mutable-state mechanics before state-specific HA layers.
+
+Deliverables:
+
+- partitioned conditional writes, replicated journals and fencing epochs;
+- expiring leases, snapshots, compaction, watch streams and idempotency records;
+- per-tenant quotas, encryption, backup/restore hooks, migration, RPO/RTO and
+  impairment interfaces without routing all data through metadata consensus.
+
+Verification:
+
+- concurrent/stale writes, leader/owner loss, partition, duplicate/reorder,
+  snapshot/compaction race, watch gap and restore;
+- fencing/lease/idempotency model tests and tenant isolation;
+- reference journal equivalence and sustained fault/load campaign.
+
+Exit criteria: later HA milestones reuse one proven replication/fencing model
+and add only state-class semantics. `v0.465.2 implementation stop reached. Run
+pentest for this exact commit.`
+
 ### v0.466.0 — Detection-State Placement And Failover
 
 Status: planned
@@ -3727,6 +4443,7 @@ semantics.
 
 Deliverables:
 
+- detection-state schema and placement adapter over `v0.465.2`;
 - partition placement, ownership epochs, fencing, replicated checkpoints and
   deterministic handoff;
 - RPO/RTO, impairment findings and replay from immutable evidence;
@@ -3750,10 +4467,11 @@ Goal: fence mutable source cursors and live-query ownership across failover.
 
 Deliverables:
 
+- connector/subscription adapters over `v0.465.2`;
 - connector/checkpoint and live/saved-query lease placement with ownership
   epochs;
-- connector, subscription and audit-stream cursor replication, resume, handoff
-  and duplicate/gap evidence;
+- connector and subscription cursor replication, resume, handoff and duplicate/
+  gap evidence;
 - provider-rate and tenant-fairness behavior during recovery.
 
 Verification:
@@ -3767,6 +4485,78 @@ Exit criteria: failover creates neither an unreported collection gap nor an
 unfenced duplicate owner. `v0.467.0 implementation stop reached. Run pentest for
 this exact commit.`
 
+### v0.467.1 — Identity Session And Revocation HA
+
+Status: planned
+
+Goal: preserve authentication and elevation safety across failure and failover.
+
+Deliverables:
+
+- WebAuthn credential metadata, human/workload sessions, revocations and
+  elevation-grant adapters over `v0.465.2`;
+- fencing, expiry, reauthentication and revocation propagation RPO/RTO;
+- recovery that cannot resurrect expired or revoked authority.
+
+Verification:
+
+- failover concurrent with login, logout, rotation, revoke and elevation expiry;
+- stale replica/session, partition, clock uncertainty and restore;
+- no duplicate credential or revived grant across ownership change.
+
+Exit criteria: identity failover is availability-preserving but never authority-
+expanding. `v0.467.1 implementation stop reached. Run pentest for this exact
+commit.`
+
+### v0.467.2 — Job, Notification And API Ledger HA
+
+Status: planned
+
+Goal: fail over bounded background jobs and outward delivery/idempotency state.
+
+Deliverables:
+
+- backfill/reprocessing and forensic-acquisition job adapters over `v0.465.2`;
+- notification outbox/delivery and API idempotency ledgers;
+- fenced ownership, progress/custody checkpoints, retry/unknown-outcome and
+  per-class RPO/RTO.
+
+Verification:
+
+- failover at every job checkpoint, acquisition custody step, notification send
+  and API side effect;
+- stale worker, duplicate retry, unknown outcome, cancellation and restore;
+- conservation and no authority/custody expansion after failover.
+
+Exit criteria: failover neither duplicates outward effects nor loses job,
+delivery or custody state silently. `v0.467.2 implementation stop reached. Run
+pentest for this exact commit.`
+
+### v0.467.3 — Independent Audit Record HA
+
+Status: planned
+
+Goal: replicate audit records and cursors without joining the authority domain
+of the operations they record.
+
+Deliverables:
+
+- independently keyed audit-record/cursor adapters over `v0.465.2`;
+- append sequencing, remote placement, acknowledgement, gap and retention RPO/
+  RTO while preserving independent writer/reader roles;
+- failover/restore verification and explicit unavailable-audit behavior.
+
+Verification:
+
+- writer/admin/replica failure, partition, omission, reorder, duplicate, stale
+  cursor, full destination and restore;
+- compromised operational authority cannot alter replicated audit history;
+- offline sequence/signature comparison after failover.
+
+Exit criteria: audit HA increases availability without merging audit and
+operational authority. `v0.467.3 implementation stop reached. Run pentest for
+this exact commit.`
+
 ### v0.468.0 — Alert, Incident And Case State HA
 
 Status: planned
@@ -3775,6 +4565,7 @@ Goal: preserve mutable analyst workflow under node failure and concurrency.
 
 Deliverables:
 
+- analyst operational-state schema and journal adapter over `v0.465.2`;
 - partitioned replicated operational journal, optimistic versions and fencing;
 - alert/incident/case/SLA/approval consistency and conflict-resolution rules;
 - backup/restore, RPO/RTO and immutable evidence/audit references.
@@ -3799,6 +4590,7 @@ duplicating or forgetting side effects.
 
 Deliverables:
 
+- playbook/action/approval/outbox adapters over `v0.465.2`;
 - replicated playbook state, approvals, outbox/inbox and idempotency ledger;
 - fenced worker recovery and `UnknownOutcome` reconciliation after owner loss;
 - RPO/RTO and durable linkage to action envelopes, verification and audit.
@@ -3821,8 +4613,8 @@ Goal: replicate immutable data with explicit durability and repair.
 
 Deliverables:
 
-- partition placement, quorum acknowledgement, rack awareness and bandwidth
-  priorities;
+- partition placement, sealed-segment replica acknowledgement, rack awareness
+  and bandwidth priorities; this does not enable `DurableQuorum` for hot writes;
 - authenticated segment transfer, integrity comparison, repair and rebalance;
 - lag, under-replication, corruption and unavailable-partition evidence.
 
@@ -3834,6 +4626,33 @@ Verification:
 
 Exit criteria: committed durability claims match the exact failure model.
 `v0.470.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.471.0 — Active-Write Replication And Quorum Acknowledgement
+
+Status: planned
+
+Goal: make low-latency `DurableQuorum` truthful for unsealed WAL and hot batches.
+
+Deliverables:
+
+- write-shard leader/ownership epoch, fenced writers and replicated WAL/hot-
+  batch records;
+- source/session/sequence deduplication, quorum commit index and stable-media
+  acknowledgement mapping;
+- crash/re-election recovery, divergent-tail truncation and handoff to immutable
+  segment replication.
+
+Verification:
+
+- leader crash/partition before and after local/remote write/fsync/ack;
+- stale writer, duplicate source sequence, divergent log, quorum loss, full disk
+  and seal race;
+- model/property proof that every `DurableQuorum` acknowledgement survives the
+  documented quorum failure and recovers exactly once into storage outcomes.
+
+Exit criteria: `DurableQuorum` is advertised only when active-write replication
+and recovery prove the negotiated failure claim. `v0.471.0 implementation stop
+reached. Run pentest for this exact commit.`
 
 ### v0.472.0 — Placement, Repair, Rebalancing And Disk Evacuation
 
@@ -3897,6 +4716,32 @@ Verification:
 
 Exit criteria: policy-limited results can never appear globally complete.
 `v0.475.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.476.0 — Distributed Physical Query Execution
+
+Status: planned
+
+Goal: execute federated plans across workers with bounded exchange, coordination
+and failure semantics.
+
+Deliverables:
+
+- authenticated fragment distribution and tenant/snapshot/policy-bound exchange;
+- repartition/shuffle, partial aggregation, distributed joins and bounded graph
+  traversal;
+- coordinator/worker memory limits, backpressure, cancellation, retry,
+  duplicate-fragment identity, straggler and worker-loss handling.
+
+Verification:
+
+- fragment substitution/replay, stale policy/snapshot, skewed shuffle, coordinator
+  exhaustion, worker loss, partition, retry duplicate and straggler;
+- distributed/local result and completeness equivalence;
+- noisy-tenant fairness, cancellation propagation and cross-worker leakage.
+
+Exit criteria: distributed execution cannot exceed coordinator/tenant authority
+or present partial worker results as complete. `v0.476.0 implementation stop
+reached. Run pentest for this exact commit.`
 
 ### v0.478.0 — SRE Operations And Supportability
 

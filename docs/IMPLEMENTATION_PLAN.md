@@ -16,7 +16,12 @@ Build Vakaheim into a self-contained security evidence platform that can:
 - compile observations into typed immutable facts;
 - store and query facts without a mandatory external database;
 - run explainable deterministic and behavioral detection;
-- manage findings, incidents, cases, reports, and chain of custody;
+- manage immutable findings, structured alert triage, formal incidents, cases,
+  independent obligations, regulatory reports, and chain of custody;
+- run a framework-neutral incident process with signed bounded optional
+  ENISA/NIS2/DORA/GDPR packs and no automatic legal-compliance claim;
+- synchronize explicitly governed incident fields with ServiceNow without making
+  external availability or state authoritative by default;
 - execute capability-limited, approved response actions whose effects are
   classified as reversible, compensatable, or irreversible;
 - operate as a single node, cluster, sovereign federation, air-gapped system,
@@ -113,11 +118,33 @@ replicates the proven local model; it does not invent authority semantics late.
 ### Mutable state is not metadata
 
 Detection checkpoints, connector cursors, live-query leases, alerts, incidents,
-cases, approvals, playbooks, action idempotency, and audit cursors are production
-state with different consistency and recovery needs. `v0.459.0` owns their
-durability matrix. Separate Stage K milestones implement fencing, placement,
-replication, failover, RPO, and RTO without forcing high-volume operational
+cases, framework activations/assessments/obligations, reports/submissions,
+external synchronization, approvals, playbooks, action idempotency, and audit
+cursors are production state with different consistency and recovery needs.
+`v0.459.0` owns their durability matrix. Separate Stage K milestones implement
+fencing, placement, replication, failover, RPO, and RTO without forcing
+high-volume operational
 state through the metadata-consensus log.
+
+### Formal incident authority and framework packages
+
+An incident graph is an explainable correlation model, not a formal incident
+record. `v0.344.1` fixes evidence/finding/alert/incident/case/graph boundaries;
+`v0.345.1`–`v0.346.3` implement structured triage, atomic idempotent promotion,
+formal incident phases and history-preserving control operations. One incident
+has one primary case by default. Merge, split and reopen cannot advance earliest
+awareness or an existing obligation deadline.
+
+The base incident process is mandatory and remains usable without legal packs or
+external ITSM. `v0.344.2`–`v0.344.6` implement immutable signed manifests, a
+bounded deterministic declarative IR, tenant-scoped registry, independent
+composition and explicit shadow migration. Packs have no native/I/O/network/
+ambient-time authority and preserve `Unknown` outcomes. Default, ENISA, NIS2,
+DORA and GDPR packs are separately versioned at `v0.360.4`–`v0.360.10`; optional
+activation never means their admitted implementation gates may be skipped. The
+private authoring tool at `v0.360.11` grants no activation or crates.io authority.
+`v0.344.7`, `v0.360.12`, `v0.420.0` and `v0.730.0` close named-pack, national-
+profile, authoritative-Wasm and support/compliance claims before 1.0.
 
 ### Scale claims follow implemented capability
 
@@ -463,6 +490,12 @@ CEF/LEEF providers each receive independent acceptance milestones.
 Family milestones are contracts, not vendor support claims. Every named vendor
 requires its own patch/intermediate release with schema, cursor, permission,
 rate-limit, outage and live interoperability evidence.
+ServiceNow is the first named ticketing provider: `v0.305.2` owns its transport,
+authentication/schema/capability profile; `v0.453.3` activates approved typed
+writes; `v0.453.4` owns bidirectional polling/webhook reconciliation, loop
+prevention, explicit field authority and unknown outcomes. Internal incident
+handling remains available and authoritative by default through every external
+outage or synchronization conflict.
 The platform credential vault is shared but independently compartmented for
 collection, response, PKI and notifications; authority never flows between
 compartments implicitly.
@@ -472,12 +505,23 @@ is later approved, only the SDK uses `MIT OR Apache-2.0`.
 
 ### Stage I: analyst product
 
-Build routing, decomposable risk, incident graphs, confidential case
-compartments, evidence-access revocation, legal/discovery/export holds,
-automated volatile-data acquisition, evidence-vault sealing, reports,
-authentication and session federation, RBAC+ABAC, an independently keyed and
-replicated audit stream, source assurance, rule studio, analyst UI, and
-administration UI. Mutable case state never rewrites immutable evidence.
+Build framework-neutral alert routing and triage, atomic promotion, a formal
+incident lifecycle, separately bound incident graphs, a primary case workspace,
+confidential compartments, evidence-access revocation, legal/discovery/export
+holds, framework assessments/obligations, report/submission receipts, automated
+volatile-data acquisition, evidence-vault sealing, authentication/session
+federation, RBAC+ABAC, an independently keyed audit stream, source assurance,
+rule studio, analyst UI, and administration UI. Mutable workflow state never
+rewrites immutable evidence or source timestamps.
+
+Every terminal alert has a structured disposition or stable incident reference.
+The default pack supplies native states, severity, assignment, escalation,
+closure and post-analysis without claiming compliance. Other packs create
+independent assessments and deadlines; they cannot collapse obligations, weaken
+core invariants, access unauthorized evidence or block base handling. Regulatory
+reports bind exact package/input/payload digests and a receipt or explicit
+unknown outcome. Closure validates structured impact/root-cause/recovery/
+lessons/corrective-action/obligation fields or records an authorized exception.
 
 Forensic acquisition has its own narrow capability, approval, target fencing,
 and privileged-agent protocol; it never inherits ordinary collector authority.
@@ -499,6 +543,9 @@ verification, reversible/compensatable/irreversible classification,
 compensation, recovery, kill switches, and bounded canary response.
 
 Core Wasm execution and the Component Model Canonical ABI precede the host.
+Read-only Wasm may suggest or format, but only the bounded declarative framework
+IR may make authoritative applicability, classification, obligation, deadline or
+reporting decisions for 1.0.
 External actions use a transactional outbox/inbox, fenced workers, provider
 idempotency ledgers, verification-before-retry, and an explicit unknown-outcome
 reconciliation state.
@@ -521,6 +568,11 @@ recovery.
 Operational-state HA is implemented by state class, and the distributed
 scale/failover campaign occurs only after replication, evacuation, tenancy,
 federation, SRE, and disaster mechanisms exist.
+Framework activation/binding, assessment, obligation/deadline, report/submission
+and external synchronization journals receive separate `v0.468.1`–`v0.468.2`
+HA contracts. Failover cannot change a deterministic assessment, move a deadline
+forward, duplicate a submission/ServiceNow action, erase a conflict or convert
+an unknown external outcome into success.
 The replicated scheduler fence lives outside workload snapshots and is witnessed
 by an audit/operator authority outside the workload's snapshot/restore, storage,
 administration, signing-key and consensus/recovery domains. The operational
@@ -594,6 +646,10 @@ operational readiness, option closure, compatibility freeze, artifact freeze,
 candidate qualification, the exact release candidate, and unchanged 1.0
 promotion. The currently named final stop is not a ceiling; new `v0.N.P` or
 `v0.N.0` stops are inserted whenever one pass becomes too broad.
+Framework legal/guidance sources, named-provider matrices, pack decisions and
+non-compliance limitations are re-audited at option closure and candidate
+qualification; mutable law/provider behavior cannot be assumed current merely
+because an old package remains cryptographically valid.
 
 ## 4. Planned Workspace Families
 
@@ -614,7 +670,8 @@ not permission to create empty crates prematurely.
 | Response | `-wasm-core`, `-wasm-abi`, `-wasm-validate`, `-wasm-host`, `-soar-core`, `-action-ledger`, `-approval` | ABI/core portable; host isolated `std` |
 | Identity | `-cbor`, `-cose`, `-jose`, `-oauth`, `-xml`, `-scim`, `-webauthn`, `-identity-federation` | codecs portable; services `std` |
 | Control | `-control`, `-auth`, `-authorization`, `-audit`, `-tenant-id`, `-audit-pseudonym`, `-pki`, `-credential-vault`, `-node-integrity`, `-attestation`, `-opstate`, `-cluster`, `-federation` | portable identity/policy; explicit `std` services |
-| Analyst | `-finding`, `-incident`, `-case`, `-dashboard`, `-report`, `-scheduled-report`, `-api-model`, `-api-host`, `-sdk`, `-ui-model` | mixed |
+| Framework | `-framework-core`, `-framework-package`, `-framework-registry`, `-obligation`, `-regulatory-report`, `-framework-sdk` | core/package/evaluator `no_std + alloc`; registry/tools hosted `std`; private only |
+| Analyst | `-finding`, `-alert`, `-incident`, `-case`, `-external-link`, `-dashboard`, `-report`, `-scheduled-report`, `-api-model`, `-api-host`, `-sdk`, `-ui-model` | mixed |
 | Verification | `-testkit`, fixtures, attack scenarios, fuzz, Kani, Loom, conformance, bench | never product dependencies |
 
 ## 5. Product Roles
@@ -628,7 +685,8 @@ A deployment may combine or separate these roles:
 - detection worker: evaluate live bounded detection state;
 - storage node: write, index, compact, encrypt, replicate, and verify;
 - query worker: historical, temporal, graph, live, and federated execution;
-- incident node: finding correlation and incident state;
+- incident node: alert triage, formal incident/case/graph state, framework
+  assessments, obligations, reports and external links;
 - action worker: isolated enrichment and response components;
 - control node: trust, configuration, policy, schemas, rules, fleet, cluster;
 - API/UI node: authorized analyst, administration, and SDK boundaries.
@@ -651,6 +709,10 @@ Testing is designed with each API, not added after it:
 - fault injection, corruption, partial-write, disk-full, clock, and network
   partitions;
 - attack-scenario replay and deterministic finding replay;
+- framework package canonical/conformance/negative corpora, legal-source review,
+  historical shadow replay and obligation/deadline time-uncertainty models;
+- alert/incident/case/report/external-sync state machines and unknown-outcome
+  conservation across crash, retry, failover and provider outage;
 - upgrade, rollback, backup, restore, repair, and migration tests;
 - performance regression with hardware, dataset, configuration, and commit;
 - independent pentest for every exact release implementation.
@@ -719,6 +781,12 @@ of an approved release candidate. It also requires local and HA scheduler
 evidence, complete tenant lifecycle enforcement, discovery/routing continuity,
 scheduled report and dashboard operation, and a closed option-decision register:
 no conditional, undecided, or `TBD` 1.0 capability may cross the release freeze.
+It requires the framework-neutral default workflow, admitted signed pack set,
+structured alert/incident/closure semantics, exact obligation clocks, report
+payload/receipt evidence, ServiceNow conflict-safe synchronization and their HA
+state. Optional pack activation, external outage or package failure cannot stop
+internal triage/containment/evidence; no package or generated report is itself a
+legal-compliance claim.
 Every server/node build is signed, measured, anti-rollback protected and bound to
 an admitted control epoch; evidence states its exact assurance level, unavailable
 or untrusted measurement is `Unverifiable`, and optional attestation is either

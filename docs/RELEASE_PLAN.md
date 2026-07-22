@@ -77,11 +77,12 @@ replace or renumber it.
 | Query authority/planning/operators, local coverage/committed sets, cold rehydration, side channels, federation, distributed execution and coverage reconciliation | `v0.72.0`–`v0.100.0`, especially `v0.79.1`–`v0.79.2`; distributed extension at `v0.475.1`–`v0.476.1` |
 | Detection identity/state/placement, split behavior families, entity risk, intelligence lifecycle/matching, ATT&CK | `v0.115.0`–`v0.200.0`, especially `v0.170.0`–`v0.179.0` |
 | Common agent/helper boundary, signed software integrity/self-protection and platform continuity | `v0.205.0` through `v0.267.5`, especially `v0.206.0` |
-| Base API before client, later case/response extensions, credential vault, connector isolation and split provider profiles | `v0.270.0`–`v0.342.0`, `v0.376.0`, `v0.450.1` |
-| Simulated/live forensics, confidential cases, auth/audit, dashboards/scheduled reports and split UIs | `v0.382.0`–`v0.405.0`, especially `v0.400.0`, `v0.402.0` |
-| Wasm, bound actions, storm/kill controls, unknown outcomes, split providers, and recovery | `v0.407.0` through `v0.455.0`, especially `v0.446.0`–`v0.453.2` |
+| Base API before client, later analyst/response extensions, credential vault, connector isolation, split provider profiles and named ServiceNow transport | `v0.270.0`–`v0.342.0`, `v0.305.2`, `v0.376.0`–`v0.376.2`, `v0.450.1` |
+| Framework-neutral alert/formal-incident/case lifecycle, signed bounded pack engine, independent obligations, default/ENISA/NIS2/DORA/GDPR packs and regulatory reports | `v0.344.1`–`v0.390.2`, especially `v0.344.7`, `v0.360.2`–`v0.360.12`, `v0.375.1`–`v0.376.2` |
+| Simulated/live forensics, confidential cases, auth/audit, dashboards/scheduled reports and split analyst/framework/external-sync UIs | `v0.382.0`–`v0.405.0`, especially `v0.400.0`, `v0.402.0`, `v0.404.1`–`v0.404.4` |
+| Wasm, bound actions, storm/kill controls, unknown outcomes, split providers, named ServiceNow actions/sync, and recovery | `v0.407.0` through `v0.455.0`, especially `v0.446.0`–`v0.453.4` |
 | Honest node/keystore/rollback assurance, optional attestation and hardware-monotonic closure, signed builds, admission, anti-rollback and runtime quarantine | `v0.20.6`, `v0.44.10`, `v0.456.0`–`v0.457.0`, `v0.460.0`, `v0.465.1`, `v0.483.0`, `v0.483.1` |
-| State CFT/HA, independently witnessed scheduler fence, raw quorum, tenant propagation, distributed query, discovery/routing/proxy trust, SRE/DR/scale/admin | `v0.459.0` through `v0.484.1`, especially `v0.465.1`–`v0.482.0` |
+| State CFT/HA including framework/obligation/report/submission/external-sync journals, independently witnessed scheduler fence, raw quorum, tenant propagation, distributed query, discovery/routing/proxy trust, SRE/DR/scale/admin | `v0.459.0` through `v0.484.1`, especially `v0.465.1`–`v0.482.0` |
 | Regulated cryptographic-mode claims require an applicable validated boundary or explicit rejection | `v0.530.0` |
 | Every optional 1.0 capability has a binding decision and implementation-or-non-goal closure | `v0.100.1`, reserved closures, audited at `v0.730.0` |
 
@@ -101,11 +102,35 @@ next phase gate, with:
   evidence on the exact release commit.
 
 The first such releases use the next available patch numbers under the owning
-family (`v0.304.P` for productivity, `v0.305.P` for source control, and
-`v0.310.P` through `v0.315.P` for network/security families). A separate
-ticketing provider series is assigned when the first named provider is selected.
-Unallocated patch numbers are reservations, not planned support or publication
-authority.
+family (`v0.304.P` for productivity, `v0.305.P` for source control/ticketing,
+and `v0.310.P` through `v0.315.P` for network/security families). ServiceNow is
+the first named ticketing provider: transport is `v0.305.2`, with action/sync
+activation at `v0.453.3`–`v0.453.4`. Unallocated patch numbers are reservations,
+not planned support or publication authority.
+
+## Incident And Framework Coverage Matrix
+
+Framework packages extend a mandatory native workflow; they never replace it.
+Optional means tenant activation is optional, not that the admitted 1.0
+implementation/testing stop may be skipped. A package or connector name creates
+no compliance/provider claim outside its listed owner.
+
+| Required capability | Owning versions |
+| --- | --- |
+| Entity boundaries, primary case and graph separation | `v0.344.1`, `v0.360.1` |
+| Signed package model, bounded policy, registry, composition and immutable upgrades | `v0.344.2`–`v0.344.6` |
+| Named-pack/opaque-Wasm/national-profile decisions | `v0.344.7`, closed by `v0.360.12` and `v0.420.0` |
+| Alert triage, structured closure and tuning feedback | `v0.345.1`–`v0.345.2` |
+| Atomic promotion, formal incident lifecycle and merge/split/reopen controls | `v0.346.1`–`v0.346.3` |
+| Applicability assessments and independent conservative obligations | `v0.360.2`–`v0.360.3` |
+| Default, ENISA, NIS2 EU/national-overlay contract, DORA and GDPR packs | `v0.360.4`–`v0.360.10` |
+| Private authoring/conformance tools and integrated pack claim closure | `v0.360.11`–`v0.360.12` |
+| Closure/post-analysis/corrective-action evidence | `v0.375.1`–`v0.375.2` |
+| Analyst/framework/report and external-sync APIs | `v0.376.1`–`v0.376.2` |
+| Regulatory report versions, approvals, submissions, receipts and corrections | `v0.390.1`–`v0.390.2` |
+| Triage, incident, obligation/report and external-sync UIs | `v0.404.1`–`v0.404.4` |
+| ServiceNow named transport, actions and bidirectional reconciliation | `v0.305.2`, `v0.453.3`–`v0.453.4` |
+| Framework/obligation and report/submission/external-sync HA | `v0.468.1`–`v0.468.2` |
 
 ## Scheduler Consumer Admission Matrix
 
@@ -123,8 +148,9 @@ blind effect retries.
 | Scrub, repair/reindex, backup, retention and compaction | `v0.57.0`, `v0.57.1`, `v0.60.0` |
 | Cold catalog retrieval and rehydration | `v0.86.0` |
 | Rule rollout, entity-risk recompute and intelligence retro-hunt | `v0.190.0`, `v0.176.0`, `v0.179.0` |
-| Connector polling and credential/token renewal | `v0.290.0` plus every named provider admission |
-| Alert escalation and SLA timers | `v0.345.0` |
+| Connector polling and credential/token renewal | `v0.290.0` plus every named provider admission; ServiceNow at `v0.305.2`/`v0.453.4` |
+| Alert escalation/SLA, framework shadow replay/migration and obligation/deadline clocks | `v0.345.0`, `v0.344.6`, `v0.360.3`, `v0.468.1` |
+| Corrective-action reminders and effectiveness windows | `v0.375.2` |
 | Scheduled queries, reports and governed delivery | `v0.402.0` |
 | Playbook waits and delayed compensation | `v0.430.0`; effects continue through later action ledgers |
 
@@ -180,6 +206,9 @@ authority, signing-key domain and consensus/recovery domain; an operational
 consensus group alone never qualifies.
 Conservative `v0.4.4` lease evaluation and `v0.10.3`-authorized witness-signer
 replacement are also mandatory parts of that baseline, not later options.
+The framework-neutral incident workflow/package engine/default pack and admitted
+named-pack implementations are required 1.0 work. ENISA/NIS2/DORA/GDPR pack
+activation is tenant-optional; implementation cannot be silently skipped.
 
 | Option | Binding decision/closure |
 | --- | --- |
@@ -188,10 +217,12 @@ replacement are also mandatory parts of that baseline, not later options.
 | PE/ELF/Mach-O metadata and signature extraction | Decide at `v0.100.1`; if admitted implement `v0.267.1`–`v0.267.5`; close at `v0.268.0` |
 | Remote Windows Event Forwarding | Decide at `v0.100.1`; if admitted implement `v0.231.0`–`v0.234.0`; close at `v0.235.0` |
 | Cloud object/archive and message-stream ingestion | Decide at `v0.100.1`; if admitted implement `v0.307.0`–`v0.307.3`; close at `v0.308.0` |
-| Named connector/action providers | One provider-admission release per claim before its phase security gate |
+| Named connector/action providers | One provider-admission release per claim before its phase security gate; ServiceNow is committed at `v0.305.2` and closed at `v0.453.4` |
 | eBPF and any Windows driver | `v0.220.0`/`v0.240.0` decide admitted surface and preserve tested no-driver fallbacks |
 | Aesynx 1.0 support | `v0.267.0` closes as future portability only unless a later explicit implementation stop is inserted |
-| Optional Wasm extensions and proposal-only AI | `v0.420.0` and `v0.485.0` prove complete disable paths |
+| Optional Wasm extensions and proposal-only AI | `v0.420.0` rejects authoritative framework determinations and proves read-only suggestion/formatting disable; `v0.485.0` proves proposal-only AI disable |
+| Framework pack 1.0 set | Decide at `v0.344.7`; implement default/ENISA/NIS2/DORA/GDPR and national-overlay contract at `v0.360.4`–`v0.360.10`; close all claims at `v0.360.12` |
+| Named national NIS2 profiles and other future named packs | `v0.344.7`/`v0.360.7` prohibit implied support; each admitted country/framework requires its own pre-`v0.730.0` stop or remains an explicit 1.0 non-goal |
 | Privileged/OS-backed runtime measurement | Decide at `v0.456.0`; if admitted implement `v0.456.2`; close at `v0.456.5` |
 | Hardware measured boot and remote attestation | Decide at `v0.456.0`; if admitted implement `v0.456.3`–`v0.456.4`; close at `v0.456.5` |
 | Hardware/OS monotonic anti-replay fence anchor | Decide per platform at `v0.456.0`; if admitted implement counter evidence/reset handling in `v0.456.2`–`v0.456.3`; close at `v0.456.5`; rejection retains mandatory `ExternalWitnessed`/`Unverifiable` behavior |
@@ -4740,6 +4771,36 @@ Exit criteria: the conformance contract is testable; each named ticketing
 provider requires its own admitted release. `v0.305.1 implementation stop
 reached. Run pentest for this exact commit.`
 
+### v0.305.2 — ServiceNow Transport And Schema Profile
+
+Status: planned
+
+Goal: implement a named ServiceNow boundary before any incident action or
+synchronization path claims support.
+
+Deliverables:
+
+- pinned ServiceNow API, authentication, instance, table/schema and attachment
+  profiles with capability discovery and explicit unsupported behavior;
+- polling cursor and authenticated webhook ingestion, stable remote identity,
+  pagination, rate-limit, retry-after and schema-version semantics;
+- connector-vault credentials, least-privilege scopes, egress allowlist,
+  residency/redaction preview and dry-run capability;
+- live interoperability fixture and support matrix; this milestone transports
+  records only and does not yet activate write actions or bidirectional sync.
+
+Verification:
+
+- wrong instance/table/schema, renamed/deleted fields, paging loops, throttling,
+  outage, stale credentials and permission drift;
+- webhook spoof/replay, remote-ID reuse, oversized attachment metadata, tenant/
+  instance confusion and redaction-preview bypass;
+- representative live ServiceNow interoperability and connector-host pentest.
+
+Exit criteria: ServiceNow transport and schema limits are independently proven;
+write activation waits for `v0.453.3` and reconciliation for `v0.453.4`.
+`v0.305.2 implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.306.0 — TAXII Threat-Intelligence Connector
 
 Status: planned
@@ -5208,6 +5269,238 @@ Exit criteria: generic notification requests and outcomes are durable and
 auditable, with no alert-transaction claim. `v0.342.0 implementation stop
 reached. Run pentest for this exact commit.`
 
+### v0.344.1 — Alert Incident Case And Graph Semantic Boundaries
+
+Status: planned
+
+Goal: define the framework-neutral analyst entities before workflow or legal
+packages can blur their authority.
+
+Deliverables:
+
+- immutable evidence and findings, mutable triage alerts, formally declared
+  incidents, collaborative cases and explanatory `IncidentGraph` as distinct
+  typed records with stable tenant-scoped IDs;
+- explicit links: findings feed alerts, validated alerts promote to incidents,
+  one incident owns one primary case by default, and graphs model correlation
+  without becoming incident authority;
+- optional compartmented subcase relationship contract that never creates a
+  second primary incident or weakens the primary case/audit lineage;
+- authority, optimistic-version, audit, timestamp, retention, compartment and
+  immutable-reference boundaries for every entity.
+
+Verification:
+
+- type/ID confusion, cross-tenant linkage, mutable finding/evidence attempts and
+  graph state incorrectly used as incident declaration;
+- primary-case duplication, orphan/subcase reassignment, compartment change and
+  retention/audit propagation;
+- model fixtures for the complete evidence-to-finding-to-alert-to-incident-to-
+  case relationship.
+
+Exit criteria: every analyst entity has one non-overlapping purpose and
+authority; correlation can never silently declare or close an incident.
+`v0.344.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.344.2 — Signed Framework Package Manifest And Canonical Encoding
+
+Status: planned
+
+Goal: define immutable, verifiable framework packs without executable plugin
+authority.
+
+Deliverables:
+
+- bounded canonical manifest/package encoding with stable framework/package IDs,
+  kind, edition, semantic version, effective/expiry dates and engine version;
+- operational-lifecycle, regulatory-obligation, classification/taxonomy,
+  reporting and organization-overlay package kinds;
+- jurisdiction/sector applicability and classification predicates,
+  dependencies/incompatibilities, required fields, workflow/allowed-transition
+  constraints, deadlines/escalations, approvals, report schemas/templates,
+  taxonomy mappings, localization, migrations and fixtures;
+- package digest, signer/trust-chain evidence, conformance corpus and negative
+  tests; unknown critical semantics fail closed;
+- portable `no_std + alloc` data model and decoder with explicit byte, depth,
+  cardinality and localization limits and no third-party crates.
+
+Verification:
+
+- non-canonical/duplicate fields, truncation, deep/wide packages, invalid dates/
+  versions, dependency cycles and incompatible engine profiles;
+- digest/signature substitution, signer revocation, kind confusion, malicious
+  localization/schema/template data and unknown critical fields;
+- positive/negative canonical conformance fixtures for every package kind;
+- cross-platform canonical vectors, round trips, fuzzing and allocation-failure
+  campaigns.
+
+Exit criteria: every pack is immutable, bounded and digest-addressed, and a
+parsed package grants no execution or compliance authority by itself.
+`v0.344.2 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.344.3 — Deterministic Bounded Framework Policy IR
+
+Status: planned
+
+Goal: evaluate authoritative framework logic without native or opaque code.
+
+Deliverables:
+
+- typed declarative IR for Boolean logic, comparisons, set membership,
+  thresholds, durations, explicit missing/unknown values, incident/entity facts
+  and obligation proposals;
+- deterministic compiler/evaluator with instruction, expression-depth,
+  collection-cardinality, memory and output limits;
+- no ambient time, I/O, network, evidence mutation or undeclared tenant data;
+  time and authorized inputs arrive only as explicit versioned facts;
+- complete decision explanation binding input digests, package digest, rule path,
+  missing/unknown values and produced classification/obligation candidates;
+- authoritative Wasm/native package logic prohibited for 1.0; `v0.420.0` may
+  host optional suggestions/formatting only and cannot issue legal decisions.
+
+Verification:
+
+- deterministic cross-target vectors, threshold/duration boundaries, unknown
+  propagation, instruction/depth/cardinality exhaustion and cancellation;
+- unauthorized fact access, ambient-time/I/O attempts, malicious package denial
+  of service and explanation/result mismatch;
+- property/model tests proving same canonical inputs and package digest yield the
+  same decision and explanation.
+
+Exit criteria: authoritative assessments are bounded, deterministic and fully
+explainable, with no hidden executable policy path.
+`v0.344.3 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.344.4 — Framework Registry Trust And Activation Scope
+
+Status: planned
+
+Goal: install and activate immutable package versions without crossing tenant or
+trust boundaries.
+
+Deliverables:
+
+- installed-version registry with digest identity, signer/trust status,
+  dependencies, incompatibilities, engine compatibility and revocation;
+- tenant-scoped staged/active/disabled/quarantined lifecycle, activation epoch,
+  approval evidence and exact package-set commitment;
+- mandatory conformance-corpus execution before activation plus fail-closed
+  behavior for missing, revoked, expired, incompatible or unavailable packages;
+- isolation rule that a malicious/unavailable optional pack cannot stop the base
+  incident workflow; its assessments become explicit unavailable/invalid states;
+- signer rotation, rollback prevention, audit history and cross-tenant package/
+  activation separation.
+
+Verification:
+
+- package substitution, rollback, equivocation, revoked signer, dependency race,
+  partial activation, registry outage and failed conformance corpus;
+- tenant/package-set confusion, unauthorized activation, stale cache and package
+  failure while the default incident process remains available;
+- install/activate/disable/revoke/recover state-machine and registry pentest.
+
+Exit criteria: only an approved exact package-set commitment evaluates for a
+tenant, and optional package failure cannot block framework-neutral handling.
+`v0.344.4 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.344.5 — Framework Composition Applicability And Conflict Rules
+
+Status: planned
+
+Goal: compose multiple packs without erasing independent legal or operational
+decisions.
+
+Deliverables:
+
+- separate per-package applicability assessments, classifications, obligations
+  and deadlines; the UI may highlight an earliest deadline but storage never
+  collapses distinct obligations;
+- deterministic precedence: core evidence/authorization/audit invariants cannot
+  be overridden, packs may add but not remove core requirements, and organization
+  overlays may tighten but not silently weaken regulatory requirements;
+- conflicting classifications remain separate, `Unknown` never silently becomes
+  `NotApplicable`, and human overrides bind reason, actor, authority and evidence;
+- disabling a pack stops new binding but preserves prior assessments/reports and
+  active obligations; cancellation requires a formal authorized record;
+- package data-access capabilities and redacted input views preventing packs from
+  reading unauthorized evidence or leaking across tenants.
+
+Verification:
+
+- conflicting deadlines/classifications/transitions, unknown applicability,
+  weakening overlay, disable with active obligations and override races;
+- malicious pack attempting evidence mutation, base-workflow denial, cross-pack/
+  tenant access or removal of core audit/authorization rules;
+- order-independent composition/model tests and complete explanation/audit proof.
+
+Exit criteria: every pack retains independent attributable outcomes and no
+composition order can weaken core or regulatory safeguards.
+`v0.344.5 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.344.6 — Framework Version Pinning Shadow Replay And Migration
+
+Status: planned
+
+Goal: patch immutable packs without silently rewriting open or historical
+incident decisions.
+
+Deliverables:
+
+- incident binding to exact package version/content digest and package-set
+  activation epoch; open incidents remain pinned by default;
+- staged install, dependency/engine validation, conformance execution, historical
+  shadow replay and assessment/obligation/deadline diff before approval;
+- new-incident activation separate from explicit authorized reassessment/
+  migration of open incidents;
+- append-only revised assessments preserving prior decisions, reports,
+  obligations, overrides and explanations;
+- disable/removal semantics from `v0.344.5`, including continued active
+  obligations and reason/approval when cancellation is requested.
+
+Verification:
+
+- upgrade/downgrade/rollback, changed applicability/deadline, failed migration,
+  partial activation and concurrent incident creation;
+- historical replay mismatch, package-version substitution, obligation loss,
+  disable/remove and unauthorized bulk reassessment;
+- old/new engine compatibility and deterministic before/after decision diffs.
+
+Exit criteria: a framework patch is a new immutable version whose impact is
+reviewable before activation and never rewrites prior truth.
+`v0.344.6 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.344.7 — Framework Pack 1.0 Scope And Authority Decision
+
+Status: planned
+
+Goal: close the named framework/package set and authority limits before analyst
+workflow implementation.
+
+Deliverables:
+
+- mandatory framework-neutral engine and `vakaheim.default.incident/1` decision;
+- admit optional-at-runtime ENISA operational, NIS2 EU base, DORA classification/
+  reporting and GDPR breach packs for implementation at `v0.360.5`–`v0.360.10`;
+- national NIS2 overlay contract admitted at `v0.360.7`; each named country pack
+  still requires its own later legal-source/interoperability stop before support;
+- NIST SP 800-61, SANS, VERIS and other named future packs are explicit 1.0
+  non-goals unless an implementation milestone is inserted and passed before
+  `v0.730.0`; package kinds remain extensible;
+- authoritative native/Wasm framework decisions are a binding 1.0 non-goal;
+  `v0.420.0` closes suggestion/formatting isolation;
+- no pack claims legal compliance automatically; source edition, effective date,
+  jurisdiction and operator/legal approval remain visible limitations.
+
+Verification:
+
+- signed owner/decision record for every named pack and national-profile claim;
+- reject implied support from a generic package kind, template or authoring SDK;
+- documentation/config/API scan for automatic-compliance or opaque-code claims.
+
+Exit criteria: every framework option and named 1.0 support claim is admitted to
+a concrete stop or explicitly excluded before implementation proceeds.
+`v0.344.7 implementation stop reached. Run pentest for this exact commit.`
+
 ## Phase I — Analyst Product
 
 ### v0.345.0 — Alert Routing
@@ -5234,6 +5527,69 @@ Verification:
 Exit criteria: mutable alerts never alter their immutable source findings.
 `v0.345.0 implementation stop reached. Run pentest for this exact commit.`
 
+### v0.345.1 — Explicit Alert Triage State Machine
+
+Status: planned
+
+Goal: make alert triage a versioned audited workflow rather than an open-ended
+status field.
+
+Deliverables:
+
+- states `New`, `Assigned`, `InTriage`, `WaitingForEvidence`, `Closed` and
+  `Promoted`, with guarded transitions and terminal-state semantics;
+- stable alert ID, optimistic version, assignee/queue, priority/severity, source
+  finding set and evidence references;
+- authorized assign, begin-triage, wait/resume, close, promote and reopen
+  operations; reopening appends an immutable transition event;
+- transition journal binding actor, authorization/policy epoch, `TimeTrust`,
+  reason, prior/new version and notification intent.
+
+Verification:
+
+- exhaustive transition model, stale/concurrent clients, duplicate retries,
+  assignment races, close/promote/reopen conflicts and authorization changes;
+- immutable finding/evidence linkage, cross-tenant access and audit omission;
+- restart/replay recovery and UI/API-independent state-machine conformance.
+
+Exit criteria: every alert transition is authorized, version-checked and audited,
+and no terminal alert exists outside `Closed` or `Promoted`.
+`v0.345.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.345.2 — Alert Closure Dispositions And Tuning Feedback
+
+Status: planned
+
+Goal: prevent unstructured closure from hiding detection defects, gaps or active
+incidents.
+
+Deliverables:
+
+- closed disposition enum: rule-defect false positive, authorized-expected-
+  behavior false positive, benign true positive, duplicate, incident-covered,
+  insufficient evidence, telemetry gap, not-security-relevant and approved
+  policy suppression with expiry;
+- mandatory actor/time, explanation, finding/evidence, rule/package version,
+  duplicate/incident reference where applicable, tuning suggestion and task-
+  created fields;
+- automatic idempotent rule-tuning task for rule-defect false positives by
+  default, with explicit approved reason to suppress task creation;
+- tuning/corrective-action linkage that never edits the original finding or
+  historical rule identity.
+
+Verification:
+
+- reject missing explanation/reference/approver/expiry, invalid disposition,
+  self-duplicate, cross-tenant incident and stale rule identity;
+- duplicate closure retry, auto-task crash boundaries, suppression expiry and
+  reopen while tuning is pending;
+- conservation proof that every closed alert has one structured disposition and
+  every rule-defect path has a task or authorized exception.
+
+Exit criteria: an alert cannot disappear into a generic closed state and tuning
+feedback remains linked to immutable detection evidence.
+`v0.345.2 implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.346.0 — Transactional Alert Notification Integration
 
 Status: planned
@@ -5259,6 +5615,103 @@ Exit criteria: every committed alert notification intent has one durable,
 auditable delivery lifecycle. `v0.346.0 implementation stop reached. Run pentest
 for this exact commit.`
 
+### v0.346.1 — Atomic Idempotent Alert-To-Incident Promotion
+
+Status: planned
+
+Goal: turn one or more validated alerts into exactly one formal incident and
+primary workspace across timeout/retry and crash boundaries.
+
+Deliverables:
+
+- authorization and optimistic alert-version/state validation plus canonical
+  `PromotionKey` and linearizable put-if-absent stable `IncidentId` allocation;
+- one committed promotion bundle linking every selected alert/finding, earliest
+  known awareness/detection times, formal incident, primary case and incident-
+  graph root;
+- exact active package-set evaluation request, resulting assessment/obligation
+  intents, transactional notification outbox records and complete immutable
+  audit event;
+- alert `Promoted(incident_id)` transition only after the bundle is durable;
+  recovery finishes an incomplete bundle and retry returns the same incident;
+- same key/different alert-set or digest is an integrity incident, never a second
+  promotion.
+
+Verification:
+
+- crash/timeout at every validate/allocate/link/case/graph/framework/outbox/audit/
+  promoted boundary and concurrent promotion attempts;
+- stale authorization/version, mixed tenants, already promoted/closed alerts,
+  package failure and notification/audit outage;
+- state-machine/property proof that one promotion key yields one stable incident,
+  one primary case and one graph root with complete immutable links.
+
+Exit criteria: promotion is logically atomic and idempotent; no retry, failover
+or partial subsystem outage can create a second incident or orphan authority.
+`v0.346.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.346.2 — Formal Incident Record And Lifecycle Journal
+
+Status: planned
+
+Goal: implement the authoritative incident declaration independently from its
+correlation graph and case workspace.
+
+Deliverables:
+
+- stable `IncidentId`, declaration actor/reason, earliest occurrence/detection/
+  awareness timestamps with uncertainty, owner, severity, confidentiality,
+  taxonomy, impact and package-set bindings;
+- lifecycle `Declared`, `Investigating`, `Containing`, `Eradicating`,
+  `Recovering`, `Monitoring`, `Resolved`, `Closed`, `PostAnalysisComplete`;
+- profile-controlled phase skips only with reason/authority, optimistic version,
+  immutable transition journal and separate state timestamps;
+- distinct `Resolved`, `Closed` and `PostAnalysisComplete` meanings with no
+  automatic collapse; case and graph references never replace incident state.
+
+Verification:
+
+- exhaustive transition/skip model, stale/concurrent update, authorization and
+  severity/confidentiality races;
+- attempted awareness-time advancement, graph/case state confusion, duplicate ID
+  and cross-tenant reference;
+- restart/replay and audit completeness for every lifecycle edge.
+
+Exit criteria: incident handling has one formal attributable record whose state
+cannot be inferred from a graph, case or external ticket.
+`v0.346.2 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.346.3 — Incident Merge Split Reopen And Control Operations
+
+Status: planned
+
+Goal: support complex incident evolution without resetting history, clocks or
+obligations.
+
+Deliverables:
+
+- authorized declassify-with-justification, reopen, merge, split, ownership
+  transfer, hold, severity escalation and approval-gated severity reduction;
+- immutable lineage linking predecessor/successor incidents, alerts, cases,
+  graphs, assessments, obligations, reports and audit events;
+- earliest awareness/detection/occurrence timestamps and existing regulatory
+  deadlines can only remain or become earlier across merge/split/reopen;
+- deterministic obligation reassignment/copy/reference rules preserving each
+  package's independent legal record and no ID reuse;
+- idempotent operation keys and reconciliation for partial multi-record changes.
+
+Verification:
+
+- merge/split cycles, overlapping alerts, concurrent reopen/close, declassify/
+  hold/ownership races and unauthorized severity reduction;
+- deadline/time reset attempts, obligation loss/duplication, primary-case and
+  graph lineage corruption;
+- model proof of stable lineage and non-increasing earliest awareness/deadlines.
+
+Exit criteria: structural incident operations preserve all prior evidence,
+authority, clocks and obligations without silent duplication or erasure.
+`v0.346.3 implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.360.0 — Incident Graph
 
 Status: planned
@@ -5279,6 +5732,390 @@ Verification:
 
 Exit criteria: every automatic grouping decision is explainable and reversible.
 `v0.360.0 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.1 — Formal Incident And IncidentGraph Binding
+
+Status: planned
+
+Goal: associate correlation graphs with formal incidents without conflating
+their states or lifecycles.
+
+Deliverables:
+
+- one formal incident-to-primary-graph-root binding with versioned additional
+  investigative views and explicit graph lineage;
+- graph grouping/split/merge proposals require authorized incident operations;
+  graph confidence/hypotheses never alter incident declaration or severity;
+- propagation rules for alert/finding/entity links, compartments, redaction,
+  holds, retention and evidence access revocation;
+- independent incident and graph journals joined by immutable references.
+
+Verification:
+
+- graph regroup/revert concurrent with incident merge/split/reopen/close;
+- orphan/duplicate root, cross-tenant graph, stale compartment, redaction and
+  graph-derived unauthorized incident transition;
+- complete lineage/explanation replay from incident to every graph revision.
+
+Exit criteria: the graph explains an incident but can neither declare it nor
+replace its formal state. `v0.360.1 implementation stop reached. Run pentest for
+this exact commit.`
+
+### v0.360.2 — Regulatory Assessment And Applicability Records
+
+Status: planned
+
+Goal: record package-specific applicability and classification without turning
+uncertainty into a compliance assertion.
+
+Deliverables:
+
+- immutable assessment ID, incident/package version/digest, input snapshot,
+  applicability `Applicable`/`NotApplicable`/`Unknown`, classification and
+  complete explanation;
+- exact jurisdiction, sector, organization/entity role, authority, source
+  timestamps, rule IDs and missing/unknown facts;
+- append-only reassessment supersession, human override with reason/authority/
+  evidence and independent outcomes for every active pack;
+- authorized incident/entity attribute view enforcing field/purpose, compartment,
+  residency and tenant isolation before evaluation.
+
+Verification:
+
+- missing/conflicting jurisdiction/sector/entity facts, unknown propagation,
+  stale package/input, override/reassessment races and package-order changes;
+- unauthorized evidence/attribute access, cross-tenant assessment leakage and
+  result/explanation/package-digest substitution;
+- deterministic replay and one independent outcome per applicable package.
+
+Exit criteria: every applicability/classification result is immutable,
+explainable and pinned to exact inputs and package content.
+`v0.360.2 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.3 — Obligation Deadline Escalation And Overdue Engine
+
+Status: planned
+
+Goal: implement independent regulatory and operational clocks without silently
+merging or resetting deadlines.
+
+Deliverables:
+
+- immutable obligation ID bound to incident, assessment, package digest, rule,
+  source timestamp, computed deadline, uncertainty and required action/report;
+- states pending, due-soon, in-progress, submitted/completed, overdue, cancelled,
+  superseded and `Unknown`, with append-only transitions and approvals;
+- conservative `v0.4.4` time arithmetic, visible safety margin, warnings,
+  escalations and `v0.44.5` scheduler profile; unavailable/uncertain time fails
+  toward earlier action and never extends a legal deadline;
+- separate obligations for every pack/rule; merge/split/reopen and pack disable
+  cannot move an existing deadline forward or erase it;
+- requested intermediate reports, correction/follow-up events, authorized
+  cancellation and exception evidence without false completion.
+
+Verification:
+
+- exact boundary arithmetic, forward/backward clock jumps, uncertainty growth,
+  missed scheduler execution and notification outage;
+- awareness-time correction, merge/split/reopen, pack upgrade/disable, duplicate
+  obligation creation and conflicting legal clocks;
+- model proof that source timestamp/rule are visible and no deadline silently
+  moves later, collapses with another or disappears.
+
+Exit criteria: every clock is independently attributable and conservative, and
+an overdue/unknown obligation remains visible until formally resolved.
+`v0.360.3 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.4 — Default Vakaheim Incident Handling Pack
+
+Status: planned
+
+Goal: ship a useful framework-neutral incident process that requires no legal,
+ENISA or external-ITSM package.
+
+Deliverables:
+
+- immutable signed `vakaheim.default.incident/1` package over the `v0.344.2`–
+  `v0.344.6` engine;
+- default alert/incident states, triage dispositions, severity/priority,
+  assignment, escalation, tasks, comments, evidence and generic SLA rules;
+- closure validation and post-incident review requirements compatible with
+  `v0.345.1`–`v0.346.3` and `v0.375.0`;
+- complete conformance/negative corpus, localization baseline and migration
+  fixture;
+- explicit statement that this operational process makes no legal-compliance
+  claim.
+
+Verification:
+
+- end-to-end alert promotion, incident phases, case work and post-analysis with
+  every optional regulatory pack absent/unavailable/malicious;
+- package tamper/revoke/upgrade/disable, missing localization and base-workflow
+  denial attempts;
+- deterministic cross-platform package/evaluator results and tabletop exercise.
+
+Exit criteria: Vakaheim provides a complete native incident workflow by default,
+independent of optional frameworks and external systems.
+`v0.360.4 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.5 — ENISA Operational Lifecycle Pack
+
+Status: planned; optional tenant activation
+
+Goal: provide an independently patchable ENISA-oriented operational overlay
+without claiming that use establishes legal compliance.
+
+Deliverables:
+
+- signed package mapping detection/registration, triage/classification/
+  prioritization/assignment, resolution, closure and post-analysis onto the
+  default incident process;
+- exact ENISA guide edition/source digest, terminology/taxonomy mappings,
+  required fields, transition overlays and conformance fixtures;
+- additive workflow constraints only; base evidence, authorization, audit and
+  incident invariants remain non-overridable;
+- source and limitation documentation linking the official ENISA incident-
+  management guidance and stating its non-regulatory nature:
+  [ENISA incident-management guide announcement](https://www.enisa.europa.eu/news/enisa-news/new-guide-on-cyber-security-incident-management-to-support-the-fight-against-cyber-attacks).
+
+Verification:
+
+- every lifecycle mapping/phase/skip, conflicting organization overlay, missing
+  data, pack disable/upgrade and historical replay;
+- ENISA pack failure cannot stop default incident handling or erase obligations;
+- independent content/domain review, deterministic evaluation and pack pentest.
+
+Exit criteria: tenants may activate a versioned ENISA operational profile while
+the default process and legal claims remain separate.
+`v0.360.5 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.6 — NIS2 EU Base Obligation Pack
+
+Status: planned; optional tenant activation
+
+Goal: encode a source-pinned EU NIS2 base assessment and reporting clock without
+pretending to replace national transposition or legal advice.
+
+Deliverables:
+
+- entity/sector applicability and significant-incident assessment with explicit
+  unknowns and exact Directive (EU) 2022/2555 source/edition;
+- earliest awareness handling plus independent Article 23 obligations: early
+  warning within 24 hours, notification within 72 hours, requested intermediate
+  report and final report within one month after incident notification;
+- ongoing-incident progress/final-report handling, source fields, recipient
+  extension points, submission/correction linkage and explanations;
+- pinned official source: [NIS2 Article 23](https://eur-lex.europa.eu/eli/dir/2022/2555/art_23/oj);
+- no national-recipient/procedure or automatic-compliance claim; `v0.360.7`
+  supplies the overlay contract.
+
+Verification:
+
+- awareness and 24-hour/72-hour/one-month boundaries under uncertainty, late
+  discovery, ongoing incident and intermediate-report request;
+- applicable/not-applicable/unknown entity and significant-incident criteria,
+  package patch, national conflict and deadline non-collapse;
+- independent legal-content review against the pinned official source plus
+  deterministic fixtures and adversarial package tests.
+
+Exit criteria: NIS2 EU-base assessments and clocks are exact-package attributable,
+conservative and visibly incomplete until required national context is supplied.
+`v0.360.6 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.7 — National NIS2 Overlay Contract
+
+Status: planned
+
+Goal: support national transpositions without baking mutable country law into the
+EU base engine or implying unnamed jurisdiction support.
+
+Deliverables:
+
+- signed overlay schema for jurisdiction, competent authority/CSIRT, recipients,
+  entity/sector rules, thresholds, additional fields, procedures/channels,
+  language, effective/expiry dates and legal-source provenance;
+- dependency on an exact NIS2 EU base digest, deterministic additive/conflict
+  behavior and independent assessments/obligations where national rules differ;
+- authority review, activation scope and migration/reassessment requirements for
+  legal changes;
+- each named country overlay requires its own patch/intermediate implementation,
+  current-source review, conformance corpus and pentest before support is claimed.
+
+Verification:
+
+- wrong/missing jurisdiction, expired/future law, base-version mismatch,
+  conflicting deadline/recipient and unknown national applicability;
+- overlay attempting to weaken EU/core invariants, cross-jurisdiction leakage,
+  silent fallback to another country and stale legal source;
+- synthetic national-overlay fixtures and admission rejection for unnamed packs.
+
+Exit criteria: national rules are independently versioned and attributable; the
+generic contract alone claims support for no country.
+`v0.360.7 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.8 — DORA Major Incident Classification Pack
+
+Status: planned; optional tenant activation
+
+Goal: classify DORA major ICT-related incidents separately from notification
+deadlines.
+
+Deliverables:
+
+- financial-entity/applicability, critical-service and materiality evaluation
+  pinned to Commission Delegated Regulation (EU) 2024/1772;
+- criteria for clients/financial counterparts/transactions, reputation,
+  duration/service downtime, geographic spread, data loss, economic impact and
+  critical services with explicit estimates/unknowns;
+- recurring-incident aggregation using source-pinned recurrence/root-cause/
+  review-window rules and exclusions, without altering original incidents;
+- major-classification timestamp and exact inputs/explanation for later report
+  clocks;
+- pinned official source: [DORA classification criteria](https://eur-lex.europa.eu/eli/reg_del/2024/1772/oj).
+
+Verification:
+
+- every materiality threshold boundary, missing/estimated inputs, critical-
+  service dependency and interdependent criteria;
+- recurring incidents across window/root-cause/entity exclusions, late
+  reclassification and assessment supersession;
+- independent legal-content review, official-source fixture provenance,
+  deterministic replay and classification-pack pentest.
+
+Exit criteria: DORA classification is a versioned explainable assessment with a
+distinct classification time, never inferred from NIS2 clocks.
+`v0.360.8 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.9 — DORA Notification And Reporting Pack
+
+Status: planned; optional tenant activation
+
+Goal: implement DORA reporting clocks, content and forms independently from
+NIS2 and from major-incident classification.
+
+Deliverables:
+
+- initial notification due within four hours after major classification and no
+  later than 24 hours after awareness, including later-than-24-hour
+  classification handling;
+- intermediate report due within 72 hours after initial notification, recovery
+  updates, and final report due within one month after the latest applicable
+  intermediate report;
+- delay-notice/reason, correction/update, financial/operational impact, affected
+  clients/counterparties/transactions, downtime, geography, root cause and
+  recovery fields;
+- versioned forms/templates/procedures pinned to Commission Delegated Regulation
+  (EU) 2025/301 and Implementing Regulation (EU) 2025/302;
+- official sources [DORA reporting deadlines](https://eur-lex.europa.eu/eli/reg_del/2025/301/oj)
+  and [DORA report forms and procedures](https://eur-lex.europa.eu/eli/reg_impl/2025/302/oj).
+
+Verification:
+
+- four-hour/24-hour dual boundary, late classification, 72-hour intermediate,
+  repeated update and latest-intermediate one-month boundary under uncertainty;
+- missing classification/awareness/recovery time, delayed-report explanation,
+  template version mismatch and NIS2 deadline non-collapse;
+- independent legal/content/template review, canonical form fixtures, package
+  replay and reporting-pack pentest.
+
+Exit criteria: DORA obligations and forms follow their own source-pinned clocks
+and never borrow NIS2 timing semantics.
+`v0.360.9 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.10 — GDPR Personal-Data Breach Pack
+
+Status: planned; optional tenant activation
+
+Goal: cover the regulatory-pack example for GDPR breach handling as a separate
+assessment and obligation set.
+
+Deliverables:
+
+- controller/processor role, personal-data breach, risk/high-risk applicability
+  assessments and explicit unknown/missing facts;
+- Article 33 supervisory notification without undue delay and where feasible
+  within 72 hours of awareness unless unlikely risk, including late reason,
+  phased information and breach documentation;
+- processor-to-controller notification and Article 34 high-risk data-subject
+  communication without undue delay, including source-pinned exceptions;
+- pinned official source: [GDPR](https://eur-lex.europa.eu/eli/reg/2016/679/oj),
+  exact package digest and no automatic-compliance claim.
+
+Verification:
+
+- 72-hour boundary, awareness correction, risk/high-risk/exception decisions,
+  phased data, late reason and processor/controller role conflict;
+- composition with NIS2/DORA without deadline collapse or disclosure leakage;
+- independent legal-content review, deterministic fixtures and privacy/redaction
+  pentest.
+
+Exit criteria: GDPR breach handling is independently attributable and cannot be
+confused with NIS2 or DORA assessment/reporting authority.
+`v0.360.10 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.11 — Internal Framework Authoring Validation And Conformance SDK
+
+Status: planned; private workspace tooling
+
+Goal: let maintainers author and test packs without granting publication or
+runtime authority.
+
+Deliverables:
+
+- private authoring model/CLI for manifests, policy IR, applicability,
+  obligations, schemas/templates, localization, mappings and migrations;
+- canonical build/digest, lint, dependency/compatibility checks, fixture runner,
+  negative corpus, explanation snapshots and package diff;
+- historical shadow-replay and migration preview against redacted authorized
+  incident fixtures;
+- signing-request/verification workflow separated from authoring identity and
+  production activation authority;
+- no crates.io publication; future public SDK admission remains solely
+  `v0.660.0` and this tool never implies support/compliance for authored packs.
+
+Verification:
+
+- malformed/hostile source, nondeterministic build, fixture omission, dependency
+  confusion, unauthorized signing/activation and secret/evidence leakage;
+- cross-platform reproducible package output, negative fixtures and compiler/
+  evaluator differential tests;
+- shadow replay at scale, migration preview correctness and authoring-tool pentest.
+
+Exit criteria: pack authors can produce reproducible conformance evidence, but
+only the registry trust/approval path can activate a package.
+`v0.360.11 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.360.12 — Framework Pack Integration And Claim Closure
+
+Status: planned
+
+Goal: close the `v0.344.7` 1.0 framework set without hiding implementation in an
+integration gate.
+
+Deliverables:
+
+- integrated default, ENISA, NIS2 EU, national-overlay contract, DORA
+  classification/reporting and GDPR packs over one package engine;
+- default-only and every meaningful multi-pack composition/disable/upgrade/
+  reassessment matrix with independent assessments, obligations and reports;
+- exact legal/guidance source inventory, edition/effective-date review owner,
+  update monitoring policy and release-note limitations;
+- proof that optional pack failure cannot block base triage/containment/evidence,
+  and opaque Wasm/native logic cannot make authoritative 1.0 determinations;
+- documentation explicitly distinguishes operational guidance, product support,
+  legal assessment evidence and actual compliance responsibility.
+
+Verification:
+
+- cross-pack conflicting applicability/classification/deadline, unknowns,
+  disable with active obligation, source update and historical shadow migration;
+- malicious/revoked/unavailable pack, registry outage, tenant leakage and
+  authoritative-Wasm bypass attempt while default workflow remains usable;
+- independent security, privacy and legal/domain review plus exact-commit pentest.
+
+Exit criteria: every admitted 1.0 pack has passed its own stop and integrated
+claim audit; no framework option or compliance implication remains unresolved.
+`v0.360.12 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.375.0 — Case Management
 
@@ -5301,6 +6138,71 @@ Verification:
 Exit criteria: case history is complete while source evidence remains
 immutable. `v0.375.0 implementation stop reached. Run pentest for this exact
 commit.`
+
+### v0.375.1 — Incident Closure Validation And Post-Incident Review
+
+Status: planned
+
+Goal: prevent `Resolved`, `Closed` or `PostAnalysisComplete` from becoming
+interchangeable unchecked labels.
+
+Deliverables:
+
+- close-readiness validator for category/taxonomy, root cause/contributing
+  factors, CIA impact, affected assets/services/identities/organizations,
+  geography/jurisdiction and containment/eradication/recovery evidence;
+- residual risk, evidence references, lessons learned, corrective actions/
+  owners, regulatory assessments/submissions and required package fields;
+- separate guards for resolve, close and post-analysis completion, including
+  unresolved/overdue obligations, open holds/tasks and unknown outcomes;
+- explicit field-level authorized exceptions with approver, reason, evidence,
+  expiry/review and immutable audit event;
+- primary case/post-analysis review linkage without making case closure mutate
+  the incident automatically.
+
+Verification:
+
+- every missing/unknown field, incomplete obligation/report, open action/hold,
+  stale recovery evidence and invalid phase skip;
+- exception authority/collusion/expiry, concurrent close/reopen, package change
+  and graph/case status confusion;
+- tabletop closure and post-analysis exercises across default and regulatory packs.
+
+Exit criteria: an incident reaches each terminal phase only with complete
+structured evidence or an explicit authorized exception.
+`v0.375.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.375.2 — Corrective Actions Tuning And Effectiveness Verification
+
+Status: planned
+
+Goal: turn triage defects and lessons learned into owned measurable improvement
+without rewriting historical detections.
+
+Deliverables:
+
+- corrective-action record with source alert/incident/case/lesson, owner,
+  priority, due date, approval, evidence and status journal;
+- links to `v0.345.2` rule-tuning tasks, detection package changes, telemetry-gap
+  remediation, control changes and risk acceptance;
+- effectiveness plan, success criteria, observation window, verification query/
+  evidence and explicit effective/ineffective/inconclusive outcome;
+- scheduler notifications/escalation, duplicate consolidation and immutable
+  before/after rule/package/source identities;
+- post-analysis completion policy requiring disposition of mandatory corrective
+  actions without claiming that task closure proves effectiveness.
+
+Verification:
+
+- duplicate/abandoned action, owner/authorization change, overdue task,
+  ineffective fix, telemetry unavailable and package rollback;
+- tuning link substitution, historical finding mutation, false-success evidence
+  and cross-tenant leakage;
+- end-to-end rule-defect alert through tuning, rollout and effectiveness review.
+
+Exit criteria: every required improvement is owned and evidence-verified, while
+the original alert, finding and incident history remains immutable.
+`v0.375.2 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.376.0 — Case API Extension
 
@@ -5327,6 +6229,70 @@ Verification:
 Exit criteria: the case API reflects the implemented state machine rather than
 freezing it early, and remains unavailable to human principals. `v0.376.0
 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.376.1 — Alert Incident Assessment Obligation And Report APIs
+
+Status: planned
+
+Goal: expose the implemented workflow and framework records without permitting
+clients to invent state or legal decisions.
+
+Deliverables:
+
+- versioned alert transition/disposition/promotion, formal incident lifecycle/
+  control operation and incident-graph binding schemas;
+- read/evaluate/reassess APIs for package bindings and assessments, plus
+  obligation transition/escalation/exception and report-version/approval state;
+- optimistic version, canonical idempotency key, package/input digest, tenant/
+  compartment/purpose authorization, pagination/watch and immutable audit binding;
+- server-generated transition forms and explanations; clients cannot supply an
+  authoritative assessment, deadline, incident ID or completion assertion;
+- service-identity-only profile until `v0.396.0` activates human sessions.
+
+Verification:
+
+- stale/concurrent transition, duplicate promotion, package/digest substitution,
+  forged deadline/completion, pagination snapshot and old/new client behavior;
+- cross-tenant/compartment assessment/report access, redaction, hold and purpose
+  changes during requests;
+- API/state-machine/package-engine conformance and independent API pentest.
+
+Exit criteria: the API exposes only implemented authorized transitions and exact
+framework records, never caller-authored incident or regulatory truth.
+`v0.376.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.376.2 — External Ticket Link Inbox And Sync Journal APIs
+
+Status: planned
+
+Goal: model external workflow synchronization durably without making an ITSM
+record authoritative by accident.
+
+Deliverables:
+
+- external link with provider profile, Vakaheim incident/case IDs, remote record
+  ID/URL, correlation/idempotency IDs and external schema/API profile;
+- per-field authority map, last synchronized version, last confirmed remote
+  state, conflict state, delivery outcome, retry/reconciliation state and
+  redaction/residency policy;
+- append-only outbound/inbound synchronization journal, inbox/outbox,
+  loop-prevention token and unknown-outcome state;
+- APIs for preview/dry-run, approve, enqueue, observe, reconcile, reject/import
+  permitted remote changes and inspect health/conflicts;
+- default internal authority; no blind last-write-wins and external outage never
+  blocks local triage, containment or evidence preservation.
+
+Verification:
+
+- replay/loop, remote-ID reuse, stale local/remote versions, simultaneous edits,
+  field-authority conflict and unknown send outcome;
+- provider outage/schema drift, redaction/residency change, unauthorized import,
+  attachment substitution and cross-tenant link;
+- journal conservation, deterministic conflict surfacing and API pentest.
+
+Exit criteria: neither side is silently overwritten and every synchronization
+attempt/outcome is durable, attributable and reconcilable.
+`v0.376.2 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.382.0 — Automated Forensic Acquisition And Evidence Vault
 
@@ -5377,6 +6343,71 @@ Verification:
 Exit criteria: recipients can independently validate package integrity and
 scope. `v0.390.0 implementation stop reached. Run pentest for this exact
 commit.`
+
+### v0.390.1 — Versioned Regulatory Report Generation Review And Approval
+
+Status: planned
+
+Goal: generate package-defined reports without confusing a draft, approved
+version or forensic report.
+
+Deliverables:
+
+- immutable report ID/version binding incident, assessment, obligation, exact
+  framework/report package digest, template/schema and canonical input snapshot;
+- deterministic field mapping with source/evidence citations, missing/unknown/
+  estimated markers, localization and redaction/residency policy;
+- draft, review, changes-requested, approved, superseded and withdrawn states
+  with optimistic version and required role/two-person approvals;
+- canonical rendered payload plus structured payload digest; manual edits become
+  a new attributable version and cannot detach required source fields;
+- separation from `v0.390.0` forensic packages while permitting approved custody-
+  safe evidence/report attachments.
+
+Verification:
+
+- template/package/input substitution, omitted required field, stale approval,
+  concurrent edit, localization drift and redaction bypass;
+- assessment/obligation supersession, incident merge/split, late correction and
+  historical report verification after package upgrade;
+- deterministic render/schema fixtures and report-generation pentest.
+
+Exit criteria: every approved regulatory report is immutable, exact-input and
+exact-package attributable with all uncertainty and omissions visible.
+`v0.390.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.390.2 — Signed Submission Receipt And Correction Workflow
+
+Status: planned
+
+Goal: track regulatory submission as an uncertain external effect with exact
+payload and receipt evidence.
+
+Deliverables:
+
+- approved report-to-submission envelope binding channel/recipient profile,
+  payload digest, signer, obligation, idempotency key and approval evidence;
+- durable outbox/inbox states prepared, dispatched, acknowledged, rejected,
+  `UnknownOutcome`, reconciled and corrected/superseded;
+- signed/verified receipt or explicit absence/unknown outcome, remote reference,
+  submission time with `TimeTrust`, response digest and complete audit journal;
+- correction/update workflow creating a new report/submission version without
+  erasing the original payload, receipt, lateness or regulator response;
+- provider-neutral manual/offline export baseline; each electronic authority
+  channel requires its own later named interoperability stop.
+
+Verification:
+
+- crash/timeout before/after send/remote accept/receipt persist, duplicate retry,
+  receipt forgery, wrong recipient and idempotency collision;
+- rejected/late/partial submission, lost receipt, correction race, revoked signer,
+  clock uncertainty and channel outage;
+- conservation proof that every dispatch has exact payload digest and receipt or
+  remains explicit `UnknownOutcome`; submission-workflow pentest.
+
+Exit criteria: no report is called submitted without exact payload and receipt
+evidence, and uncertainty is never converted into success or safe retry.
+`v0.390.2 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.392.0 — CBOR And COSE Identity Substrate
 
@@ -5741,6 +6772,125 @@ Exit criteria: analyst rendering cannot replace server enforcement or leak
 inaccessible evidence through derived views. `v0.404.0 implementation stop
 reached. Run pentest for this exact commit.`
 
+### v0.404.1 — Alert Triage Queue And Disposition UI
+
+Status: planned
+
+Goal: make the explicit alert lifecycle usable without permitting client-side
+state or authorization shortcuts.
+
+Deliverables:
+
+- queue/filter/assignment/priority/SLA views with finding/evidence/rule/package
+  context and source-assurance gaps;
+- server-issued forms for begin triage, wait/resume, structured close, promote
+  and reopen using optimistic version/idempotency tokens;
+- complete disposition-specific required fields, duplicate/incident selection,
+  suppression approval/expiry and rule-tuning task preview/status;
+- stale/conflict resolution and immutable transition/audit timeline.
+
+Verification:
+
+- stale tab/concurrent analyst, duplicate submit, close/promote race, queue
+  reassignment and authorization/compartment change;
+- required-field bypass, cross-tenant duplicate/incident lookup, unsafe evidence
+  rendering and tuning-task omission;
+- accessible end-to-end triage, browser security and analyst workflow pentest.
+
+Exit criteria: every UI action is a server-validated `v0.345.1`/`v0.345.2`
+transition and terminal alerts remain fully explained.
+`v0.404.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.404.2 — Incident Lifecycle And Investigation Workspace
+
+Status: planned
+
+Goal: present the formal incident, primary case and graph as related but distinct
+work areas.
+
+Deliverables:
+
+- incident declaration/lifecycle/severity/owner/hold views, primary case tasks/
+  notes/evidence/playbooks and separate graph/hypothesis exploration;
+- server-issued merge/split/reopen/declassify/transfer/severity forms with lineage,
+  earliest-awareness and obligation impact preview;
+- structured resolve/close/post-analysis readiness, required fields, exceptions,
+  corrective actions and effectiveness status;
+- compartment-aware timelines exposing immutable incident/case/graph/audit
+  events without conflating their states.
+
+Verification:
+
+- stale/concurrent lifecycle and structural operations, graph/case status
+  confusion, awareness/deadline reset preview and primary-case duplication;
+- compartment/membership/redaction change, unsafe comments/evidence, hold and
+  exception-approval bypass;
+- full incident tabletop, accessibility, browser security and workspace pentest.
+
+Exit criteria: analysts can run the complete native incident process while the
+server remains the sole authority for state, clocks and evidence access.
+`v0.404.2 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.404.3 — Obligation Countdown Report Approval And Submission UI
+
+Status: planned
+
+Goal: display independent framework decisions and deadlines without false
+certainty or silent legal conflation.
+
+Deliverables:
+
+- per-package applicability/classification explanation, package version/digest,
+  source timestamps, uncertainty and independent obligation countdowns;
+- earliest-pending summary that never replaces the underlying separate deadlines;
+- report field/source/unknown review, version diff, required approval, payload
+  digest, submission/receipt/unknown-outcome and correction views;
+- authorized reassessment, override, exception and package migration previews
+  with immutable before/after outcomes;
+- explicit operational-guidance/product-support/legal-compliance limitations.
+
+Verification:
+
+- deadline ordering/uncertainty/overdue display, conflicting packs, unknown
+  applicability, stale package and disabled pack with active obligation;
+- approval/submission duplicate, payload mismatch, forged/missing receipt,
+  correction race and authorization/redaction changes;
+- accessible regulatory tabletop, browser security and disclosure pentest.
+
+Exit criteria: the UI exposes exact package/rule/time evidence and never presents
+an aggregate countdown or generated report as proof of compliance/submission.
+`v0.404.3 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.404.4 — External Ticket Health Conflict And Reconciliation UI
+
+Status: planned
+
+Goal: make external synchronization failure and field authority visible without
+blocking internal incident handling.
+
+Deliverables:
+
+- link/provider/remote identity, field-authority map, last confirmed remote/local
+  versions, delivery health and synchronization journal views;
+- dry-run/redaction/residency preview, per-action approval and loop-prevention/
+  idempotency evidence;
+- explicit conflict/`UnknownOutcome` resolution comparing both values and their
+  provenance; no blind last-write-wins control;
+- polling/webhook status, retry/reconcile and imported-update approval while
+  internal triage/containment controls remain available during provider outage.
+
+Verification:
+
+- stale/conflicting local/remote edit, duplicate/loop, unknown outcome, provider
+  outage/schema drift and field-authority policy change;
+- redaction/attachment leakage, malicious remote content, cross-tenant link and
+  UI attempt to make external state authoritative;
+- accessible failure/reconciliation exercises, browser security and UI pentest.
+
+Exit criteria: analysts can see and reconcile every sync conflict without silent
+overwrite or loss of internal workflow availability.
+`v0.404.4 implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.405.0 — Administration UI
 
 Status: planned
@@ -5870,15 +7020,21 @@ Deliverables:
 - WIT capability worlds and signed manifests admitted through `v0.410.0` and
   `v0.415.0`;
 - fuel, wall time, memory, output, host-call and concurrency limits;
-- isolated worker process/OS sandbox and evidence-only handles.
+- isolated worker process/OS sandbox and evidence-only handles;
+- optional framework suggestions or document formatting are visibly
+  non-authoritative; only `v0.344.3` declarative IR can create an assessment,
+  obligation, deadline or legal/reporting determination.
 
 Verification:
 
 - malformed module/component, capability forgery, escape and confused deputy;
 - fuel/memory/output/host-call exhaustion, cancellation and worker crash;
+- suggestion/result substitution, forged assessment/obligation, package-engine
+  delegation and disable-path tests while native incident handling continues;
 - differential sandbox review and independent Wasm-host pentest.
 
-Exit criteria: the Wasm runtime is defense-in-depth, bounded and read-only.
+Exit criteria: the Wasm runtime is defense-in-depth, bounded and read-only, and
+cannot become authoritative framework logic in 1.0.
 `v0.420.0 implementation stop reached. Run pentest for this exact commit.`
 
 ### v0.425.0 — Cryptographically Bound Action Envelope
@@ -6255,6 +7411,72 @@ Exit criteria: each claimed workflow provider has independent disclosure,
 failure and interoperability evidence. `v0.453.2 implementation stop reached.
 Run pentest for this exact commit.`
 
+### v0.453.3 — ServiceNow Incident Action Activation
+
+Status: planned
+
+Goal: activate narrowly typed ServiceNow writes over the proven provider,
+external-link and action ledgers.
+
+Deliverables:
+
+- create incident, update allowed severity/assignment/status fields, add comment,
+  attach approved redacted evidence/report package and resolve/close actions;
+- exact `v0.305.2` schema capability, `v0.376.2` link/field-authority map and
+  `v0.447.0` idempotency/unknown-outcome binding per action;
+- link-back to Vakaheim, correlation/loop token, expected remote version,
+  precondition snapshot and post-action verification;
+- dry-run, per-action automatic/human/two-person policy, residency/redaction/
+  attachment custody and egress controls;
+- internal incident remains authoritative by default and provider outage never
+  blocks local triage, containment, evidence or closure decisions.
+
+Verification:
+
+- every action under wrong table/field/record/version, duplicate retry, timeout,
+  rate limit, eventual consistency and provider apply-with-lost-response;
+- approval/redaction/residency bypass, malicious comment/URL, wrong attachment,
+  remote-ID reuse and loop attempt;
+- representative live ServiceNow create/update/comment/attachment/resolve/close
+  interoperability and independent action pentest.
+
+Exit criteria: each supported ServiceNow write is typed, approved, idempotent and
+verified, with uncertain effects remaining `UnknownOutcome`.
+`v0.453.3 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.453.4 — ServiceNow Bidirectional Reconciliation And Recovery
+
+Status: planned
+
+Goal: import permitted ServiceNow changes and recover uncertain outcomes without
+silent overwrite or synchronization loops.
+
+Deliverables:
+
+- polling/webhook reconciliation over `v0.305.2` with cursor/event identity,
+  origin/loop token and durable inbound journal;
+- per-field local/remote/shared authority, permitted status/assignment/comment
+  imports and explicit conflict objects; blind last-write-wins prohibited;
+- last synchronized/confirmed remote versions, unknown-outcome verification,
+  replay-safe retry and manual resolution preserving both sides' provenance;
+- schema/profile migration, remote deletion/reopen handling, link repair and
+  health/impairment facts;
+- approved imported values pass ordinary Vakaheim authorization and incident
+  transition rules; remote state cannot bypass closure or regulatory obligations.
+
+Verification:
+
+- simultaneous local/remote edits, out-of-order/duplicate webhook, polling race,
+  loop, remote rollback/delete/reopen and schema drift;
+- unknown create/update outcome, stale expected version, field-authority change,
+  reconciliation crash and provider outage/recovery;
+- live bidirectional ServiceNow campaign, journal conservation, conflict non-loss
+  proof and independent synchronization pentest.
+
+Exit criteria: ServiceNow and Vakaheim can reconcile supported fields while
+conflicts and uncertainty stay explicit and internal handling remains available.
+`v0.453.4 implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.455.0 — Verification, Compensation And Irreversible Recovery
 
 Status: planned
@@ -6613,7 +7835,8 @@ Deliverables:
 
 - suspend/read-only/quarantine/hold/offboard/destroy propagation through sessions,
   agents, connectors, ingest, storage, queries, detection, cases, reports, jobs,
-  actions, caches, exports, keys and backups;
+  actions, caches, exports, keys and backups, including framework activations,
+  assessments, obligations/submissions and external synchronization links;
 - all-plane lifecycle conformance harness and transition/denial evidence;
 - restore/resurrection, tenant-ID/key-domain tombstone and deletion-proof audit;
 - `v0.457.5` disposition across local audit, vault remnants, notification
@@ -6625,6 +7848,8 @@ Verification:
 - stale tokens/agents/jobs/actions/caches, concurrent hold/offboard/destroy and
   restore from every local backup/cold/spill class;
 - retained/pseudonymized audit access, expiry and non-reactivation tests;
+- retained obligation/report/receipt policy and package/external-link cleanup
+  cannot reactivate tenant authority or leak another tenant's assessment data;
 - external identifier reassignment, pseudonym rotation/shred and any admitted
   re-identification authority under `v0.457.2` decisions;
 - cross-plane single-node pentest and independent deletion-proof review.
@@ -6644,7 +7869,9 @@ Goal: assign consistency and recovery ownership before clustering mutable state.
 Deliverables:
 
 - matrix for detection state, connector checkpoints, alerts/incidents/cases,
-  playbooks/actions/approvals, live-query leases and saved queries;
+  incident graphs, framework activations/bindings, assessments, obligations,
+  report/submission/external-sync journals, playbooks/actions/approvals,
+  live-query leases and saved queries;
 - human sessions/WebAuthn credentials/revocations/elevation, notification
   outbox/delivery, acquisition/custody, backfill/reprocessing, API idempotency,
   audit records and audit cursors;
@@ -6664,7 +7891,8 @@ Verification:
 - architecture/tabletop review for crash, partition, stale owner, corruption,
   failover, region loss and restore per state class;
 - reject undefined RPO/RTO or accidental metadata-log placement;
-- cross-state transaction and irreversible-loss analysis.
+- cross-state transaction and irreversible-loss analysis, including atomic alert
+  promotion and report/submission/external-sync unknown outcomes.
 
 Exit criteria: no mutable state class enters cluster implementation without a
 named durability and failover contract. `v0.459.0 implementation stop reached.
@@ -7111,6 +8339,68 @@ Exit criteria: analyst state meets its declared RPO/RTO and every conflict is
 visible and auditable. `v0.468.0 implementation stop reached. Run pentest for
 this exact commit.`
 
+### v0.468.1 — Framework Binding Assessment Obligation And Deadline HA
+
+Status: planned
+
+Goal: replicate framework state and regulatory clocks without changing package
+decisions or moving deadlines during failover.
+
+Deliverables:
+
+- operational-state adapters for tenant package-set activation, incident package
+  pins, assessments/reassessments, overrides, obligations and escalation state;
+- fenced ownership, optimistic versions, immutable package/input references,
+  scheduler checkpoints and per-class RPO/RTO;
+- replicated earliest source timestamps and computed deadline/uncertainty records;
+  failover cannot recalculate from a later clock or collapse independent packs;
+- restore/rebuild from package registry, incident journal and immutable audit
+  evidence with explicit unavailable package/time states.
+
+Verification:
+
+- failover during activate/disable/migrate/evaluate/override/obligation transition
+  and exact deadline warning/overdue boundary;
+- stale owner, partition, package registry outage, clock uncertainty, merge/split/
+  reopen and restore older than current assessment;
+- state-machine equivalence proving no duplicate/lost assessment or obligation and
+  no deadline moves forward under HA recovery.
+
+Exit criteria: framework and obligation state meets declared RPO/RTO without
+changing deterministic outcomes, clocks or audit lineage.
+`v0.468.1 implementation stop reached. Run pentest for this exact commit.`
+
+### v0.468.2 — Report Submission And External Synchronization Journal HA
+
+Status: planned
+
+Goal: fail over regulatory reporting and external-ticket synchronization without
+duplicating effects or losing conflicts/receipts.
+
+Deliverables:
+
+- replicated report version/approval, submission outbox/inbox/receipt/correction
+  and external link/sync journal adapters over `v0.465.3`;
+- fenced workers, idempotency/correlation/loop tokens, remote expected versions,
+  `UnknownOutcome`, conflict and reconciliation state;
+- exact payload/attachment digest, redaction/residency policy, field-authority map
+  and immutable audit/custody references;
+- per-class RPO/RTO and minimum-live anti-replay epochs feeding `v0.44.10` until
+  every submission/sync outcome is terminal or reconciled.
+
+Verification:
+
+- leader/owner loss before/after send/remote apply/receipt/import/conflict persist,
+  stale worker and partition;
+- duplicate submission/ServiceNow action, lost receipt, webhook/poll replay,
+  provider outage, schema change and concurrent manual reconciliation;
+- conservation/model proof for payload-to-receipt-or-unknown and local/remote
+  values through failover, restore and region loss.
+
+Exit criteria: HA cannot turn an uncertain external effect into success/retry,
+erase a synchronization conflict or lose an exact report/receipt chain.
+`v0.468.2 implementation stop reached. Run pentest for this exact commit.`
+
 ### v0.469.0 — Playbook And Action State HA
 
 Status: planned
@@ -7289,7 +8579,8 @@ Deliverables:
 - consensus-committed lifecycle epoch and fenced propagation to sessions,
   agents, connectors, queries, scheduler jobs, actions, caches and API tokens;
 - provisioning/deprovisioning of placement, replicas, cold data, backups,
-  operational state and per-tenant key domains;
+  operational state and per-tenant key domains, including framework package-set
+  activation, assessments, obligations, reports/submissions and external links;
 - hold/export precedence, distributed crypto-shred/deletion proof and permanent
   tenant-ID/key-domain tombstone;
 - recovery/failover rules that cannot revive suspended/offboarding/destroyed
@@ -7307,6 +8598,8 @@ Verification:
 - stale session/agent/job/cache/action, failover, restore and rolling upgrade;
 - deletion/shred proof across replicas, cold tiers, backup, spill and operational
   state plus independent audit replicas and tenant-ID/key reuse attacks;
+- package/assessment/report/external-sync state cannot leak across tenant
+  lifecycle, and retained legal obligations/receipts convey no tenant authority;
 - retained audit/remnant access cannot mint credentials, address notifications,
   invoke actions or restore tenant/session identity;
 - external identifier reassignment always creates a new internal tenant/key
@@ -7960,12 +9253,17 @@ Deliverables:
 
 - query, dashboard, report, graph, live and cold-rehydration latency evidence;
 - detection throughput/state, retro-hunt, risk and intelligence-match evidence;
-- analyst/API concurrency, cancellation, fairness and worst-case cost results.
+- framework package composition/evaluation/shadow-replay and obligation/report
+  generation bounds;
+- analyst/API/ServiceNow reconciliation concurrency, cancellation, fairness and
+  worst-case cost results.
 
 Verification:
 
 - skew, high cardinality, adversarial query/rule and cold/partial data;
 - concurrent ingest/detection/query/report/analyst load and noisy tenants;
+- adversarial pack budgets, incident storms, deadline escalations, report versions
+  and external-sync conflicts/outages;
 - result equivalence, completeness and independent reproduction.
 
 Exit criteria: latency and capacity claims retain correct results, policy and
@@ -7982,6 +9280,8 @@ Deliverables:
 
 - node/rack/region scale, replication, routing, rebalance and evacuation results;
 - scheduler/state/query failover and backup/restore/repair/reindex RPO/RTO;
+- framework/obligation/report/submission/external-sync failover RPO/RTO and
+  duplicate-effect/deadline invariants;
 - topology, hardware, placement, tenant, workload and fault schedule evidence.
 
 Verification:
@@ -8003,6 +9303,8 @@ Goal: run release-duration fuzzing and conformance against every untrusted forma
 Deliverables:
 
 - sustained codec/parser/protocol/format/planner fuzz campaigns;
+- framework manifest/policy IR/localization/migration and regulatory report/
+  submission template fuzz campaigns;
 - normative positive/negative conformance and differential/metamorphic corpora;
 - coverage, sanitizer-equivalent instrumentation and residual gap inventory.
 
@@ -8025,6 +9327,8 @@ Goal: consolidate proof, concurrency and memory-safety evidence at release scope
 Deliverables:
 
 - Kani/model checks for bounded critical invariants and protocol refinements;
+- alert/incident/promotion, framework composition/obligation clocks and report/
+  external-sync unknown-outcome state models;
 - Loom/first-party deterministic schedules for admitted concurrency contracts;
 - Miri, unsafe inventory, allocator-failure and architecture-width evidence.
 
@@ -8055,6 +9359,8 @@ Deliverables:
 Verification:
 
 - faults at each durable transition and simultaneous dependent failures;
+- faults at every alert promotion, package activation/evaluation/migration,
+  obligation transition, report submission and ServiceNow sync boundary;
 - stale/partial restore, corrupt backup, uncertain clock and operator error;
 - replacement-machine clone, old air-gap bundle, missing/conflicting witness,
   counter reset and read-only recovery/reconciliation under effect-disable gates;
@@ -8077,13 +9383,16 @@ Goal: prove compatibility and reproducibility independently from chaos testing.
 
 Deliverables:
 
-- wire/storage/API/CLI/rule/schema/SDK compatibility matrices;
+- wire/storage/API/CLI/rule/schema/SDK/framework-package/report-template/
+  ServiceNow-profile compatibility matrices;
 - install, migration, rolling upgrade, rollback and downgrade-boundary evidence;
 - reproducible builds, archives, packages, SBOM, provenance and signatures.
 
 Verification:
 
 - every supported version pair and mixed-version topology;
+- package pin/shadow migration, obligation/report historical verification and
+  external schema/profile upgrade/downgrade;
 - interrupted migration/upgrade, stale artifact and unsupported downgrade;
 - clean-room artifact reproduction and byte/checksum comparison.
 
@@ -8102,6 +9411,8 @@ Deliverables:
 - architecture/source inventories and threat/data/authority flow packages;
 - crypto, storage, cluster, agent, UI/API, Wasm/SOAR, supply-chain and operations
   test scopes with exact commits and environments;
+- framework package/evaluator/registry, alert/incident/case, obligation/report/
+  submission, ServiceNow synchronization and legal-source limitation scopes;
 - assessor independence, disclosure, evidence custody and retest agreements.
 
 Verification:
@@ -8214,12 +9525,16 @@ Deliverables:
 
 - supported single-node install/upgrade/backup/restore beta deployments;
 - realistic ingest, storage, query, detection, analyst and response operation;
+- default and multi-pack incident handling, deadline/report/submission exercises
+  plus ServiceNow normal/outage/conflict operation;
 - issue telemetry, support bundles, triage and safe feedback procedures.
 
 Verification:
 
 - long-duration operation and real operator/analyst exercises;
 - crash, disk pressure, recovery, upgrade and workload-growth rehearsals;
+- full alert-to-post-analysis tabletop with NIS2/DORA/GDPR obligation boundaries,
+  package migration and report receipt/unknown outcome;
 - beta finding capture and exact-commit pentest.
 
 Exit criteria: single-node beta operation exposes no untracked release blocker.
@@ -8235,12 +9550,15 @@ Deliverables:
 
 - supported cluster bootstrap, expansion, repair, evacuation and administration;
 - realistic multi-tenant ingest/query/detection/response and scheduled workloads;
+- framework/obligation/report/external-sync HA under tenant isolation;
 - failover, observability, support and issue-evidence procedures.
 
 Verification:
 
 - long duration, rolling failure/upgrade, rebalance and noisy-tenant exercises;
 - operator error, stale topology, quorum impairment and recovery game days;
+- assessment/deadline failover, duplicate submission/ServiceNow prevention and
+  cross-tenant package/obligation leakage tests;
 - real operator/analyst exercises and cluster beta pentest.
 
 Exit criteria: cluster beta operation exposes no untracked release blocker.
@@ -8299,6 +9617,8 @@ Goal: finish production documentation and support operations before scope freeze
 Deliverables:
 
 - operator, security, developer, SDK, detector and incident-response manuals;
+- framework pack author/validator, package-source/limitation, obligation/report/
+  submission and ServiceNow field-authority/reconciliation manuals;
 - installation, capacity, backup/recovery, upgrade/rollback and failure runbooks;
 - security response, support escalation, maintenance and compatibility policies.
 
@@ -8306,6 +9626,8 @@ Verification:
 
 - clean-room documentation exercises by each intended role;
 - broken-link/example/command/version drift and accessibility review;
+- official legal/guidance source-link, edition/effective-date and named-provider
+  support-matrix freshness review;
 - on-call, incident, disclosure and recovery tabletop exercises.
 
 Exit criteria: intended users can operate and recover supported deployments from
@@ -8350,7 +9672,9 @@ Deliverables:
   skipped intermediate belongs only to an explicitly rejected capability;
 - mandatory-prerequisite audit proving five-domain-independent external witness
   profiles, conservative time-uncertainty lease evaluation, signer lifecycle and
-  fail-closed lease/staleness handling were not made optional.
+  fail-closed lease/staleness handling were not made optional;
+- framework/provider audit proving every `v0.344.7` named-pack/national-profile/
+  authoritative-Wasm decision and the ServiceNow claim closed at its exact stop.
 
 Verification:
 
@@ -8361,6 +9685,8 @@ Verification:
 - reject any plan that treats cluster-local consensus as external witnessing or
   defers external-witness authority/freshness/signer-lifecycle policy as a
   post-1.0 option;
+- reject implied compliance, unnamed national/framework/provider support,
+  authoritative framework Wasm or a skipped admitted pack/ServiceNow stop;
 - scan APIs/configuration/UI/docs for implied or orphaned support claims;
 - independent scope-closure and product-claim pentest.
 
@@ -8375,13 +9701,15 @@ Goal: freeze externally observable compatibility surfaces after scope is closed.
 
 Deliverables:
 
-- public API, CLI, wire, storage, rule, schema and admitted SDK baselines;
+- public API, CLI, wire, storage, rule, framework-package, regulatory-report,
+  submission-receipt, external-sync, schema and admitted SDK baselines;
 - compatibility manifests, migration guarantees and explicit unstable exclusions;
 - change-control rule allowing only security/correctness/release-blocking fixes.
 
 Verification:
 
-- previous-version clients/data/rules/configurations and mixed-version operation;
+- previous-version clients/data/rules/framework packages/reports/receipts/
+  synchronization journals/configurations and mixed-version operation;
 - undocumented surface, accidental export and incompatible-change scans;
 - independent compatibility and downgrade-boundary pentest.
 
@@ -8398,13 +9726,16 @@ Goal: freeze build inputs and distributable artifacts separately from APIs.
 Deliverables:
 
 - final toolchain/dependency/unsafe/action inventory and locked build inputs;
-- packages, archives, SBOM, provenance, checksums and signing procedures;
+- application packages, approved signed framework packs, regulatory templates,
+  conformance corpora, archives, SBOM, provenance, checksums and signing
+  procedures;
 - installation metadata and publication prohibition for every internal crate.
 
 Verification:
 
 - clean-room byte/checksum reproduction on supported builders;
-- archive/package secret, internal-file, license and provenance audit;
+- archive/application/framework-package secret, signer/trust-chain, internal-
+  file, legal-source/template, license and provenance audit;
 - install/uninstall/upgrade packaging matrix and supply-chain pentest.
 
 Exit criteria: candidate artifacts are reproducible and contain only approved
@@ -8555,7 +9886,35 @@ explicit maintainer authorization and never publishes internal crates.
 - Threat-intelligence live/retro matching and entity-risk threshold findings
   are deterministic, evidence-backed and poisoning-resistant.
 - Simulation, shadow, canary, rollback and deterministic finding replay work.
-- Alerts, incidents, cases, evidence, legal hold and signed reports work.
+- Evidence/findings remain immutable; alerts are mutable triage objects, formal
+  incidents are authoritative declarations, cases are collaborative workspaces
+  and incident graphs remain explanatory models rather than incident state.
+- Every terminal alert is promoted or has one structured disposition; promotion
+  retry returns the same incident/primary case/graph root, and every incident
+  transition is authorized, version-checked and audited.
+- Incident merge/split/reopen/declassify/transfer/hold/severity operations preserve
+  complete lineage and can never move earliest awareness or an existing deadline
+  forward; `Resolved`, `Closed` and `PostAnalysisComplete` remain distinct.
+- The default incident process works with every optional pack and external ITSM
+  unavailable. Framework evaluation is bounded/deterministic for exact inputs and
+  package digest, cannot access unauthorized evidence, and produces complete
+  explanations with `Unknown` preserved.
+- Default, ENISA, NIS2 EU, national-overlay contract, DORA and GDPR packs are
+  signed/immutable/patchable and independently assessed; disabling a pack cannot
+  delete active obligations, and organization overlays cannot silently weaken
+  regulatory or core requirements.
+- Every obligation exposes its package/rule/source timestamp, calculation,
+  uncertainty/safety margin and independent deadline; merge/split/reopen, pack
+  migration and HA failover cannot reset or collapse it.
+- Every approved/submitted regulatory report binds exact package/input/payload
+  digests and has a verified receipt or explicit `UnknownOutcome`; corrections
+  preserve the original version and outcome.
+- Incident closure fails on incomplete required fields, corrective actions or
+  obligations unless a specific authorized audited exception exists, and
+  framework upgrades pass historical shadow replay before activation.
+- ServiceNow failure never blocks internal handling; field authority is explicit,
+  loops/unknown outcomes are reconciled, and conflicts never silently overwrite
+  either side. Generic provider contracts imply no other named vendor support.
 - Wasm is capability-limited and OS-isolated; response requires correct approval,
   idempotency, verification and compensation.
 - Live forensic acquisition is authenticated, elevated, independently audited

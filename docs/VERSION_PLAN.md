@@ -27,10 +27,10 @@ The sequence remains:
 | `v0.65.0`–`v0.100.1` | VQL authority/planning, pre-execution canonical local coverage and authoritative expected-set commitments, operators/cold queries, hardening, and binding admission decisions for optional 1.0 evidence/ingestion capabilities |
 | `v0.110.0`–`v0.200.0` | deterministic detection/state, authoritative active-rule-set/cohort commitments and progress acknowledgement, behavior/risk/intelligence, conditional artifact-matching implementation/integration, ATT&CK, interoperability, and rollout |
 | `v0.205.0`–`v0.268.0` | agent integrity, native platforms, conditional WEF and per-format executable implementation/integration, Kubernetes, and future Aesynx portability |
-| `v0.270.0`–`v0.342.0` | API, compartmented platform vault, isolated connector host, provider contracts, conditional cloud archive/stream and PCAP implementation series, integrity content, and notification substrate |
-| `v0.345.0`–`v0.405.0` | transactional alert notifications, analyst workflow, identity/auth, live forensics, dashboards/scheduled reports, authorization/audit, and local UIs |
-| `v0.407.0`–`v0.458.0` | Wasm/response, action recovery, node measurement/attestation and optional hardware-monotonic-anchor decisions, server integrity, tenant audit/identifier/pseudonym policy, and all-plane single-node tenant lifecycle conformance |
-| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, five-domain-independent and freshness-bounded scheduler witnessing/state HA, cluster acknowledgement extension before quorum activation, tenant/audit propagation, distributed coverage extension/reconciliation, routing/proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
+| `v0.270.0`–`v0.342.0` | API, compartmented platform vault, isolated connector host, provider contracts including named ServiceNow transport at `v0.305.2`, conditional cloud archive/stream and PCAP implementation series, integrity content, and notification substrate |
+| `v0.344.1`–`v0.405.0` | semantic entity boundaries, signed bounded framework engine, structured alert/formal-incident/case lifecycle, default/ENISA/NIS2/DORA/GDPR packs, obligations/reports/submission receipts, identity/auth, live forensics, dashboards, APIs, authorization/audit, and specialized local UIs |
+| `v0.407.0`–`v0.458.0` | non-authoritative read-only Wasm/response, action recovery, named ServiceNow action/reconciliation, node measurement/attestation and optional hardware-monotonic-anchor decisions, server integrity, tenant audit/identifier/pseudonym policy, and all-plane single-node tenant lifecycle conformance |
+| `v0.459.0`–`v0.484.1` | expanded state matrix, operational CFT/engine, framework/obligation/report/submission/external-sync HA, five-domain-independent and freshness-bounded scheduler witnessing, cluster acknowledgement extension before quorum activation, tenant/audit propagation, distributed coverage extension/reconciliation, routing/proxy trust, node quarantine, SRE/DR/scale, and cluster administration |
 | `v0.485.0`–`v0.520.0` | optional proposal-only AI plus separate privacy-policy, field/purpose, residency, retention/deletion, and compliance-workflow stops |
 | `v0.530.0` | approved-cryptographic-mode admission or explicit rejection |
 | `v0.540.0`–`v0.570.0` | separate endpoint, ingest/storage, query/detection/analyst, and cluster/recovery performance campaigns |
@@ -92,6 +92,22 @@ architecture:
   separate deterministic state and evidence contracts;
 - entity-risk thresholds remain immutable findings until alert routing promotes
   them, and generic notification becomes transactional with alerts only later;
+- evidence/findings, mutable alerts, formal incidents, primary cases and
+  incident graphs have distinct authority; structured terminal dispositions and
+  idempotent promotion precede incident lifecycle/merge/split/reopen operations;
+- the framework-neutral default process remains mandatory and available without
+  optional packs; signed immutable framework packages use bounded declarative IR,
+  exact digest/version pinning, independent assessments/obligations and shadowed
+  migration, never authoritative native/Wasm logic;
+- default, ENISA, NIS2 EU, national-overlay contract, DORA and GDPR packages,
+  their legal/guidance source limits and every named/national support decision
+  close before 1.0 without implying automatic compliance;
+- obligation deadlines preserve source timestamp/rule/uncertainty and never
+  collapse across packs; reports bind exact package/input/payload digests and a
+  receipt or explicit unknown outcome;
+- ServiceNow transport, typed actions and bidirectional sync have separate stops;
+  explicit field authority/conflicts prevent last-write-wins, and provider
+  failure cannot block internal incident handling;
 - response approval binds the exact effect plan, with reversible,
   compensatable, and irreversible recovery classes;
 - uncertain external effects use durable dispatch and reconciliation rather
@@ -100,7 +116,8 @@ architecture:
   per-target controls with scoped kill switches;
 - each mutable operational-state class has its own consistency, fencing,
   replication, RPO and RTO contract instead of being forced through metadata
-  consensus;
+  consensus, including framework bindings, assessments, obligations, reports,
+  submissions and external synchronization journals;
 - operational state formally reuses authenticated CFT in separate sharded groups
   before its engine and state-specific HA are implemented;
 - static control dissemination precedes consensus, while the canonical local
@@ -167,6 +184,14 @@ Post-destruction pseudonym re-identification is permitted or forbidden at
 Byzantine/compromised-backend truth guarantees as a 1.0 non-goal. `v0.730.0`
 rejects every remaining conditional/TBD decision or missing closure.
 
+`v0.344.7` binds the 1.0 framework set and makes authoritative framework Wasm a
+non-goal; `v0.360.12` closes default/ENISA/NIS2/DORA/GDPR package claims and
+national-overlay limits, while `v0.420.0` proves Wasm cannot issue authoritative
+decisions. ServiceNow is a committed named provider at `v0.305.2` and closes only
+after typed actions and bidirectional reconciliation pass at `v0.453.3`–
+`v0.453.4`. No generic package/connector contract implies another named support
+or legal-compliance claim.
+
 The `v0.31.3`–`v0.31.4` claim registry/runtime permits, `v0.48.1` and
 `v0.140.1`–`v0.140.2` asynchronous coverage contracts, `v0.79.1`–`v0.79.2`
 pre-execution coverage, and `v0.44.8`–`v0.44.10` migration/post-retention/
@@ -178,6 +203,10 @@ evaluation and `v0.10.3`-authorized witness-signer succession/compromise rules.
 Only per-platform `HardwareMonotonic` support is optional; `v0.456.0` decides it
 and `v0.456.5` closes it without weakening `ExternalWitnessed`/`Unverifiable`
 behavior.
+The `v0.344.1`–`v0.390.2` native incident/package/obligation/report chain and
+`v0.468.1`–`v0.468.2` HA closure are also mandatory. Tenant activation of a
+legal/operational pack is optional; its admitted implementation stop, the base
+workflow and fail-closed absence/disable behavior are not.
 
 ## Non-Negotiable Boundaries
 

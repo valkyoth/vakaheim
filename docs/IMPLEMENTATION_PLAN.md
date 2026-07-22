@@ -28,8 +28,8 @@ major product plane.
 
 ## 2. Audit Integration Decisions
 
-The July 2026 completeness audit is incorporated as a strengthening pass, not
-as a roadmap replacement. The existing release numbering through `v0.500.0`
+The July 2026 completeness audits are incorporated as strengthening passes, not
+as roadmap replacements. The existing release numbering through `v0.500.0`
 remains authoritative. New patch and intermediate milestones close specific
 gaps before dependent product layers may proceed.
 
@@ -89,6 +89,41 @@ sensor, connector, protocol, storage, query, detection, UI, and response claim
 requires real or representative interoperability, impairment, upgrade,
 rollback, resource, and security evidence at its named milestone.
 
+### Providers must precede consumers
+
+No milestone may depend on an unnamed substrate hidden inside its feature
+scope. Cryptographic contracts and trust primitives now precede digests and
+signatures. Hosted runtime, text/Unicode/IDNA, TLS/certificate, raw-capsule,
+self-observability, Protobuf/compression, HTTP/2/gRPC, API, connector-host, Wasm
+interpreter, and Canonical ABI work each have explicit implementation stops.
+Every stop includes a zero-third-party feasibility decision; failure blocks its
+consumers instead of moving the work invisibly into them.
+
+### Local authority before distribution
+
+The early local control plane owns service/tenant/source identity, trust roots,
+configuration epochs, registries, local authorization, capability issuance,
+and the audit-event contract before ingestion and query consume them. Stage I
+adds human federation, administration, elevation, and break glass. Stage K
+replicates the proven local model; it does not invent authority semantics late.
+
+### Mutable state is not metadata
+
+Detection checkpoints, connector cursors, live-query leases, alerts, incidents,
+cases, approvals, playbooks, action idempotency, and audit cursors are production
+state with different consistency and recovery needs. `v0.459.0` owns their
+durability matrix. Separate Stage K milestones implement fencing, placement,
+replication, failover, RPO, and RTO without forcing high-volume operational
+state through the metadata-consensus log.
+
+### Scale claims follow implemented capability
+
+`v0.58.0` is a single-node or explicitly implemented local-mirror storage
+campaign. It cannot claim cluster replication, node quorum, or disk evacuation.
+Those capabilities receive their distributed fault and scale campaign only
+after Stage K implements them. The same sequencing law applies to SDK clients,
+forensic acquisition, UI, authentication, Wasm, SOAR, and disaster recovery.
+
 ## 3. Engineering Sequence
 
 ### Stage A: constitution and portable foundations
@@ -96,8 +131,9 @@ rollback, resource, and security evidence at its named milestone.
 Freeze the environmental, dependency, unsafe, publishing, modularity,
 evidence, resource-bound, and release laws before product implementation.
 Then build checked byte access, identity, time, parser, event, provenance,
-codec, policy, and bounded-memory primitives. These crates remain dependency
-free and `no_std`, with `alloc` admitted only where a milestone requires it.
+cryptographic provider/trust contracts, text/Unicode/IDNA profiles, codec,
+policy, and bounded-memory primitives. These crates remain dependency free and
+`no_std`, with `alloc` admitted only where a milestone requires it.
 
 ### Stage B: facts and interoperability
 
@@ -108,6 +144,10 @@ transformation emits a bounded canonical mapping outcome with exact loss,
 policy redaction, reconstruction availability, parser/mapping identity, source
 ranges, parent/output digests, and replay requirements.
 
+Before ingestion, establish a local control and authority plane for identities,
+trust roots, immutable configuration epochs, registries, authorization
+decisions, capability issuance, and security audit events.
+
 ### Stage C: ingestion and transport
 
 Add bounded local ingestion, file tailing, explicitly profiled syslog, RFC 8259
@@ -116,6 +156,11 @@ encrypted spooling, batch acknowledgement, enrollment, secure transport, and
 relays. Conservation, acknowledgement truth, source continuity, bounded
 overload, and a reserved durable telemetry-gap lane are executable invariants.
 UDP and sequence-free sources make explicitly limited continuity claims.
+
+Hosted runtime, TLS/certificate, Protobuf/compression, HTTP/2/gRPC, bounded raw
+quarantine, and self-observability substrates land as separate prerequisites.
+Historical backfill and quarantine reprocessing preserve original, ingest, and
+backfill/reprocess time plus parser/mapping identity.
 
 ### Stage D: storage
 
@@ -127,6 +172,9 @@ retention-aware partitioning and compaction; online migration, scrubbing,
 repair, disaster reindex, backup, and cold export. No external storage service
 is required. Scale gates begin in the storage phase, not only near 1.0.
 
+Raw evidence uses a content-addressed store with atomic fact/reference publish,
+explicit deduplication, quarantine lifecycle, retention, and orphan repair.
+
 ### Stage E: VQL query and reasoning
 
 The working query-language name is VQL (Vakaheim Query Language). Build a
@@ -136,6 +184,11 @@ and physical planning, worst-case admission controls, isolated CPU/I/O pools,
 encrypted tenant-scoped spill, single-node execution, bounded joins, temporal
 and graph operations, leased live subscriptions, historical perspective, and
 authorization-safe completeness explanations.
+
+Physical planning explicitly owns scan/index, join, aggregate, sort/top-k,
+spill, partition/rollup, fusion, batch sizing, and stale-statistics fallback.
+Stable pagination, set operations, rates/ratios/percentiles/cardinality, and
+bounded text/glob/regex/collation equivalence have named operator milestones.
 
 ### Stage F: detection
 
@@ -166,6 +219,12 @@ Connectors retain feed freshness, markings, expiry/revocation, confidence,
 source trust, checkpoints, and partial-permission completeness. Adaptive
 collection remains bounded, signed, visible, and self-reverting.
 
+The API wire contract and service precede the private network client. Connectors
+run in a separately sandboxed host with capability, secret, egress, quota,
+lifecycle, upgrade, crash-containment, and revocation ownership. A durable
+notification outbox and integrity/source-assurance detection content are
+delivered before analyst workflow depends on them.
+
 The SDK stays unpublished until a dedicated admission milestone. If publication
 is later approved, only the SDK uses `MIT OR Apache-2.0`.
 
@@ -178,6 +237,9 @@ authentication and session federation, RBAC+ABAC, an independently keyed and
 replicated audit stream, source assurance, rule studio, analyst UI, and
 administration UI. Mutable case state never rewrites immutable evidence.
 
+Forensic acquisition has its own narrow capability, approval, target fencing,
+and privileged-agent protocol; it never inherits ordinary collector authority.
+
 ### Stage J: extension and response
 
 Build WIT capability worlds, complete component validation, signed transparent
@@ -186,6 +248,11 @@ bound action envelopes, typed playbook state, dry-run/simulation, secret and
 egress brokers, exact-digest step-up/two-person approvals, forensic pre-capture,
 verification, reversible/compensatable/irreversible classification,
 compensation, recovery, kill switches, and bounded canary response.
+
+Core Wasm execution and the Component Model Canonical ABI precede the host.
+External actions use a transactional outbox/inbox, fenced workers, provider
+idempotency ledgers, verification-before-retry, and an explicit unknown-outcome
+reconciliation state.
 
 ### Stage K: cluster and federation
 
@@ -196,6 +263,10 @@ cache/index isolation, federated query, sovereignty, capacity forecasting,
 admission and maintenance modes, certificate/key-loss drills, diagnostic
 bundles, backup, restore, air-gap bundles, rolling upgrades, and disaster
 recovery.
+
+Operational-state HA is implemented by state class, and the distributed
+scale/failover campaign occurs only after replication, evacuation, tenancy,
+federation, SRE, and disaster mechanisms exist.
 
 ### Stage L: product completion
 
@@ -212,17 +283,17 @@ not permission to create empty crates prematurely.
 | Family | Representative crates | Environment |
 | --- | --- | --- |
 | Facade | `vakaheim` | `no_std` by default |
-| Foundation | `vakaheim-core`, `-bytes`, `-id`, `-time`, `-value`, `-policy` | `no_std`; optional `alloc` |
+| Foundation | `vakaheim-core`, `-bytes`, `-id`, `-time`, `-value`, `-policy`, `-crypto-api`, `-text` | `no_std`; optional `alloc` |
 | Facts | `-event`, `-entity`, `-provenance`, `-integrity`, `-source-capsule` | `no_std`; optional `alloc` |
-| Ingestion | `-ingest-core`, `-parser-sdk`, `-syslog`, `-json`, `-otlp`, `-ocsf` | core portable; runtimes `std` |
+| Ingestion | `-ingest-core`, `-parser-sdk`, `-syslog`, `-json`, `-protobuf`, `-otlp`, `-ocsf` | core portable; runtimes `std` |
 | Platform | `-linux`, `-windows`, `-macos`, `-bsd`, `-android`, `-ios`, `-kubernetes` | isolated `std`/FFI |
-| Runtime | `-runtime-core`, OS reactors, channels, protocol, transports, enrollment | mixed explicit boundary |
-| Storage | `-storage-format`, `-wal`, `-segment`, `-index`, `-retention`, `-backup` | format `no_std`; engine `std` |
+| Runtime | `-runtime-core`, OS reactors, channels, HTTP/TLS/protocol transports, enrollment | mixed explicit boundary |
+| Storage | `-storage-format`, `-wal`, `-segment`, `-raw-store`, `-index`, `-retention`, `-backup` | format `no_std`; engine `std` |
 | Query | `-query-syntax`, `-ast`, `-ir`, `-typecheck`, `-plan`, `-exec`, `-graph` | front-end `no_std + alloc`; exec `std` |
 | Detection | `-rule-model`, `-rule-compiler`, `-detect-core`, `-detect-state`, `-behavior` | core `no_std + alloc`; workers `std` |
-| Response | `-wasm-abi`, `-wasm-validate`, `-wasm-host`, `-soar-core`, `-approval` | ABI/core portable; host isolated `std` |
+| Response | `-wasm-core`, `-wasm-abi`, `-wasm-validate`, `-wasm-host`, `-soar-core`, `-action-ledger`, `-approval` | ABI/core portable; host isolated `std` |
 | Control | `-control`, `-auth`, `-authorization`, `-audit`, `-cluster`, `-federation` | explicit `std` services |
-| Analyst | `-finding`, `-incident`, `-case`, `-report`, `-api`, `-sdk`, `-ui-model` | mixed |
+| Analyst | `-finding`, `-incident`, `-case`, `-report`, `-api-model`, `-api-host`, `-sdk`, `-ui-model` | mixed |
 | Verification | `-testkit`, fixtures, attack scenarios, fuzz, Kani, Loom, conformance, bench | never product dependencies |
 
 ## 5. Product Roles

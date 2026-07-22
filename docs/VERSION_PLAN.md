@@ -19,16 +19,16 @@ The sequence remains:
 
 | Range | Context |
 | --- | --- |
-| `v0.1.0`–`v0.20.1` | constitutional rules, checked foundations, evidence claims, identity, schema governance, and pinned protocol fixtures |
-| `v0.22.0`–`v0.40.0` | ingestion conservation, acknowledgement truth, source continuity, overload, and transport security |
-| `v0.41.0`–`v0.60.0` | stable-media storage, manifests, scheduling, snapshots, indexes, migration, disaster reindex, and early multi-terabyte proof |
-| `v0.65.0`–`v0.100.0` | VQL parsing, capabilities, authorization barriers, worst-case admission, isolation, joins, graph/live semantics, and query hardening |
+| `v0.1.0`–`v0.20.5` | constitution, crypto/text primitives, evidence/facts, local control/audit/authorization, hosted runtime, TLS, raw quarantine, diagnostics, and protocol fixtures |
+| `v0.22.0`–`v0.40.0` | ingestion conservation, Protobuf/compression, HTTP/2/gRPC, split OTLP/OCSF endpoints, secure transport, backfill/reprocessing, and hardening |
+| `v0.41.0`–`v0.60.0` | stable-media storage, raw evidence, integrity, encryption/key lifecycle, migration, disaster reindex, and correctly scoped local multi-terabyte proof |
+| `v0.65.0`–`v0.100.0` | VQL authority, logical/physical planning, worst-case admission, isolation, joins, ordering/pagination, statistics/text, graph/live semantics, and hardening |
 | `v0.110.0`–`v0.200.0` | deterministic detection, bounded state, evidence bundles, placement equivalence, risk, intelligence, ATT&CK coverage, and rollout |
 | `v0.205.0`–`v0.267.0` | common sensor continuity and privilege boundary, native platforms, Kubernetes, and future Aesynx portability |
-| `v0.270.0`–`v0.330.0` | private SDK, connector boundary, cloud-specific profiles, assets/vulnerabilities, identity/SaaS, TAXII, network evidence, and source assurance |
-| `v0.345.0`–`v0.405.0` | analyst workflow, forensic acquisition/vault, reporting, authentication, authorization, independent audit, confidential cases, and UI |
-| `v0.410.0`–`v0.455.0` | Component Model validation, registry/provenance, bounded Wasm host, cryptographically bound actions, approvals, simulation, effects, and recovery |
-| `v0.460.0`–`v0.480.0` | control plane, explicit authenticated-CFT model, formal consensus, replication, evacuation, tenant isolation, federation, SRE, and disaster recovery |
+| `v0.270.0`–`v0.342.0` | portable SDK, API contract/service/client, isolated connector host, provider profiles, source assurance/integrity content, and notification outbox |
+| `v0.345.0`–`v0.405.0` | analyst workflow, tightly scoped forensic acquisition/vault, split authentication, authorization, audit, confidential cases, and split analyst/admin UIs |
+| `v0.407.0`–`v0.455.0` | Wasm core/Canonical ABI, Component Model registry/host, bound actions, unknown-outcome dispatch, provider profiles, effects, and recovery |
+| `v0.459.0`–`v0.484.0` | operational-state matrix/HA, distributed local control, CFT consensus, immutable replication, evacuation, tenancy, federation, SRE, split DR, and distributed campaign |
 | `v0.485.0`–`v0.500.0` | optional proposal-only AI, privacy, multi-terabyte performance, verification, independent assessment, beta, and stable-candidate gates |
 | `v1.0.0-rc.N`–`v1.0.0` | exact-candidate audit, production proof, and unchanged promotion |
 
@@ -44,12 +44,22 @@ architecture:
   source protocol cannot prove continuity;
 - protocol names are backed by pinned normative profiles and fixtures rather
   than broad compatibility claims;
+- cryptography, text, runtime, TLS, raw evidence, transport, API and Wasm
+  substrates precede their consumers and each can block the roadmap on an
+  unacceptable zero-third-party feasibility result;
 - storage and query admission are designed for worst-case work and multi-tenant
   isolation before large-scale deployment;
+- early storage scale claims are local; cluster node, quorum, evacuation and
+  multi-region claims begin only after their Stage K implementations;
 - detection execution identity contains every semantic input and never depends
   on ambient state;
 - response approval binds the exact effect plan, with reversible,
   compensatable, and irreversible recovery classes;
+- uncertain external effects use durable dispatch and reconciliation rather
+  than assuming a timeout means failure or safe retry;
+- each mutable operational-state class has its own consistency, fencing,
+  replication, RPO and RTO contract instead of being forced through metadata
+  consensus;
 - cluster safety is authenticated crash-fault tolerance. A compromised voting
   quorum is outside the safety claim and is handled through explicit containment
   and recovery controls, not mislabeled Byzantine tolerance.

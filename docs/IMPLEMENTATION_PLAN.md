@@ -199,20 +199,30 @@ Cluster publication preserves the local atomic fact/reference/object invariant.
 Connector polls, renewal, retention, scrub, compaction, backup, reindex,
 retro-hunt, risk recomputation, SLA escalation, scheduled query/report,
 playbook wait/compensation and cold rehydration consume one durable local job
-and timer scheduler after WAL exists. It distinguishes monotonic deadlines from
-trusted wall schedules and defines misfire, catch-up, skip, duplicate,
-checkpoint, cancellation, retry, quota, fairness and uncertain-clock behavior.
-Stage K adds a fenced HA adapter over the operational-state engine.
+and timer contract after WAL exists. The implementation is layered:
+`scheduler-core` is a portable effect-free state machine; `scheduler-store`
+persists transitions over a narrow journal/WAL interface; `scheduler-worker`
+owns hosted claims and dispatch; the storage workload scheduler owns only CPU/IO
+priority. WAL sync, storage recovery and emergency compaction never depend on
+scheduler-store/workers and ordinary jobs never run on durability threads.
+
+Every consumer declares job identity, checkpoint, cancellation, misfire,
+idempotency, recovery and uncertain-time behavior. Effectful work leaves the
+generic scheduler through a durable outbox/UnknownOutcome protocol; blind retry
+of external effects is forbidden. Stage K adds a fenced HA adapter over the
+operational-state engine.
 
 ### Optional scope closes before implementation freeze
 
 `v0.100.1` makes binding support/non-goal decisions for PCAP, artifact-content
 matching, PE/ELF/Mach-O metadata, Windows Event Forwarding, and cloud archive/
-message-stream ingestion. Each has a reserved later scope-closure version that
-either implements admitted support with full evidence or enforces and documents
-the non-goal. AI, regulated cryptographic mode, SDK publication, named providers,
-optional drivers, and future Aesynx support retain their own decision gates. No
-conditional or “TBD” capability may survive the `v0.730.0` closure audit.
+message-stream ingestion. An admitted choice uses its planned intermediate
+implementation series before the reserved scope-closure gate; a rejected choice
+skips implementation but still passes the closure gate's tested non-goal path.
+More intermediate versions are added whenever needed—the closure gate may not
+hide a large implementation. AI, regulated cryptographic mode, SDK publication,
+named providers, optional drivers, and future Aesynx support retain their own
+decision gates. No conditional or “TBD” capability may survive `v0.730.0`.
 
 ## 3. Engineering Sequence
 
@@ -279,8 +289,10 @@ explicit deduplication, quarantine lifecycle, retention, and orphan repair.
 Single-node backup/restore is implemented before the early storage campaign.
 Cold export has catalog, authorization, planning, rehydration, cancellation,
 snapshot and partial-availability semantics before VQL claims historical reach.
-A shared durable job/timer scheduler lands after WAL and before background
-storage work; every later scheduled subsystem consumes it.
+Portable scheduler semantics, narrow journal persistence, isolated hosted
+workers, effect handoff and consumer admission land after WAL and before
+background storage work. Storage durability/recovery remains independently
+operable and every later scheduled subsystem consumes the shared contract.
 
 ### Stage E: VQL query and reasoning
 
@@ -411,8 +423,15 @@ backpressure, retry, stragglers, worker loss and coordinator/tenant bounds.
 Raw chunks/manifests participate in quorum durability and atomic publication.
 Independent audit HA uses a separately deployed administrative/storage/scheduler
 failure domain, not only different keys in the operational cluster.
+Before clustering, signed/measured server builds, anti-rollback and an all-plane
+single-node tenant lifecycle gate must pass. Control epochs admit exact build
+identities; unknown/revoked/unmeasured nodes are rejected, and later runtime
+measurement drift causes authenticated drain or quarantine.
 Cluster-native service discovery and authenticated routing precede distributed
-scale tests and preserves sequence/acknowledgement truth across rerouting.
+scale tests and preserve sequence/acknowledgement truth across rerouting. The
+first routing stop is in-region and reports regional endpoint exhaustion as
+unavailable; only the following multi-region milestone may authorize and fence
+cross-region routing/failover.
 Tenant lifecycle has local and distributed state machines from proposal through
 hold/offboarding/destruction, including suspension propagation and no identifier
 or key-domain reuse.
@@ -442,13 +461,13 @@ not permission to create empty crates prematurely.
 | Facts | `-event`, `-entity`, `-provenance`, `-integrity`, `-source-capsule` | `no_std`; optional `alloc` |
 | Ingestion | `-ingest-core`, `-parser-sdk`, `-syslog`, `-json`, `-protobuf`, `-otlp`, `-ocsf` | core portable; runtimes `std` |
 | Platform | `-linux`, `-windows`, `-macos`, `-bsd`, `-android`, `-ios`, `-kubernetes` | isolated `std`/FFI |
-| Runtime | `-runtime-core`, `-time-host`, `-scheduler`, OS reactors, channels, HTTP/TLS/PKI/protocol transports, enrollment | mixed explicit boundary |
-| Storage | `-storage-format`, `-wal`, `-segment`, `-raw-store`, `-index`, `-retention`, `-backup` | format `no_std`; engine `std` |
+| Runtime | `-runtime-core`, `-time-host`, `-scheduler-core`, `-scheduler-store`, `-scheduler-worker`, OS reactors, channels, HTTP/TLS/PKI/protocol transports, enrollment | core `no_std`; hosted layers explicit `std` |
+| Storage | `-storage-format`, `-wal`, `-segment`, `-raw-store`, `-index`, `-retention`, `-backup`, `-work-scheduler` | format `no_std`; engine `std` |
 | Query | `-query-syntax`, `-ast`, `-ir`, `-typecheck`, `-plan`, `-exec`, `-query-distributed`, `-graph` | front-end `no_std + alloc`; exec `std` |
 | Detection | `-rule-model`, `-rule-compiler`, `-detect-core`, `-detect-state`, `-behavior`, `-risk-ledger`, `-intel-match` | core `no_std + alloc`; workers `std` |
 | Response | `-wasm-core`, `-wasm-abi`, `-wasm-validate`, `-wasm-host`, `-soar-core`, `-action-ledger`, `-approval` | ABI/core portable; host isolated `std` |
 | Identity | `-cbor`, `-cose`, `-jose`, `-oauth`, `-xml`, `-scim`, `-webauthn`, `-identity-federation` | codecs portable; services `std` |
-| Control | `-control`, `-auth`, `-authorization`, `-audit`, `-pki`, `-credential-vault`, `-opstate`, `-cluster`, `-federation` | explicit `std` services |
+| Control | `-control`, `-auth`, `-authorization`, `-audit`, `-pki`, `-credential-vault`, `-node-integrity`, `-opstate`, `-cluster`, `-federation` | explicit `std` services |
 | Analyst | `-finding`, `-incident`, `-case`, `-dashboard`, `-report`, `-scheduled-report`, `-api-model`, `-api-host`, `-sdk`, `-ui-model` | mixed |
 | Verification | `-testkit`, fixtures, attack scenarios, fuzz, Kani, Loom, conformance, bench | never product dependencies |
 
@@ -554,3 +573,5 @@ of an approved release candidate. It also requires local and HA scheduler
 evidence, complete tenant lifecycle enforcement, discovery/routing continuity,
 scheduled report and dashboard operation, and a closed option-decision register:
 no conditional, undecided, or `TBD` 1.0 capability may cross the release freeze.
+Every server/node build is signed, measured, anti-rollback protected and bound to
+an admitted control epoch; unavailable measurement is explicit impairment.
